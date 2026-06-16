@@ -32,12 +32,28 @@ authorization. Re-run the validation section after deployment.
 
 1. Build and push the container image.
 
+Preferred local pipeline:
+
+```bash
+PUSH_IMAGE=true pnpm pipeline:local
+```
+
+Manual equivalent:
+
 ```bash
 docker build -t ghcr.io/techgardeners/atlarium-mcp:1.0.0 .
 docker push ghcr.io/techgardeners/atlarium-mcp:1.0.0
 ```
 
 2. Deploy to Atlarium Kubernetes.
+
+Preferred local pipeline:
+
+```bash
+PUSH_IMAGE=true DEPLOY_KUBERNETES=true pnpm pipeline:local
+```
+
+Manual equivalent:
 
 ```bash
 kubectl apply -k deploy/kubernetes

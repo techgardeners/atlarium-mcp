@@ -15,6 +15,7 @@
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
     "audit:prod": "pnpm audit --prod",
+    "pipeline:local": "scripts/local-pipeline.sh",
     "mcp:conformance": "pnpm mcp:conformance:core && pnpm mcp:conformance:tools && pnpm mcp:conformance:dns",
     "mcp:conformance:core": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario server-initialize && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario logging-set-level && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario ping",
     "mcp:conformance:tools": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-list && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-call-simple-text && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-call-error",

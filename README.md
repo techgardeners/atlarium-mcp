@@ -75,6 +75,15 @@ code and does not access workspace, user, admin or write APIs.
 
 Kubernetes manifests live in `deploy/kubernetes`.
 
+Atlarium deployment is driven by the local pipeline, not GitHub Actions:
+
+```bash
+pnpm pipeline:local
+PUSH_IMAGE=true pnpm pipeline:local
+PUSH_IMAGE=true DEPLOY_KUBERNETES=true pnpm pipeline:local
+PUSH_IMAGE=true DEPLOY_KUBERNETES=true VALIDATE_PUBLIC=true pnpm pipeline:local
+```
+
 ```bash
 kubectl apply -k deploy/kubernetes
 kubectl -n atlarium-mcp rollout status deployment/atlarium-mcp

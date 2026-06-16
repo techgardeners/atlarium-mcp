@@ -34,6 +34,14 @@ registry changes.
 
 ## Deploy
 
+Preferred local pipeline:
+
+```bash
+PUSH_IMAGE=true DEPLOY_KUBERNETES=true pnpm pipeline:local
+```
+
+Manual equivalent:
+
 ```bash
 kubectl apply -k deploy/kubernetes
 kubectl -n atlarium-mcp rollout status deployment/atlarium-mcp
