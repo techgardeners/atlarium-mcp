@@ -1,33 +1,42 @@
-# Atlarium MCP
+# Atlarium Habitat Database MCP
 
 ## Overview
 
-Atlarium MCP is a public, read-only MCP server for structured freshwater
-aquarium data from Atlarium.bio. It is designed for future publication in MCP
-directories, but this repository does not publish or submit the server anywhere.
+Atlarium Habitat Database MCP is a public, read-only MCP server for structured
+habitat data from Atlarium.bio. It is designed for AI agents that need
+aquarium, marine, coldwater, terrarium, paludarium and vivarium reference data
+without access to private workspace or user data.
 
-Conceptual description:
+Description:
 
-> Atlarium MCP gives AI agents structured access to freshwater aquarium fish,
-> aquatic plants, water parameters, compatibility data and aquarium planning
-> information.
+> Structured aquarium, marine, terrarium and paludarium data for AI agents.
 
-## Endpoints
+Long description:
 
-Development:
+> Atlarium MCP is a public read-only MCP server that gives AI agents structured
+> access to data for aquariums, marine tanks, coldwater systems, terrariums,
+> paludariums and vivariums. It includes animals, plants, products, care
+> requirements, environmental parameters, compatibility information, guides and
+> habitat planning tools.
 
-- `GET http://localhost:43118/health`
-- `POST http://localhost:43118/mcp`
+## Public URLs
 
-Production target:
+- MCP endpoint: `https://mcp.atlarium.bio/mcp`
+- Healthcheck: `https://mcp.atlarium.bio/health`
+- Server card: `https://mcp.atlarium.bio/.well-known/mcp/server-card.json`
+- Human documentation: `https://atlarium.bio/mcp`
+- Repository: `https://github.com/techgardeners/atlarium-mcp`
 
-- `https://mcp.atlarium.bio/mcp`
+`https://atlarium.bio/mcp` is the public documentation page. The canonical MCP
+Streamable HTTP endpoint is `https://mcp.atlarium.bio/mcp`.
 
-Fallback if the MCP subdomain is not available:
+## Development URLs
 
-- `https://atlarium.bio/mcp`
+- Healthcheck: `GET http://localhost:43118/health`
+- Server card: `GET http://localhost:43118/.well-known/mcp/server-card.json`
+- MCP endpoint: `POST http://localhost:43118/mcp`
 
-The server consumes the public Atlarium data provider:
+The server consumes the public read-only Atlarium data provider:
 
 - `https://atlarium.bio/api/public/mcp/v1`
 
@@ -37,28 +46,38 @@ The server uses MCP Streamable HTTP via `@modelcontextprotocol/sdk`.
 
 ## Tools
 
-- `search_fish`: search freshwater aquarium fish.
-- `get_fish_profile`: get a structured fish profile.
+- `search_fish`: search fish and aquatic animal profiles in the Atlarium habitat database.
+- `get_fish_profile`: get a structured fish or aquatic animal profile.
 - `search_plants`: search aquatic plants.
-- `get_plant_profile`: get a structured plant profile.
-- `search_products`: search aquarium products.
-- `get_product_profile`: get a structured product profile.
-- `check_species_compatibility`: prudently evaluate basic species compatibility.
-- `get_water_parameters`: get recommended water parameters for a fish or plant.
-- `suggest_species_for_tank`: suggest fish for a freshwater aquarium setup.
-- `search_guides`: search guide and educational content.
+- `get_plant_profile`: get a structured aquatic plant profile.
+- `search_products`: search habitat products for aquariums, terrariums and related systems.
+- `get_product_profile`: get a structured habitat product profile.
+- `check_species_compatibility`: check basic compatibility between habitat species.
+- `get_water_parameters`: get recommended water parameters for an aquatic species or plant.
+- `suggest_species_for_tank`: suggest compatible aquatic species from tank size and water parameters.
+- `search_guides`: search Atlarium habitat guides and educational content.
 - `get_guide`: get a structured guide.
+
+All tools are read-only and have `readOnlyHint: true`, `destructiveHint: false`
+and `idempotentHint: true`.
 
 ## Security
 
 - No login is required in v1.
-- No write, destructive or admin tools are registered.
+- No write, destructive, workspace, auth, user or admin tools are registered.
 - Rate limiting is enabled by default.
-- Inputs are validated with Zod.
+- Inputs are validated with strict Zod schemas.
+- Unknown tool input fields are rejected.
+- HTTP security headers are set by the application; HSTS is expected at the TLS
+  edge rather than in the Node process.
+- The `Host` header is allowlisted to reduce DNS rebinding risk.
 - Errors are sanitized and never include stack traces.
 - Logs include tool name, duration and status, but not full payloads or secrets.
 - The server only calls `ATLARIUM_API_BASE_URL`, which must point to the public
   read-only Atlarium API.
+- Production assumes a trusted TLS reverse proxy. Configure `MCP_TRUST_PROXY`
+  to match that proxy topology and ensure the proxy overwrites forwarded headers.
+- Upstream Atlarium API calls use a timeout and maximum response size.
 
 ## Local Test Examples
 
@@ -66,6 +85,12 @@ Health:
 
 ```bash
 curl http://localhost:43118/health
+```
+
+Server card:
+
+```bash
+curl http://localhost:43118/.well-known/mcp/server-card.json
 ```
 
 Manual JSON-RPC initialize:
@@ -82,26 +107,38 @@ Conformance:
 pnpm mcp:conformance
 ```
 
+The conformance script runs the core, tools and DNS rebinding scenarios that
+match this server's declared capabilities. The upstream active suite also
+contains prompts, resources, completion and elicitation scenarios that are not
+part of this v1 server.
+
+## Production Validation
+
+After Kubernetes, DNS and TLS are live:
+
+```bash
+curl -i https://mcp.atlarium.bio/health
+curl -i https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+curl -i https://mcp.atlarium.bio/mcp
+npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario server-initialize
+npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list
+```
+
+Also run a real `tools/call` check for each registered tool and verify that no
+workspace, auth, admin or write tool appears in `tools/list`.
+
 ## Adding Tools
 
 1. Add input schema in `src/schemas.ts`.
 2. Add API client method in `src/atlarium-api.ts`.
 3. Add read-only tool definition in `src/tools.ts`.
 4. Add unit tests for schema, API path mapping and read-only registration.
-5. Update this document and `.example` registry files when the public surface changes.
+5. Update this document, `server.json` and `.example` registry files when the
+   public surface changes.
 
 ## Not Supported
 
-- Workspace aquarium operations.
+- Workspace habitat operations.
 - User, auth, admin, journal, schedule or measurement data.
 - Write or destructive tools.
-- Registry submission or publication automation.
-
-## Before Registry Publication
-
-- Confirm production endpoint and DNS/TLS.
-- Confirm license and ownership metadata.
-- Run MCP conformance against production.
-- Review rate limits and abuse monitoring.
-- Validate all public URLs and examples.
-- Decide support/contact policy.
+- Private Atlarium app APIs.

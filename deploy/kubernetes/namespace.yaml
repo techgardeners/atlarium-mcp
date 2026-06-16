@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: atlarium-mcp
+  labels:
+    app.kubernetes.io/name: atlarium-mcp
+    app.kubernetes.io/part-of: atlarium

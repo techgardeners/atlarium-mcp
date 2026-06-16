@@ -1,9 +1,20 @@
 {
-  "name": "Atlarium Aquarium Database",
-  "slug": "atlarium-aquarium-database",
-  "description": "Structured freshwater aquarium fish, aquatic plant, water parameter, compatibility and planning data for AI agents.",
+  "name": "Atlarium Habitat Database MCP",
+  "title": "Atlarium Habitat Database MCP",
+  "slug": "atlarium-habitat-database",
+  "description": "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, care requirements, environmental parameters, compatibility information, guides and habitat planning tools.",
+  "shortDescription": "Structured aquarium, marine, terrarium and paludarium data for AI agents.",
+  "version": "1.0.0",
   "homepage": "https://atlarium.bio",
-  "transport": "streamable-http",
+  "documentationUrl": "https://atlarium.bio/mcp",
+  "repository": {
+    "source": "github",
+    "url": "https://github.com/techgardeners/atlarium-mcp"
+  },
+  "transport": {
+    "type": "streamable-http",
+    "url": "https://mcp.atlarium.bio/mcp"
+  },
   "endpoint": "https://mcp.atlarium.bio/mcp",
   "auth": {
     "type": "none"
@@ -15,10 +26,30 @@
   },
   "categories": [
     "aquariums",
-    "freshwater",
+    "marine",
+    "terrariums",
     "animals",
     "plants",
-    "planning"
+    "habitat-planning"
   ],
-  "readOnly": true
+  "readOnly": true,
+  "tools": [
+    "search_fish",
+    "get_fish_profile",
+    "search_plants",
+    "get_plant_profile",
+    "search_products",
+    "get_product_profile",
+    "check_species_compatibility",
+    "get_water_parameters",
+    "suggest_species_for_tank",
+    "search_guides",
+    "get_guide"
+  ],
+  "privacy": {
+    "exposesUserData": false,
+    "exposesWorkspaceData": false,
+    "hasWriteTools": false,
+    "hasAdminTools": false
+  }
 }

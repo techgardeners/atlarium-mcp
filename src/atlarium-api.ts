@@ -1,8 +1,9 @@
-import type { RuntimeConfig } from "./config.js";
+import type { RuntimeConfig, SupportedLanguage } from "./config.js";
 import { ToolExecutionError } from "./errors.js";
 import type {
   compatibilitySchema,
   getProfileSchema,
+  getPathProfileSchema,
   searchFishSchema,
   searchGuidesSchema,
   searchPlantsSchema,
@@ -19,6 +20,7 @@ type SearchFishInput = z.infer<typeof searchFishSchema>;
 type SearchPlantsInput = z.infer<typeof searchPlantsSchema>;
 type SearchProductsInput = z.infer<typeof searchProductsSchema>;
 type GetProfileInput = z.infer<typeof getProfileSchema>;
+type GetPathProfileInput = z.infer<typeof getPathProfileSchema>;
 type CompatibilityInput = z.infer<typeof compatibilitySchema>;
 type WaterParametersInput = z.infer<typeof waterParametersSchema>;
 type SuggestionsInput = z.infer<typeof suggestionsSchema>;
@@ -45,39 +47,39 @@ export class AtlariumApiClient {
   ) {}
 
   async searchFish(input: SearchFishInput) {
-    return this.get("fish", input);
+    return this.get("fish", this.withDefaultLanguage(input));
   }
 
   async getFishProfile(input: GetProfileInput) {
     return this.get(`fish/${encodeURIComponent(input.slug)}`, {
-      language: input.language,
+      language: this.language(input.language),
     });
   }
 
   async searchPlants(input: SearchPlantsInput) {
-    return this.get("plants", input);
+    return this.get("plants", this.withDefaultLanguage(input));
   }
 
   async getPlantProfile(input: GetProfileInput) {
     return this.get(`plants/${encodeURIComponent(input.slug)}`, {
-      language: input.language,
+      language: this.language(input.language),
     });
   }
 
   async searchProducts(input: SearchProductsInput) {
-    return this.get("products", input);
+    return this.get("products", this.withDefaultLanguage(input));
   }
 
-  async getProductProfile(input: GetProfileInput) {
+  async getProductProfile(input: GetPathProfileInput) {
     return this.get(`products/${input.slug.split("/").map(encodeURIComponent).join("/")}`, {
-      language: input.language,
+      language: this.language(input.language),
     });
   }
 
   async checkSpeciesCompatibility(input: CompatibilityInput) {
     return this.post("compatibility", {
       species: input.species,
-      language: input.language,
+      language: this.language(input.language),
       tank_liters: input.tank_liters,
       ph: input.ph,
       gh: input.gh,
@@ -89,14 +91,14 @@ export class AtlariumApiClient {
   async getWaterParameters(input: WaterParametersInput) {
     return this.get(
       `water-parameters/${input.type}/${encodeURIComponent(input.slug)}`,
-      { language: input.language },
+      { language: this.language(input.language) },
     );
   }
 
   async suggestSpeciesForTank(input: SuggestionsInput) {
     return this.get("suggestions", {
       tank_liters: input.tank_liters,
-      language: input.language,
+      language: this.language(input.language),
       ph: input.ph,
       gh: input.gh,
       kh: input.kh,
@@ -108,12 +110,12 @@ export class AtlariumApiClient {
   }
 
   async searchGuides(input: SearchGuidesInput) {
-    return this.get("guides", input);
+    return this.get("guides", this.withDefaultLanguage(input));
   }
 
-  async getGuide(input: GetProfileInput) {
+  async getGuide(input: GetPathProfileInput) {
     return this.get(`guides/${input.slug.split("/").map(encodeURIComponent).join("/")}`, {
-      language: input.language,
+      language: this.language(input.language),
     });
   }
 
@@ -141,12 +143,22 @@ export class AtlariumApiClient {
     try {
       response = await this.fetchImpl(url, {
         ...init,
+        redirect: "error",
+        signal: AbortSignal.timeout(this.config.ATLARIUM_API_TIMEOUT_MS),
         headers: {
           accept: "application/json",
           ...(init?.headers ?? {}),
         },
       });
-    } catch {
+    } catch (error) {
+      if (isTimeoutError(error)) {
+        throw new ToolExecutionError(
+          "atlarium_api_timeout",
+          "Atlarium public API timed out.",
+          504,
+        );
+      }
+
       throw new ToolExecutionError(
         "atlarium_api_unavailable",
         "Atlarium public API is unavailable.",
@@ -154,16 +166,93 @@ export class AtlariumApiClient {
       );
     }
 
-    const text = await response.text();
-    const payload = text ? safeJson(text) : null;
+    const text = await readResponseText(
+      response,
+      this.config.ATLARIUM_API_RESPONSE_MAX_BYTES,
+    );
 
     if (!response.ok) {
+      if (response.status >= 500) {
+        throw new ToolExecutionError(
+          "atlarium_api_error",
+          "Atlarium public API error.",
+          response.status,
+        );
+      }
+
+      const payload = text ? safeJsonOrNull(text) : null;
       const error = apiError(payload);
       throw new ToolExecutionError(error.code, error.message, response.status);
     }
 
-    return payload;
+    return text ? safeJson(text) : null;
   }
+
+  private language(language: SupportedLanguage | undefined) {
+    return language ?? this.config.MCP_DEFAULT_LANGUAGE;
+  }
+
+  private withDefaultLanguage<T extends { language?: SupportedLanguage }>(
+    input: T,
+  ): T & { language: SupportedLanguage } {
+    return {
+      ...input,
+      language: this.language(input.language),
+    };
+  }
+}
+
+async function readResponseText(response: Response, maxBytes: number) {
+  const contentLength = response.headers.get("content-length");
+  if (contentLength && Number(contentLength) > maxBytes) {
+    throw new ToolExecutionError(
+      "atlarium_response_too_large",
+      "Atlarium public API response is too large.",
+      502,
+    );
+  }
+
+  if (!response.body) {
+    const text = await response.text();
+    if (Buffer.byteLength(text, "utf8") > maxBytes) {
+      throw new ToolExecutionError(
+        "atlarium_response_too_large",
+        "Atlarium public API response is too large.",
+        502,
+      );
+    }
+    return text;
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  const chunks: string[] = [];
+  let bytes = 0;
+
+  try {
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) {
+        break;
+      }
+
+      bytes += value.byteLength;
+      if (bytes > maxBytes) {
+        throw new ToolExecutionError(
+          "atlarium_response_too_large",
+          "Atlarium public API response is too large.",
+          502,
+        );
+      }
+
+      chunks.push(decoder.decode(value, { stream: true }));
+    }
+  } finally {
+    reader.releaseLock();
+  }
+
+  chunks.push(decoder.decode());
+  return chunks.join("");
 }
 
 function safeJson(text: string) {
@@ -175,6 +264,14 @@ function safeJson(text: string) {
       "Atlarium public API returned invalid JSON.",
       502,
     );
+  }
+}
+
+function safeJsonOrNull(text: string) {
+  try {
+    return JSON.parse(text) as unknown;
+  } catch {
+    return null;
   }
 }
 
@@ -200,4 +297,13 @@ function apiError(payload: unknown) {
     code: "atlarium_api_error",
     message: "Atlarium public API error.",
   };
+}
+
+function isTimeoutError(error: unknown) {
+  return (
+    error &&
+    typeof error === "object" &&
+    "name" in error &&
+    (error.name === "AbortError" || error.name === "TimeoutError")
+  );
 }

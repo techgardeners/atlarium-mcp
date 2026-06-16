@@ -1,29 +1,40 @@
-# Atlarium MCP
+# Atlarium
 
-Atlarium MCP is a public read-only Model Context Protocol server for structured
-freshwater aquarium data.
+Atlarium is a habitat knowledge platform for aquariums, marine tanks,
+coldwater systems, terrariums, paludariums and vivariums.
+
+## Atlarium Habitat Database MCP
+
+Atlarium Habitat Database MCP is a public read-only Model Context Protocol
+server for structured habitat data. It gives AI agents access to animal and
+plant profiles, habitat products, care requirements, environmental parameters,
+species compatibility, guides and habitat planning tools.
 
 Production MCP endpoint:
 
 - https://mcp.atlarium.bio/mcp
 
-Website:
+Healthcheck:
 
-- https://atlarium.bio
+- https://mcp.atlarium.bio/health
 
-Available data:
+Server card:
 
-- Freshwater aquarium fish
-- Aquatic plants
-- Aquarium products
-- Water parameters
-- Compatibility and stocking guidance
-- Aquarium guides
+- https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+
+Human documentation:
+
+- https://atlarium.bio/mcp
+
+Repository:
+
+- https://github.com/techgardeners/atlarium-mcp
 
 Important limits:
 
+- Public read-only tools only
 - No write tools
-- No user or workspace data
-- No admin data
+- No workspace tools
+- No user, auth, admin, journal, schedule or measurement data
 - Compatibility and suggestions are advisory and should be verified for each
-  real aquarium setup
+  real habitat setup

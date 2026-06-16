@@ -1,7 +1,7 @@
 {
   "name": "atlarium-mcp",
   "version": "1.0.0",
-  "description": "Public read-only MCP server for Atlarium freshwater aquarium data.",
+  "description": "Public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data.",
   "type": "module",
   "engines": {
     "node": ">=22.0.0"
@@ -14,18 +14,24 @@
     "lint": "tsc --noEmit --pretty false",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "mcp:conformance": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp"
+    "audit:prod": "pnpm audit --prod",
+    "mcp:conformance": "pnpm mcp:conformance:core && pnpm mcp:conformance:tools && pnpm mcp:conformance:dns",
+    "mcp:conformance:core": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario server-initialize && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario logging-set-level && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario ping",
+    "mcp:conformance:tools": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-list && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-call-simple-text && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-call-error",
+    "mcp:conformance:dns": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario dns-rebinding-protection",
+    "mcp:conformance:public": "npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario server-initialize && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario ping && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "express-rate-limit": "^8.5.2",
+    "helmet": "^8.2.0",
     "zod": "^4.4.3"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
-    "@types/node": "^20",
+    "@types/node": "^22.19.21",
     "tsx": "^4.21.0",
     "typescript": "^5",
     "vitest": "^4.1.5"
