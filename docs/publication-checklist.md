@@ -14,19 +14,20 @@ Date prepared: 2026-06-16
 - Repository: `https://github.com/techgardeners/atlarium-mcp`
 - Container fallback registry: `ghcr.io/techgardeners/atlarium-mcp`
 
-## Current External Blockers
+## Current Status
 
-- `mcp.atlarium.bio` must be created in DNS and routed to the Atlarium Ingress/load balancer.
-- Atlarium Kubernetes credentials are required to apply `deploy/kubernetes`.
-- Atlarium registry credentials are required if using an internal registry instead of GHCR.
+- `mcp.atlarium.bio` resolves through Cloudflare to the Atlarium Ingress.
+- `https://mcp.atlarium.bio/health` returns public JSON.
+- `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` returns public JSON.
+- `https://mcp.atlarium.bio/mcp` is the canonical Streamable HTTP endpoint.
+- Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
+- `pnpm mcp:validate:public` verifies all 11 read-only tools with real public calls.
+
+Remaining publication prerequisites:
+
 - `https://atlarium.bio/mcp` must become the human documentation page, not a protected MCP endpoint.
-- `https://atlarium.bio/llms.txt` must be updated with the MCP section from `docs/llms.txt.example`.
-- Public registry submissions should wait until DNS, TLS, server card and conformance checks pass against production.
-
-Manual online checks from 2026-06-16 before this repo-side implementation found
-that `mcp.atlarium.bio` did not resolve yet, `atlarium.bio/mcp` was not the
-final documentation page, and the current Atlarium-hosted MCP fallback required
-authorization. Re-run the validation section after deployment.
+- `https://atlarium.bio/llms.txt` must include the MCP section from `docs/llms.txt.example`.
+- Public registry submissions should wait until the documentation page and `llms.txt` metadata are live.
 
 ## Production Deployment
 
@@ -57,6 +58,9 @@ Manual equivalent:
 
 ```bash
 kubectl apply -k deploy/kubernetes
+kubectl get secret atlarium-tls -n aquarium -o yaml \
+  | sed 's/namespace: aquarium/namespace: atlarium-mcp/' \
+  | kubectl apply -f -
 kubectl -n atlarium-mcp rollout status deployment/atlarium-mcp
 ```
 
@@ -92,8 +96,12 @@ npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp 
 npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list
 npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-call-simple-text
 npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-call-error
-npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario dns-rebinding-protection
+pnpm mcp:validate:public
 ```
+
+The `dns-rebinding-protection` conformance scenario is localhost-only. Run it
+through `pnpm mcp:conformance` against a local server, not against the public
+HTTPS endpoint.
 
 6. Verify the real tool surface.
 
@@ -194,8 +202,8 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 
 | Directory | Submission URL | Account | Status | Date | Error | Next Action |
 | --- | --- | --- | --- | --- | --- | --- |
-| Official MCP Registry | https://modelcontextprotocol.io/registry/quickstart | Atlarium DNS or TechGardeners GitHub | Blocked | 2026-06-16 | DNS/production endpoint not live | Deploy, validate, then publish `server.json` |
-| Smithery | https://smithery.ai/new | Atlarium/TechGardeners | Blocked | 2026-06-16 | Public endpoint not live | Submit URL after server-card and conformance pass |
-| Glama | https://glama.ai/ | Atlarium/TechGardeners | Blocked | 2026-06-16 | Public endpoint not live | Submit GitHub repo after production validation |
-| PulseMCP | https://www.pulsemcp.com/submit | Atlarium/TechGardeners | Blocked | 2026-06-16 | Public endpoint not live | Submit endpoint and repo after DNS/TLS |
-| MCP.so | https://mcp.so/ | Atlarium/TechGardeners | Blocked | 2026-06-16 | Public endpoint not live | Open submission issue with connection details |
+| Official MCP Registry | https://modelcontextprotocol.io/registry/quickstart | Atlarium DNS or TechGardeners GitHub | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Publish `server.json` after site metadata is live |
+| Smithery | https://smithery.ai/new | Atlarium/TechGardeners | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Submit URL after site metadata is live |
+| Glama | https://glama.ai/ | Atlarium/TechGardeners | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Submit GitHub repo after site metadata is live |
+| PulseMCP | https://www.pulsemcp.com/submit | Atlarium/TechGardeners | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Submit endpoint and repo after site metadata is live |
+| MCP.so | https://mcp.so/ | Atlarium/TechGardeners | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Open submission issue after site metadata is live |

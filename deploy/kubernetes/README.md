@@ -40,6 +40,12 @@ Preferred local pipeline:
 PUSH_IMAGE=true DEPLOY_KUBERNETES=true pnpm pipeline:local
 ```
 
+Direct Spartaco deploy:
+
+```bash
+pnpm deploy:spartaco
+```
+
 Manual equivalent:
 
 ```bash
@@ -60,9 +66,15 @@ rules allow registry scanners and MCP clients to reach:
 
 ## TLS
 
-The manifest assumes cert-manager with `ClusterIssuer` named `letsencrypt-prod`
-and creates/uses secret `atlarium-mcp-tls`. If Atlarium terminates TLS at
-Cloudflare or another edge, adapt `ingress.yaml` to the existing cluster pattern.
+The manifest uses the existing Atlarium Cloudflare Origin Certificate secret
+named `atlarium-tls`. Copy it from the `aquarium` namespace into
+`atlarium-mcp` before applying the Ingress:
+
+```bash
+kubectl get secret atlarium-tls -n aquarium -o yaml \
+  | sed 's/namespace: aquarium/namespace: atlarium-mcp/' \
+  | kubectl apply -f -
+```
 
 ## Validate
 
@@ -72,6 +84,7 @@ curl -i https://mcp.atlarium.bio/.well-known/mcp/server-card.json
 curl -i https://mcp.atlarium.bio/mcp
 npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario server-initialize
 npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list
+pnpm mcp:validate:public
 ```
 
 Expected public behavior:

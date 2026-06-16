@@ -6,8 +6,12 @@ metadata:
     app.kubernetes.io/name: atlarium-mcp
     app.kubernetes.io/part-of: atlarium
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/proxy-body-size: 128k
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/limit-rps: "30"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "2"
+    nginx.ingress.kubernetes.io/proxy-body-size: "128k"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "35"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "35"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "35"
 spec:
@@ -15,7 +19,7 @@ spec:
   tls:
     - hosts:
         - mcp.atlarium.bio
-      secretName: atlarium-mcp-tls
+      secretName: atlarium-tls
   rules:
     - host: mcp.atlarium.bio
       http:

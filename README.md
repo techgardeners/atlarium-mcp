@@ -84,6 +84,16 @@ PUSH_IMAGE=true DEPLOY_KUBERNETES=true pnpm pipeline:local
 PUSH_IMAGE=true DEPLOY_KUBERNETES=true VALIDATE_PUBLIC=true pnpm pipeline:local
 ```
 
+The local pipeline builds `linux/amd64` by default because Spartaco runs amd64
+nodes. Override with `PLATFORM=...` only for a different runtime target.
+
+Spartaco can also be deployed directly over SSH, matching the existing Atlarium
+operations style:
+
+```bash
+pnpm deploy:spartaco
+```
+
 ```bash
 kubectl apply -k deploy/kubernetes
 kubectl -n atlarium-mcp rollout status deployment/atlarium-mcp
@@ -125,6 +135,7 @@ With production DNS and TLS live:
 ```bash
 npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario server-initialize
 npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list
+pnpm mcp:validate:public
 ```
 
 ## Publication

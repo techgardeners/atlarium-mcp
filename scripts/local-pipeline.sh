@@ -3,6 +3,7 @@ set -eu
 
 IMAGE="${IMAGE:-ghcr.io/techgardeners/atlarium-mcp}"
 TAG="${TAG:-1.0.0}"
+PLATFORM="${PLATFORM:-linux/amd64}"
 NAMESPACE="${NAMESPACE:-atlarium-mcp}"
 KUSTOMIZE_DIR="${KUSTOMIZE_DIR:-deploy/kubernetes}"
 PUBLIC_BASE_URL="${PUBLIC_BASE_URL:-https://mcp.atlarium.bio}"
@@ -19,10 +20,11 @@ run pnpm lint
 run pnpm test
 run pnpm build
 run pnpm audit:prod
-run docker build -t "$IMAGE:$TAG" .
 
 if [ "$PUSH_IMAGE" = "true" ]; then
-  run docker push "$IMAGE:$TAG"
+  run docker buildx build --platform "$PLATFORM" -t "$IMAGE:$TAG" --push .
+else
+  run docker buildx build --platform "$PLATFORM" -t "$IMAGE:$TAG" --load .
 fi
 
 if [ "$DEPLOY_KUBERNETES" = "true" ]; then
@@ -34,7 +36,6 @@ fi
 if [ "$VALIDATE_PUBLIC" = "true" ]; then
   run curl -fsS "$PUBLIC_BASE_URL/health"
   run curl -fsS "$PUBLIC_BASE_URL/.well-known/mcp/server-card.json"
-  run npx @modelcontextprotocol/conformance server --url "$PUBLIC_BASE_URL/mcp" --scenario server-initialize
-  run npx @modelcontextprotocol/conformance server --url "$PUBLIC_BASE_URL/mcp" --scenario ping
-  run npx @modelcontextprotocol/conformance server --url "$PUBLIC_BASE_URL/mcp" --scenario tools-list
+  run pnpm mcp:conformance:public
+  run pnpm mcp:validate:public
 fi

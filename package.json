@@ -16,11 +16,13 @@
     "test": "vitest run",
     "audit:prod": "pnpm audit --prod",
     "pipeline:local": "scripts/local-pipeline.sh",
+    "deploy:spartaco": "scripts/spartaco-deploy.sh",
     "mcp:conformance": "pnpm mcp:conformance:core && pnpm mcp:conformance:tools && pnpm mcp:conformance:dns",
     "mcp:conformance:core": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario server-initialize && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario logging-set-level && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario ping",
     "mcp:conformance:tools": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-list && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-call-simple-text && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-call-error",
     "mcp:conformance:dns": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario dns-rebinding-protection",
-    "mcp:conformance:public": "npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario server-initialize && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario ping && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list"
+    "mcp:conformance:public": "npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario server-initialize && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario logging-set-level && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario ping && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-call-simple-text && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-call-error",
+    "mcp:validate:public": "node scripts/validate-public-mcp.mjs"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
