@@ -1,0 +1,24 @@
+{
+  "name": "Atlarium Aquarium Database",
+  "slug": "atlarium-aquarium-database",
+  "description": "Structured freshwater aquarium fish, aquatic plant, water parameter, compatibility and planning data for AI agents.",
+  "homepage": "https://atlarium.bio",
+  "transport": "streamable-http",
+  "endpoint": "https://mcp.atlarium.bio/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "capabilities": {
+    "tools": true,
+    "resources": false,
+    "prompts": false
+  },
+  "categories": [
+    "aquariums",
+    "freshwater",
+    "animals",
+    "plants",
+    "planning"
+  ],
+  "readOnly": true
+}

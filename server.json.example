@@ -1,0 +1,13 @@
+{
+  "name": "bio.atlarium/aquarium-database",
+  "title": "Atlarium Aquarium Database",
+  "description": "A freshwater aquarium MCP server for fish, aquatic plants, water parameters, compatibility data and aquarium planning tools.",
+  "version": "1.0.0",
+  "websiteUrl": "https://atlarium.bio",
+  "remotes": [
+    {
+      "type": "streamable-http",
+      "url": "https://mcp.atlarium.bio/mcp"
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+# Atlarium MCP
+
+Atlarium MCP is a public read-only Model Context Protocol server for structured
+freshwater aquarium data.
+
+Production MCP endpoint:
+
+- https://mcp.atlarium.bio/mcp
+
+Website:
+
+- https://atlarium.bio
+
+Available data:
+
+- Freshwater aquarium fish
+- Aquatic plants
+- Aquarium products
+- Water parameters
+- Compatibility and stocking guidance
+- Aquarium guides
+
+Important limits:
+
+- No write tools
+- No user or workspace data
+- No admin data
+- Compatibility and suggestions are advisory and should be verified for each
+  real aquarium setup
