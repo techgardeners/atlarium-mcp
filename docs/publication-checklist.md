@@ -24,10 +24,10 @@ Date prepared: 2026-06-16
 - `https://atlarium.bio/llms.txt` includes the MCP discovery section.
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
 - `pnpm mcp:validate:public` verifies all 11 read-only tools with real public calls.
+- Official MCP Registry publish succeeded for `bio.atlarium/habitat-database`.
 
 Remaining publication prerequisites:
 
-- Official MCP Registry authentication must be completed with DNS or GitHub ownership.
 - Directory submissions need manual account confirmation for Smithery, Glama, PulseMCP and MCP.so.
 
 ## Production Deployment
@@ -203,7 +203,7 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 
 | Directory | Submission URL | Account | Status | Date | Error | Next Action |
 | --- | --- | --- | --- | --- | --- | --- |
-| Official MCP Registry | https://modelcontextprotocol.io/registry/quickstart | Atlarium DNS or TechGardeners GitHub | Ready to submit | 2026-06-16 | None | Run `mcp-publisher login dns` and `mcp-publisher publish` |
+| Official MCP Registry | https://modelcontextprotocol.io/registry/quickstart | Atlarium DNS | Published | 2026-06-16 | None | Monitor registry entry and publish future versions from `server.json` |
 | Smithery | https://smithery.ai/new | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit endpoint, server card and repo |
 | Glama | https://glama.ai/ | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit GitHub repo and public endpoint |
 | PulseMCP | https://www.pulsemcp.com/submit | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit endpoint and repo |
