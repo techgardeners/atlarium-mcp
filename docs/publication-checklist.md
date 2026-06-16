@@ -28,7 +28,10 @@ Date prepared: 2026-06-16
 
 Remaining publication prerequisites:
 
-- Directory submissions need manual account confirmation for Smithery, Glama, PulseMCP and MCP.so.
+- Smithery and Glama need maintainer OAuth/claim in their web UI.
+- PulseMCP ingests the Official MCP Registry; email them only if the listing is
+  missing after their processing window.
+- MCP.so submission has been posted through the public GitHub issue flow.
 
 ## Production Deployment
 
@@ -207,4 +210,30 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 | Smithery | https://smithery.ai/new | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit endpoint, server card and repo |
 | Glama | https://glama.ai/ | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit GitHub repo and public endpoint |
 | PulseMCP | https://www.pulsemcp.com/submit | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit endpoint and repo |
-| MCP.so | https://mcp.so/ | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Open submission with connection details |
+| MCP.so | https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013 | TechGardeners | Submitted | 2026-06-16 | None | Monitor issue comment and published listing |
+
+## Directory Automation
+
+Generate reusable copy and JSON payloads:
+
+```bash
+pnpm directories:submit -- --payload
+```
+
+Check the public URLs and Official MCP Registry entry:
+
+```bash
+pnpm directories:submit -- --check
+```
+
+Open the web submission pages for OAuth/claim-based directories:
+
+```bash
+pnpm directories:submit -- --open
+```
+
+Submit MCP.so through its GitHub issue flow:
+
+```bash
+pnpm directories:submit -- --submit-mcp-so --yes
+```
