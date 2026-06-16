@@ -20,14 +20,15 @@ Date prepared: 2026-06-16
 - `https://mcp.atlarium.bio/health` returns public JSON.
 - `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` returns public JSON.
 - `https://mcp.atlarium.bio/mcp` is the canonical Streamable HTTP endpoint.
+- `https://atlarium.bio/mcp` returns the public human documentation page.
+- `https://atlarium.bio/llms.txt` includes the MCP discovery section.
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
 - `pnpm mcp:validate:public` verifies all 11 read-only tools with real public calls.
 
 Remaining publication prerequisites:
 
-- `https://atlarium.bio/mcp` must become the human documentation page, not a protected MCP endpoint.
-- `https://atlarium.bio/llms.txt` must include the MCP section from `docs/llms.txt.example`.
-- Public registry submissions should wait until the documentation page and `llms.txt` metadata are live.
+- Official MCP Registry authentication must be completed with DNS or GitHub ownership.
+- Directory submissions need manual account confirmation for Smithery, Glama, PulseMCP and MCP.so.
 
 ## Production Deployment
 
@@ -202,8 +203,8 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 
 | Directory | Submission URL | Account | Status | Date | Error | Next Action |
 | --- | --- | --- | --- | --- | --- | --- |
-| Official MCP Registry | https://modelcontextprotocol.io/registry/quickstart | Atlarium DNS or TechGardeners GitHub | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Publish `server.json` after site metadata is live |
-| Smithery | https://smithery.ai/new | Atlarium/TechGardeners | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Submit URL after site metadata is live |
-| Glama | https://glama.ai/ | Atlarium/TechGardeners | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Submit GitHub repo after site metadata is live |
-| PulseMCP | https://www.pulsemcp.com/submit | Atlarium/TechGardeners | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Submit endpoint and repo after site metadata is live |
-| MCP.so | https://mcp.so/ | Atlarium/TechGardeners | Pending metadata page | 2026-06-16 | `atlarium.bio/mcp` and `llms.txt` not live with MCP copy | Open submission issue after site metadata is live |
+| Official MCP Registry | https://modelcontextprotocol.io/registry/quickstart | Atlarium DNS or TechGardeners GitHub | Ready to submit | 2026-06-16 | None | Run `mcp-publisher login dns` and `mcp-publisher publish` |
+| Smithery | https://smithery.ai/new | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit endpoint, server card and repo |
+| Glama | https://glama.ai/ | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit GitHub repo and public endpoint |
+| PulseMCP | https://www.pulsemcp.com/submit | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit endpoint and repo |
+| MCP.so | https://mcp.so/ | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Open submission with connection details |
