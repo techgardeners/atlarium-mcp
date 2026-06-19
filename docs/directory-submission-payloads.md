@@ -1,6 +1,6 @@
 # Atlarium MCP Directory Submission Payloads
 
-Last verified: `2026-06-19T23:21:28Z`
+Last verified: `2026-06-19T23:40:14Z`
 
 Use these payloads for directory submission, claim and follow-up flows. Do not
 add directory badges or claim official support until the specific directory
@@ -88,6 +88,12 @@ https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabi
 Future update payload is `server.json` at the repository root. Publish future
 versions with the registry publisher after endpoint validation.
 
+Current evidence:
+
+```text
+Registry API returned metadata.count = 1, server.name = bio.atlarium/habitat-database, server.version = 1.0.0, official status active, publishedAt = 2026-06-16T10:01:55.780369Z and isLatest = true under _meta.io.modelcontextprotocol.registry/official.
+```
+
 ## Smithery
 
 Submission URL:
@@ -99,7 +105,7 @@ https://smithery.ai/new
 Manual blocker:
 
 ```text
-Requires Atlarium/TechGardeners sign-in. The submission page redirects to hosted Smithery auth.
+Requires Atlarium/TechGardeners sign-in. Smithery publish docs still direct maintainers to https://smithery.ai/new, but unauthenticated fetch of that URL redirects to /servers/new and returns HTTP 404 markdown.
 ```
 
 Payload:
@@ -121,6 +127,9 @@ Verification after submission:
 ```bash
 npx -y smithery mcp search "Atlarium Habitat Database MCP"
 ```
+
+If `https://smithery.ai/new` fails after sign-in, navigate from Smithery's
+Publish flow and enter the public HTTPS endpoint manually.
 
 ## Glama
 
@@ -166,7 +175,7 @@ https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013
 Status:
 
 ```text
-Submitted through MCP.so public GitHub issue flow on 2026-06-16T19:06:21Z. Public listing not visible during the 2026-06-19 check.
+Submitted through MCP.so public GitHub issue flow on 2026-06-16T19:06:21Z. Public listing not visible during the 2026-06-19T23:40:14Z check; https://mcp.so/server/atlarium-habitat-database returned page title "- MCP Server" with "Project not found".
 ```
 
 Follow-up payload if maintainers request a refresh:
