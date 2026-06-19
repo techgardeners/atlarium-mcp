@@ -164,6 +164,10 @@ Ingress that overwrites `X-Forwarded-For`, `X-Forwarded-Host` and
 Publication tracking and reusable submission copy live in
 `docs/publication-checklist.md`.
 
+Directory-specific payloads and technical launch copy live in
+`docs/directory-submission-payloads.md` and
+`docs/mcp-technical-launch-kit.md`.
+
 Generate directory payloads:
 
 ```bash

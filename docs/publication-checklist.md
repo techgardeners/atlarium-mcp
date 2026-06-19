@@ -28,6 +28,11 @@ Last updated: 2026-06-19
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
 - `pnpm mcp:validate:public` verifies all 11 read-only tools with real public calls.
 - Official MCP Registry publish succeeded for `bio.atlarium/habitat-database`.
+- Glama indexes the registry entry as a connector at
+  `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database`.
+- Source now includes a Glama ownership claim endpoint at
+  `/.well-known/glama.json`; it must be deployed before the claim can be
+  completed against the live MCP domain.
 - GitHub Actions monitors are active for public MCP health/server-card/tools-list
   and daily directory/registry discovery checks.
 - ChatGPT App widget resource is implemented as
@@ -37,6 +42,8 @@ Last updated: 2026-06-19
 Remaining publication prerequisites:
 
 - Smithery and Glama need maintainer OAuth/claim in their web UI.
+- Deploy the Glama claim endpoint and verify
+  `https://mcp.atlarium.bio/.well-known/glama.json`.
 - PulseMCP ingests the Official MCP Registry; email them only if the listing is
   missing after their processing window.
 - MCP.so submission has been posted through the public GitHub issue flow.
@@ -266,13 +273,15 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 
 ## Submission Tracker
 
-| Directory | Submission URL | Account | Status | Date | Error | Next Action |
-| --- | --- | --- | --- | --- | --- | --- |
-| Official MCP Registry | https://modelcontextprotocol.io/registry/quickstart | Atlarium DNS | Published | 2026-06-16 | None | Monitor registry entry and publish future versions from `server.json` |
-| Smithery | https://smithery.ai/new | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit endpoint, server card and repo |
-| Glama | https://glama.ai/ | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit GitHub repo and public endpoint |
-| PulseMCP | https://www.pulsemcp.com/submit | Atlarium/TechGardeners | Ready to submit | 2026-06-16 | None | Submit endpoint and repo |
-| MCP.so | https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013 | TechGardeners | Submitted | 2026-06-16 | None | Monitor issue comment and published listing |
+Last verified: `2026-06-19T23:10:43Z`.
+
+| Directory | URL | Status | Evidence | Next action | Owner / manual blocker |
+| --- | --- | --- | --- | --- | --- |
+| Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active | Registry API returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, and `publishedAt = 2026-06-16T10:01:55.780369Z`. | Monitor and publish future versions from `server.json`. | Atlarium DNS ownership already used for publication. |
+| Smithery | https://smithery.ai/new | Not listed; ready for maintainer submission | `npx -y smithery mcp search "Atlarium Habitat Database MCP"` did not return Atlarium. `https://smithery.ai/new` redirects to hosted auth (`authk.smithery.ai`). | Sign in, submit endpoint, server card and repo using `docs/directory-submission-payloads.md`. | Atlarium/TechGardeners account or OAuth login required. |
+| Glama | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database | Indexed as connector; ownership claim pending deploy | Connector page returned HTTP 200 with title `Atlarium Habitat Database MCP - MCP Connector | Glama`, registry name and endpoint `https://mcp.atlarium.bio/mcp`. Page requests `/.well-known/glama.json` for ownership verification. | Deploy source change that serves `https://mcp.atlarium.bio/.well-known/glama.json`, then complete claim in Glama if manual UI is still required. | Deployment required; maintainer email is `info@techgardeners.com`. |
+| MCP.so | https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013 | Submitted through public GitHub issue flow; listing not found yet | GitHub API confirmed issue comment `4722425013`, created `2026-06-16T19:06:21Z`, includes Atlarium name, endpoint and registry name. Candidate listing `https://mcp.so/server/atlarium-habitat-database` returned `Project not found`. | Monitor issue comment and published listing; avoid badges until a listing is visible. | MCP.so maintainers control publication. |
+| PulseMCP | https://www.pulsemcp.com/submit | Manual check blocked; registry ingestion expected | Fetching search and submit pages from the audit environment returned HTTP 403 Cloudflare block. Search evidence did not confirm a visible listing. | Recheck in browser or email the generated payload after PulseMCP processing window if the registry-derived listing is still absent. | Manual browser access or email to PulseMCP required because Cloudflare blocks automated check. |
 
 ## Directory Automation
 
