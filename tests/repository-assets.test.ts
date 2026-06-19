@@ -19,6 +19,9 @@ describe("repository publication assets", () => {
     expect(pathExists("CONTRIBUTING.md")).toBe(true);
     expect(pathExists("SECURITY.md")).toBe(true);
     expect(pathExists(".github/ISSUE_TEMPLATE/bug_report.md")).toBe(true);
+    expect(pathExists(".github/workflows/public-mcp-monitor.yml")).toBe(true);
+    expect(pathExists(".github/workflows/mcp-directory-audit.yml")).toBe(true);
+    expect(pathExists("scripts/monitor-public-mcp.mjs")).toBe(true);
   });
 
   it("keeps package metadata suitable for public discovery", () => {
@@ -43,6 +46,9 @@ describe("repository publication assets", () => {
         "aquarium",
         "habitat-data",
       ]),
+    );
+    expect((pkg.scripts as Record<string, string>)["mcp:monitor:public"]).toBe(
+      "node scripts/monitor-public-mcp.mjs",
     );
   });
 

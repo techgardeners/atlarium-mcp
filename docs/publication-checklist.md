@@ -28,6 +28,8 @@ Last updated: 2026-06-19
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
 - `pnpm mcp:validate:public` verifies all 11 read-only tools with real public calls.
 - Official MCP Registry publish succeeded for `bio.atlarium/habitat-database`.
+- GitHub Actions monitors are active for public MCP health/server-card/tools-list
+  and daily directory/registry discovery checks.
 
 Remaining publication prerequisites:
 
@@ -148,6 +150,23 @@ Run `initialize`, `tools/list` and one controlled `tools/call` for each tool:
 - `get_guide`
 
 Confirm no workspace, auth, admin, user or write tools are listed.
+
+7. Keep production monitoring active.
+
+The repository contains two GitHub Actions workflows:
+
+- `.github/workflows/public-mcp-monitor.yml` runs every 30 minutes and verifies
+  docs, health, server-card validity, `GET /mcp` 405 behavior, JSON-RPC
+  initialize and `tools/list` with the expected 11 read-only tools.
+- `.github/workflows/mcp-directory-audit.yml` runs daily and checks public docs,
+  health, server-card, MCP GET behavior and Official MCP Registry presence.
+
+Manual smoke commands:
+
+```bash
+pnpm mcp:monitor:public
+pnpm directories:submit -- --check
+```
 
 ## Official MCP Registry
 

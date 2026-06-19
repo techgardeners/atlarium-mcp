@@ -42,6 +42,7 @@
     "mcp:conformance:tools": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-list && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-call-simple-text && npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario tools-call-error",
     "mcp:conformance:dns": "npx @modelcontextprotocol/conformance server --url http://localhost:43118/mcp --scenario dns-rebinding-protection",
     "mcp:conformance:public": "npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario server-initialize && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario logging-set-level && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario ping && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-call-simple-text && npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-call-error",
+    "mcp:monitor:public": "node scripts/monitor-public-mcp.mjs",
     "mcp:validate:public": "node scripts/validate-public-mcp.mjs",
     "directories:submit": "node scripts/submit-directories.mjs"
   },
