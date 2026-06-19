@@ -112,6 +112,7 @@ export function habitatExplorerHtml() {
       color: var(--ink);
       font-size: 14px;
       line-height: 1.45;
+      overflow-x: hidden;
     }
 
     button, input {
@@ -183,7 +184,9 @@ export function habitatExplorerHtml() {
       color: var(--ink);
       cursor: pointer;
       min-height: 32px;
+      max-width: 100%;
       padding: 7px 11px;
+      white-space: normal;
       transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
     }
 
@@ -212,6 +215,7 @@ export function habitatExplorerHtml() {
 
     .pane {
       min-width: 0;
+      overflow: hidden;
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
@@ -252,6 +256,7 @@ export function habitatExplorerHtml() {
 
     .item {
       width: 100%;
+      min-width: 0;
       text-align: left;
       border: 1px solid var(--line);
       background: rgb(255 255 255 / 0.38);
@@ -278,6 +283,7 @@ export function habitatExplorerHtml() {
       justify-content: space-between;
       gap: 10px;
       font-weight: 650;
+      min-width: 0;
     }
 
     .latin {
@@ -285,6 +291,8 @@ export function habitatExplorerHtml() {
       font-style: italic;
       font-size: 12px;
       text-align: right;
+      min-width: 0;
+      overflow-wrap: anywhere;
     }
 
     .chips {
@@ -292,6 +300,7 @@ export function habitatExplorerHtml() {
       flex-wrap: wrap;
       gap: 6px;
       margin-top: 8px;
+      min-width: 0;
     }
 
     .chip {
@@ -301,6 +310,8 @@ export function habitatExplorerHtml() {
       color: var(--muted);
       font-size: 11px;
       padding: 3px 7px;
+      max-width: 100%;
+      overflow-wrap: anywhere;
     }
 
     .chip.water { border-color: rgb(26 143 227 / 0.42); color: var(--azure); }
@@ -359,6 +370,7 @@ export function habitatExplorerHtml() {
       flex-wrap: wrap;
       gap: 8px;
       margin-top: 14px;
+      min-width: 0;
     }
 
     .section-title {
@@ -419,6 +431,29 @@ export function habitatExplorerHtml() {
       .workspace { grid-template-columns: 1fr; }
       .list { max-height: 42vh; }
       .metrics { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 460px) {
+      .topbar { gap: 12px; }
+      .brand-mark { width: 38px; height: 38px; border-radius: 11px; }
+      h1 { font-size: 19px; }
+      .tabs { gap: 5px; }
+      .tab { padding: 7px 10px; }
+      .controls .actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+      .controls .action {
+        width: 100%;
+      }
+      .item-title {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 2px;
+      }
+      .latin {
+        text-align: left;
+      }
     }
   </style>
 </head>
