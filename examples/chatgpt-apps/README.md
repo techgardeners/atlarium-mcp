@@ -22,6 +22,8 @@ depends on OpenAI review.
 - Widget resource URI: `ui://widget/habitat-explorer.v1.html`.
 - Widget MIME type: `text/html;profile=mcp-app`.
 - Widget source: `src/apps/habitat-explorer.ts`.
+- Widget visual treatment: self-contained Atlarium-native UI using inline brand
+  colors and inline SVG mark; no remote assets, fonts, scripts or iframes.
 - Tool metadata: `_meta.ui.resourceUri` plus the ChatGPT compatibility alias
   `_meta["openai/outputTemplate"]`.
 - Safety: public, read-only, auth `none`, no user/workspace/admin/write tools.
@@ -64,10 +66,13 @@ livestock, equipment, water chemistry and local husbandry constraints.
 - ChatGPT connector creation with `https://mcp.atlarium.bio/mcp`.
 - Refreshed connector metadata showing the Atlarium tools.
 - Endpoint scan showing the 11 expected read-only tools.
-- Habitat Explorer widget rendering a fish search result.
-- Habitat Explorer widget rendering a fish or plant profile.
-- Compatibility panel for a community species pair.
-- Tank suggestion panel for a planted freshwater aquarium.
+- Habitat Explorer Results view rendering a fish search result.
+- Habitat Explorer Profile view rendering a fish or plant profile.
+- Habitat Explorer Compatibility view rendering warnings, recommended actions
+  and reviewed species for a community pair.
+- Habitat Explorer Suggestions view rendering tank suggestions and readable
+  reason chips for a planted freshwater aquarium.
+- Visual QA captures for light mode, dark mode and a narrow mobile viewport.
 - Safety/privacy notes visible in the submission form.
 - Privacy policy URL resolving HTTP 200.
 

@@ -8,6 +8,7 @@ import { describe, expect, it } from "vitest";
 import {
   habitatExplorerHtml,
   habitatExplorerMimeType,
+  habitatExplorerResourceMeta,
   habitatExplorerResourceUri,
 } from "../src/apps/habitat-explorer.js";
 import { getRuntimeConfig } from "../src/config.js";
@@ -48,11 +49,29 @@ describe("ChatGPT App widget", () => {
     const html = habitatExplorerHtml();
 
     expect(html).toContain("Atlarium Habitat Explorer");
+    expect(html).toContain("--deep-blue");
+    expect(html).toContain("--azure");
+    expect(html).toContain("data-brand-mark");
+    expect(html).toContain("reasonParts");
+    expect(html).toContain("recommended_actions");
     expect(html).toContain("ui/notifications/tool-result");
     expect(html).toContain("tools/call");
     expect(html).toContain("suggest_species_for_tank");
     expect(html).not.toContain("<iframe");
     expect(html).not.toMatch(/https?:\/\//);
+  });
+
+  it("declares standard and ChatGPT-compatible widget CSP metadata", () => {
+    expect(habitatExplorerResourceMeta._meta.ui.csp).toEqual({
+      connectDomains: [],
+      frameDomains: [],
+      resourceDomains: [],
+    });
+    expect(habitatExplorerResourceMeta._meta["openai/widgetCSP"]).toEqual({
+      connect_domains: [],
+      frame_domains: [],
+      resource_domains: [],
+    });
   });
 
   it("advertises and serves the widget resource through MCP", async () => {

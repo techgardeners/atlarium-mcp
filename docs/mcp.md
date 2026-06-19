@@ -58,6 +58,11 @@ text content for generic MCP clients and also include `structuredContent` for
 Apps-compatible hosts. Tools link to the widget with `_meta.ui.resourceUri` and
 the ChatGPT compatibility alias `_meta["openai/outputTemplate"]`.
 
+The widget is styled as a self-contained Atlarium-native interface using inline
+CSS tokens from the public Atlarium palette and a small inline SVG brand mark.
+It does not load remote images, fonts, scripts, styles or iframes, so the widget
+CSP keeps `connectDomains`, `resourceDomains` and `frameDomains` empty.
+
 ## Tools
 
 - `search_fish`: search fish and aquatic animal profiles in the Atlarium habitat database.
