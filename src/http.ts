@@ -7,7 +7,7 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 
 import type { RuntimeConfig } from "./config.js";
 import { log } from "./logger.js";
-import { createServerCard } from "./metadata.js";
+import { createGlamaConnectorClaim, createServerCard } from "./metadata.js";
 import { createAtlariumMcpServer } from "./server.js";
 
 const HTTP_REQUEST_TIMEOUT_MS = 30_000;
@@ -73,6 +73,10 @@ export function createHttpApp(
 
   app.get("/.well-known/mcp/server-card.json", (_req, res) => {
     res.json(createServerCard(config));
+  });
+
+  app.get("/.well-known/glama.json", (_req, res) => {
+    res.json(createGlamaConnectorClaim());
   });
 
   app.post("/mcp", express.json({ limit: MCP_BODY_LIMIT }), async (req, res) => {

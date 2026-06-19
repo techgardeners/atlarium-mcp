@@ -157,6 +157,25 @@ describe("HTTP app", () => {
     });
   });
 
+  it("serves the Glama connector claim file", async () => {
+    const app = createHttpApp(testConfig());
+
+    await withServer(app, async (baseUrl) => {
+      const response = await fetch(`${baseUrl}/.well-known/glama.json`);
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get("content-type")).toContain("application/json");
+      await expect(response.json()).resolves.toEqual({
+        $schema: "https://glama.ai/mcp/schemas/connector.json",
+        maintainers: [
+          {
+            email: "info@techgardeners.com",
+          },
+        ],
+      });
+    });
+  });
+
   it("sets security headers without leaking Express fingerprinting", async () => {
     const app = createHttpApp(testConfig());
 

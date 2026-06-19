@@ -21,6 +21,18 @@ export const mcpLongDescription =
 export const mcpHomepageUrl = "https://atlarium.bio";
 export const mcpDocumentationUrl = "https://atlarium.bio/mcp";
 export const mcpRepositoryUrl = "https://github.com/techgardeners/atlarium-mcp";
+export const mcpMaintainerEmail = "info@techgardeners.com";
+
+export function createGlamaConnectorClaim() {
+  return {
+    $schema: "https://glama.ai/mcp/schemas/connector.json",
+    maintainers: [
+      {
+        email: mcpMaintainerEmail,
+      },
+    ],
+  };
+}
 
 export function createServerCard(config: RuntimeConfig) {
   const endpoint = new URL("/mcp", config.publicBaseUrl).href;
