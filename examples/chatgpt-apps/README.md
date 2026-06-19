@@ -11,9 +11,9 @@ https://mcp.atlarium.bio/mcp
 Use this when preparing a ChatGPT Apps or connector submission. Do not claim
 public ChatGPT availability until review is complete.
 
-This package covers submission metadata, tests, screenshots and safety notes.
-New ChatGPT App UI implementation remains owned by the main UI thread. Public
-ChatGPT availability still depends on OpenAI review.
+This package covers the implemented Habitat Explorer widget, submission
+metadata, tests, screenshots and safety notes. Public ChatGPT availability still
+depends on OpenAI review.
 
 ## App Surface
 
@@ -21,6 +21,7 @@ ChatGPT availability still depends on OpenAI review.
 - Widget name: Atlarium Habitat Explorer.
 - Widget resource URI: `ui://widget/habitat-explorer.v1.html`.
 - Widget MIME type: `text/html;profile=mcp-app`.
+- Widget source: `src/apps/habitat-explorer.ts`.
 - Tool metadata: `_meta.ui.resourceUri` plus the ChatGPT compatibility alias
   `_meta["openai/outputTemplate"]`.
 - Safety: public, read-only, auth `none`, no user/workspace/admin/write tools.
@@ -63,10 +64,10 @@ livestock, equipment, water chemistry and local husbandry constraints.
 - ChatGPT connector creation with `https://mcp.atlarium.bio/mcp`.
 - Refreshed connector metadata showing the Atlarium tools.
 - Endpoint scan showing the 11 expected read-only tools.
-- Habitat Explorer widget rendering a fish search result, after the UI thread is ready.
-- Habitat Explorer widget rendering a fish or plant profile, after the UI thread is ready.
-- Compatibility panel for a community species pair, after the UI thread is ready.
-- Tank suggestion panel for a planted freshwater aquarium, after the UI thread is ready.
+- Habitat Explorer widget rendering a fish search result.
+- Habitat Explorer widget rendering a fish or plant profile.
+- Compatibility panel for a community species pair.
+- Tank suggestion panel for a planted freshwater aquarium.
 - Safety/privacy notes visible in the submission form.
 - Privacy policy URL resolving HTTP 200.
 
