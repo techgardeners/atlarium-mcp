@@ -51,6 +51,10 @@ describe("publication metadata", () => {
       endpoint: "https://mcp.atlarium.bio/mcp",
       name: mcpDisplayName,
       readOnly: true,
+      capabilities: {
+        resources: true,
+        tools: true,
+      },
       title: mcpTitle,
       transport: {
         type: "streamable-http",

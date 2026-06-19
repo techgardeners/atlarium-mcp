@@ -44,6 +44,20 @@ The server consumes the public read-only Atlarium data provider:
 
 The server uses MCP Streamable HTTP via `@modelcontextprotocol/sdk`.
 
+## ChatGPT App Widget
+
+The server also exposes a read-only MCP Apps / ChatGPT Apps widget resource:
+
+- Resource URI: `ui://widget/habitat-explorer.v1.html`
+- MIME type: `text/html;profile=mcp-app`
+- Title: `Atlarium Habitat Explorer`
+
+The widget renders structured tool results as habitat cards, profiles,
+compatibility summaries and tank suggestions. Tool responses keep plain JSON
+text content for generic MCP clients and also include `structuredContent` for
+Apps-compatible hosts. Tools link to the widget with `_meta.ui.resourceUri` and
+the ChatGPT compatibility alias `_meta["openai/outputTemplate"]`.
+
 ## Tools
 
 - `search_fish`: search fish and aquatic animal profiles in the Atlarium habitat database.
@@ -59,7 +73,8 @@ The server uses MCP Streamable HTTP via `@modelcontextprotocol/sdk`.
 - `get_guide`: get a structured guide.
 
 All tools are read-only and have `readOnlyHint: true`, `destructiveHint: false`
-and `idempotentHint: true`.
+and `idempotentHint: true`. No additional write, auth, user, workspace or admin
+tools are added for the ChatGPT App.
 
 ## Security
 
@@ -106,6 +121,16 @@ Conformance:
 ```bash
 pnpm mcp:conformance
 ```
+
+Widget resource smoke:
+
+```bash
+npx @modelcontextprotocol/inspector@latest --server-url http://localhost:43118/mcp --transport http
+```
+
+In the inspector, confirm `resources/list` includes
+`ui://widget/habitat-explorer.v1.html` and `resources/read` returns HTML with
+MIME type `text/html;profile=mcp-app`.
 
 The conformance script runs the core, tools and DNS rebinding scenarios that
 match this server's declared capabilities. The upstream active suite also

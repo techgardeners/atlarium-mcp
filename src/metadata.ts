@@ -1,5 +1,9 @@
 import { z } from "zod";
 
+import {
+  habitatExplorerMimeType,
+  habitatExplorerResourceUri,
+} from "./apps/habitat-explorer.js";
 import type { RuntimeConfig } from "./config.js";
 import { toolDefinitions } from "./tools.js";
 
@@ -44,7 +48,7 @@ export function createServerCard(config: RuntimeConfig) {
     },
     capabilities: {
       tools: true,
-      resources: false,
+      resources: true,
       prompts: false,
     },
     categories: [
@@ -62,7 +66,19 @@ export function createServerCard(config: RuntimeConfig) {
       description: tool.description,
       readOnly: tool.readOnly,
       inputSchema: z.toJSONSchema(tool.schema),
+      outputSchema: tool.outputSchema ? z.toJSONSchema(tool.outputSchema) : undefined,
+      _meta: tool.appMeta,
     })),
+    resources: [
+      {
+        name: "atlarium-habitat-explorer",
+        title: "Atlarium Habitat Explorer",
+        uri: habitatExplorerResourceUri,
+        mimeType: habitatExplorerMimeType,
+        description:
+          "Interactive read-only ChatGPT App widget for habitat results, profiles, compatibility and tank suggestions.",
+      },
+    ],
     privacy: {
       exposesUserData: false,
       exposesWorkspaceData: false,

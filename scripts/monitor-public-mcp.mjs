@@ -23,6 +23,8 @@ const expectedTools = [
   "search_guides",
   "get_guide",
 ];
+const expectedResourceUri = "ui://widget/habitat-explorer.v1.html";
+const expectedResourceMimeType = "text/html;profile=mcp-app";
 
 const forbiddenToolPattern =
   /(workspace|auth|admin|user|write|delete|create|update|secret|token)/i;
@@ -85,7 +87,12 @@ async function checkServerCard() {
   assert(card.transport?.url === endpoint, `server-card transport.url is ${card.transport?.url}`);
   assert(card.readOnly === true, "server-card readOnly is not true");
   assert(card.capabilities?.tools === true, "server-card capabilities.tools is not true");
+  assert(
+    card.capabilities?.resources === true,
+    "server-card capabilities.resources is not true",
+  );
   assert(Array.isArray(card.tools), "server-card tools is not an array");
+  assert(Array.isArray(card.resources), "server-card resources is not an array");
 
   const toolNames = card.tools.map((tool) => tool.name);
   assertToolSurface(toolNames);
@@ -97,7 +104,14 @@ async function checkServerCard() {
     `server-card non-read-only tools: ${nonReadOnlyTools.join(", ")}`,
   );
 
-  return `${toolNames.length} read-only tools`;
+  const widget = card.resources.find((resource) => resource.uri === expectedResourceUri);
+  assert(widget, `server-card missing ${expectedResourceUri}`);
+  assert(
+    widget.mimeType === expectedResourceMimeType,
+    `widget mime type is ${widget.mimeType}`,
+  );
+
+  return `${toolNames.length} read-only tools, widget resource advertised`;
 }
 
 async function checkMcpSession() {
@@ -109,10 +123,29 @@ async function checkMcpSession() {
 
   try {
     await client.connect(transport);
+    const resourcesResult = await client.listResources();
+    const widget = resourcesResult.resources.find(
+      (resource) => resource.uri === expectedResourceUri,
+    );
+    assert(widget, `resources/list missing ${expectedResourceUri}`);
+    assert(
+      widget.mimeType === expectedResourceMimeType,
+      `resources/list widget mime type is ${widget.mimeType}`,
+    );
+    const widgetResult = await client.readResource({ uri: expectedResourceUri });
+    const html = widgetResult.contents.find(
+      (content) => content.mimeType === expectedResourceMimeType && "text" in content,
+    );
+    assert(html, "resources/read did not return widget HTML");
+    assert(
+      html.text.includes("Atlarium Habitat Explorer"),
+      "widget HTML missing app title",
+    );
+
     const toolsResult = await client.listTools();
     const toolNames = toolsResult.tools.map((tool) => tool.name);
     assertToolSurface(toolNames);
-    return `${toolNames.length} tools from JSON-RPC tools/list`;
+    return `${toolNames.length} tools and widget resource from JSON-RPC`;
   } finally {
     await client.close();
   }

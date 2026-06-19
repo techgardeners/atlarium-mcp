@@ -84,6 +84,20 @@ All tools are read-only. Compatibility checks and tank suggestions are advisory
 and should be verified against real livestock, equipment, water chemistry and
 husbandry constraints.
 
+## ChatGPT App Widget
+
+The server includes a read-only MCP Apps / ChatGPT Apps widget resource for
+Apps-compatible hosts:
+
+- resource URI: `ui://widget/habitat-explorer.v1.html`
+- MIME type: `text/html;profile=mcp-app`
+- widget: `Atlarium Habitat Explorer`
+
+Tool responses keep plain JSON text for generic MCP clients and also return
+`structuredContent` for the widget. The tool metadata links the widget with
+`_meta.ui.resourceUri` and the ChatGPT compatibility alias
+`_meta["openai/outputTemplate"]`.
+
 ## Smoke Checks
 
 Health:

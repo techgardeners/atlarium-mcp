@@ -1,5 +1,6 @@
-import { ZodError, type z } from "zod";
+import { ZodError, z } from "zod";
 
+import { habitatExplorerToolMeta } from "./apps/habitat-explorer.js";
 import { AtlariumApiClient } from "./atlarium-api.js";
 import { errorMessage } from "./errors.js";
 import { log } from "./logger.js";
@@ -19,11 +20,21 @@ import {
 type ToolSchema = z.ZodObject<z.ZodRawShape>;
 type ToolInput = Record<string, unknown>;
 
+export const appToolOutputSchema = z
+  .object({
+    data: z.unknown(),
+    generated_at: z.string(),
+    tool: z.string(),
+  })
+  .strict();
+
 export type ToolDefinition = {
   name: string;
   title: string;
   description: string;
   schema: ToolSchema;
+  outputSchema?: typeof appToolOutputSchema;
+  appMeta?: Record<string, unknown>;
   readOnly: true;
   handler: (api: AtlariumApiClient, input: ToolInput) => Promise<unknown>;
 };
@@ -35,6 +46,8 @@ export const toolDefinitions = [
     description:
       "Search fish and aquatic animal profiles in the Atlarium habitat database.",
     schema: searchFishSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) => api.searchFish(searchFishSchema.parse(input)),
   },
@@ -44,6 +57,8 @@ export const toolDefinitions = [
     description:
       "Get a structured fish or aquatic animal profile from the Atlarium habitat database.",
     schema: getProfileSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) => api.getFishProfile(getProfileSchema.parse(input)),
   },
@@ -52,6 +67,8 @@ export const toolDefinitions = [
     title: "Search plants",
     description: "Search aquatic plants in the Atlarium database.",
     schema: searchPlantsSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) => api.searchPlants(searchPlantsSchema.parse(input)),
   },
@@ -60,6 +77,8 @@ export const toolDefinitions = [
     title: "Get plant profile",
     description: "Get a structured aquatic plant profile.",
     schema: getProfileSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) => api.getPlantProfile(getProfileSchema.parse(input)),
   },
@@ -69,6 +88,8 @@ export const toolDefinitions = [
     description:
       "Search habitat products for aquariums, terrariums and related systems in the Atlarium database.",
     schema: searchProductsSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) => api.searchProducts(searchProductsSchema.parse(input)),
   },
@@ -77,6 +98,8 @@ export const toolDefinitions = [
     title: "Get product profile",
     description: "Get a structured habitat product profile.",
     schema: getPathProfileSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) => api.getProductProfile(getPathProfileSchema.parse(input)),
   },
@@ -86,6 +109,8 @@ export const toolDefinitions = [
     description:
       "Check basic compatibility information between habitat species using Atlarium data.",
     schema: compatibilitySchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) =>
       api.checkSpeciesCompatibility(compatibilitySchema.parse(input)),
@@ -96,6 +121,8 @@ export const toolDefinitions = [
     description:
       "Get recommended water parameters for an aquatic species or plant.",
     schema: waterParametersSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) =>
       api.getWaterParameters(waterParametersSchema.parse(input)),
@@ -106,6 +133,8 @@ export const toolDefinitions = [
     description:
       "Suggest compatible aquatic species based on tank size and water parameters.",
     schema: suggestionsSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) =>
       api.suggestSpeciesForTank(suggestionsSchema.parse(input)),
@@ -115,6 +144,8 @@ export const toolDefinitions = [
     title: "Search guides",
     description: "Search Atlarium habitat guides and educational content.",
     schema: searchGuidesSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) => api.searchGuides(searchGuidesSchema.parse(input)),
   },
@@ -123,6 +154,8 @@ export const toolDefinitions = [
     title: "Get guide",
     description: "Get a structured guide from Atlarium.",
     schema: getPathProfileSchema,
+    outputSchema: appToolOutputSchema,
+    appMeta: habitatExplorerToolMeta,
     readOnly: true,
     handler: (api, input) => api.getGuide(getPathProfileSchema.parse(input)),
   },
@@ -130,6 +163,7 @@ export const toolDefinitions = [
 
 export function toolJson(value: unknown) {
   return {
+    structuredContent: value,
     content: [{ type: "text" as const, text: jsonText(value) }],
   };
 }
@@ -153,12 +187,20 @@ export async function runTool(
   const startedAt = Date.now();
   try {
     const value = await handler();
+    const structuredContent = {
+      data: value,
+      generated_at: new Date().toISOString(),
+      tool: name,
+    };
     log("info", "mcp_tool_call", {
       tool: name,
       duration_ms: Date.now() - startedAt,
       status: "ok",
     });
-    return toolJson(value);
+    return {
+      structuredContent,
+      content: [{ type: "text" as const, text: jsonText(value) }],
+    };
   } catch (error) {
     log("warn", "mcp_tool_call", {
       tool: name,

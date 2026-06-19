@@ -117,7 +117,7 @@ describe("HTTP app", () => {
         },
         capabilities: {
           prompts: false,
-          resources: false,
+          resources: true,
           tools: true,
         },
         endpoint: "https://mcp.atlarium.bio/mcp",
@@ -129,13 +129,29 @@ describe("HTTP app", () => {
         },
       });
       expect(body.tools).toHaveLength(toolDefinitions.length);
+      expect(body.resources).toEqual([
+        expect.objectContaining({
+          mimeType: "text/html;profile=mcp-app",
+          name: "atlarium-habitat-explorer",
+          title: "Atlarium Habitat Explorer",
+          uri: "ui://widget/habitat-explorer.v1.html",
+        }),
+      ]);
       expect(body.tools.map((tool: { name: string }) => tool.name)).toEqual(
         toolDefinitions.map((tool) => tool.name),
       );
       expect(
         body.tools.every(
-          (tool: { inputSchema?: { additionalProperties?: boolean } }) =>
-            tool.inputSchema?.additionalProperties === false,
+          (tool: {
+            _meta?: { ui?: { resourceUri?: string }; "openai/outputTemplate"?: string };
+            inputSchema?: { additionalProperties?: boolean };
+            outputSchema?: unknown;
+          }) =>
+            tool.inputSchema?.additionalProperties === false &&
+            tool.outputSchema &&
+            tool._meta?.ui?.resourceUri === "ui://widget/habitat-explorer.v1.html" &&
+            tool._meta?.["openai/outputTemplate"] ===
+              "ui://widget/habitat-explorer.v1.html",
         ),
       ).toBe(true);
     });

@@ -30,6 +30,9 @@ Last updated: 2026-06-19
 - Official MCP Registry publish succeeded for `bio.atlarium/habitat-database`.
 - GitHub Actions monitors are active for public MCP health/server-card/tools-list
   and daily directory/registry discovery checks.
+- ChatGPT App widget resource is implemented as
+  `ui://widget/habitat-explorer.v1.html` with MIME type
+  `text/html;profile=mcp-app`.
 
 Remaining publication prerequisites:
 
@@ -151,13 +154,29 @@ Run `initialize`, `tools/list` and one controlled `tools/call` for each tool:
 
 Confirm no workspace, auth, admin, user or write tools are listed.
 
+Confirm the ChatGPT App resource:
+
+```bash
+npx @modelcontextprotocol/inspector@latest --server-url https://mcp.atlarium.bio/mcp --transport http
+```
+
+Expected:
+
+- `resources/list` contains `ui://widget/habitat-explorer.v1.html`.
+- `resources/read` returns the Habitat Explorer HTML resource.
+- Visual tools include `_meta.ui.resourceUri` and
+  `_meta["openai/outputTemplate"]`.
+- Tool responses still include text JSON content and now also include
+  `structuredContent`.
+
 7. Keep production monitoring active.
 
 The repository contains two GitHub Actions workflows:
 
 - `.github/workflows/public-mcp-monitor.yml` runs every 30 minutes and verifies
   docs, health, server-card validity, `GET /mcp` 405 behavior, JSON-RPC
-  initialize and `tools/list` with the expected 11 read-only tools.
+  initialize, `tools/list` with the expected 11 read-only tools and the
+  ChatGPT App widget resource.
 - `.github/workflows/mcp-directory-audit.yml` runs daily and checks public docs,
   health, server-card, MCP GET behavior and Official MCP Registry presence.
 

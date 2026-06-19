@@ -1,5 +1,10 @@
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
+import {
+  habitatExplorerHtml,
+  habitatExplorerResourceMeta,
+  habitatExplorerResourceUri,
+} from "./apps/habitat-explorer.js";
 import { AtlariumApiClient } from "./atlarium-api.js";
 import type { RuntimeConfig } from "./config.js";
 import { runTool, toolDefinitions } from "./tools.js";
@@ -16,9 +21,25 @@ export function createAtlariumMcpServer(
     {
       capabilities: {
         tools: {},
+        resources: {},
         logging: {},
       },
     },
+  );
+
+  server.registerResource(
+    "atlarium-habitat-explorer",
+    habitatExplorerResourceUri,
+    habitatExplorerResourceMeta,
+    (uri) => ({
+      contents: [
+        {
+          uri: uri.href,
+          mimeType: habitatExplorerResourceMeta.mimeType,
+          text: habitatExplorerHtml(),
+        },
+      ],
+    }),
   );
 
   for (const tool of toolDefinitions) {
@@ -28,11 +49,13 @@ export function createAtlariumMcpServer(
         title: tool.title,
         description: tool.description,
         inputSchema: tool.schema.shape,
+        outputSchema: tool.outputSchema,
         annotations: {
           readOnlyHint: true,
           destructiveHint: false,
           idempotentHint: true,
         },
+        _meta: tool.appMeta,
       },
       async (input: Record<string, unknown>) =>
         runTool(tool.name, () => tool.handler(api, input)),
