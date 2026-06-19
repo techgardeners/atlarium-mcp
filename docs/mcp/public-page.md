@@ -43,6 +43,17 @@ Repository:
 https://github.com/techgardeners/atlarium-mcp
 ```
 
+## Installation Guides
+
+- OpenAI Agents SDK: https://atlarium.bio/mcp/openai-agents
+- Claude Code: https://atlarium.bio/mcp/claude
+- Cursor: https://atlarium.bio/mcp/cursor
+- Windsurf: https://atlarium.bio/mcp/windsurf
+- VS Code: https://atlarium.bio/mcp/vscode
+- Antigravity: https://atlarium.bio/mcp/antigravity
+- Smithery status: https://atlarium.bio/mcp/smithery
+- ChatGPT Apps preparation: https://atlarium.bio/mcp/chatgpt
+
 ## What It Provides
 
 - Fish and aquatic animal profiles

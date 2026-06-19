@@ -1,6 +1,7 @@
 # Atlarium MCP Publication Checklist
 
 Date prepared: 2026-06-16
+Last updated: 2026-06-19
 
 ## Target
 
@@ -21,7 +22,9 @@ Date prepared: 2026-06-16
 - `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` returns public JSON.
 - `https://mcp.atlarium.bio/mcp` is the canonical Streamable HTTP endpoint.
 - `https://atlarium.bio/mcp` returns the public human documentation page.
+- `https://atlarium.bio/mcp/*` client setup pages are implemented for OpenAI Agents SDK, Claude Code, Cursor, Windsurf, VS Code, Antigravity, Smithery status and ChatGPT Apps preparation.
 - `https://atlarium.bio/llms.txt` includes the MCP discovery section.
+- GitHub repo metadata, README, MIT license, contributing/security notes and client examples are ready.
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
 - `pnpm mcp:validate:public` verifies all 11 read-only tools with real public calls.
 - Official MCP Registry publish succeeded for `bio.atlarium/habitat-database`.
@@ -32,6 +35,27 @@ Remaining publication prerequisites:
 - PulseMCP ingests the Official MCP Registry; email them only if the listing is
   missing after their processing window.
 - MCP.so submission has been posted through the public GitHub issue flow.
+
+Repository production assets:
+
+- `LICENSE`
+- `CONTRIBUTING.md`
+- `SECURITY.md`
+- `.github/ISSUE_TEMPLATE/*`
+- `examples/openai-agents-python`
+- `examples/claude-code`
+- `examples/cursor`
+- `examples/windsurf`
+- `examples/vscode`
+- `examples/antigravity`
+- `examples/chatgpt-apps`
+- `examples/generic-streamable-http`
+
+GitHub repository settings:
+
+- Description: `Public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data.`
+- Homepage: `https://atlarium.bio/mcp`
+- Topics: `mcp`, `model-context-protocol`, `streamable-http`, `aquarium`, `marine`, `terrarium`, `paludarium`, `ai-agents`, `habitat-data`
 
 ## Production Deployment
 

@@ -1,23 +1,120 @@
 # Atlarium Habitat Database MCP
 
-Public read-only MCP server for structured aquarium, marine, terrarium and
-paludarium habitat data.
+Structured aquarium, marine, terrarium and paludarium data for AI agents.
 
-Atlarium Habitat Database MCP gives AI agents structured access to Atlarium data
-for aquariums, marine tanks, coldwater systems, terrariums, paludariums and
-vivariums. It exposes animals, plants, products, care requirements,
-environmental parameters, compatibility information, guides and habitat planning
-tools from Atlarium.bio.
+Atlarium Habitat Database MCP is a public read-only MCP server that gives AI
+agents structured access to Atlarium habitat data. It exposes public tools for
+species, plants, products, water parameters, compatibility checks, guides and
+habitat planning without exposing Atlarium accounts, workspaces, admin APIs or
+write operations.
 
-## Public Surface
+## Public Endpoint
 
-- MCP endpoint: `https://mcp.atlarium.bio/mcp`
-- Healthcheck: `https://mcp.atlarium.bio/health`
-- Server card: `https://mcp.atlarium.bio/.well-known/mcp/server-card.json`
-- Human documentation: `https://atlarium.bio/mcp`
-- Registry metadata: `server.json`
+| Surface | URL |
+|---|---|
+| MCP endpoint | `https://mcp.atlarium.bio/mcp` |
+| Healthcheck | `https://mcp.atlarium.bio/health` |
+| Server card | `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` |
+| Human docs | `https://atlarium.bio/mcp` |
+| Official MCP Registry | `bio.atlarium/habitat-database` |
 
-`https://atlarium.bio/mcp` is documentation, not the canonical MCP endpoint.
+`https://atlarium.bio/mcp` is documentation. The canonical Streamable HTTP MCP
+endpoint is `https://mcp.atlarium.bio/mcp`.
+
+## Client Setup
+
+Compatible with MCP clients that support remote Streamable HTTP MCP servers. Do
+not describe this server as officially supported by ChatGPT, Claude, Cursor,
+Windsurf, VS Code, Antigravity or any directory unless that vendor has accepted
+the listing.
+
+Client-specific examples live in `examples/`:
+
+- `examples/openai-agents-python`
+- `examples/claude-code`
+- `examples/cursor`
+- `examples/windsurf`
+- `examples/vscode`
+- `examples/antigravity`
+- `examples/chatgpt-apps`
+- `examples/generic-streamable-http`
+
+Quick examples:
+
+```bash
+claude mcp add --transport http atlarium https://mcp.atlarium.bio/mcp
+```
+
+```json
+{
+  "mcpServers": {
+    "atlarium": {
+      "url": "https://mcp.atlarium.bio/mcp"
+    }
+  }
+}
+```
+
+```json
+{
+  "servers": {
+    "atlarium": {
+      "type": "http",
+      "url": "https://mcp.atlarium.bio/mcp"
+    }
+  }
+}
+```
+
+## Tools
+
+- `search_fish`
+- `get_fish_profile`
+- `search_plants`
+- `get_plant_profile`
+- `search_products`
+- `get_product_profile`
+- `check_species_compatibility`
+- `get_water_parameters`
+- `suggest_species_for_tank`
+- `search_guides`
+- `get_guide`
+
+All tools are read-only. Compatibility checks and tank suggestions are advisory
+and should be verified against real livestock, equipment, water chemistry and
+husbandry constraints.
+
+## Smoke Checks
+
+Health:
+
+```bash
+curl --fail --silent --show-error https://mcp.atlarium.bio/health
+```
+
+Server card:
+
+```bash
+curl --fail --silent --show-error \
+  https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+```
+
+Initialize:
+
+```bash
+curl --fail --silent --show-error \
+  -H 'Content-Type: application/json' \
+  -H 'Accept: application/json, text/event-stream' \
+  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"curl","version":"0.0.1"}}}' \
+  https://mcp.atlarium.bio/mcp
+```
+
+Full public validation:
+
+```bash
+pnpm mcp:validate:public
+pnpm mcp:conformance:public
+```
 
 ## Local Development
 
@@ -28,12 +125,6 @@ pnpm dev
 ```
 
 By default the server listens on `http://localhost:43118`.
-
-Useful endpoints:
-
-- `GET /health`
-- `GET /.well-known/mcp/server-card.json`
-- `POST /mcp`
 
 Local development against the Atlarium app:
 
@@ -54,28 +145,28 @@ Production deployments must run behind a TLS-terminating reverse proxy or
 Ingress that overwrites `X-Forwarded-For`, `X-Forwarded-Host` and
 `X-Forwarded-Proto` before traffic reaches this server.
 
-## Tools
+## Publication And Directories
 
-- `search_fish`
-- `get_fish_profile`
-- `search_plants`
-- `get_plant_profile`
-- `search_products`
-- `get_product_profile`
-- `check_species_compatibility`
-- `get_water_parameters`
-- `suggest_species_for_tank`
-- `search_guides`
-- `get_guide`
+Publication tracking and reusable submission copy live in
+`docs/publication-checklist.md`.
 
-All tools are read-only. This repository does not contain Atlarium private app
-code and does not access workspace, user, admin or write APIs.
+Generate directory payloads:
+
+```bash
+pnpm directories:submit -- --payload
+```
+
+Check live discovery:
+
+```bash
+pnpm directories:submit -- --check
+```
 
 ## Kubernetes
 
 Kubernetes manifests live in `deploy/kubernetes`.
 
-Atlarium deployment is driven by the local pipeline, not GitHub Actions:
+Preferred Atlarium local pipeline:
 
 ```bash
 pnpm pipeline:local
@@ -84,34 +175,7 @@ PUSH_IMAGE=true DEPLOY_KUBERNETES=true pnpm pipeline:local
 PUSH_IMAGE=true DEPLOY_KUBERNETES=true VALIDATE_PUBLIC=true pnpm pipeline:local
 ```
 
-The local pipeline builds `linux/amd64` by default because Spartaco runs amd64
-nodes. Override with `PLATFORM=...` only for a different runtime target.
-
-Spartaco can also be deployed directly over SSH, matching the existing Atlarium
-operations style:
-
-```bash
-pnpm deploy:spartaco
-```
-
-```bash
-kubectl apply -k deploy/kubernetes
-kubectl -n atlarium-mcp rollout status deployment/atlarium-mcp
-```
-
-Default production env:
-
-```bash
-NODE_ENV=production
-MCP_PUBLIC_BASE_URL=https://mcp.atlarium.bio
-ATLARIUM_API_BASE_URL=https://atlarium.bio/api/public/mcp/v1
-MCP_ALLOWED_HOSTS=mcp.atlarium.bio,atlarium.bio
-MCP_TRUST_PROXY=1
-```
-
-The image is published as `ghcr.io/techgardeners/atlarium-mcp`. Atlarium can
-override this to its internal registry in the Kubernetes kustomization or CI
-deployment workflow.
+The image is published as `ghcr.io/techgardeners/atlarium-mcp`.
 
 ## Quality Gate
 
@@ -133,17 +197,21 @@ pnpm mcp:conformance
 With production DNS and TLS live:
 
 ```bash
-npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario server-initialize
-npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp --scenario tools-list
+pnpm mcp:conformance:public
 pnpm mcp:validate:public
 ```
 
-## Publication
+## Contributing
 
-The preferred Official MCP Registry namespace is
-`bio.atlarium/habitat-database` once DNS ownership for `atlarium.bio` is
-verified. The fallback namespace is
-`io.github.techgardeners/atlarium-habitat-database`.
+See `CONTRIBUTING.md`. Public tool changes must update the server
+implementation, tests, server-card metadata, `server.json`, docs, examples and
+directory publication notes in the same release.
 
-Publication tracking and submission copy live in
-`docs/publication-checklist.md`.
+## Security
+
+See `SECURITY.md`. Do not report sensitive security issues in public GitHub
+issues.
+
+## License
+
+MIT. See `LICENSE`.

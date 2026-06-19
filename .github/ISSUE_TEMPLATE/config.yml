@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Security reports
+    url: https://atlarium.bio
+    about: Do not open public issues for sensitive security reports.
