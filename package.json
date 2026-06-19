@@ -2,7 +2,27 @@
   "name": "atlarium-mcp",
   "version": "1.0.0",
   "description": "Public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data.",
+  "license": "MIT",
   "type": "module",
+  "homepage": "https://atlarium.bio/mcp",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/techgardeners/atlarium-mcp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/techgardeners/atlarium-mcp/issues"
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "streamable-http",
+    "aquarium",
+    "marine",
+    "terrarium",
+    "paludarium",
+    "habitat-data",
+    "ai-agents"
+  ],
   "engines": {
     "node": ">=22.0.0"
   },

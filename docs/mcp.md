@@ -127,6 +127,33 @@ npx @modelcontextprotocol/conformance server --url https://mcp.atlarium.bio/mcp 
 Also run a real `tools/call` check for each registered tool and verify that no
 workspace, auth, admin or write tool appears in `tools/list`.
 
+## Client Installation Examples
+
+Production setup examples live in `examples/`:
+
+- OpenAI Agents SDK: `examples/openai-agents-python`
+- Claude Code: `examples/claude-code`
+- Cursor: `examples/cursor`
+- Windsurf: `examples/windsurf`
+- VS Code: `examples/vscode`
+- Antigravity: `examples/antigravity`
+- ChatGPT Apps submission notes: `examples/chatgpt-apps`
+- Generic Streamable HTTP checks: `examples/generic-streamable-http`
+
+The public docs mirror these examples:
+
+- https://atlarium.bio/mcp/openai-agents
+- https://atlarium.bio/mcp/claude
+- https://atlarium.bio/mcp/cursor
+- https://atlarium.bio/mcp/windsurf
+- https://atlarium.bio/mcp/vscode
+- https://atlarium.bio/mcp/antigravity
+- https://atlarium.bio/mcp/smithery
+- https://atlarium.bio/mcp/chatgpt
+
+Do not add directory badges or official client-support claims until the external
+listing or approval is visible.
+
 ## Adding Tools
 
 1. Add input schema in `src/schemas.ts`.
