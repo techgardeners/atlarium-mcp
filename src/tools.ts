@@ -7,6 +7,7 @@ import { jsonText } from "./serialization.js";
 import {
   compatibilitySchema,
   getProfileSchema,
+  getPathProfileSchema,
   searchFishSchema,
   searchGuidesSchema,
   searchPlantsSchema,
@@ -31,7 +32,8 @@ export const toolDefinitions = [
   {
     name: "search_fish",
     title: "Search fish",
-    description: "Search freshwater aquarium fish in the Atlarium database.",
+    description:
+      "Search fish and aquatic animal profiles in the Atlarium habitat database.",
     schema: searchFishSchema,
     readOnly: true,
     handler: (api, input) => api.searchFish(searchFishSchema.parse(input)),
@@ -39,7 +41,8 @@ export const toolDefinitions = [
   {
     name: "get_fish_profile",
     title: "Get fish profile",
-    description: "Get a structured freshwater aquarium fish profile.",
+    description:
+      "Get a structured fish or aquatic animal profile from the Atlarium habitat database.",
     schema: getProfileSchema,
     readOnly: true,
     handler: (api, input) => api.getFishProfile(getProfileSchema.parse(input)),
@@ -63,7 +66,8 @@ export const toolDefinitions = [
   {
     name: "search_products",
     title: "Search products",
-    description: "Search aquarium products available in the Atlarium database.",
+    description:
+      "Search habitat products for aquariums, terrariums and related systems in the Atlarium database.",
     schema: searchProductsSchema,
     readOnly: true,
     handler: (api, input) => api.searchProducts(searchProductsSchema.parse(input)),
@@ -71,16 +75,16 @@ export const toolDefinitions = [
   {
     name: "get_product_profile",
     title: "Get product profile",
-    description: "Get a structured aquarium product profile.",
-    schema: getProfileSchema,
+    description: "Get a structured habitat product profile.",
+    schema: getPathProfileSchema,
     readOnly: true,
-    handler: (api, input) => api.getProductProfile(getProfileSchema.parse(input)),
+    handler: (api, input) => api.getProductProfile(getPathProfileSchema.parse(input)),
   },
   {
     name: "check_species_compatibility",
     title: "Check species compatibility",
     description:
-      "Check basic compatibility information between aquarium species using Atlarium data.",
+      "Check basic compatibility information between habitat species using Atlarium data.",
     schema: compatibilitySchema,
     readOnly: true,
     handler: (api, input) =>
@@ -89,7 +93,8 @@ export const toolDefinitions = [
   {
     name: "get_water_parameters",
     title: "Get water parameters",
-    description: "Get recommended water parameters for a species or plant.",
+    description:
+      "Get recommended water parameters for an aquatic species or plant.",
     schema: waterParametersSchema,
     readOnly: true,
     handler: (api, input) =>
@@ -99,7 +104,7 @@ export const toolDefinitions = [
     name: "suggest_species_for_tank",
     title: "Suggest species for tank",
     description:
-      "Suggest freshwater aquarium species based on tank size and water parameters.",
+      "Suggest compatible aquatic species based on tank size and water parameters.",
     schema: suggestionsSchema,
     readOnly: true,
     handler: (api, input) =>
@@ -108,7 +113,7 @@ export const toolDefinitions = [
   {
     name: "search_guides",
     title: "Search guides",
-    description: "Search Atlarium aquarium guides and educational content.",
+    description: "Search Atlarium habitat guides and educational content.",
     schema: searchGuidesSchema,
     readOnly: true,
     handler: (api, input) => api.searchGuides(searchGuidesSchema.parse(input)),
@@ -117,9 +122,9 @@ export const toolDefinitions = [
     name: "get_guide",
     title: "Get guide",
     description: "Get a structured guide from Atlarium.",
-    schema: getProfileSchema,
+    schema: getPathProfileSchema,
     readOnly: true,
-    handler: (api, input) => api.getGuide(getProfileSchema.parse(input)),
+    handler: (api, input) => api.getGuide(getPathProfileSchema.parse(input)),
   },
 ] satisfies ToolDefinition[];
 

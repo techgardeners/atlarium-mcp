@@ -1,9 +1,13 @@
 {
-  "name": "bio.atlarium/aquarium-database",
-  "title": "Atlarium Aquarium Database",
-  "description": "A freshwater aquarium MCP server for fish, aquatic plants, water parameters, compatibility data and aquarium planning tools.",
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "bio.atlarium/habitat-database",
+  "title": "Atlarium Habitat Database MCP",
+  "description": "Structured aquarium, marine, terrarium and paludarium data for AI agents.",
+  "repository": {
+    "source": "github",
+    "url": "https://github.com/techgardeners/atlarium-mcp"
+  },
   "version": "1.0.0",
-  "websiteUrl": "https://atlarium.bio",
   "remotes": [
     {
       "type": "streamable-http",

@@ -1,0 +1,8 @@
+{
+  "servers": {
+    "atlarium": {
+      "type": "http",
+      "url": "https://mcp.atlarium.bio/mcp"
+    }
+  }
+}

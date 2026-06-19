@@ -1,0 +1,33 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: atlarium-mcp
+  labels:
+    app.kubernetes.io/name: atlarium-mcp
+    app.kubernetes.io/part-of: atlarium
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/limit-rps: "30"
+    nginx.ingress.kubernetes.io/limit-burst-multiplier: "2"
+    nginx.ingress.kubernetes.io/proxy-body-size: "128k"
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "35"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "35"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "35"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - mcp.atlarium.bio
+      secretName: atlarium-tls
+  rules:
+    - host: mcp.atlarium.bio
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: atlarium-mcp
+                port:
+                  name: http

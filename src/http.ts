@@ -1,22 +1,46 @@
 import { createServer } from "node:http";
-import express from "express";
+import express, { type ErrorRequestHandler } from "express";
 import rateLimit from "express-rate-limit";
+import helmet from "helmet";
 import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js";
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 
 import type { RuntimeConfig } from "./config.js";
 import { log } from "./logger.js";
+import { createServerCard } from "./metadata.js";
 import { createAtlariumMcpServer } from "./server.js";
 
-export function createHttpApp(config: RuntimeConfig) {
+const HTTP_REQUEST_TIMEOUT_MS = 30_000;
+const HTTP_HEADERS_TIMEOUT_MS = 10_000;
+const HTTP_KEEP_ALIVE_TIMEOUT_MS = 5_000;
+const MCP_BODY_LIMIT = "128kb";
+
+type Closable = {
+  close: () => Promise<void> | void;
+};
+
+export type HttpAppDependencies = {
+  createMcpServer?: typeof createAtlariumMcpServer;
+  createTransport?: () => StreamableHTTPServerTransport;
+};
+
+export function createHttpApp(
+  config: RuntimeConfig,
+  dependencies: HttpAppDependencies = {},
+) {
   const app = createMcpExpressApp({
     host: config.host,
     allowedHosts: config.allowedHosts,
   });
 
   app.disable("x-powered-by");
-  app.set("trust proxy", 1);
-  app.use(express.json({ limit: "128kb" }));
+  app.set("trust proxy", config.trustProxy);
+  app.use(
+    helmet({
+      contentSecurityPolicy: false,
+      hsts: false,
+    }),
+  );
 
   if (config.MCP_RATE_LIMIT_ENABLED) {
     app.use(
@@ -47,15 +71,30 @@ export function createHttpApp(config: RuntimeConfig) {
     });
   });
 
-  app.post("/mcp", async (req, res) => {
+  app.get("/.well-known/mcp/server-card.json", (_req, res) => {
+    res.json(createServerCard(config));
+  });
+
+  app.post("/mcp", express.json({ limit: MCP_BODY_LIMIT }), async (req, res) => {
     const startedAt = Date.now();
-    const server = createAtlariumMcpServer(config);
-    const transport = new StreamableHTTPServerTransport({
-      sessionIdGenerator: undefined,
+    const mcpServer =
+      dependencies.createMcpServer?.(config) ?? createAtlariumMcpServer(config);
+    const transport =
+      dependencies.createTransport?.() ??
+      new StreamableHTTPServerTransport({
+        sessionIdGenerator: undefined,
+      });
+    const cleanup = createCleanup(mcpServer, transport);
+
+    res.once("finish", () => {
+      void cleanup();
+    });
+    res.once("close", () => {
+      void cleanup();
     });
 
     try {
-      await server.connect(transport);
+      await mcpServer.connect(transport);
       await transport.handleRequest(req, res, req.body);
       log("info", "mcp_request", {
         duration_ms: Date.now() - startedAt,
@@ -63,13 +102,8 @@ export function createHttpApp(config: RuntimeConfig) {
         path: req.path,
         status: "ok",
       });
-      res.on("close", () => {
-        void transport.close();
-        void server.close();
-      });
     } catch (error) {
-      await transport.close();
-      await server.close();
+      await cleanup();
       log("error", "mcp_request", {
         duration_ms: Date.now() - startedAt,
         method: req.method,
@@ -103,12 +137,33 @@ export function createHttpApp(config: RuntimeConfig) {
     });
   });
 
+  app.use((_req, res) => {
+    res.status(404).json({
+      error: "not_found",
+      message: "Not found.",
+    });
+  });
+
+  app.use(errorHandler);
+
   return app;
 }
 
 export function listen(config: RuntimeConfig) {
   const app = createHttpApp(config);
   const server = createServer(app);
+
+  server.requestTimeout = HTTP_REQUEST_TIMEOUT_MS;
+  server.headersTimeout = HTTP_HEADERS_TIMEOUT_MS;
+  server.keepAliveTimeout = HTTP_KEEP_ALIVE_TIMEOUT_MS;
+  server.timeout = HTTP_REQUEST_TIMEOUT_MS;
+
+  server.on("clientError", (error, socket) => {
+    log("warn", "http_client_error", { message: error.message });
+    if (!socket.writableEnded) {
+      socket.end("HTTP/1.1 400 Bad Request\r\nConnection: close\r\n\r\n");
+    }
+  });
 
   server.listen(config.MCP_PORT, config.host, () => {
     log("info", "mcp_started", {
@@ -120,4 +175,86 @@ export function listen(config: RuntimeConfig) {
   });
 
   return server;
+}
+
+function createCleanup(mcpServer: Closable, transport: Closable) {
+  let cleanupPromise: Promise<void> | undefined;
+
+  return () => {
+    cleanupPromise ??= Promise.allSettled([
+      closeQuietly("mcp_transport", transport),
+      closeQuietly("mcp_server", mcpServer),
+    ]).then(() => undefined);
+
+    return cleanupPromise;
+  };
+}
+
+async function closeQuietly(name: string, target: Closable) {
+  try {
+    await target.close();
+  } catch (error) {
+    log("warn", "mcp_cleanup_error", {
+      target: name,
+      message: error instanceof Error ? error.message : "Unknown cleanup error.",
+    });
+  }
+}
+
+const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
+  if (res.headersSent) {
+    next(error);
+    return;
+  }
+
+  const status = httpStatus(error);
+  log(status >= 500 ? "error" : "warn", "http_error", {
+    method: req.method,
+    path: req.path,
+    status,
+    message: error instanceof Error ? error.message : "Unknown HTTP error.",
+  });
+
+  if (status === 413) {
+    res.status(413).json({
+      error: "request_too_large",
+      message: "Request body is too large.",
+    });
+    return;
+  }
+
+  if (status === 400) {
+    res.status(400).json({
+      error: "invalid_json",
+      message: "Invalid JSON request body.",
+    });
+    return;
+  }
+
+  res.status(500).json({
+    error: "internal_server_error",
+    message: "Internal server error.",
+  });
+};
+
+function httpStatus(error: unknown) {
+  if (!error || typeof error !== "object") {
+    return 500;
+  }
+
+  const maybeStatus = "status" in error ? error.status : undefined;
+  if (typeof maybeStatus === "number" && maybeStatus >= 400 && maybeStatus < 500) {
+    return maybeStatus;
+  }
+
+  const maybeStatusCode = "statusCode" in error ? error.statusCode : undefined;
+  if (
+    typeof maybeStatusCode === "number" &&
+    maybeStatusCode >= 400 &&
+    maybeStatusCode < 500
+  ) {
+    return maybeStatusCode;
+  }
+
+  return 500;
 }
