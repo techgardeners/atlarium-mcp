@@ -1,6 +1,6 @@
 # Atlarium MCP Directory Submission Payloads
 
-Last verified: `2026-06-19T23:10:43Z`
+Last verified: `2026-06-19T23:21:28Z`
 
 Use these payloads for directory submission, claim and follow-up flows. Do not
 add directory badges or claim official support until the specific directory
@@ -133,7 +133,7 @@ https://glama.ai/mcp/connectors/bio.atlarium/habitat-database
 Status:
 
 ```text
-Indexed as a Glama MCP connector from the Official MCP Registry. Ownership claim is pending live deployment of the claim file.
+Indexed as a Glama MCP connector from the Official MCP Registry. The ownership claim file is live at `https://mcp.atlarium.bio/.well-known/glama.json`; complete the web claim flow if Glama still asks for manual confirmation.
 ```
 
 Claim file to serve from the MCP domain:
@@ -149,7 +149,7 @@ Claim file to serve from the MCP domain:
 }
 ```
 
-Live verification command after deployment:
+Live verification command:
 
 ```bash
 curl --fail --silent --show-error https://mcp.atlarium.bio/.well-known/glama.json

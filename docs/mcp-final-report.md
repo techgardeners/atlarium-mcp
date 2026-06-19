@@ -1,6 +1,6 @@
 # Atlarium MCP Final Report
 
-Report time: `2026-06-19T23:16:28Z`
+Report time: `2026-06-19T23:21:28Z`
 
 Scope: public Atlarium MCP block only. This report does not cover general
 Atlarium marketing, Product Hunt, aquarium communities, creator outreach, or
@@ -17,7 +17,7 @@ new ChatGPT App UI implementation.
 | Client docs | `/mcp/openai-agents`, `/mcp/claude`, `/mcp/cursor`, `/mcp/windsurf`, `/mcp/vscode`, `/mcp/antigravity`, `/mcp/smithery`, `/mcp/chatgpt` | HTTP 200 for each checked page. |
 | Sitemap | https://atlarium.bio/sitemap.xml | HTTP 200. |
 | LLM map | https://atlarium.bio/llms.txt | HTTP 200 and includes MCP discovery section. |
-| Glama claim | https://mcp.atlarium.bio/.well-known/glama.json | Source implemented; deploy and verify before completing the Glama claim. |
+| Glama claim | https://mcp.atlarium.bio/.well-known/glama.json | HTTP 200, returns the Glama connector claim JSON with maintainer email. |
 
 ## Directory Status
 
@@ -25,7 +25,7 @@ new ChatGPT App UI implementation.
 | --- | --- | --- | --- | --- |
 | Official MCP Registry | Published / active | API returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`. | Monitor and publish future versions from `server.json`. | None. |
 | Smithery | Not listed; ready for maintainer submission | Smithery CLI search did not return Atlarium; `https://smithery.ai/new` redirects to hosted auth. | Submit payload from `docs/directory-submission-payloads.md`. | Atlarium/TechGardeners OAuth/login required. |
-| Glama | Indexed as connector; claim pending deploy | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` returns HTTP 200 with Atlarium title, endpoint and registry name. | Deploy `/.well-known/glama.json`, then complete claim if UI asks for confirmation. | Deployment required; possible manual claim UI. |
+| Glama | Indexed as connector; claim file live | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` returns HTTP 200 with Atlarium title, endpoint and registry name. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email. | Complete claim in Glama if the UI asks for confirmation. | Possible manual claim UI. |
 | MCP.so | Submitted; listing not visible yet | GitHub issue comment `4722425013` exists and includes name, endpoint and registry. Candidate listing returned `Project not found`. | Monitor issue/listing; no badge until visible. | MCP.so maintainer publication. |
 | PulseMCP | Manual check blocked; registry ingestion expected | Automated fetch of search/submit pages returned HTTP 403 Cloudflare block. | Recheck in browser or email payload after processing window if absent. | Browser/email required. |
 
@@ -74,10 +74,11 @@ https://atlarium.bio/llms.txt HTTP 200
 Targeted Glama endpoint note:
 
 ```text
-https://mcp.atlarium.bio/.well-known/glama.json HTTP 404
+https://mcp.atlarium.bio/.well-known/glama.json HTTP 200
 ```
 
-This is expected until the committed source change is deployed.
+The response body contains the Glama connector schema and maintainer email
+`info@techgardeners.com`.
 
 ## Changed Files
 
@@ -93,7 +94,7 @@ This is expected until the committed source change is deployed.
 
 ## Residual Risks
 
-- Glama ownership claim is source-ready but not live until the MCP server is deployed.
+- Glama ownership claim file is live; final acceptance may still require manual confirmation in Glama.
 - Smithery requires maintainer OAuth/login.
 - MCP.so submission is posted but publication is controlled by MCP.so maintainers.
 - PulseMCP automated verification is blocked by Cloudflare from the audit environment.
@@ -102,9 +103,7 @@ This is expected until the committed source change is deployed.
 
 ## Next Actions
 
-1. Deploy the MCP server commit that serves `/.well-known/glama.json`.
-2. Verify `curl --fail --silent --show-error https://mcp.atlarium.bio/.well-known/glama.json`.
-3. Complete the Glama claim flow if the page still asks for manual confirmation.
-4. Submit Smithery through an Atlarium/TechGardeners account.
-5. Recheck MCP.so and PulseMCP listings before adding any badges.
-6. Publish or identify the final Atlarium privacy URL before ChatGPT submission.
+1. Complete the Glama claim flow if the page still asks for manual confirmation.
+2. Submit Smithery through an Atlarium/TechGardeners account.
+3. Recheck MCP.so and PulseMCP listings before adding any badges.
+4. Publish or identify the final Atlarium privacy URL before ChatGPT submission.
