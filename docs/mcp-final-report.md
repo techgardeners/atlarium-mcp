@@ -3,9 +3,8 @@
 Report time: `2026-06-19T23:16:28Z`
 
 Scope: public Atlarium MCP block only. This report does not cover general
-Atlarium marketing, Product Hunt, aquarium communities or creator outreach.
-It includes the MCP Apps / ChatGPT Apps Habitat Explorer widget implemented in
-the public MCP server.
+Atlarium marketing, Product Hunt, aquarium communities, creator outreach, or
+new ChatGPT App UI implementation.
 
 ## Live URLs
 
@@ -84,12 +83,7 @@ This is expected until the committed source change is deployed.
 
 - `src/http.ts`: added public `/.well-known/glama.json` route.
 - `src/metadata.ts`: added Glama claim metadata.
-- `src/apps/habitat-explorer.ts`: added the read-only Habitat Explorer widget.
-- `src/server.ts`: enabled MCP resources and registered the widget resource.
-- `src/tools.ts`: added structured output and widget metadata for the 11 tools.
 - `tests/http.test.ts`: added Glama claim route test.
-- `tests/apps.test.ts`: added widget resource and MCP resource tests.
-- `tests/tools.test.ts`: verifies structured output and widget metadata while preserving 11 tools.
 - `README.md`: linked the new directory payload and launch-kit docs.
 - `docs/publication-checklist.md`: updated directory tracker with URL, status, evidence, next action and blocker columns.
 - `docs/directory-submission-payloads.md`: added final directory submission and claim payloads.
