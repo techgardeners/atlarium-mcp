@@ -24,7 +24,7 @@ Atlarium marketing, Product Hunt, aquarium communities or creator outreach.
 | Directory | Status | Evidence | Next action | Manual blocker |
 | --- | --- | --- | --- | --- |
 | Official MCP Registry | Published / active | API returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`. | Monitor and publish future versions from `server.json`. | None. |
-| Smithery | Published / visible; score `96/100` | `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database` has a successful release that discovered `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. After the parameter-description deploy and custom icon upload, Smithery shows `Parameter descriptions 39/39` and quality score `96/100`. The Smithery TXT value has been added on `atlarium.bio` and is visible from the authoritative Cloudflare nameservers and Google DNS. | Publish the Smithery backlink in README and `/mcp`, then re-run verification. Avoid breaking public tool names only to satisfy the remaining naming heuristic. | None for DNS; Smithery may need a fresh backlink scan and resolver/cache refresh. |
+| Smithery | Published / visible; score `96/100` | `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database` has a successful release that discovered `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. After the parameter-description deploy and custom icon upload, Smithery shows `Parameter descriptions 39/39` and quality score `96/100`. The Smithery TXT value is live on `atlarium.bio`, and Smithery now marks the release, quality, homepage, TXT and backlink checks as passing. | Decide whether a paid Smithery developer plan is worth it; do not add a Smithery verified badge unless that paid-plan requirement is actually satisfied. Avoid breaking public tool names only to satisfy the remaining naming heuristic. | Paid developer plan is the only visible verification blocker. |
 | Glama | Ownership verified / listing healthy | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` shows healthy status, 39 tools, Admin/Analytics access and canonical V2 description. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email. | Monitor listing health and tool quality score; add badge/link only after badge policy approval. | None for ownership. |
 | MCP.so | Submitted; listing not visible yet | GitHub issue comment `4722425013` exists and includes name, endpoint and registry. Candidate listing returned `Project not found`. | Monitor issue/listing; no badge until visible. | MCP.so maintainer publication. |
 | PulseMCP | Listed / visible | `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database` shows Atlarium Habitat Database, provider Tech Gardeners, `server.json file available`, `bio.atlarium/habitat-database`, auth Open, Streamable HTTP and Free cost. | Monitor the listing and keep registry/server.json metadata current before adding badges elsewhere. | None for visibility; automated curl can still hit Cloudflare 403. |
@@ -126,8 +126,10 @@ The response body contains the Glama connector schema and maintainer email
 ## Residual Risks
 
 - Glama ownership is verified and owner controls are available.
-- Smithery is published and visible; the remaining Smithery score gap is a
-  naming heuristic, not endpoint, icon or tool metadata.
+- Smithery is published and visible; all visible technical verification checks
+  pass, and the remaining Smithery score gap is a naming heuristic, not
+  endpoint, icon or tool metadata. Full Smithery verification remains gated by
+  the paid developer plan requirement.
 - MCP.so submission is posted but publication is controlled by MCP.so maintainers.
 - PulseMCP listing is visible; automated verification can still be blocked by Cloudflare from some audit environments.
 - ChatGPT privacy-policy blocker is resolved: `https://atlarium.bio/privacy`
@@ -139,7 +141,8 @@ The response body contains the Glama connector schema and maintainer email
 
 ## Next Actions
 
-1. Add and verify the Smithery backlink in README and the public `/mcp` page.
+1. Decide whether to upgrade Smithery for verified status; otherwise keep it
+   published/unverified with no badge.
 2. Monitor Glama listing health and TDQS after the canonical description update.
 3. Submit or claim mcpservers.org, MCPRepository, MCP Server Hub and optional
    MCP Market/Marketplace entries from a logged-in browser.

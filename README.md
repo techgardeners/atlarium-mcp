@@ -922,7 +922,7 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 | --- | --- |
 | Official MCP Registry | Published as `bio.atlarium/habitat-database`; publish the V2 `server.json` update after coordinated endpoint validation. |
 | Glama | Ownership verified; listing healthy with 39 tools and canonical V2 description. |
-| Smithery | Published at [`ilgrafico79/atlarium-habitat-database`](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); latest release `SUCCESS`, quality score `96/100`, parameter descriptions `39/39`, custom icon uploaded. |
+| Smithery | Published at [`ilgrafico79/atlarium-habitat-database`](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); latest release `SUCCESS`, quality score `96/100`, parameter descriptions `39/39`, custom icon uploaded. Technical verification checks pass; full Smithery verification still requires a paid developer plan. |
 | MCP.so | Submitted through the public GitHub issue flow; no public listing badge yet. |
 | PulseMCP | Listed publicly; verify badge policy before adding a badge. |
 | ChatGPT App | Submitted / in review; no public approval claim yet. |
