@@ -1,19 +1,37 @@
-# Atlarium Habitat Database MCP
+<p align="center">
+  <img src="docs/assets/github-social-preview.png" alt="Atlarium Habitat Database MCP social preview" width="840">
+</p>
 
-Structured aquarium, marine, terrarium and paludarium data for AI agents.
+<h1 align="center">Atlarium Habitat Database MCP</h1>
+
+<p align="center">
+  Structured aquarium, marine, terrarium and paludarium data for AI agents.
+</p>
+
+<p align="center">
+  <a href="https://github.com/techgardeners/atlarium-mcp/actions/workflows/public-mcp-monitor.yml"><img alt="Public MCP Monitor" src="https://github.com/techgardeners/atlarium-mcp/actions/workflows/public-mcp-monitor.yml/badge.svg"></a>
+  <a href="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml"><img alt="MCP Directory Audit" src="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml/badge.svg"></a>
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/techgardeners/atlarium-mcp"></a>
+  <a href="https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database"><img alt="Official MCP Registry" src="https://img.shields.io/badge/Official_MCP_Registry-bio.atlarium%2Fhabitat--database-0E7C86"></a>
+  <img alt="Transport: Streamable HTTP" src="https://img.shields.io/badge/transport-Streamable_HTTP-145C9E">
+  <img alt="Read-only MCP tools" src="https://img.shields.io/badge/tools-11_read--only-2D7D46">
+  <img alt="Auth none" src="https://img.shields.io/badge/auth-none-4B5563">
+</p>
 
 Atlarium Habitat Database MCP is a public read-only MCP server that gives AI
 agents structured access to Atlarium habitat data. It exposes public tools for
 species, plants, products, water parameters, compatibility checks, guides and
-habitat planning without exposing Atlarium accounts, workspaces, admin APIs or
-write operations.
+habitat planning without exposing Atlarium accounts, private workspaces, admin
+APIs or write operations.
 
-## Public Endpoint
+## At A Glance
 
-| Surface | URL |
-|---|---|
+| Surface | Value |
+| --- | --- |
 | MCP endpoint | `https://mcp.atlarium.bio/mcp` |
-| Healthcheck | `https://mcp.atlarium.bio/health` |
+| Transport | Streamable HTTP |
+| Authentication | none |
+| Tool surface | 11 public read-only tools |
 | Server card | `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` |
 | Human docs | `https://atlarium.bio/mcp` |
 | Official MCP Registry | `bio.atlarium/habitat-database` |
@@ -21,12 +39,50 @@ write operations.
 `https://atlarium.bio/mcp` is documentation. The canonical Streamable HTTP MCP
 endpoint is `https://mcp.atlarium.bio/mcp`.
 
-## Client Setup
+## Quickstart
 
-Compatible with MCP clients that support remote Streamable HTTP MCP servers. Do
-not describe this server as officially supported by ChatGPT, Claude, Cursor,
-Windsurf, VS Code, Antigravity or any directory unless that vendor has accepted
-the listing.
+Use any MCP client that supports remote Streamable HTTP servers.
+
+```json
+{
+  "mcpServers": {
+    "atlarium": {
+      "type": "streamable-http",
+      "url": "https://mcp.atlarium.bio/mcp"
+    }
+  }
+}
+```
+
+Claude Code remote HTTP example:
+
+```bash
+claude mcp add --transport http atlarium https://mcp.atlarium.bio/mcp
+```
+
+Smoke check the live endpoint:
+
+```bash
+curl --fail --silent --show-error https://mcp.atlarium.bio/health
+curl --fail --silent --show-error https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+pnpm mcp:monitor:public
+```
+
+## Tool Surface
+
+| Area | Tools |
+| --- | --- |
+| Fish and aquatic animals | `search_fish`, `get_fish_profile` |
+| Aquatic plants | `search_plants`, `get_plant_profile` |
+| Habitat products | `search_products`, `get_product_profile` |
+| Planning and compatibility | `check_species_compatibility`, `get_water_parameters`, `suggest_species_for_tank` |
+| Guides | `search_guides`, `get_guide` |
+
+All tools are read-only. Compatibility checks and tank suggestions are advisory
+and should be verified against real livestock, equipment, water chemistry and
+husbandry constraints.
+
+## Client Examples
 
 Client-specific examples live in `examples/`:
 
@@ -39,95 +95,44 @@ Client-specific examples live in `examples/`:
 - `examples/chatgpt-apps`
 - `examples/generic-streamable-http`
 
-Quick examples:
+Do not describe this server as officially supported by ChatGPT, Claude, Cursor,
+Windsurf, VS Code, Antigravity or any directory unless that vendor has accepted
+the listing.
 
-```bash
-claude mcp add --transport http atlarium https://mcp.atlarium.bio/mcp
-```
+## Discovery And Directory Status
 
-```json
-{
-  "mcpServers": {
-    "atlarium": {
-      "url": "https://mcp.atlarium.bio/mcp"
-    }
-  }
-}
-```
+| Directory | Status |
+| --- | --- |
+| Official MCP Registry | Published as `bio.atlarium/habitat-database`. |
+| Glama | Indexed as a connector; ownership claim is prepared through `/.well-known/glama.json`. |
+| Smithery | Ready for maintainer submission; no public listing claim yet. |
+| MCP.so | Submitted through the public GitHub issue flow; no public listing badge yet. |
+| PulseMCP | Listed publicly; automated checks may still be blocked by Cloudflare. |
 
-```json
-{
-  "servers": {
-    "atlarium": {
-      "type": "http",
-      "url": "https://mcp.atlarium.bio/mcp"
-    }
-  }
-}
-```
+Publication tracking and reusable submission copy live in
+`docs/publication-checklist.md` and `docs/directory-submission-payloads.md`.
 
-## Tools
+## Apps-Compatible Widget
 
-- `search_fish`
-- `get_fish_profile`
-- `search_plants`
-- `get_plant_profile`
-- `search_products`
-- `get_product_profile`
-- `check_species_compatibility`
-- `get_water_parameters`
-- `suggest_species_for_tank`
-- `search_guides`
-- `get_guide`
-
-All tools are read-only. Compatibility checks and tank suggestions are advisory
-and should be verified against real livestock, equipment, water chemistry and
-husbandry constraints.
-
-## ChatGPT App Widget
-
-The server includes a read-only MCP Apps / ChatGPT Apps widget resource for
+The server advertises a read-only MCP Apps / ChatGPT Apps widget resource for
 Apps-compatible hosts:
 
 - resource URI: `ui://widget/habitat-explorer.v2.html`
 - MIME type: `text/html;profile=mcp-app`
 - widget: `Atlarium Habitat Explorer`
 
-Tool responses keep plain JSON text for generic MCP clients and also return
-`structuredContent` for the widget. The tool metadata links the widget with
-`_meta.ui.resourceUri` and the ChatGPT compatibility alias
-`_meta["openai/outputTemplate"]`.
+This is not a public ChatGPT approval claim. Tool responses keep plain JSON text
+for generic MCP clients and also return `structuredContent` for compatible
+widget hosts.
 
-## Smoke Checks
+## Public Validation
 
-Health:
-
-```bash
-curl --fail --silent --show-error https://mcp.atlarium.bio/health
-```
-
-Server card:
+Run the live monitor and full public tool validation:
 
 ```bash
-curl --fail --silent --show-error \
-  https://mcp.atlarium.bio/.well-known/mcp/server-card.json
-```
-
-Initialize:
-
-```bash
-curl --fail --silent --show-error \
-  -H 'Content-Type: application/json' \
-  -H 'Accept: application/json, text/event-stream' \
-  -d '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-06-18","capabilities":{},"clientInfo":{"name":"curl","version":"0.0.1"}}}' \
-  https://mcp.atlarium.bio/mcp
-```
-
-Full public validation:
-
-```bash
+pnpm mcp:monitor:public
 pnpm mcp:validate:public
-pnpm mcp:conformance:public
+pnpm directories:submit -- --check
 ```
 
 ## Local Development
@@ -167,6 +172,9 @@ Publication tracking and reusable submission copy live in
 Directory-specific payloads and technical launch copy live in
 `docs/directory-submission-payloads.md` and
 `docs/mcp-technical-launch-kit.md`.
+
+GitHub repository presentation notes and social preview upload steps live in
+`docs/github-showcase.md`.
 
 Generate directory payloads:
 

@@ -1,5 +1,8 @@
-blank_issues_enabled: true
+blank_issues_enabled: false
 contact_links:
+  - name: Support
+    url: https://github.com/techgardeners/atlarium-mcp/blob/main/SUPPORT.md
+    about: Read support scope and reporting guidance before opening an issue.
   - name: Security reports
     url: https://atlarium.bio
     about: Do not open public issues for sensitive security reports.
