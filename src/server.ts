@@ -37,6 +37,7 @@ export function createAtlariumMcpServer(
           uri: uri.href,
           mimeType: habitatExplorerResourceMeta.mimeType,
           text: habitatExplorerHtml(),
+          _meta: habitatExplorerResourceMeta._meta,
         },
       ],
     }),

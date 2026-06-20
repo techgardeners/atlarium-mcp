@@ -113,6 +113,12 @@ describe("ChatGPT App widget", () => {
         const widget = await client.readResource({ uri: habitatExplorerResourceUri });
         expect(widget.contents).toEqual([
           expect.objectContaining({
+            _meta: expect.objectContaining({
+              "openai/widgetDomain": "https://mcp.atlarium.bio",
+              ui: expect.objectContaining({
+                domain: "https://mcp.atlarium.bio",
+              }),
+            }),
             mimeType: habitatExplorerMimeType,
             text: expect.stringContaining("Atlarium Habitat Explorer"),
             uri: habitatExplorerResourceUri,
