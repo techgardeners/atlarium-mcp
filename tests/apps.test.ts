@@ -55,6 +55,10 @@ describe("ChatGPT App widget", () => {
     expect(html).toContain("data:image/jpeg;base64");
     expect(html).toContain("brand-logo light");
     expect(html).toContain("brand-logo dark");
+    expect(html).toContain("uiCopy");
+    expect(html).toContain("Ricerca pesci");
+    expect(html).toContain("language: state.language");
+    expect(html).toContain("toolLabel(state.tool)");
     expect(html).toContain("reasonParts");
     expect(html).toContain("recommended_actions");
     expect(html).toContain("ui/notifications/tool-result");
@@ -63,6 +67,8 @@ describe("ChatGPT App widget", () => {
     expect(html).not.toContain("<iframe");
     expect(html).not.toContain("<svg");
     expect(html).not.toContain("data-brand-mark");
+    expect(html).not.toContain("Showing \" +");
+    expect(html).not.toContain("Requested \" + name");
     expect(html).not.toMatch(/https?:\/\//);
   });
 

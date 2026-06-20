@@ -529,7 +529,8 @@ export function habitatExplorerHtml() {
         filter: "",
         selectedIndex: 0,
         tool: "",
-        data: null
+        data: null,
+        language: "en"
       };
 
       const tabs = Array.from(document.querySelectorAll(".tab"));
@@ -537,11 +538,292 @@ export function habitatExplorerHtml() {
       const detail = document.getElementById("detail");
       const filter = document.getElementById("filter");
       const status = document.getElementById("status");
+      const tabsNav = document.querySelector(".tabs");
       const openai = window.openai;
       let rpcId = 1;
 
+      const uiCopy = {
+        en: {
+          aria: { views: "Habitat views" },
+          tabs: {
+            results: "Results",
+            profile: "Profile",
+            compatibility: "Compatibility",
+            suggestions: "Suggestions"
+          },
+          status: {
+            waiting: "Waiting for Atlarium data",
+            showing: "Showing {tool}",
+            requested: "Requested {tool} from the host",
+            failed: "Tool call failed"
+          },
+          filter: { placeholder: "Filter visible habitat data" },
+          actions: {
+            suggestTank: "Suggest 90 L planted tank",
+            checkPair: "Check community pair",
+            waterParameters: "Water parameters",
+            careGuides: "Care guides"
+          },
+          empty: {
+            noData: "No visible habitat data yet. Run an Atlarium tool or clear the filter.",
+            selectResult: "Select a result to inspect habitat details."
+          },
+          detail: {
+            compatibilityReview: "Compatibility review",
+            habitatItem: "Habitat item",
+            structuredProfile: "Structured Atlarium profile",
+            suggestedCandidate: "Suggested habitat candidate",
+            compatibilityFallback: "Review overlapping care and water parameter constraints."
+          },
+          metrics: {
+            tank: "Tank",
+            temperature: "Temperature",
+            care: "Care"
+          },
+          sections: {
+            watchPoints: "Watch points",
+            recommendedActions: "Recommended actions",
+            speciesReviewed: "Species reviewed"
+          },
+          tools: {
+            unknown: "Atlarium data",
+            search_fish: "Fish search",
+            get_fish_profile: "Fish profile",
+            search_plants: "Plant search",
+            get_plant_profile: "Plant profile",
+            search_products: "Product search",
+            get_product_profile: "Product profile",
+            check_species_compatibility: "Compatibility review",
+            get_water_parameters: "Water parameters",
+            suggest_species_for_tank: "Tank suggestions",
+            search_guides: "Care guides"
+          },
+          values: {
+            beginner_friendly: "Beginner friendly",
+            conditional_match: "Conditional match",
+            compatibility_check: "Compatibility check",
+            compatible: "Compatible",
+            easy: "Easy",
+            high: "High",
+            intermediate: "Intermediate",
+            low: "Low",
+            moderate: "Moderate",
+            not_compatible: "Not compatible",
+            partial_match: "Partial match"
+          },
+          reasonLabels: {
+            behavior: "Behavior",
+            planting: "Planting",
+            tank_size: "Tank size",
+            temperament: "Temperament",
+            water_match: "Water match"
+          }
+        },
+        it: {
+          aria: { views: "Viste habitat" },
+          tabs: {
+            results: "Risultati",
+            profile: "Profilo",
+            compatibility: "Compatibilità",
+            suggestions: "Suggerimenti"
+          },
+          status: {
+            waiting: "In attesa dei dati Atlarium",
+            showing: "Vista: {tool}",
+            requested: "Richiesta inviata: {tool}",
+            failed: "Chiamata tool non riuscita"
+          },
+          filter: { placeholder: "Filtra i dati habitat visibili" },
+          actions: {
+            suggestTank: "Suggerisci vasca piantumata da 90 L",
+            checkPair: "Controlla coppia di comunità",
+            waterParameters: "Parametri acqua",
+            careGuides: "Guide di cura"
+          },
+          empty: {
+            noData: "Nessun dato habitat visibile. Avvia un tool Atlarium o svuota il filtro.",
+            selectResult: "Seleziona un risultato per ispezionare i dettagli habitat."
+          },
+          detail: {
+            compatibilityReview: "Analisi compatibilità",
+            habitatItem: "Elemento habitat",
+            structuredProfile: "Profilo Atlarium strutturato",
+            suggestedCandidate: "Candidato habitat suggerito",
+            compatibilityFallback: "Controlla la sovrapposizione tra cura e parametri dell'acqua."
+          },
+          metrics: {
+            tank: "Vasca",
+            temperature: "Temperatura",
+            care: "Cura"
+          },
+          sections: {
+            watchPoints: "Punti di attenzione",
+            recommendedActions: "Azioni consigliate",
+            speciesReviewed: "Specie analizzate"
+          },
+          tools: {
+            unknown: "Dati Atlarium",
+            search_fish: "Ricerca pesci",
+            get_fish_profile: "Profilo pesce",
+            search_plants: "Ricerca piante",
+            get_plant_profile: "Profilo pianta",
+            search_products: "Ricerca prodotti",
+            get_product_profile: "Profilo prodotto",
+            check_species_compatibility: "Analisi compatibilità",
+            get_water_parameters: "Parametri acqua",
+            suggest_species_for_tank: "Suggerimenti vasca",
+            search_guides: "Guide di cura"
+          },
+          values: {
+            beginner_friendly: "Adatto ai principianti",
+            conditional_match: "Compatibile con condizioni",
+            compatibility_check: "Controllo compatibilità",
+            compatible: "Compatibile",
+            easy: "Facile",
+            high: "Alto",
+            intermediate: "Intermedio",
+            low: "Basso",
+            moderate: "Moderato",
+            not_compatible: "Non compatibile",
+            partial_match: "Compatibilità parziale"
+          },
+          reasonLabels: {
+            behavior: "Comportamento",
+            planting: "Piantumazione",
+            tank_size: "Vasca",
+            temperament: "Temperamento",
+            water_match: "Parametri compatibili"
+          }
+        },
+        es: {
+          aria: { views: "Vistas de hábitat" },
+          tabs: {
+            results: "Resultados",
+            profile: "Perfil",
+            compatibility: "Compatibilidad",
+            suggestions: "Sugerencias"
+          },
+          status: {
+            waiting: "Esperando datos de Atlarium",
+            showing: "Mostrando {tool}",
+            requested: "Solicitud enviada: {tool}",
+            failed: "Error al llamar la herramienta"
+          },
+          filter: { placeholder: "Filtra los datos de hábitat visibles" },
+          actions: {
+            suggestTank: "Sugerir acuario plantado de 90 L",
+            checkPair: "Comprobar pareja comunitaria",
+            waterParameters: "Parámetros del agua",
+            careGuides: "Guías de cuidado"
+          },
+          empty: {
+            noData: "Todavía no hay datos de hábitat visibles. Ejecuta una herramienta Atlarium o limpia el filtro.",
+            selectResult: "Selecciona un resultado para revisar los detalles del hábitat."
+          },
+          detail: {
+            compatibilityReview: "Revisión de compatibilidad",
+            habitatItem: "Elemento de hábitat",
+            structuredProfile: "Perfil estructurado de Atlarium",
+            suggestedCandidate: "Candidato de hábitat sugerido",
+            compatibilityFallback: "Revisa la superposición entre cuidados y parámetros del agua."
+          },
+          metrics: {
+            tank: "Acuario",
+            temperature: "Temperatura",
+            care: "Cuidado"
+          },
+          sections: {
+            watchPoints: "Puntos de atención",
+            recommendedActions: "Acciones recomendadas",
+            speciesReviewed: "Especies revisadas"
+          },
+          tools: {
+            unknown: "Datos de Atlarium",
+            search_fish: "Búsqueda de peces",
+            get_fish_profile: "Perfil del pez",
+            search_plants: "Búsqueda de plantas",
+            get_plant_profile: "Perfil de planta",
+            search_products: "Búsqueda de productos",
+            get_product_profile: "Perfil de producto",
+            check_species_compatibility: "Revisión de compatibilidad",
+            get_water_parameters: "Parámetros del agua",
+            suggest_species_for_tank: "Sugerencias de acuario",
+            search_guides: "Guías de cuidado"
+          },
+          values: {
+            beginner_friendly: "Apto para principiantes",
+            conditional_match: "Compatibilidad condicionada",
+            compatibility_check: "Comprobación de compatibilidad",
+            compatible: "Compatible",
+            easy: "Fácil",
+            high: "Alto",
+            intermediate: "Intermedio",
+            low: "Bajo",
+            moderate: "Moderado",
+            not_compatible: "No compatible",
+            partial_match: "Compatibilidad parcial"
+          },
+          reasonLabels: {
+            behavior: "Comportamiento",
+            planting: "Plantación",
+            tank_size: "Acuario",
+            temperament: "Temperamento",
+            water_match: "Parámetros compatibles"
+          }
+        }
+      };
+      state.language = detectLanguage();
+
       function asObject(value) {
         return value && typeof value === "object" && !Array.isArray(value) ? value : {};
+      }
+
+      function detectLanguage(locale) {
+        const hostLocale = openai && (openai.locale || openai.userLocale || openai.language);
+        const candidate = String(locale || hostLocale || navigator.language || "en").toLowerCase();
+        if (candidate.startsWith("it")) return "it";
+        if (candidate.startsWith("es")) return "es";
+        return "en";
+      }
+
+      function copy(path) {
+        const parts = path.split(".");
+        const localized = resolveCopy(uiCopy[state.language], parts);
+        return localized ?? resolveCopy(uiCopy.en, parts) ?? path;
+      }
+
+      function resolveCopy(source, parts) {
+        return parts.reduce((value, part) => {
+          if (value && typeof value === "object" && part in value) return value[part];
+          return undefined;
+        }, source);
+      }
+
+      function formatMessage(path, values) {
+        return copy(path).replace(/\\{(\\w+)\\}/g, (_, key) => values && key in values ? values[key] : "");
+      }
+
+      function toolLabel(name) {
+        return copy("tools." + (name || "unknown"));
+      }
+
+      function valueLabel(value) {
+        const key = String(value || "").toLowerCase().replaceAll(" ", "_");
+        const translated = copy("values." + key);
+        return translated.startsWith("values.") ? humanize(value) : translated;
+      }
+
+      function renderLocale() {
+        document.documentElement.lang = state.language;
+        if (tabsNav) tabsNav.setAttribute("aria-label", copy("aria.views"));
+        filter.placeholder = copy("filter.placeholder");
+        tabs.forEach((tab) => {
+          tab.textContent = copy("tabs." + (tab.dataset.tab || "results"));
+        });
+        const suggestButton = document.querySelector('[data-tool="suggest_species_for_tank"]');
+        const compatibilityButton = document.querySelector('[data-tool="check_species_compatibility"]');
+        if (suggestButton) suggestButton.textContent = copy("actions.suggestTank");
+        if (compatibilityButton) compatibilityButton.textContent = copy("actions.checkPair");
       }
 
       function currentPayload(payload) {
@@ -556,6 +838,8 @@ export function habitatExplorerHtml() {
 
       function receivePayload(payload) {
         const normalized = currentPayload(payload);
+        const data = asObject(normalized.data);
+        state.language = detectLanguage(normalized.language || normalized.locale || data.language || data.locale);
         state.tool = normalized.tool || "unknown";
         state.data = normalized.data ?? normalized;
         state.selectedIndex = 0;
@@ -571,8 +855,8 @@ export function habitatExplorerHtml() {
       }
 
       function titleFor(item) {
-        if (item.compatibility_level || Array.isArray(item.species_profiles)) return "Compatibility review";
-        return item.common_name || item.name || item.title || item.slug || item.scientific_name || "Habitat item";
+        if (item.compatibility_level || Array.isArray(item.species_profiles)) return copy("detail.compatibilityReview");
+        return item.common_name || item.name || item.title || item.slug || item.scientific_name || copy("detail.habitatItem");
       }
 
       function scientificFor(item) {
@@ -633,14 +917,14 @@ export function habitatExplorerHtml() {
         if (temp) chips.push({ label: "Temp " + temp, tone: "water" });
         if (ph) chips.push({ label: "pH " + ph, tone: "water" });
         if (gh) chips.push({ label: "GH " + gh, tone: "water" });
-        if (care) chips.push({ label: humanize(care), tone: "plant" });
+        if (care) chips.push({ label: valueLabel(care), tone: "plant" });
         return chips;
       }
 
       function renderList() {
         const items = visibleItems();
         if (!items.length) {
-          list.innerHTML = '<div class="empty">No visible habitat data yet. Run an Atlarium tool or clear the filter.</div>';
+          list.innerHTML = '<div class="empty">' + escapeHtml(copy("empty.noData")) + '</div>';
           return;
         }
 
@@ -657,7 +941,7 @@ export function habitatExplorerHtml() {
         const items = visibleItems();
         const item = asObject(items[state.selectedIndex] || state.data);
         if (!Object.keys(item).length) {
-          detail.innerHTML = '<div class="empty">Select a result to inspect habitat details.</div>';
+          detail.innerHTML = '<div class="empty">' + escapeHtml(copy("empty.selectResult")) + '</div>';
           return;
         }
 
@@ -675,18 +959,18 @@ export function habitatExplorerHtml() {
       function renderProfile(item) {
         const summary = item.summary || item.description || item.short_description || item.care_summary || item.notes || "";
         return '<h2>' + escapeHtml(titleFor(item)) + '</h2>' +
-          '<p class="summary">' + escapeHtml(scientificFor(item) || item.slug || "Structured Atlarium profile") + '</p>' +
+          '<p class="summary">' + escapeHtml(scientificFor(item) || item.slug || copy("detail.structuredProfile")) + '</p>' +
           (summary ? '<p class="body-copy">' + escapeHtml(summary) + '</p>' : "") +
           '<div class="metrics">' +
-          metric("Tank", item.min_tank_liters || item.minimum_tank_liters || item.tank_liters, "L") +
-          metric("Temperature", rangeFor(item, "temperature_range", "C") || item.temperature) +
+          metric(copy("metrics.tank"), item.min_tank_liters || item.minimum_tank_liters || item.tank_liters, "L") +
+          metric(copy("metrics.temperature"), rangeFor(item, "temperature_range", "C") || item.temperature) +
           metric("pH", rangeFor(item, "ph_range") || item.ph) +
           metric("GH / KH", [rangeFor(item, "gh_range"), rangeFor(item, "kh_range")].filter(Boolean).join(" / ")) +
-          metric("Care", item.care_level || item.difficulty) +
+          metric(copy("metrics.care"), valueLabel(item.care_level || item.difficulty)) +
           '</div>' +
           '<div class="actions">' +
-          actionButton("get_water_parameters", "Water parameters") +
-          actionButton("search_guides", "Care guides") +
+          actionButton("get_water_parameters", copy("actions.waterParameters")) +
+          actionButton("search_guides", copy("actions.careGuides")) +
           '</div>';
       }
 
@@ -699,10 +983,10 @@ export function habitatExplorerHtml() {
         const profiles = Array.isArray(item.species_profiles) ? item.species_profiles : [];
         const disclaimer = item.disclaimer || "";
         return '<div class="compat">' +
-          '<h2>' + escapeHtml(humanize(level)) + '</h2>' +
-          '<p class="summary">' + escapeHtml(summary || "Review overlapping care and water parameter constraints.") + '</p>' +
-          renderNoticeList("Watch points", warnings.concat(issues), "warning") +
-          renderNoticeList("Recommended actions", actions, "") +
+          '<h2>' + escapeHtml(valueLabel(level)) + '</h2>' +
+          '<p class="summary">' + escapeHtml(summary || copy("detail.compatibilityFallback")) + '</p>' +
+          renderNoticeList(copy("sections.watchPoints"), warnings.concat(issues), "warning") +
+          renderNoticeList(copy("sections.recommendedActions"), actions, "") +
           renderSpeciesProfiles(profiles) +
           (disclaimer ? '<p class="disclaimer">' + escapeHtml(disclaimer) + '</p>' : "") +
           '</div>';
@@ -712,23 +996,34 @@ export function habitatExplorerHtml() {
         const reason = item.reason || item.rationale || item.summary || "";
         const reasonChips = reasonParts(reason).map((part) => chip(part, "plant")).join("");
         return '<h2>' + escapeHtml(titleFor(item)) + '</h2>' +
-          '<p class="summary">' + escapeHtml(scientificFor(item) || item.slug || "Suggested habitat candidate") + '</p>' +
+          '<p class="summary">' + escapeHtml(scientificFor(item) || item.slug || copy("detail.suggestedCandidate")) + '</p>' +
           (reasonChips ? '<div class="chips">' + reasonChips + '</div>' : "") +
           '<div class="metrics">' +
-          metric("Tank", item.min_tank_liters || item.minimum_tank_liters || item.tank_liters, "L") +
-          metric("Temperature", rangeFor(item, "temperature_range", "C") || item.temperature) +
+          metric(copy("metrics.tank"), item.min_tank_liters || item.minimum_tank_liters || item.tank_liters, "L") +
+          metric(copy("metrics.temperature"), rangeFor(item, "temperature_range", "C") || item.temperature) +
           metric("pH", rangeFor(item, "ph_range") || item.ph) +
           metric("GH / KH", [rangeFor(item, "gh_range"), rangeFor(item, "kh_range")].filter(Boolean).join(" / ")) +
-          metric("Care", item.care_level || item.difficulty || item.temperament) +
+          metric(copy("metrics.care"), valueLabel(item.care_level || item.difficulty || item.temperament)) +
           '</div>';
       }
 
       function reasonParts(reason) {
         return String(reason || "")
           .split(";")
-          .map((part) => humanize(part.replace(/:/g, " ")).trim())
+          .map((part) => reasonPart(part))
           .filter(Boolean)
           .slice(0, 6);
+      }
+
+      function reasonPart(value) {
+        const text = String(value || "").trim();
+        const separator = text.indexOf(":");
+        if (separator < 0) return humanize(text);
+        const key = text.slice(0, separator).trim().toLowerCase().replaceAll(" ", "_");
+        const label = copy("reasonLabels." + key);
+        const readableKey = label.startsWith("reasonLabels.") ? humanize(key) : label;
+        const detail = text.slice(separator + 1).trim();
+        return detail ? readableKey + ": " + detail : readableKey;
       }
 
       function renderNoticeList(title, values, className) {
@@ -741,7 +1036,7 @@ export function habitatExplorerHtml() {
 
       function renderSpeciesProfiles(profiles) {
         if (!profiles.length) return "";
-        return '<h3 class="section-title">Species reviewed</h3>' +
+        return '<h3 class="section-title">' + escapeHtml(copy("sections.speciesReviewed")) + '</h3>' +
           '<div class="stack">' +
           profiles.map((profile) => {
             const item = asObject(profile);
@@ -763,8 +1058,11 @@ export function habitatExplorerHtml() {
       }
 
       function render() {
+        renderLocale();
         tabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.tab === state.tab)));
-        status.textContent = state.data ? "Showing " + (state.tool || "Atlarium data") : "Waiting for Atlarium tool data";
+        status.textContent = state.data
+          ? formatMessage("status.showing", { tool: toolLabel(state.tool) })
+          : copy("status.waiting");
         renderList();
         renderDetail();
       }
@@ -773,16 +1071,16 @@ export function habitatExplorerHtml() {
         const selected = asObject(visibleItems()[state.selectedIndex] || {});
         const slug = selected.slug || "aequidens-pulcher";
         const argsByTool = {
-          get_water_parameters: { type: "fish", slug, language: "en" },
-          search_guides: { query: selected.common_name || selected.name || slug, language: "en", limit: 3 },
-          suggest_species_for_tank: { tank_liters: 90, language: "en", ph: 6.8, temperature: 24, planted_tank: true, beginner_friendly: true, limit: 5 },
-          check_species_compatibility: { species: ["paracheirodon-innesi", "trigonostigma-heteromorpha"], language: "en", tank_liters: 90, ph: 6.8, temperature: 24 }
+          get_water_parameters: { type: "fish", slug, language: state.language },
+          search_guides: { query: selected.common_name || selected.name || slug, language: state.language, limit: 3 },
+          suggest_species_for_tank: { tank_liters: 90, language: state.language, ph: 6.8, temperature: 24, planted_tank: true, beginner_friendly: true, limit: 5 },
+          check_species_compatibility: { species: ["paracheirodon-innesi", "trigonostigma-heteromorpha"], language: state.language, tank_liters: 90, ph: 6.8, temperature: 24 }
         };
         const args = argsByTool[name] || {};
 
         if (openai && typeof openai.callTool === "function") {
           openai.callTool(name, args).then(receivePayload).catch((error) => {
-            status.textContent = error && error.message ? error.message : "Tool call failed";
+            status.textContent = error && error.message ? error.message : copy("status.failed");
           });
           return;
         }
@@ -793,7 +1091,7 @@ export function habitatExplorerHtml() {
           method: "tools/call",
           params: { name, arguments: args }
         }, "*");
-        status.textContent = "Requested " + name + " from host";
+        status.textContent = formatMessage("status.requested", { tool: toolLabel(name) });
       }
 
       function escapeHtml(value) {
