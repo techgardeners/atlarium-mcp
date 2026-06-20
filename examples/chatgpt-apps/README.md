@@ -49,7 +49,10 @@ depends on OpenAI review.
 - Tool count: 11
 - Tool safety: read-only tools only; no write, workspace, auth, user or admin APIs.
 - Company / publisher: TechGardeners, `info@techgardeners.com`
-- Logo asset requested: Atlarium brand logo, currently referenced by the public MCP docs as `/images/brand/atlarium-logo.png`.
+- App icon asset: `docs/assets/chatgpt-app-icon.png`, a 1024x1024 Atlarium
+  habitat mark suitable for the ChatGPT app launcher and review form.
+- Public brand logo reference: `/images/brand/atlarium-logo.png` on
+  `https://atlarium.bio`.
 - Privacy URL: `https://atlarium.bio/privacy` is live and includes MCP /
   ChatGPT App data-access notes. `https://atlarium.bio/en/privacy` also returns
   HTTP 200.

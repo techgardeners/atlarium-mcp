@@ -42,6 +42,7 @@ Last updated: 2026-06-20
 - ChatGPT Developer Mode manual smoke passed after refreshing connector
   metadata to `ui://widget/habitat-explorer.v2.html`; no public ChatGPT review
   or approval is claimed.
+- ChatGPT App icon asset is prepared at `docs/assets/chatgpt-app-icon.png`.
 
 Remaining publication prerequisites:
 
