@@ -108,7 +108,8 @@ docs/assets/chatgpt-screenshots/suggestions.png
   is published and active. Do not imply a V2 registry refresh until the updated
   `server.json` is published and visible.
 - Do not add Smithery, MCP.so, PulseMCP or client approval badges until the
-  external listing or approval is visible.
+  external listing or approval is visible and badge policy is intentionally
+  approved.
 - Keep ChatGPT copy limited to submitted/in-review notes until public
   review is complete.
 

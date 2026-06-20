@@ -189,7 +189,7 @@ https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013
 Status:
 
 ```text
-Submitted through MCP.so public GitHub issue flow on 2026-06-16T19:06:21Z. Public listing not visible during the 2026-06-19T23:40:14Z check; https://mcp.so/server/atlarium-habitat-database returned page title "- MCP Server" with "Project not found".
+Submitted through MCP.so public GitHub issue flow on 2026-06-16T19:06:21Z and through the MCP.so UI on 2026-06-20 after maintainer sign-in. The public listing is visible at https://mcp.so/server/atlarium-habitat-database-mcp and returns HTTP 200 with title "Atlarium Habitat Database MCP MCP Server", the canonical public read-only description and the GitHub repository link. The signed-in `https://mcp.so/my-servers` dashboard for Roberto ilGrafico / `ilgrafico79@gmail.com` currently shows `No servers`, so treat the public listing URL as canonical visibility evidence and treat dashboard ownership/edit access as a separate follow-up. The older candidate slug https://mcp.so/server/atlarium-habitat-database still returns "Project not found"; use the `atlarium-habitat-database-mcp` slug.
 ```
 
 Follow-up payload if maintainers request a refresh:
@@ -209,6 +209,30 @@ Official MCP Registry: bio.atlarium/habitat-database
 
 Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
 Safety: read-only; no user accounts, workspaces, admin APIs, private data or write operations.
+```
+
+Ownership/editing follow-up if the MCP.so dashboard still shows no servers:
+
+```text
+Hi MCP.so team,
+
+The Atlarium Habitat Database MCP listing is publicly visible at:
+https://mcp.so/server/atlarium-habitat-database-mcp
+
+However, when signed in as Roberto ilGrafico / ilgrafico79@gmail.com, the
+https://mcp.so/my-servers dashboard still shows "No servers", so we cannot edit
+or refresh the listing from the owner dashboard.
+
+Could you attach this listing to the signed-in account?
+
+Evidence:
+- Public MCP endpoint: https://mcp.atlarium.bio/mcp
+- Health: https://mcp.atlarium.bio/health
+- Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+- GitHub repo: https://github.com/techgardeners/atlarium-mcp
+- Official registry name: bio.atlarium/habitat-database
+- Historical submission evidence:
+  https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013
 ```
 
 ## MCP Scoreboard
@@ -261,7 +285,7 @@ https://mcpservers.org/search
 Status:
 
 ```text
-Pending. Previous search did not confirm a public Atlarium listing.
+Submitted / pending review. The free submission form confirmed "Submission Successful" for "Atlarium Habitat Database MCP" and said the submission will be reviewed within 12 hours. No public listing is accepted until the listing URL is visible.
 ```
 
 Payload:
@@ -282,13 +306,13 @@ Safety: read-only; no user accounts, workspaces, admin APIs, private data or wri
 Submission URL:
 
 ```text
-https://mcprepository.com/submit
+https://mcprepository.com/techgardeners/atlarium-mcp
 ```
 
 Status:
 
 ```text
-Pending. Search did not confirm a public Atlarium listing.
+Submitted / queued. The MCPRepository API accepted https://github.com/techgardeners/atlarium-mcp with status "queued", valid true, duplicate false, and returned the expected listing URL https://mcprepository.com/techgardeners/atlarium-mcp. Verify that page before adding any badge.
 ```
 
 Payload:
@@ -314,7 +338,7 @@ https://mcpserverhub.com/submit
 Status:
 
 ```text
-Pending. Submit page is public; no Atlarium listing has been confirmed.
+Submitted / pending review. The MCP Server Hub embedded Tally form confirmed "Form submitted" and "Thanks for your submission! We'll review and display your MCP Server later." No public listing is accepted until it is visible.
 ```
 
 Payload:

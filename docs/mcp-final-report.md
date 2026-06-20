@@ -26,12 +26,12 @@ Atlarium marketing, Product Hunt, aquarium communities or creator outreach.
 | Official MCP Registry | Published / active | API returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`. | Monitor and publish future versions from `server.json`. | None. |
 | Smithery | Published / visible; score `96/100` | `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database` has a successful release that discovered `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. After the parameter-description deploy and custom icon upload, Smithery shows `Parameter descriptions 39/39` and quality score `96/100`. The Smithery TXT value is live on `atlarium.bio`, and Smithery now marks the release, quality, homepage, TXT and backlink checks as passing. | Decide whether a paid Smithery developer plan is worth it; do not add a Smithery verified badge unless that paid-plan requirement is actually satisfied. Avoid breaking public tool names only to satisfy the remaining naming heuristic. | Paid developer plan is the only visible verification blocker. |
 | Glama | Ownership verified / listing healthy | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` shows healthy status, 39 tools, Admin/Analytics access and canonical V2 description. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email. | Monitor listing health and tool quality score; add badge/link only after badge policy approval. | None for ownership. |
-| MCP.so | Submitted; listing not visible yet | GitHub issue comment `4722425013` exists and includes name, endpoint and registry. Candidate listing returned `Project not found`. | Monitor issue/listing; no badge until visible. | MCP.so maintainer publication. |
+| MCP.so | Listed / visible; dashboard ownership mismatch | `https://mcp.so/server/atlarium-habitat-database-mcp` returns HTTP 200 with title `Atlarium Habitat Database MCP MCP Server`, canonical public read-only description and the GitHub repository link. GitHub issue comment `4722425013` remains historical submission evidence. Old candidate slug `https://mcp.so/server/atlarium-habitat-database` still returns `Project not found`. The signed-in `https://mcp.so/my-servers` dashboard for Roberto ilGrafico / `ilgrafico79@gmail.com` currently shows `No servers`, so public visibility and edit ownership are separate states. | Monitor listing metadata; ask MCP.so maintainers to attach the listing to the account only if dashboard edits are needed; add badge/link only after badge policy approval. | None for visibility; account linkage needed only for future dashboard edits. |
 | PulseMCP | Listed / visible | `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database` shows Atlarium Habitat Database, provider Tech Gardeners, `server.json file available`, `bio.atlarium/habitat-database`, auth Open, Streamable HTTP and Free cost. | Monitor the listing and keep registry/server.json metadata current before adding badges elsewhere. | None for visibility; automated curl can still hit Cloudflare 403. |
 | MCP Scoreboard | Listed / unscored | Public listing exists and points to Atlarium GitHub and endpoint links. | Owner verification/scoring only if useful; no score badge while unscored. | GitHub owner verification may be required. |
-| mcpservers.org | Pending | Previous search did not confirm a public Atlarium listing. | Submit standard payload manually and verify public listing before a badge. | Manual form/login may be required. |
-| MCPRepository | Pending | Search did not confirm a public Atlarium listing. | Submit GitHub repository, endpoint and server-card payload. | Manual form/login may be required. |
-| MCP Server Hub | Pending | Submit page exists; no Atlarium listing confirmed. | Submit canonical metadata and monitor review. | Manual form/login may be required. |
+| mcpservers.org | Submitted / pending review | Free form confirmed `Submission Successful` for `Atlarium Habitat Database MCP` and said review should happen within 12 hours. | Monitor approval email and public listing; no badge until visible. | External review queue. |
+| MCPRepository | Submitted / queued | API response accepted `https://github.com/techgardeners/atlarium-mcp` with `status: queued`, `valid: true`, `duplicate: false`, and expected URL `https://mcprepository.com/techgardeners/atlarium-mcp`. | Monitor generated listing URL; no badge until visible. | External processing queue. |
+| MCP Server Hub | Submitted / pending review | Tally form confirmed `Form submitted` and `Thanks for your submission! We'll review and display your MCP Server later.` | Monitor public listing; no badge until visible. | External review queue. |
 | MCP Market / Marketplace | Blocked / manual | Submission flows can require login or hit anti-bot checkpoints. | Try from a logged-in browser only if still worth prioritizing. | Browser/login/checkpoint. |
 
 ## ChatGPT App Status
@@ -130,7 +130,9 @@ The response body contains the Glama connector schema and maintainer email
   pass, and the remaining Smithery score gap is a naming heuristic, not
   endpoint, icon or tool metadata. Full Smithery verification remains gated by
   the paid developer plan requirement.
-- MCP.so submission is posted but publication is controlled by MCP.so maintainers.
+- MCP.so is now publicly visible at
+  `https://mcp.so/server/atlarium-habitat-database-mcp`; use that slug because
+  the shorter `atlarium-habitat-database` slug still returns `Project not found`.
 - PulseMCP listing is visible; automated verification can still be blocked by Cloudflare from some audit environments.
 - ChatGPT privacy-policy blocker is resolved: `https://atlarium.bio/privacy`
   and `https://atlarium.bio/en/privacy` return HTTP 200 and the page includes
@@ -144,8 +146,9 @@ The response body contains the Glama connector schema and maintainer email
 1. Decide whether to upgrade Smithery for verified status; otherwise keep it
    published/unverified with no badge.
 2. Monitor Glama listing health and TDQS after the canonical description update.
-3. Submit or claim mcpservers.org, MCPRepository, MCP Server Hub and optional
-   MCP Market/Marketplace entries from a logged-in browser.
-4. Recheck MCP.so before adding any MCP.so badge; treat PulseMCP as visible but verify badge policy first.
+3. Monitor mcpservers.org, MCPRepository and MCP Server Hub until their public
+   listing URLs are visible.
+4. Monitor MCP.so, PulseMCP and Glama metadata after future server-card changes;
+   add badges only when the badge policy is intentionally approved.
 5. Monitor ChatGPT App review; if OpenAI asks for changes, patch, redeploy,
    rescan metadata and respond in the portal.

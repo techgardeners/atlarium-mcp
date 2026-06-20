@@ -62,7 +62,8 @@ Remaining publication prerequisites:
 - Smithery technical verification checks now pass for successful release,
   quality score, homepage, `atlarium.bio` TXT and backlink. Full Smithery
   verified status remains blocked by the paid developer plan requirement.
-- MCP.so submission has been posted through the public GitHub issue flow.
+- MCP.so is publicly visible at
+  `https://mcp.so/server/atlarium-habitat-database-mcp`.
 - ChatGPT App review must be monitored for requested changes or acceptance.
 
 Repository production assets:
@@ -335,14 +336,14 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 
 ## Submission Tracker
 
-Last verified: `2026-06-20T05:21:24Z`.
+Last verified: `2026-06-20T05:47:44Z`.
 
 | Directory | URL | Status | Evidence | Next action | Owner / manual blocker |
 | --- | --- | --- | --- | --- | --- |
 | Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active; verify V2 metadata before refreshed-registry claims | Registry API previously returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`, and `isLatest = true` under `_meta.io.modelcontextprotocol.registry/official`. | Monitor the registry entry and publish future `server.json` updates only after endpoint validation. | Atlarium DNS ownership already used for publication. |
 | Smithery | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database | Published / visible; latest release success; technical checks pass | Smithery release discovered metadata from `https://mcp.atlarium.bio/mcp`: name `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. After adding Zod parameter descriptions, redeploying and uploading the custom icon, quality score increased from `79/100` to `96/100`; parameter descriptions now show `39/39`. Settings use homepage `https://atlarium.bio/mcp` and repo `https://github.com/techgardeners/atlarium-mcp`. The `atlarium.bio` TXT and public backlinks in README and `/mcp` are live, and Smithery marks release, quality, homepage, TXT and backlink checks as passing. | Decide whether to upgrade Smithery for verified status; otherwise keep published/unverified with no badge. Avoid breaking public tool names only for the remaining naming heuristic. | Paid developer plan is the only visible verification blocker. |
 | Glama | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database | Ownership verified / listing healthy | Connector page returned HTTP 200 with title `Atlarium Habitat Database MCP - MCP Connector | Glama`, registry name, endpoint `https://mcp.atlarium.bio/mcp`, 39 tools, healthy status and Admin/Analytics access. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email `info@techgardeners.com`. | Monitor listing health and tool quality score; add badge/link only after badge policy approval. | None for ownership. |
-| MCP.so | https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013 | Submitted through public GitHub issue flow; listing not found yet | GitHub API confirmed issue comment `4722425013`, created `2026-06-16T19:06:21Z`, includes Atlarium name, endpoint and registry name. Candidate listing `https://mcp.so/server/atlarium-habitat-database` returned page title `- MCP Server` with `Project not found`. | Monitor issue comment and published listing; avoid badges until a listing is visible. | MCP.so maintainers control publication. |
+| MCP.so | https://mcp.so/server/atlarium-habitat-database-mcp | Listed / visible; dashboard ownership mismatch | Public listing returns HTTP 200 with title `Atlarium Habitat Database MCP MCP Server`, canonical public read-only description and repository link `https://github.com/techgardeners/atlarium-mcp`. GitHub issue comment `4722425013` remains historical submission evidence. The signed-in `https://mcp.so/my-servers` dashboard for Roberto ilGrafico / `ilgrafico79@gmail.com` currently shows `No servers`; use the public listing as visibility evidence and track dashboard edit ownership separately. The shorter candidate slug `https://mcp.so/server/atlarium-habitat-database` still returns `Project not found`. | Monitor listing metadata and keep the `atlarium-habitat-database-mcp` URL in launch materials; ask MCP.so maintainers to attach the listing to the account only if dashboard edits are needed. | None for visibility; account linkage needed only for future dashboard edits. |
 | PulseMCP | https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database | Listed / visible | Public PulseMCP page shows `Atlarium Habitat Database`, provider `Tech Gardeners`, released `Jun 16, 2026`, `server.json file available`, registry name `bio.atlarium/habitat-database`, auth `Open`, transport `Streamable HTTP`, and cost `Free`. Automated curl from the audit environment can still return HTTP 403 because of Cloudflare. | Monitor the visible listing and keep server.json/registry metadata current before adding badges elsewhere. | None for visibility; automated checks may need browser/search fallback. |
 
 Secondary directory backlog:
@@ -350,11 +351,11 @@ Secondary directory backlog:
 | Directory | URL | Status | Evidence | Next action |
 | --- | --- | --- | --- | --- |
 | MCP Scoreboard | https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/ | Listed / unscored | Public listing shows Atlarium Habitat Database MCP, TechGardeners, GitHub and endpoint links, latest health check `Up`, and score `Unscored`. | Owner verification or remote scoring may require GitHub login; no score badge until the score is meaningful. |
-| mcpservers.org | https://mcpservers.org/search | Pending | Search page returned `Showing 1-0 of 0 servers` for Atlarium. | Submit using the standard payload. |
+| mcpservers.org | https://mcpservers.org/search | Submitted / pending review | Free form confirmed `Submission Successful` for `Atlarium Habitat Database MCP` and said review should happen within 12 hours. | Monitor approval email and listing URL; avoid badges until visible. |
 | MCP Market | https://mcpmarket.com/submit | Blocked | Submission page is external; automated fetch can hit a Vercel checkpoint. | Browser/manual submission; paid acceleration optional, no badge until listing exists. |
 | MCP Marketplace | https://mcp-marketplace.io/submit | Blocked | Search found no Atlarium listing; submit redirects to login. | Submit after login if this directory is worth prioritizing. |
-| MCPRepository | https://mcprepository.com/submit | Pending | Search endpoint did not confirm a public Atlarium listing. | Submit with GitHub repository URL and standard payload. |
-| MCP Server Hub | https://mcpserverhub.com/submit | Pending | Submit page is public and no Atlarium listing was confirmed. | Submit with GitHub repository URL/contact and monitor review. |
+| MCPRepository | https://mcprepository.com/techgardeners/atlarium-mcp | Submitted / queued | API accepted `https://github.com/techgardeners/atlarium-mcp` with `status: queued`, `valid: true`, `duplicate: false`, and returned the expected listing URL. | Verify the generated listing URL before adding a badge. |
+| MCP Server Hub | https://mcpserverhub.com/submit | Submitted / pending review | Embedded Tally form confirmed `Form submitted` and `Thanks for your submission! We'll review and display your MCP Server later.` | Monitor public listing; avoid badges until visible. |
 
 External review backlog:
 
@@ -388,7 +389,8 @@ Open the web submission pages for OAuth/claim-based directories:
 pnpm directories:submit -- --open
 ```
 
-Submit MCP.so through its GitHub issue flow:
+Historical MCP.so GitHub issue submission helper; use only for future refresh
+comments if maintainers request them:
 
 ```bash
 pnpm directories:submit -- --submit-mcp-so --yes
