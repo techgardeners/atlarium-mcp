@@ -600,8 +600,9 @@ export function habitatExplorerHtml() {
       const filter = document.getElementById("filter");
       const status = document.getElementById("status");
       const tabsNav = document.querySelector(".tabs");
-      const openai = window.openai;
+      const isChatGptHost = new URLSearchParams(window.location.search).get("app") === "chatgpt";
       let rpcId = 1;
+      let bridgeAttempts = 0;
 
       const uiCopy = {
         en: {
@@ -901,13 +902,19 @@ export function habitatExplorerHtml() {
       };
       state.language = detectLanguage();
 
+      function bridge() {
+        return window.openai;
+      }
+
       function asObject(value) {
         return value && typeof value === "object" && !Array.isArray(value) ? value : {};
       }
 
       function detectLanguage(locale) {
-        const hostLocale = openai && (openai.locale || openai.userLocale || openai.language);
-        const candidate = String(locale || hostLocale || navigator.language || "en").toLowerCase();
+        const host = bridge();
+        const hostLocale = host && (host.locale || host.userLocale || host.language);
+        const documentLocale = document.documentElement.lang;
+        const candidate = String(locale || hostLocale || documentLocale || navigator.language || "en").toLowerCase();
         if (candidate.startsWith("it")) return "it";
         if (candidate.startsWith("es")) return "es";
         return "en";
@@ -953,18 +960,42 @@ export function habitatExplorerHtml() {
         if (compatibilityButton) compatibilityButton.textContent = copy("actions.checkPair");
       }
 
+      function parseContentText(content) {
+        if (!Array.isArray(content)) return undefined;
+        const textPart = content.find((entry) => entry && entry.type === "text" && typeof entry.text === "string");
+        if (!textPart) return undefined;
+        try {
+          return JSON.parse(textPart.text);
+        } catch {
+          return undefined;
+        }
+      }
+
+      function extractStructuredPayload(payload) {
+        if (!payload || typeof payload !== "object") return payload;
+        if ("structuredContent" in payload) return payload.structuredContent;
+        if ("toolOutput" in payload) return extractStructuredPayload(payload.toolOutput);
+        if ("mcp_tool_result" in payload) return extractStructuredPayload(payload.mcp_tool_result);
+        if ("call_tool_result" in payload) return extractStructuredPayload(payload.call_tool_result);
+        if ("toolResult" in payload) return extractStructuredPayload(payload.toolResult);
+        if ("result" in payload) return extractStructuredPayload(payload.result);
+        const parsedContent = parseContentText(payload.content);
+        if (parsedContent !== undefined) return parsedContent;
+        return payload;
+      }
+
       function currentPayload(payload) {
-        if (payload && typeof payload === "object" && "structuredContent" in payload) {
-          return payload.structuredContent;
+        const extracted = extractStructuredPayload(payload);
+        if (extracted && typeof extracted === "object" && "tool" in extracted && "data" in extracted) {
+          return extracted;
         }
-        if (payload && typeof payload === "object" && "tool" in payload && "data" in payload) {
-          return payload;
-        }
-        return { tool: "unknown", data: payload };
+        return { tool: "unknown", data: extracted };
       }
 
       function receivePayload(payload) {
+        if (payload === undefined || payload === null) return false;
         const normalized = currentPayload(payload);
+        if (normalized.data === undefined || normalized.data === null) return false;
         const data = asObject(normalized.data);
         state.language = detectLanguage(normalized.language || normalized.locale || data.language || data.locale);
         state.tool = normalized.tool || "unknown";
@@ -972,6 +1003,21 @@ export function habitatExplorerHtml() {
         state.selectedIndex = 0;
         inferTab();
         render();
+        return true;
+      }
+
+      function readBridgePayload() {
+        const host = bridge();
+        if (!host) return undefined;
+        if (host.toolOutput !== undefined && host.toolOutput !== null) return host.toolOutput;
+        if (host.toolResponseMetadata !== undefined && host.toolResponseMetadata !== null) {
+          return host.toolResponseMetadata;
+        }
+        return undefined;
+      }
+
+      function hydrateFromBridge() {
+        return receivePayload(readBridgePayload());
       }
 
       function inferTab() {
@@ -1205,8 +1251,9 @@ export function habitatExplorerHtml() {
         };
         const args = argsByTool[name] || {};
 
-        if (openai && typeof openai.callTool === "function") {
-          openai.callTool(name, args).then(receivePayload).catch((error) => {
+        const host = bridge();
+        if (host && typeof host.callTool === "function") {
+          host.callTool(name, args).then(receivePayload).catch((error) => {
             status.textContent = error && error.message ? error.message : copy("status.failed");
           });
           return;
@@ -1376,22 +1423,42 @@ export function habitatExplorerHtml() {
       });
 
       window.addEventListener("message", (event) => {
+        if (event.source && event.source !== window.parent) return;
         const message = event.data;
         if (!message || typeof message !== "object") return;
+        if (message.jsonrpc && message.jsonrpc !== "2.0") return;
         if (message.method === "ui/notifications/tool-result") {
-          receivePayload(message.params && (message.params.result || message.params));
+          receivePayload(message.params);
           return;
         }
         if ("result" in message) {
           receivePayload(message.result);
         }
-      });
+      }, { passive: true });
 
-      if (openai && openai.toolOutput) {
-        receivePayload(openai.toolOutput);
-      } else {
-        receivePayload(samplePayload());
+      window.addEventListener("openai:set_globals", (event) => {
+        const globals = event.detail && event.detail.globals;
+        if (!receivePayload(globals && globals.toolOutput)) {
+          receivePayload(globals && globals.toolResponseMetadata);
+        }
+      }, { passive: true });
+
+      function bootstrap() {
+        if (hydrateFromBridge()) return;
+        bridgeAttempts += 1;
+        if (bridgeAttempts <= 20) {
+          window.setTimeout(bootstrap, 100);
+          return;
+        }
+        if (!isChatGptHost) {
+          receivePayload(samplePayload());
+          return;
+        }
+        render();
       }
+
+      render();
+      bootstrap();
     })();
   </script>
 </body>

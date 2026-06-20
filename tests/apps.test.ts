@@ -69,8 +69,12 @@ describe("ChatGPT App widget", () => {
     expect(html).toContain("--warn-bg");
     expect(html).toContain(".mini-card.warning");
     expect(html).toContain("ui/notifications/tool-result");
+    expect(html).toContain("openai:set_globals");
+    expect(html).toContain("toolResponseMetadata");
+    expect(html).toContain("mcp_tool_result");
     expect(html).toContain("tools/call");
     expect(html).toContain("suggest_species_for_tank");
+    expect(html).toContain("isChatGptHost");
     expect(html).not.toContain("<iframe");
     expect(html).not.toContain("<svg");
     expect(html).not.toContain("data-brand-mark");
