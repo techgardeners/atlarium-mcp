@@ -23,8 +23,8 @@ depends on OpenAI review.
 - Widget MIME type: `text/html;profile=mcp-app`.
 - Widget source: `src/apps/habitat-explorer.ts`.
 - Widget visual treatment: self-contained Atlarium-native UI using inline brand
-  colors and embedded logo data URIs; no remote assets, fonts, scripts or
-  iframes.
+  colors and embedded JPEG logo data URIs for light and dark surfaces; no remote
+  assets, fonts, scripts or iframes.
 - Tool metadata: `_meta.ui.resourceUri` plus the ChatGPT compatibility alias
   `_meta["openai/outputTemplate"]`.
 - Safety: public, read-only, auth `none`, no user/workspace/admin/write tools.
