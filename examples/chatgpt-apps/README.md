@@ -25,8 +25,10 @@ depends on OpenAI review.
   `_meta["openai/widgetDomain"]`.
 - Widget source: `src/apps/habitat-explorer.ts`.
 - Widget visual treatment: self-contained Atlarium-native UI using inline brand
-  colors and embedded JPEG logo data URIs for light and dark surfaces; no remote
-  assets, fonts, scripts or iframes.
+  colors and embedded JPEG logo data URIs for light and dark surfaces. Optional
+  species media is rendered only from structured tool payloads when the image is
+  a data URI or an approved HTTPS Atlarium URL; no arbitrary remote assets,
+  fonts, scripts, fetches or iframes.
 - Widget localization: UI labels and status messages localize to English,
   Italian or Spanish from host/browser locale; technical tool keys should not be
   shown as user-facing status text.
@@ -96,12 +98,16 @@ livestock, equipment, water chemistry and local husbandry constraints.
 - Refreshed connector metadata showing the Atlarium tools.
 - Endpoint scan showing the 11 expected read-only tools.
 - Habitat Explorer Results view rendering a fish search result.
-- Habitat Explorer Profile view rendering a fish or plant profile.
+- Habitat Explorer Results view with species thumbnails when image fields are
+  present in the tool payload.
+- Habitat Explorer Profile view rendering a fish or plant profile with detail
+  media when available.
 - Habitat Explorer Compatibility view rendering warnings, recommended actions
-  and reviewed species for a community pair.
+  and reviewed species with media thumbnails for a community pair.
 - Habitat Explorer Suggestions view rendering tank suggestions and readable
-  reason chips for a planted freshwater aquarium.
-- Visual QA captures for light mode, dark mode and a narrow mobile viewport.
+  reason chips with media for a planted freshwater aquarium.
+- Visual QA captures for Results, Profile, Compatibility and Suggestions in
+  light mode, dark mode and a narrow mobile viewport.
 - Localization QA capture with Italian locale, confirming translated labels and
   no raw tool keys in status messages.
 - Safety/privacy notes visible in the submission form.

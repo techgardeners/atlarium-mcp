@@ -1,6 +1,10 @@
 export const habitatExplorerResourceUri = "ui://widget/habitat-explorer.v2.html";
 export const habitatExplorerMimeType = "text/html;profile=mcp-app";
 export const habitatExplorerWidgetDomain = "https://mcp.atlarium.bio";
+const habitatExplorerResourceDomains = [
+  "https://atlarium.bio",
+  "https://mcp.atlarium.bio",
+] as const;
 
 export const habitatExplorerToolMeta = {
   ui: {
@@ -19,7 +23,7 @@ export const habitatExplorerResourceMeta = {
       domain: habitatExplorerWidgetDomain,
       csp: {
         connectDomains: [],
-        resourceDomains: [],
+        resourceDomains: [...habitatExplorerResourceDomains],
         frameDomains: [],
       },
       widgetDescription:
@@ -31,7 +35,7 @@ export const habitatExplorerResourceMeta = {
     "openai/widgetPrefersBorder": false,
     "openai/widgetCSP": {
       connect_domains: [],
-      resource_domains: [],
+      resource_domains: [...habitatExplorerResourceDomains],
       frame_domains: [],
     },
   },
@@ -338,6 +342,45 @@ export function habitatExplorerHtml() {
       transform: translateY(-1px);
     }
 
+    .item.has-media {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      padding: 9px;
+    }
+
+    .item-copy {
+      display: block;
+      min-width: 0;
+    }
+
+    .thumb-frame, .mini-thumb {
+      display: block;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      background: var(--soft);
+    }
+
+    .thumb-frame {
+      width: 76px;
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+    }
+
+    .mini-thumb {
+      width: 58px;
+      aspect-ratio: 1;
+      border-radius: 8px;
+    }
+
+    .thumb-frame img, .mini-thumb img, .detail-media img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
     .item-title {
       display: flex;
       align-items: baseline;
@@ -397,6 +440,18 @@ export function habitatExplorerHtml() {
 
     .detail {
       min-height: 220px;
+    }
+
+    .detail-media {
+      display: block;
+      overflow: hidden;
+      width: 100%;
+      aspect-ratio: 16 / 7;
+      max-height: 190px;
+      margin-bottom: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--soft);
     }
 
     .detail h2 {
@@ -476,6 +531,18 @@ export function habitatExplorerHtml() {
       padding: 9px;
     }
 
+    .mini-card.profile-mini {
+      display: grid;
+      grid-template-columns: 58px minmax(0, 1fr);
+      align-items: center;
+      gap: 9px;
+    }
+
+    .mini-copy {
+      display: block;
+      min-width: 0;
+    }
+
     .mini-card.warning {
       background: var(--warn-bg);
       border-color: var(--warn-line);
@@ -540,6 +607,12 @@ export function habitatExplorerHtml() {
         flex-direction: column;
         gap: 2px;
       }
+      .item.has-media {
+        grid-template-columns: 64px minmax(0, 1fr);
+      }
+      .thumb-frame {
+        width: 64px;
+      }
       .latin {
         text-align: left;
       }
@@ -603,6 +676,7 @@ export function habitatExplorerHtml() {
       const isChatGptHost = new URLSearchParams(window.location.search).get("app") === "chatgpt";
       let rpcId = 1;
       let bridgeAttempts = 0;
+      const atlariumImageHosts = ["atlarium.bio", "www.atlarium.bio", "mcp.atlarium.bio"];
 
       const uiCopy = {
         en: {
@@ -1039,6 +1113,59 @@ export function habitatExplorerHtml() {
         return item.scientific_name || item.latin_name || "";
       }
 
+      function safeImageUrl(value) {
+        const text = String(value || "").trim();
+        if (!text) return "";
+        if (/^data:image\\/(png|jpe?g|webp|gif|avif);base64,/i.test(text)) return text;
+
+        try {
+          const url = text.startsWith("/")
+            ? new URL(text, "https:" + "//atlarium.bio")
+            : new URL(text);
+          if (url.protocol === "https:" && atlariumImageHosts.includes(url.hostname)) {
+            return url.href;
+          }
+        } catch {
+          return "";
+        }
+
+        return "";
+      }
+
+      function imageFromCandidate(candidate) {
+        if (!candidate) return "";
+        if (typeof candidate === "string") return safeImageUrl(candidate);
+        const item = asObject(candidate);
+        for (const key of ["image_url", "imageUrl", "thumbnail_url", "thumbnailUrl", "thumbnailImage", "heroImage", "cover_image", "coverImage", "photo_url", "photoUrl", "src", "url"]) {
+          const image = safeImageUrl(item[key]);
+          if (image) return image;
+        }
+        return "";
+      }
+
+      function imageFor(item) {
+        const source = asObject(item);
+        for (const key of ["image_url", "imageUrl", "thumbnail_url", "thumbnailUrl", "thumbnailImage", "heroImage", "cover_image", "coverImage", "photo_url", "photoUrl", "image"]) {
+          const image = imageFromCandidate(source[key]);
+          if (image) return image;
+        }
+        for (const key of ["images", "media", "photos", "gallery_images", "galleryImages"]) {
+          const values = Array.isArray(source[key]) ? source[key] : [];
+          for (const candidate of values) {
+            const image = imageFromCandidate(candidate);
+            if (image) return image;
+          }
+        }
+        return "";
+      }
+
+      function mediaFrame(image, alt, className) {
+        if (!image) return "";
+        return '<span class="' + className + '">' +
+          '<img src="' + escapeHtml(image) + '" alt="' + escapeHtml(alt) + '" loading="lazy" decoding="async" referrerpolicy="no-referrer" />' +
+          '</span>';
+      }
+
       function allItems() {
         const data = state.data;
         if (!data) return [];
@@ -1103,9 +1230,14 @@ export function habitatExplorerHtml() {
 
         list.innerHTML = items.map((item, index) => {
           const chips = chipsFor(item).map((entry) => chip(entry.label, entry.tone)).join("");
-          return '<button class="item ' + (index === state.selectedIndex ? "active" : "") + '" data-index="' + index + '">' +
-            '<span class="item-title"><span>' + escapeHtml(titleFor(item)) + '</span><span class="latin">' + escapeHtml(scientificFor(item)) + '</span></span>' +
-            '<span class="chips">' + chips + '</span>' +
+          const image = imageFor(item);
+          const title = titleFor(item);
+          const className = ["item", image ? "has-media" : "", index === state.selectedIndex ? "active" : ""].filter(Boolean).join(" ");
+          return '<button class="' + className + '" data-index="' + index + '">' +
+            mediaFrame(image, title, "thumb-frame") +
+            '<span class="item-copy">' +
+            '<span class="item-title"><span>' + escapeHtml(title) + '</span><span class="latin">' + escapeHtml(scientificFor(item)) + '</span></span>' +
+            '<span class="chips">' + chips + '</span></span>' +
             '</button>';
         }).join("");
       }
@@ -1131,7 +1263,9 @@ export function habitatExplorerHtml() {
 
       function renderProfile(item) {
         const summary = item.summary || item.description || item.short_description || item.care_summary || item.notes || "";
-        return '<h2>' + escapeHtml(titleFor(item)) + '</h2>' +
+        const title = titleFor(item);
+        return mediaFrame(imageFor(item), title, "detail-media") +
+          '<h2>' + escapeHtml(title) + '</h2>' +
           '<p class="summary">' + escapeHtml(scientificFor(item) || item.slug || copy("detail.structuredProfile")) + '</p>' +
           (summary ? '<p class="body-copy">' + escapeHtml(summary) + '</p>' : "") +
           '<div class="metrics">' +
@@ -1168,7 +1302,9 @@ export function habitatExplorerHtml() {
       function renderSuggestion(item) {
         const reason = item.reason || item.rationale || item.summary || "";
         const reasonChips = reasonParts(reason).map((part) => chip(part, "plant")).join("");
-        return '<h2>' + escapeHtml(titleFor(item)) + '</h2>' +
+        const title = titleFor(item);
+        return mediaFrame(imageFor(item), title, "detail-media") +
+          '<h2>' + escapeHtml(title) + '</h2>' +
           '<p class="summary">' + escapeHtml(scientificFor(item) || item.slug || copy("detail.suggestedCandidate")) + '</p>' +
           (reasonChips ? '<div class="chips">' + reasonChips + '</div>' : "") +
           '<div class="metrics">' +
@@ -1214,9 +1350,14 @@ export function habitatExplorerHtml() {
           profiles.map((profile) => {
             const item = asObject(profile);
             const chips = chipsFor(item).map((entry) => chip(entry.label, entry.tone)).join("");
-            return '<div class="mini-card"><strong>' + escapeHtml(titleFor(item)) + '</strong>' +
+            const image = imageFor(item);
+            const title = titleFor(item);
+            const className = image ? "mini-card profile-mini" : "mini-card";
+            return '<div class="' + className + '">' +
+              mediaFrame(image, title, "mini-thumb") +
+              '<span class="mini-copy"><strong>' + escapeHtml(title) + '</strong>' +
               '<span class="summary">' + escapeHtml(scientificFor(item) || item.slug || "") + '</span>' +
-              '<span class="chips">' + chips + '</span></div>';
+              '<span class="chips">' + chips + '</span></span></div>';
           }).join("") +
           '</div>';
       }

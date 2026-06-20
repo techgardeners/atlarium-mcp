@@ -64,6 +64,13 @@ describe("ChatGPT App widget", () => {
     expect(html).toContain("toolLabel(state.tool)");
     expect(html).toContain("reasonParts");
     expect(html).toContain("recommended_actions");
+    expect(html).toContain("atlariumImageHosts");
+    expect(html).toContain("safeImageUrl");
+    expect(html).toContain("imageFor");
+    expect(html).toContain("thumb-frame");
+    expect(html).toContain("detail-media");
+    expect(html).toContain("profile-mini");
+    expect(html).toContain("image_url");
     expect(html).toContain("--water-bg");
     expect(html).toContain("--plant-bg");
     expect(html).toContain("--warn-bg");
@@ -91,12 +98,12 @@ describe("ChatGPT App widget", () => {
     expect(habitatExplorerResourceMeta._meta.ui.csp).toEqual({
       connectDomains: [],
       frameDomains: [],
-      resourceDomains: [],
+      resourceDomains: ["https://atlarium.bio", "https://mcp.atlarium.bio"],
     });
     expect(habitatExplorerResourceMeta._meta["openai/widgetCSP"]).toEqual({
       connect_domains: [],
       frame_domains: [],
-      resource_domains: [],
+      resource_domains: ["https://atlarium.bio", "https://mcp.atlarium.bio"],
     });
   });
 
