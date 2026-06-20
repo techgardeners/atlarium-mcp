@@ -44,6 +44,7 @@ kubectl kustomize "$KUSTOMIZE_DIR" \
   | ssh "$SSH_HOST" "kubectl apply -f -"
 
 run ssh "$SSH_HOST" "kubectl -n '$NAMESPACE' set image deployment/atlarium-mcp atlarium-mcp='$IMAGE:$TAG'"
+run ssh "$SSH_HOST" "kubectl -n '$NAMESPACE' rollout restart deployment/atlarium-mcp"
 run ssh "$SSH_HOST" "kubectl -n '$NAMESPACE' rollout status deployment/atlarium-mcp --timeout=180s"
 run ssh "$SSH_HOST" "kubectl -n '$NAMESPACE' get pods,svc,ingress -o wide"
 
