@@ -10,9 +10,9 @@ const generatedAt = new Date().toISOString();
 const serverJson = JSON.parse(readFileSync("server.json", "utf8"));
 const name = "Atlarium Habitat Database MCP";
 const shortDescription =
-  "Structured aquarium, marine, terrarium and paludarium data for AI agents.";
+  "Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.";
 const longDescription =
-  "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, care requirements, environmental parameters, compatibility information, guides and habitat planning tools.";
+  "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.";
 const endpoint = serverJson.remotes?.[0]?.url ?? "https://mcp.atlarium.bio/mcp";
 const repository = serverJson.repository?.url ?? "https://github.com/techgardeners/atlarium-mcp";
 const docs = "https://atlarium.bio/mcp";
@@ -33,6 +33,8 @@ const connectionBlock = [
 
 const safetyStatement =
   "Atlarium Habitat Database MCP is read-only. It does not expose user accounts, workspaces, admin APIs, private data or write operations.";
+const surfaceStatement =
+  "Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.";
 
 const markdownPayload = `# ${name}
 
@@ -56,7 +58,14 @@ ${safetyStatement}
 - Animals
 - Plants
 - Habitat planning
-- Research & data
+- Diagnostics
+- Fertilization
+- Calculators
+- Research and data
+
+## Tool Surface
+
+${surfaceStatement}
 
 Generated: ${generatedAt}
 `;
@@ -80,10 +89,99 @@ ${markdownPayload}
 Thank you.
 `;
 
+const secondaryDirectoryPayloads = `# Secondary Directory Payloads
+
+Generated: ${generatedAt}
+
+Use this file for manual form submissions that require login, OAuth, owner
+verification or a final maintainer click. Do not add a badge until a public
+listing is visible.
+
+## Smithery
+
+Submission URL: https://smithery.ai/new
+
+Name: ${name}
+Repository: ${repository}
+Remote endpoint: ${endpoint}
+Transport: Streamable HTTP
+Authentication: none
+Server card: ${serverCard}
+Docs: ${docs}
+Description: ${shortDescription}
+${surfaceStatement}
+Safety: ${safetyStatement}
+
+## Glama
+
+Connector URL: https://glama.ai/mcp/connectors/${registryName}
+Claim file: https://mcp.atlarium.bio/.well-known/glama.json
+
+Use the live claim file to complete the ownership flow if Glama asks for manual
+confirmation.
+
+## MCP.so
+
+Existing submission evidence:
+https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013
+
+Follow-up:
+
+${mcpSoComment}
+
+## MCP Scoreboard
+
+Listing URL:
+https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/
+
+Request owner verification or scoring only from a TechGardeners GitHub account.
+Do not publish a score badge while the listing is unscored.
+
+## mcpservers.org
+
+Submission/search URL: https://mcpservers.org/search
+
+Use ${repository} as the project URL and ${endpoint} as the remote Streamable
+HTTP endpoint.
+
+## MCPRepository
+
+Submission URL: https://mcprepository.com/submit
+
+Use the canonical metadata block plus the GitHub repository URL.
+
+## MCP Server Hub
+
+Submission URL: https://mcpserverhub.com/submit
+
+Use the canonical metadata block, server card URL and contact
+info@techgardeners.com.
+
+## MCP Market / Marketplace
+
+Submission URLs:
+- https://mcpmarket.com/submit
+- https://mcp-marketplace.io/submit
+
+These flows may require login or can hit anti-bot checkpoints. Submit manually
+from a logged-in browser and keep status pending until the public listing is
+visible.
+`;
+
 const formPayload = {
   type: "MCP Server",
   name,
   url: repository,
+  description: shortDescription,
+  longDescription,
+  endpoint,
+  transport: "streamable-http",
+  authentication: "none",
+  serverCard,
+  docs,
+  registryName,
+  safety: safetyStatement,
+  surface: surfaceStatement,
   serverConfig: {
     mcpServers: {
       "atlarium-habitat-database": {
@@ -140,6 +238,7 @@ function writeArtifacts() {
   writeFileSync(join(outDir, "mcp-so-comment.md"), mcpSoComment);
   writeFileSync(join(outDir, "pulsemcp-email.md"), pulseEmail);
   writeFileSync(join(outDir, "mcp-so-form.json"), `${JSON.stringify(formPayload, null, 2)}\n`);
+  writeFileSync(join(outDir, "secondary-directory-payloads.md"), secondaryDirectoryPayloads);
   console.log(`Wrote submission artifacts to ${outDir}`);
 }
 

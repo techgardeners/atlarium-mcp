@@ -89,15 +89,17 @@ complete whenever the public MCP contract changes:
   VS Code, Antigravity, generic Streamable HTTP and ChatGPT Apps.
 - ChatGPT App/widget section with accurate status and no public approval claim.
 - Tool surface table and one collapsible example for every public tool.
-- Real widget screenshots only after capture from ChatGPT Developer Mode or an
-  equivalent live Apps-compatible host.
+- Real widget screenshots captured from ChatGPT Developer Mode or an equivalent
+  live Apps-compatible host.
 
-Expected screenshot filenames, once captured:
+Current screenshot and demo assets:
 
 ```text
-docs/assets/chatgpt-app-results.png
-docs/assets/chatgpt-app-profile.png
-docs/assets/chatgpt-app-planner.png
+docs/assets/chatgpt-app-demo.mp4
+docs/assets/chatgpt-screenshots/results.png
+docs/assets/chatgpt-screenshots/profile.png
+docs/assets/chatgpt-screenshots/compatibility.png
+docs/assets/chatgpt-screenshots/suggestions.png
 ```
 
 ## Claim Rules
@@ -107,7 +109,7 @@ docs/assets/chatgpt-app-planner.png
   `server.json` is published and visible.
 - Do not add Smithery, MCP.so, PulseMCP or client approval badges until the
   external listing or approval is visible.
-- Keep ChatGPT copy limited to submission/app-readiness notes until public
+- Keep ChatGPT copy limited to submitted/in-review notes until public
   review is complete.
 
 ## MCP Update Rule

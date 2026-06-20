@@ -6,6 +6,9 @@ Use these payloads for directory submission, claim and follow-up flows. Do not
 add directory badges or claim official support until the specific directory
 listing is visible or the vendor has accepted the submission.
 
+For the operational status board and manual blocker list, use
+`docs/mcp-submission-cockpit.md`.
+
 ## Canonical Metadata
 
 Name:
@@ -199,6 +202,155 @@ Official MCP Registry: bio.atlarium/habitat-database
 
 Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
 Safety: read-only; no user accounts, workspaces, admin APIs, private data or write operations.
+```
+
+## MCP Scoreboard
+
+Listing URL:
+
+```text
+https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/
+```
+
+Status:
+
+```text
+Listed / unscored. The public listing shows Atlarium Habitat Database MCP,
+TechGardeners, GitHub and endpoint links, and latest health status Up. Do not
+add a score badge while the listing is unscored.
+```
+
+Owner/scoring request payload:
+
+```text
+Atlarium Habitat Database MCP
+
+Repository: https://github.com/techgardeners/atlarium-mcp
+Endpoint: https://mcp.atlarium.bio/mcp
+Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+Official MCP Registry: bio.atlarium/habitat-database
+
+The server is public, remote Streamable HTTP, auth none and read-only. It
+exposes 39 public read-only tools, 9 prompts and the Apps-compatible Habitat
+Explorer widget resource. Please refresh scoring from the current live endpoint
+and server-card metadata.
+```
+
+Manual blocker:
+
+```text
+Owner verification or scoring request may require GitHub login from a
+TechGardeners maintainer.
+```
+
+## mcpservers.org
+
+Submission/search URL:
+
+```text
+https://mcpservers.org/search
+```
+
+Status:
+
+```text
+Pending. Previous search did not confirm a public Atlarium listing.
+```
+
+Payload:
+
+```text
+Name: Atlarium Habitat Database MCP
+Project URL: https://github.com/techgardeners/atlarium-mcp
+Endpoint: https://mcp.atlarium.bio/mcp
+Transport: Streamable HTTP
+Auth: none
+Description: Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
+Safety: read-only; no user accounts, workspaces, admin APIs, private data or write operations.
+```
+
+## MCPRepository
+
+Submission URL:
+
+```text
+https://mcprepository.com/submit
+```
+
+Status:
+
+```text
+Pending. Search did not confirm a public Atlarium listing.
+```
+
+Payload:
+
+```text
+Name: Atlarium Habitat Database MCP
+GitHub repository: https://github.com/techgardeners/atlarium-mcp
+Remote MCP endpoint: https://mcp.atlarium.bio/mcp
+Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+Docs: https://atlarium.bio/mcp
+Official MCP Registry: bio.atlarium/habitat-database
+Tags: aquarium, marine, terrarium, paludarium, habitat-data, diagnostics, fertilization, calculators, mcp-app
+```
+
+## MCP Server Hub
+
+Submission URL:
+
+```text
+https://mcpserverhub.com/submit
+```
+
+Status:
+
+```text
+Pending. Submit page is public; no Atlarium listing has been confirmed.
+```
+
+Payload:
+
+```text
+Name: Atlarium Habitat Database MCP
+Contact: info@techgardeners.com
+Repository: https://github.com/techgardeners/atlarium-mcp
+Endpoint: https://mcp.atlarium.bio/mcp
+Transport: Streamable HTTP
+Authentication: none
+Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+Docs: https://atlarium.bio/mcp
+Description: Atlarium MCP is a public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data, diagnostics, products, fertilization, calculators, compatibility and advisory habitat planning.
+```
+
+## MCP Market / Marketplace
+
+Submission URLs:
+
+```text
+https://mcpmarket.com/submit
+https://mcp-marketplace.io/submit
+```
+
+Status:
+
+```text
+Blocked / manual. These flows can require login or hit anti-bot checkpoints.
+Use a logged-in browser and keep the status pending until a public listing is
+visible.
+```
+
+Payload:
+
+```text
+Name: Atlarium Habitat Database MCP
+Endpoint: https://mcp.atlarium.bio/mcp
+Repository: https://github.com/techgardeners/atlarium-mcp
+Docs: https://atlarium.bio/mcp
+Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+Short description: Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Safety: public read-only tools only; no user, workspace, admin, auth or write APIs.
 ```
 
 ## PulseMCP

@@ -99,6 +99,23 @@ linked from tool metadata through `_meta.ui.resourceUri` plus
 origin `https://mcp.atlarium.bio` through `_meta.ui.domain` and
 `_meta["openai/widgetDomain"]`.
 
+The ChatGPT App submission is currently `submitted / in review`. The app icon,
+demo recording and screenshots are prepared in the repository, but public copy
+must continue to say "submitted for review" or "Apps-compatible widget" until
+OpenAI accepts the app.
+
+Submission assets:
+
+```text
+docs/assets/chatgpt-app-icon.png
+docs/assets/chatgpt-app-demo.mp4
+docs/assets/chatgpt-screenshots/results.png
+docs/assets/chatgpt-screenshots/profile.png
+docs/assets/chatgpt-screenshots/compatibility.png
+docs/assets/chatgpt-screenshots/suggestions.png
+chatgpt-app-submission.json
+```
+
 ## Short Demo Script
 
 ### 1. Install or configure the endpoint
@@ -263,3 +280,26 @@ or write operations.
 We are completing directory claim/submission flows and will add directory badges
 only after each listing is accepted and visible.
 ```
+
+### ChatGPT App review status post
+
+```text
+Atlarium Habitat Database MCP now includes an Apps-compatible read-only Habitat
+Explorer widget and has been submitted for ChatGPT App review.
+
+Endpoint: https://mcp.atlarium.bio/mcp
+Widget resource: ui://widget/habitat-explorer.v3.html
+Docs: https://atlarium.bio/mcp
+Repo: https://github.com/techgardeners/atlarium-mcp
+
+The MCP server remains auth-free and read-only with 39 public tools, 9 prompts
+and no user/workspace/admin/write APIs. We will not claim public ChatGPT
+approval until review is accepted.
+```
+
+## Operational Links
+
+- Submission cockpit: `docs/mcp-submission-cockpit.md`
+- Directory payloads: `docs/directory-submission-payloads.md`
+- Publication checklist: `docs/publication-checklist.md`
+- Final report: `docs/mcp-final-report.md`

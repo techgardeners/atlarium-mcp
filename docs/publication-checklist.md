@@ -22,7 +22,7 @@ Last updated: 2026-06-20
 - `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` returns public JSON.
 - `https://mcp.atlarium.bio/mcp` is the canonical Streamable HTTP endpoint.
 - `https://atlarium.bio/mcp` returns the public human documentation page.
-- `https://atlarium.bio/mcp/*` client setup pages are implemented for OpenAI Agents SDK, Claude Code, Cursor, Windsurf, VS Code, Antigravity, Smithery status and ChatGPT Apps preparation.
+- `https://atlarium.bio/mcp/*` client setup pages are implemented for OpenAI Agents SDK, Claude Code, Cursor, Windsurf, VS Code, Antigravity, Smithery status and ChatGPT Apps.
 - `https://atlarium.bio/llms.txt` includes the MCP discovery section.
 - GitHub repo metadata, README, MIT license, contributing/security notes and client examples are ready.
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
@@ -43,11 +43,18 @@ Last updated: 2026-06-20
   metadata to `ui://widget/habitat-explorer.v3.html`; no public ChatGPT review
   or approval is claimed.
 - ChatGPT App icon asset is prepared at `docs/assets/chatgpt-app-icon.png`.
+- ChatGPT App screenshots are prepared in `docs/assets/chatgpt-screenshots/`
+  and the short demo recording is prepared at `docs/assets/chatgpt-app-demo.mp4`.
+- ChatGPT App has been submitted to OpenAI review and is currently treated as
+  `submitted / in review`; do not claim public approval until OpenAI accepts it.
+- The OpenAI Apps domain challenge endpoint is live at
+  `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.
 
 Remaining publication prerequisites:
 
 - Smithery and Glama need maintainer OAuth/claim in their web UI.
 - MCP.so submission has been posted through the public GitHub issue flow.
+- ChatGPT App review must be monitored for requested changes or acceptance.
 
 Repository production assets:
 
@@ -82,6 +89,7 @@ server-card field or directory metadata, verify and update at minimum:
 - `server.json`
 - `docs/mcp/server-card.json.example`
 - `docs/directory-submission-payloads.md`
+- `docs/mcp-submission-cockpit.md`
 - `docs/publication-checklist.md`
 
 ## Production Deployment
@@ -205,7 +213,7 @@ Manual ChatGPT Developer Mode smoke, verified 2026-06-20:
   `Actualizar`. The app detail should show 39 read-only actions and output
   template `ui://widget/habitat-explorer.v3.html`.
 - Prompt: search for `Paracheirodon innesi` using only Atlarium. Result:
-  ChatGPT called Atlarium Habitat Database MCP, rendered the v2 Habitat Explorer
+  ChatGPT called Atlarium Habitat Database MCP, rendered the v3 Habitat Explorer
   Results widget with the real Neon Tetra / `Paracheirodon innesi` result and no
   sample fallback data.
 - Prompt: check `Corydoras paleatus` with `Betta splendens` in a 90 L planted
@@ -318,11 +326,11 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 
 ## Submission Tracker
 
-Last verified: `2026-06-20T00:16:56Z`.
+Last verified: `2026-06-20T03:39:17Z`.
 
 | Directory | URL | Status | Evidence | Next action | Owner / manual blocker |
 | --- | --- | --- | --- | --- | --- |
-| Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active; V2 update required | Registry API previously returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`, and `isLatest = true` under `_meta.io.modelcontextprotocol.registry/official`. | Publish the updated `server.json` with version 2.0.0 after endpoint validation. | Atlarium DNS ownership already used for publication. |
+| Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active; verify V2 metadata before refreshed-registry claims | Registry API previously returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`, and `isLatest = true` under `_meta.io.modelcontextprotocol.registry/official`. | Monitor the registry entry and publish future `server.json` updates only after endpoint validation. | Atlarium DNS ownership already used for publication. |
 | Smithery | https://smithery.ai/new | Not listed; ready for maintainer submission | `npx -y smithery mcp search "Atlarium Habitat Database MCP"` did not return Atlarium. Smithery publish docs still direct maintainers to `https://smithery.ai/new`; unauthenticated fetch of that URL redirects to `/servers/new` and returns HTTP 404 markdown. | Sign in to Smithery, submit the public HTTPS endpoint, server card and repo using `docs/directory-submission-payloads.md`; if `/new` fails after login, navigate from Smithery's Publish flow. | Atlarium/TechGardeners account or OAuth login required. |
 | Glama | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database | Indexed as connector; claim file live | Connector page returned HTTP 200 with title `Atlarium Habitat Database MCP - MCP Connector | Glama`, registry name and endpoint `https://mcp.atlarium.bio/mcp`. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email `info@techgardeners.com`. | Complete the Glama claim flow in the web UI if manual confirmation is still required. | Atlarium/TechGardeners account or maintainer access may be required. |
 | MCP.so | https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013 | Submitted through public GitHub issue flow; listing not found yet | GitHub API confirmed issue comment `4722425013`, created `2026-06-16T19:06:21Z`, includes Atlarium name, endpoint and registry name. Candidate listing `https://mcp.so/server/atlarium-habitat-database` returned page title `- MCP Server` with `Project not found`. | Monitor issue comment and published listing; avoid badges until a listing is visible. | MCP.so maintainers control publication. |
@@ -339,12 +347,24 @@ Secondary directory backlog:
 | MCPRepository | https://mcprepository.com/submit | Pending | Search endpoint did not confirm a public Atlarium listing. | Submit with GitHub repository URL and standard payload. |
 | MCP Server Hub | https://mcpserverhub.com/submit | Pending | Submit page is public and no Atlarium listing was confirmed. | Submit with GitHub repository URL/contact and monitor review. |
 
+External review backlog:
+
+| Surface | URL | Status | Evidence | Next action |
+| --- | --- | --- | --- | --- |
+| ChatGPT App | OpenAI Platform Apps review portal | Submitted / in review | Submission package uploaded with endpoint, privacy URL, app icon, screenshots, demo assets and read-only safety explanation. | Monitor review; if OpenAI requests changes, patch repo/docs/server, redeploy, rescan metadata and reply in the portal. |
+
 ## Directory Automation
 
 Generate reusable copy and JSON payloads:
 
 ```bash
 pnpm directories:submit -- --payload
+```
+
+Open the step-by-step cockpit for manual flows:
+
+```text
+docs/mcp-submission-cockpit.md
 ```
 
 Check the public URLs and Official MCP Registry entry:

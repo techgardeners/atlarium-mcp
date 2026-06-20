@@ -116,7 +116,7 @@ pnpm mcp:monitor:public
 | VS Code | Copy `examples/vscode/mcp.json`; VS Code uses `type: "http"` for remote MCP servers. |
 | Antigravity | Use `examples/antigravity/mcp.json` only in builds that support remote MCP servers. |
 | Generic Streamable HTTP | Use the JSON-RPC examples in `examples/generic-streamable-http`. |
-| ChatGPT Apps | Use `examples/chatgpt-apps` for submission notes, smoke prompts and screenshot checklist. Public approval is not claimed. |
+| ChatGPT Apps | Submitted for review with the Habitat Explorer widget; use `examples/chatgpt-apps` for review notes, smoke prompts and screenshot checklist. Public approval is not claimed. |
 
 These are compatibility notes, not vendor endorsements. Do not make vendor or
 directory support claims for ChatGPT, Claude, Cursor, Windsurf, VS Code,
@@ -140,9 +140,10 @@ product results, calculator output, compatibility summaries, fertilization
 plans and habitat suggestions. It does not add write access and does not expose
 workspace, auth, admin, journal, schedule or measurement data.
 
-Real ChatGPT Developer Mode screenshots should be added to `docs/assets/` only
-after they are captured from the live widget. Until then, this README uses only
-the checked-in social preview and app icon assets.
+ChatGPT Developer Mode screenshots and a short demo recording are checked in
+under `docs/assets/chatgpt-screenshots/` and `docs/assets/chatgpt-app-demo.mp4`.
+The ChatGPT App is submitted / in review; do not describe it as approved or
+publicly available until OpenAI accepts it.
 
 ## Tool Surface
 
@@ -920,13 +921,15 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 | Directory | Status |
 | --- | --- |
 | Official MCP Registry | Published as `bio.atlarium/habitat-database`; publish the V2 `server.json` update after coordinated endpoint validation. |
-| Glama | Indexed as a connector; ownership claim is prepared through `/.well-known/glama.json`; refresh V2 metadata after registry sync. |
+| Glama | Indexed as a connector; ownership claim file is live at `/.well-known/glama.json`; complete web claim if the UI asks. |
 | Smithery | Ready for maintainer submission; no public listing claim yet. |
 | MCP.so | Submitted through the public GitHub issue flow; no public listing badge yet. |
-| PulseMCP | Listed publicly; update/verify V2 metadata after the public V2 rollout. |
+| PulseMCP | Listed publicly; verify badge policy before adding a badge. |
+| ChatGPT App | Submitted / in review; no public approval claim yet. |
 
 Publication tracking and reusable submission copy live in
-`docs/publication-checklist.md` and `docs/directory-submission-payloads.md`.
+`docs/publication-checklist.md`, `docs/directory-submission-payloads.md` and
+`docs/mcp-submission-cockpit.md`.
 
 ## Local Development
 

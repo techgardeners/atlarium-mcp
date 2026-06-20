@@ -8,12 +8,14 @@ Connector URL:
 https://mcp.atlarium.bio/mcp
 ```
 
-Use this when preparing a ChatGPT Apps or connector submission. Do not claim
-public ChatGPT availability until review is complete.
+Use this as the submitted ChatGPT Apps package record. Do not claim public
+ChatGPT availability until review is complete.
 
 This package covers the implemented Habitat Explorer widget, submission
 metadata, tests, screenshots and safety notes. Public ChatGPT availability still
 depends on OpenAI review.
+
+Current review status: `submitted / in review`.
 
 ## App Surface
 
@@ -62,11 +64,13 @@ depends on OpenAI review.
 - Privacy URL: `https://atlarium.bio/privacy` is live and includes MCP /
   ChatGPT App data-access notes. `https://atlarium.bio/en/privacy` also returns
   HTTP 200.
+- OpenAI Apps challenge:
+  `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.
 - Screenshots showing connection, tool discovery, widget rendering and sample tool responses.
 
 ## OpenAI Review Notes
 
-- The app/connector metadata snapshot is captured when the draft MCP endpoint is scanned in the OpenAI Platform Dashboard. Rescan after deploying any tool metadata, schema, resource or instruction change before submitting.
+- The app/connector metadata snapshot is captured when the draft MCP endpoint is scanned in the OpenAI Platform Dashboard. After any tool metadata, schema, resource or instruction change, redeploy, rescan the endpoint and respond in the review portal if OpenAI requested the change.
 - In ChatGPT web Developer Mode, connector metadata can remain cached after a
   widget URI change. Open Settings -> Apps, select the Atlarium draft app and
   click `Actualizar`; confirm the app detail shows the v3 output template before
@@ -237,5 +241,6 @@ boundary for weight and water planning.
 3. Scan the endpoint and confirm the 39 expected read-only tools appear.
 4. Run the test prompts above and capture the tool call transcript.
 5. Confirm the safety statement appears in the app listing/review notes.
-6. Confirm the privacy policy URL is still live before submission.
-7. After any UI-thread change deploys, rescan the endpoint before submission.
+6. Confirm the privacy policy URL is still live before any review response.
+7. After any UI-thread change deploys, rescan the endpoint before replying in
+   the OpenAI review portal.

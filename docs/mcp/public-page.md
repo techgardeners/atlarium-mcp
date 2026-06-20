@@ -54,7 +54,7 @@ https://github.com/techgardeners/atlarium-mcp
 - VS Code: https://atlarium.bio/mcp/vscode
 - Antigravity: https://atlarium.bio/mcp/antigravity
 - Smithery status: https://atlarium.bio/mcp/smithery
-- ChatGPT Apps preparation: https://atlarium.bio/mcp/chatgpt
+- ChatGPT Apps submitted / in review: https://atlarium.bio/mcp/chatgpt
 
 ## What It Provides
 
