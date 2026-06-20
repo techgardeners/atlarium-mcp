@@ -51,13 +51,18 @@ describe("ChatGPT App widget", () => {
     expect(html).toContain("Atlarium Habitat Explorer");
     expect(html).toContain("--deep-blue");
     expect(html).toContain("--azure");
-    expect(html).toContain("data-brand-mark");
+    expect(html).toContain("data-brand-logo");
+    expect(html).toContain("data:image/jpeg;base64");
+    expect(html).toContain("brand-logo light");
+    expect(html).toContain("brand-logo dark");
     expect(html).toContain("reasonParts");
     expect(html).toContain("recommended_actions");
     expect(html).toContain("ui/notifications/tool-result");
     expect(html).toContain("tools/call");
     expect(html).toContain("suggest_species_for_tank");
     expect(html).not.toContain("<iframe");
+    expect(html).not.toContain("<svg");
+    expect(html).not.toContain("data-brand-mark");
     expect(html).not.toMatch(/https?:\/\//);
   });
 
