@@ -25,6 +25,9 @@ depends on OpenAI review.
 - Widget visual treatment: self-contained Atlarium-native UI using inline brand
   colors and embedded JPEG logo data URIs for light and dark surfaces; no remote
   assets, fonts, scripts or iframes.
+- Widget localization: UI labels and status messages localize to English,
+  Italian or Spanish from host/browser locale; technical tool keys should not be
+  shown as user-facing status text.
 - Tool metadata: `_meta.ui.resourceUri` plus the ChatGPT compatibility alias
   `_meta["openai/outputTemplate"]`.
 - Safety: public, read-only, auth `none`, no user/workspace/admin/write tools.
@@ -76,6 +79,8 @@ livestock, equipment, water chemistry and local husbandry constraints.
 - Habitat Explorer Suggestions view rendering tank suggestions and readable
   reason chips for a planted freshwater aquarium.
 - Visual QA captures for light mode, dark mode and a narrow mobile viewport.
+- Localization QA capture with Italian locale, confirming translated labels and
+  no raw tool keys in status messages.
 - Safety/privacy notes visible in the submission form.
 - Privacy policy URL resolving HTTP 200: `https://atlarium.bio/privacy`.
 
