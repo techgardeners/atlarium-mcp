@@ -111,7 +111,10 @@ https://smithery.ai/new
 Manual blocker:
 
 ```text
-Requires Atlarium/TechGardeners sign-in. Smithery publish docs still direct maintainers to https://smithery.ai/new, but unauthenticated fetch of that URL redirects to /servers/new and returns HTTP 404 markdown.
+Final Publish/visibility confirmation required. The server was created as
+`ilgrafico79/atlarium-habitat-database`, the release succeeded, and Smithery
+discovered version 2.0.0 with 39 tools, 9 prompts and 3 resources. Keep it
+unlisted until namespace/publication is explicitly approved.
 ```
 
 Payload:
@@ -149,7 +152,10 @@ https://glama.ai/mcp/connectors/bio.atlarium/habitat-database
 Status:
 
 ```text
-Indexed as a Glama MCP connector from the Official MCP Registry. The ownership claim file is live at `https://mcp.atlarium.bio/.well-known/glama.json`; complete the web claim flow if Glama still asks for manual confirmation.
+Ownership verified. Glama indexes the connector from the Official MCP Registry,
+the claim file is live at `https://mcp.atlarium.bio/.well-known/glama.json`,
+the listing is healthy, Admin/Analytics are available, and the public
+description uses the canonical V2 copy.
 ```
 
 Claim file to serve from the MCP domain:

@@ -24,8 +24,8 @@ Atlarium marketing, Product Hunt, aquarium communities or creator outreach.
 | Directory | Status | Evidence | Next action | Manual blocker |
 | --- | --- | --- | --- | --- |
 | Official MCP Registry | Published / active | API returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`. | Monitor and publish future versions from `server.json`. | None. |
-| Smithery | Not listed; ready for maintainer submission | Smithery CLI search did not return Atlarium; `https://smithery.ai/new` redirects to hosted auth. | Submit payload from `docs/directory-submission-payloads.md`. | Atlarium/TechGardeners OAuth/login required. |
-| Glama | Indexed as connector; claim file live | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` returns HTTP 200 with Atlarium title, endpoint and registry name. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email. | Complete claim in Glama if the UI asks for confirmation. | Possible manual claim UI. |
+| Smithery | Created / release success / unlisted | `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database` has a successful release that discovered `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. | Final Publish/visibility step after explicit confirmation for namespace `ilgrafico79`. | User confirmation for public listing under that namespace. |
+| Glama | Ownership verified / listing healthy | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` shows healthy status, 39 tools, Admin/Analytics access and canonical V2 description. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email. | Monitor listing health and tool quality score; add badge/link only after badge policy approval. | None for ownership. |
 | MCP.so | Submitted; listing not visible yet | GitHub issue comment `4722425013` exists and includes name, endpoint and registry. Candidate listing returned `Project not found`. | Monitor issue/listing; no badge until visible. | MCP.so maintainer publication. |
 | PulseMCP | Listed / visible | `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database` shows Atlarium Habitat Database, provider Tech Gardeners, `server.json file available`, `bio.atlarium/habitat-database`, auth Open, Streamable HTTP and Free cost. | Monitor the listing and keep registry/server.json metadata current before adding badges elsewhere. | None for visibility; automated curl can still hit Cloudflare 403. |
 | MCP Scoreboard | Listed / unscored | Public listing exists and points to Atlarium GitHub and endpoint links. | Owner verification/scoring only if useful; no score badge while unscored. | GitHub owner verification may be required. |
@@ -120,8 +120,9 @@ The response body contains the Glama connector schema and maintainer email
 
 ## Residual Risks
 
-- Glama connector listing and ownership claim file are live; final owner controls may still require manual confirmation in Glama.
-- Smithery requires maintainer OAuth/login.
+- Glama ownership is verified and owner controls are available.
+- Smithery release is successful but still unlisted until the final Publish/
+  visibility step is confirmed.
 - MCP.so submission is posted but publication is controlled by MCP.so maintainers.
 - PulseMCP listing is visible; automated verification can still be blocked by Cloudflare from some audit environments.
 - ChatGPT privacy-policy blocker is resolved: `https://atlarium.bio/privacy`
@@ -133,8 +134,8 @@ The response body contains the Glama connector schema and maintainer email
 
 ## Next Actions
 
-1. Complete the Glama claim flow if the page still asks for manual confirmation.
-2. Submit Smithery through an Atlarium/TechGardeners account.
+1. Publish/unlist=false the Smithery listing if namespace `ilgrafico79` is acceptable.
+2. Monitor Glama listing health and TDQS after the canonical description update.
 3. Submit or claim mcpservers.org, MCPRepository, MCP Server Hub and optional
    MCP Market/Marketplace entries from a logged-in browser.
 4. Recheck MCP.so before adding any MCP.so badge; treat PulseMCP as visible but verify badge policy first.

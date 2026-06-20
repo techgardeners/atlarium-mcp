@@ -921,8 +921,8 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 | Directory | Status |
 | --- | --- |
 | Official MCP Registry | Published as `bio.atlarium/habitat-database`; publish the V2 `server.json` update after coordinated endpoint validation. |
-| Glama | Indexed as a connector; ownership claim file is live at `/.well-known/glama.json`; complete web claim if the UI asks. |
-| Smithery | Ready for maintainer submission; no public listing claim yet. |
+| Glama | Ownership verified; listing healthy with 39 tools and canonical V2 description. |
+| Smithery | Server created with a successful release; still unlisted until final Publish/visibility confirmation. |
 | MCP.so | Submitted through the public GitHub issue flow; no public listing badge yet. |
 | PulseMCP | Listed publicly; verify badge policy before adding a badge. |
 | ChatGPT App | Submitted / in review; no public approval claim yet. |
