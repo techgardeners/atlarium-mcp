@@ -99,7 +99,8 @@ listing is visible.
 
 ## Smithery
 
-Submission URL: https://smithery.ai/new
+Listing URL: https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database
+Status: published / visible
 
 Name: ${name}
 Repository: ${repository}
@@ -111,6 +112,8 @@ Docs: ${docs}
 Description: ${shortDescription}
 ${surfaceStatement}
 Safety: ${safetyStatement}
+Quality score: 88/100 after parameter descriptions were added; custom icon
+upload remains optional score work.
 
 ## Glama
 

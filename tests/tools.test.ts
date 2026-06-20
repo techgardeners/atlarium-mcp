@@ -1,10 +1,40 @@
 import { describe, expect, it } from "vitest";
+import { z } from "zod";
 
 import {
   appToolOutputSchema,
   runTool,
   toolDefinitions,
 } from "../src/tools.js";
+
+type JsonSchema = {
+  description?: string;
+  items?: JsonSchema;
+  properties?: Record<string, JsonSchema>;
+  type?: string;
+};
+
+function missingInputDescriptions(schema: JsonSchema, path: string[] = []) {
+  const missing: string[] = [];
+
+  if (schema.type === "object" && schema.properties) {
+    for (const [key, property] of Object.entries(schema.properties)) {
+      const propertyPath = [...path, key];
+
+      if (!property.description) {
+        missing.push(propertyPath.join("."));
+      }
+
+      missing.push(...missingInputDescriptions(property, propertyPath));
+    }
+  }
+
+  if (schema.type === "array" && schema.items) {
+    missing.push(...missingInputDescriptions(schema.items, [...path, "[]"]));
+  }
+
+  return missing;
+}
 
 describe("tool registry", () => {
   it("registers the required public read-only tools", () => {
@@ -61,6 +91,16 @@ describe("tool registry", () => {
       ),
     ).toBe(true);
     expect(toolDefinitions.some((tool) => tool.name.startsWith("create_"))).toBe(false);
+  });
+
+  it("publishes descriptions for every input parameter", () => {
+    const missing = toolDefinitions.flatMap((tool) =>
+      missingInputDescriptions(z.toJSONSchema(tool.schema) as JsonSchema).map(
+        (path) => `${tool.name}.${path}`,
+      ),
+    );
+
+    expect(missing).toEqual([]);
   });
 
   it("keeps text content and adds structured content for ChatGPT Apps", async () => {

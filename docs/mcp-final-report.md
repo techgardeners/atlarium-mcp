@@ -24,7 +24,7 @@ Atlarium marketing, Product Hunt, aquarium communities or creator outreach.
 | Directory | Status | Evidence | Next action | Manual blocker |
 | --- | --- | --- | --- | --- |
 | Official MCP Registry | Published / active | API returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`. | Monitor and publish future versions from `server.json`. | None. |
-| Smithery | Created / release success / unlisted | `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database` has a successful release that discovered `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. | Final Publish/visibility step after explicit confirmation for namespace `ilgrafico79`. | User confirmation for public listing under that namespace. |
+| Smithery | Published / visible; score `88/100` | `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database` has a successful release that discovered `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. After the parameter-description deploy, Smithery shows `Parameter descriptions 39/39` and quality score `88/100`. | Optional: upload the custom server icon to recover remaining icon-score points; add badge/link only after badge policy approval. | Smithery API key or manual UI file picker is required for icon upload. |
 | Glama | Ownership verified / listing healthy | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` shows healthy status, 39 tools, Admin/Analytics access and canonical V2 description. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email. | Monitor listing health and tool quality score; add badge/link only after badge policy approval. | None for ownership. |
 | MCP.so | Submitted; listing not visible yet | GitHub issue comment `4722425013` exists and includes name, endpoint and registry. Candidate listing returned `Project not found`. | Monitor issue/listing; no badge until visible. | MCP.so maintainer publication. |
 | PulseMCP | Listed / visible | `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database` shows Atlarium Habitat Database, provider Tech Gardeners, `server.json file available`, `bio.atlarium/habitat-database`, auth Open, Streamable HTTP and Free cost. | Monitor the listing and keep registry/server.json metadata current before adding badges elsewhere. | None for visibility; automated curl can still hit Cloudflare 403. |
@@ -54,8 +54,10 @@ Local repo checks:
 ```text
 pnpm lint       PASS
 pnpm typecheck  PASS
-pnpm test       PASS, 8 files, 43 tests
+pnpm test       PASS, 8 files, 44 tests
 pnpm build      PASS
+PUSH_IMAGE=true pnpm pipeline:local  PASS, image pushed to GHCR
+pnpm deploy:spartaco                 PASS, rollout successful on namespace atlarium-mcp
 ```
 
 Public MCP checks:
@@ -117,12 +119,15 @@ The response body contains the Glama connector schema and maintainer email
   `examples/chatgpt-apps/README.md`: aligned status copy and asset references.
 - `scripts/submit-directories.mjs`: refreshed V2 payload generation and added
   secondary directory payload artifacts.
+- `src/schemas.ts` and `tests/tools.test.ts`: added published JSON Schema
+  descriptions for every MCP input parameter and a regression test enforcing
+  parameter-description coverage.
 
 ## Residual Risks
 
 - Glama ownership is verified and owner controls are available.
-- Smithery release is successful but still unlisted until the final Publish/
-  visibility step is confirmed.
+- Smithery is published and visible; the remaining Smithery score gap is custom
+  icon upload, not endpoint or tool metadata.
 - MCP.so submission is posted but publication is controlled by MCP.so maintainers.
 - PulseMCP listing is visible; automated verification can still be blocked by Cloudflare from some audit environments.
 - ChatGPT privacy-policy blocker is resolved: `https://atlarium.bio/privacy`
@@ -134,7 +139,8 @@ The response body contains the Glama connector schema and maintainer email
 
 ## Next Actions
 
-1. Publish/unlist=false the Smithery listing if namespace `ilgrafico79` is acceptable.
+1. Upload the Smithery custom server icon if a Smithery API key or manual file
+   picker is available; use `docs/assets/chatgpt-app-icon.png`.
 2. Monitor Glama listing health and TDQS after the canonical description update.
 3. Submit or claim mcpservers.org, MCPRepository, MCP Server Hub and optional
    MCP Market/Marketplace entries from a logged-in browser.

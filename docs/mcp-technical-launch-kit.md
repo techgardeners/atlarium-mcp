@@ -277,8 +277,8 @@ It exposes 39 read-only tools for public habitat data and advisory public
 functions. It does not expose private Atlarium accounts, workspaces, admin APIs
 or write operations.
 
-We are completing directory claim/submission flows and will add directory badges
-only after each listing is accepted and visible.
+Glama ownership is verified and the Smithery listing is published and visible.
+We will add directory badges only after each badge/link policy is approved.
 ```
 
 ### ChatGPT App review status post

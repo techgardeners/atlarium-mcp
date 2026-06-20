@@ -111,10 +111,12 @@ https://smithery.ai/new
 Manual blocker:
 
 ```text
-Final Publish/visibility confirmation required. The server was created as
-`ilgrafico79/atlarium-habitat-database`, the release succeeded, and Smithery
-discovered version 2.0.0 with 39 tools, 9 prompts and 3 resources. Keep it
-unlisted until namespace/publication is explicitly approved.
+Published and visible at `ilgrafico79/atlarium-habitat-database`. The latest
+release succeeded and Smithery discovered version 2.0.0 with 39 tools, 9
+prompts and 3 resources. Quality score is 88/100 after parameter descriptions
+were added and redeployed; `Parameter descriptions` shows 39/39. Optional
+remaining score work: upload `docs/assets/chatgpt-app-icon.png` as the custom
+server icon through the Smithery UI or API.
 ```
 
 Payload:

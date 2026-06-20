@@ -34,9 +34,11 @@ Last updated: 2026-06-20
   claim file with maintainer email `info@techgardeners.com`.
 - Glama ownership is verified; the Admin and Analytics surfaces are available,
   the listing is healthy, and the public description uses the canonical V2 copy.
-- Smithery created `ilgrafico79/atlarium-habitat-database` with a successful
-  release against `https://mcp.atlarium.bio/mcp`; it remains unlisted until
-  final Publish/visibility confirmation.
+- Smithery is published and visible at
+  `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database`.
+  The latest release against `https://mcp.atlarium.bio/mcp` is `SUCCESS`;
+  quality score is `88/100`, including `39/39` parameter descriptions.
+  Custom server-icon upload remains an optional score optimization.
 - PulseMCP lists Atlarium Habitat Database publicly at
   `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database`.
 - GitHub Actions monitors are active for public MCP health/server-card/tools-list
@@ -57,7 +59,8 @@ Last updated: 2026-06-20
 
 Remaining publication prerequisites:
 
-- Smithery needs final Publish/visibility confirmation.
+- Smithery custom icon upload can recover the remaining icon-score points, but
+  the listing is already published and visible.
 - MCP.so submission has been posted through the public GitHub issue flow.
 - ChatGPT App review must be monitored for requested changes or acceptance.
 
@@ -331,12 +334,12 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 
 ## Submission Tracker
 
-Last verified: `2026-06-20T04:08:01Z`.
+Last verified: `2026-06-20T04:33:37Z`.
 
 | Directory | URL | Status | Evidence | Next action | Owner / manual blocker |
 | --- | --- | --- | --- | --- | --- |
 | Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active; verify V2 metadata before refreshed-registry claims | Registry API previously returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`, and `isLatest = true` under `_meta.io.modelcontextprotocol.registry/official`. | Monitor the registry entry and publish future `server.json` updates only after endpoint validation. | Atlarium DNS ownership already used for publication. |
-| Smithery | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database | Created / release success / unlisted | Smithery release discovered metadata from `https://mcp.atlarium.bio/mcp`: name `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. Settings are prepared with homepage `https://atlarium.bio/mcp` and repo `https://github.com/techgardeners/atlarium-mcp`. | Click final Publish and keep visibility unlisted=false only after explicit confirmation for namespace `ilgrafico79`. | Final publication/visibility confirmation required. |
+| Smithery | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database | Published / visible; latest release success | Smithery release discovered metadata from `https://mcp.atlarium.bio/mcp`: name `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. After adding Zod parameter descriptions and redeploying, quality score increased from `79/100` to `88/100`; parameter descriptions now show `39/39`. Settings use homepage `https://atlarium.bio/mcp` and repo `https://github.com/techgardeners/atlarium-mcp`. | Optional: upload `docs/assets/chatgpt-app-icon.png` as custom server icon to recover the remaining icon-score points; add badge/link only after badge policy approval. | Smithery API key or manual UI file picker required for icon upload. |
 | Glama | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database | Ownership verified / listing healthy | Connector page returned HTTP 200 with title `Atlarium Habitat Database MCP - MCP Connector | Glama`, registry name, endpoint `https://mcp.atlarium.bio/mcp`, 39 tools, healthy status and Admin/Analytics access. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email `info@techgardeners.com`. | Monitor listing health and tool quality score; add badge/link only after badge policy approval. | None for ownership. |
 | MCP.so | https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013 | Submitted through public GitHub issue flow; listing not found yet | GitHub API confirmed issue comment `4722425013`, created `2026-06-16T19:06:21Z`, includes Atlarium name, endpoint and registry name. Candidate listing `https://mcp.so/server/atlarium-habitat-database` returned page title `- MCP Server` with `Project not found`. | Monitor issue comment and published listing; avoid badges until a listing is visible. | MCP.so maintainers control publication. |
 | PulseMCP | https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database | Listed / visible | Public PulseMCP page shows `Atlarium Habitat Database`, provider `Tech Gardeners`, released `Jun 16, 2026`, `server.json file available`, registry name `bio.atlarium/habitat-database`, auth `Open`, transport `Streamable HTTP`, and cost `Free`. Automated curl from the audit environment can still return HTTP 403 because of Cloudflare. | Monitor the visible listing and keep server.json/registry metadata current before adding badges elsewhere. | None for visibility; automated checks may need browser/search fallback. |
