@@ -79,6 +79,27 @@ Manual steps:
 4. Upload `docs/assets/github-social-preview.png`.
 5. Save and verify `usesCustomOpenGraphImage = true` with `gh repo view`.
 
+## README Showcase
+
+The README is the primary public GitHub landing page for MCP V2. Keep it
+complete whenever the public MCP contract changes:
+
+- Hero and badges for version, transport, tool count, prompts and auth.
+- Client setup matrix for OpenAI Agents SDK, Claude Code, Cursor, Windsurf,
+  VS Code, Antigravity, generic Streamable HTTP and ChatGPT Apps.
+- ChatGPT App/widget section with accurate status and no public approval claim.
+- Tool surface table and one collapsible example for every public tool.
+- Real widget screenshots only after capture from ChatGPT Developer Mode or an
+  equivalent live Apps-compatible host.
+
+Expected screenshot filenames, once captured:
+
+```text
+docs/assets/chatgpt-app-results.png
+docs/assets/chatgpt-app-profile.png
+docs/assets/chatgpt-app-planner.png
+```
+
 ## Claim Rules
 
 - Show the Official MCP Registry status because `bio.atlarium/habitat-database`

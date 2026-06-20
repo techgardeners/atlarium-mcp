@@ -5,7 +5,7 @@
 <h1 align="center">Atlarium Habitat Database MCP</h1>
 
 <p align="center">
-  Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+  Public read-only MCP server for Atlarium habitat data, diagnostics, products, calculators and advisory planning.
 </p>
 
 <p align="center">
@@ -20,12 +20,25 @@
   <img alt="Auth none" src="https://img.shields.io/badge/auth-none-4B5563">
 </p>
 
-Atlarium Habitat Database MCP is a public read-only MCP server that gives AI
-agents structured access to Atlarium habitat data and public advisory
-functions. It exposes public tools for species, plants, products, guides,
-algae, diseases, plant problems, medicines, water parameters, compatibility,
-fertilization, calculators and habitat planning without exposing Atlarium
-accounts, private workspaces, admin APIs or write operations.
+<p align="center">
+  <a href="https://mcp.atlarium.bio/mcp">MCP endpoint</a>
+  ·
+  <a href="https://atlarium.bio/mcp">Human docs</a>
+  ·
+  <a href="https://mcp.atlarium.bio/.well-known/mcp/server-card.json">Server card</a>
+  ·
+  <a href="docs/mcp.md">Technical docs</a>
+  ·
+  <a href="examples">Client examples</a>
+</p>
+
+Atlarium Habitat Database MCP gives AI agents structured access to public
+Atlarium data and advisory functions for aquariums, marine tanks, coldwater
+systems, terrariums, paludariums and vivariums. It exposes 39 public read-only
+tools for species, plants, products, guides, algae, diseases, plant problems,
+medicines, compatibility, fertilization, calculators and complete habitat
+planning without exposing Atlarium accounts, private workspaces, admin APIs or
+write operations.
 
 ## At A Glance
 
@@ -45,9 +58,27 @@ accounts, private workspaces, admin APIs or write operations.
 `https://atlarium.bio/mcp` is documentation. The canonical Streamable HTTP MCP
 endpoint is `https://mcp.atlarium.bio/mcp`.
 
+## What You Can Build
+
+| Use case | Public tools |
+| --- | --- |
+| Species research | Search fish, aquatic animals and plants, then retrieve localized structured profiles. |
+| Tank compatibility | Compare species against tank size, pH, hardness and temperature constraints. |
+| Diagnostic triage | Search algae, aquatic diseases, plant problems and treatment references from public profiles. |
+| Product selection | Explore product categories, brands, equipment and fertilizers. |
+| Fertilization support | Search dosing regimes, calculate product doses, nutrient gaps and weekly totals. |
+| Aquarium calculators | Estimate tank volume, weight, water changes, water chemistry, unit conversions and equipment needs. |
+| Habitat planning | Generate a complete advisory tank plan with species, plants, products, warnings, motivations and related guides. |
+| Guide retrieval | Search and retrieve public Atlarium educational content. |
+
+All outputs are advisory. Compatibility checks, diagnostics, fertilization
+plans, equipment estimates, aquarium calculators and tank suggestions should be
+verified against real livestock, equipment, water chemistry, local regulations
+and husbandry constraints.
+
 ## Quickstart
 
-Use any MCP client that supports remote Streamable HTTP servers.
+Use any MCP client that supports remote Streamable HTTP servers:
 
 ```json
 {
@@ -74,13 +105,52 @@ curl --fail --silent --show-error https://mcp.atlarium.bio/.well-known/mcp/serve
 pnpm mcp:monitor:public
 ```
 
+## Client Setup
+
+| Client or host | Setup |
+| --- | --- |
+| OpenAI Agents SDK | See `examples/openai-agents-python` for a Python agent that connects to the remote Streamable HTTP endpoint. |
+| Claude Code | Run `claude mcp add --transport http atlarium https://mcp.atlarium.bio/mcp`, then ask Claude to use Atlarium. |
+| Cursor | Copy `examples/cursor/mcp.json` into your Cursor MCP config and reload Cursor. |
+| Windsurf | Copy `examples/windsurf/mcp_config.json` into Windsurf MCP settings and refresh Cascade MCP servers. |
+| VS Code | Copy `examples/vscode/mcp.json`; VS Code uses `type: "http"` for remote MCP servers. |
+| Antigravity | Use `examples/antigravity/mcp.json` only in builds that support remote MCP servers. |
+| Generic Streamable HTTP | Use the JSON-RPC examples in `examples/generic-streamable-http`. |
+| ChatGPT Apps | Use `examples/chatgpt-apps` for submission notes, smoke prompts and screenshot checklist. Public approval is not claimed. |
+
+These are compatibility notes, not vendor endorsements. Do not make vendor or
+directory support claims for ChatGPT, Claude, Cursor, Windsurf, VS Code,
+Antigravity or any directory unless that vendor has accepted the listing.
+
+## ChatGPT App And Widget
+
+The server advertises a read-only MCP Apps / ChatGPT Apps widget resource for
+Apps-compatible hosts:
+
+| Field | Value |
+| --- | --- |
+| Resource URI | `ui://widget/habitat-explorer.v3.html` |
+| MIME type | `text/html;profile=mcp-app` |
+| Widget | `Atlarium Habitat Explorer` |
+| Widget domain | `https://mcp.atlarium.bio` |
+| Output mode | Plain JSON text plus `structuredContent` |
+
+The widget renders public habitat results, profiles, diagnostic summaries,
+product results, calculator output, compatibility summaries, fertilization
+plans and habitat suggestions. It does not add write access and does not expose
+workspace, auth, admin, journal, schedule or measurement data.
+
+Real ChatGPT Developer Mode screenshots should be added to `docs/assets/` only
+after they are captured from the live widget. Until then, this README uses only
+the checked-in social preview and app icon assets.
+
 ## Tool Surface
 
 | Area | Tools |
 | --- | --- |
 | Fish and aquatic animals | `search_fish`, `get_fish_profile` |
 | Aquatic plants | `search_plants`, `get_plant_profile` |
-| General products and guides | `search_products`, `get_product_profile`, `search_guides`, `get_guide` |
+| Products and guides | `search_products`, `get_product_profile`, `search_guides`, `get_guide` |
 | Diagnostics | `search_algae`, `get_algae_profile`, `search_diseases`, `get_disease_profile`, `search_plant_problems`, `get_plant_problem_profile`, `search_medicines`, `get_medicine_profile`, `match_diagnostic_profiles` |
 | Product catalog | `list_product_categories`, `list_product_brands`, `search_equipment`, `get_equipment_profile`, `search_fertilizers`, `get_fertilizer_profile` |
 | Compatibility and water | `check_species_compatibility`, `get_water_parameters`, `suggest_species_for_tank` |
@@ -88,34 +158,762 @@ pnpm mcp:monitor:public
 | Calculators | `calculate_tank_volume`, `calculate_tank_weight`, `calculate_water_change`, `calculate_water_chemistry`, `convert_units`, `calculate_equipment_requirements` |
 | Habitat planner | `suggest_habitat_for_tank` |
 
-All tools are read-only. Compatibility checks, diagnostics, fertilization plans,
-equipment estimates, aquarium calculators and tank suggestions are advisory and
-should be verified against real livestock, equipment, water chemistry, local
-regulations and husbandry constraints.
+Every tool is registered with read-only annotations:
+`readOnlyHint: true`, `openWorldHint: false`, `destructiveHint: false`,
+`idempotentHint: true`.
 
-## Prompt Surface
+## Guided Prompts
 
 The server advertises guided prompts for species search, compatibility, habitat
 planning, algae, diseases, plant problems, product selection, fertilization and
-tank calculations. These prompts do not add write access; they guide clients
-toward the same public read-only tool surface.
+tank calculations. Prompts guide clients toward the same public read-only tool
+surface; they do not add new capabilities or write access.
 
-## Client Examples
+## Tool Call Examples
 
-Client-specific examples live in `examples/`:
+Each example shows the MCP tool name and a minimal valid JSON input. Generic
+MCP clients receive plain JSON text; Apps-compatible hosts can also use
+`structuredContent`.
 
-- `examples/openai-agents-python`
-- `examples/claude-code`
-- `examples/cursor`
-- `examples/windsurf`
-- `examples/vscode`
-- `examples/antigravity`
-- `examples/chatgpt-apps`
-- `examples/generic-streamable-http`
+<details>
+<summary><strong>Catalog, plants and guides</strong></summary>
 
-Do not describe this server as officially supported by ChatGPT, Claude, Cursor,
-Windsurf, VS Code, Antigravity or any directory unless that vendor has accepted
-the listing.
+### `search_fish`
+
+Purpose: search fish and aquatic animal profiles.
+
+Prompt: "Find beginner-friendly small fish for a 90 L planted tank."
+
+```json
+{
+  "query": "tetra",
+  "language": "en",
+  "min_tank_liters": 40,
+  "max_tank_liters": 120,
+  "limit": 5
+}
+```
+
+Output: matching public animal profiles with slugs, localized names, summary
+fields and public URLs when available.
+
+### `get_fish_profile`
+
+Purpose: retrieve one structured fish or aquatic animal profile.
+
+Prompt: "Show me the Atlarium profile for Neon Tetra."
+
+```json
+{
+  "slug": "paracheirodon-innesi",
+  "language": "en"
+}
+```
+
+Output: public profile data, care parameters, taxonomy, relationships and
+localized content where available.
+
+### `search_plants`
+
+Purpose: search aquatic plant profiles.
+
+Prompt: "Find easy foreground or midground plants for low-tech tanks."
+
+```json
+{
+  "query": "anubias",
+  "language": "en",
+  "difficulty": "easy",
+  "limit": 5
+}
+```
+
+Output: matching public plant profiles with placement, difficulty and public
+URLs when available.
+
+### `get_plant_profile`
+
+Purpose: retrieve one structured aquatic plant profile.
+
+Prompt: "Open the plant profile for Anubias barteri."
+
+```json
+{
+  "slug": "anubias-barteri",
+  "language": "en"
+}
+```
+
+Output: plant requirements, growth information, structured attributes and
+localized content where available.
+
+### `search_products`
+
+Purpose: search public habitat products.
+
+Prompt: "Find filter products for freshwater tanks."
+
+```json
+{
+  "query": "filter",
+  "language": "en",
+  "category": "filter",
+  "limit": 5
+}
+```
+
+Output: product results with brand/category information and public product URLs
+when available.
+
+### `get_product_profile`
+
+Purpose: retrieve a public product profile.
+
+Prompt: "Show the product profile for this catalog slug."
+
+```json
+{
+  "slug": "seachem/prime",
+  "language": "en"
+}
+```
+
+Output: structured public product data, use cases, brand details and links when
+available.
+
+### `search_guides`
+
+Purpose: search Atlarium guides and educational content.
+
+Prompt: "Find public guides about cycling an aquarium."
+
+```json
+{
+  "query": "cycling",
+  "language": "en",
+  "topic": "aquarium",
+  "limit": 5
+}
+```
+
+Output: guide matches with title, summary, topic and public URLs when
+available.
+
+### `get_guide`
+
+Purpose: retrieve one public Atlarium guide.
+
+Prompt: "Open the nitrogen cycle guide."
+
+```json
+{
+  "slug": "aquarium/nitrogen-cycle",
+  "language": "en"
+}
+```
+
+Output: structured public guide content and related metadata.
+
+</details>
+
+<details>
+<summary><strong>Diagnostics and treatment references</strong></summary>
+
+### `search_algae`
+
+Purpose: search algae diagnostic profiles.
+
+Prompt: "Find algae profiles for green dust on aquarium glass."
+
+```json
+{
+  "query": "green dust",
+  "language": "en",
+  "difficulty": 2,
+  "limit": 5
+}
+```
+
+Output: algae matches with symptoms, likely causes and advisory guidance.
+
+### `get_algae_profile`
+
+Purpose: retrieve one algae profile.
+
+Prompt: "Show the profile for green spot algae."
+
+```json
+{
+  "slug": "green-spot-algae",
+  "language": "en"
+}
+```
+
+Output: structured public algae profile with symptoms, causes, prevention and
+advisory response.
+
+### `search_diseases`
+
+Purpose: search aquatic disease profiles.
+
+Prompt: "Find disease profiles for white spots on fish."
+
+```json
+{
+  "query": "white spots",
+  "language": "en",
+  "water_type": "freshwater",
+  "limit": 5
+}
+```
+
+Output: possible disease profiles and advisory treatment references.
+
+### `get_disease_profile`
+
+Purpose: retrieve one disease profile.
+
+Prompt: "Open the ich disease profile."
+
+```json
+{
+  "slug": "ich",
+  "language": "en"
+}
+```
+
+Output: symptoms, possible causes, treatment references and disclaimers.
+
+### `search_plant_problems`
+
+Purpose: search aquatic plant deficiency, pest and environment profiles.
+
+Prompt: "Find causes for yellowing leaves in aquarium plants."
+
+```json
+{
+  "query": "yellow leaves",
+  "language": "en",
+  "type": "deficiency",
+  "limit": 5
+}
+```
+
+Output: plant problem matches with symptoms, causes and advisory corrections.
+
+### `get_plant_problem_profile`
+
+Purpose: retrieve one plant problem profile.
+
+Prompt: "Open the nitrogen deficiency profile."
+
+```json
+{
+  "slug": "nitrogen-deficiency",
+  "language": "en"
+}
+```
+
+Output: structured deficiency/problem data and advisory guidance.
+
+### `search_medicines`
+
+Purpose: search aquarium medicine and treatment product profiles.
+
+Prompt: "Find public medicine references for ich treatment."
+
+```json
+{
+  "query": "ich",
+  "language": "en",
+  "limit": 5
+}
+```
+
+Output: medicine/treatment references with public profile data where available.
+
+### `get_medicine_profile`
+
+Purpose: retrieve one medicine profile.
+
+Prompt: "Open the profile for a medicine slug."
+
+```json
+{
+  "slug": "malachite-green",
+  "language": "en"
+}
+```
+
+Output: structured public medicine reference, use notes and disclaimers.
+
+### `match_diagnostic_profiles`
+
+Purpose: match symptom text across algae, disease, plant problem and medicine
+profiles.
+
+Prompt: "Match fuzzy white growth on driftwood and stressed fish symptoms."
+
+```json
+{
+  "query": "white fuzzy growth and fish flashing",
+  "language": "en",
+  "limit": 8
+}
+```
+
+Output: likely public diagnostic profiles grouped by relevance.
+
+</details>
+
+<details>
+<summary><strong>Products, equipment and fertilizers</strong></summary>
+
+### `list_product_categories`
+
+Purpose: list product categories for equipment and fertilizers.
+
+Prompt: "Which public equipment categories are available?"
+
+```json
+{
+  "language": "en",
+  "type": "equipment"
+}
+```
+
+Output: localized public category names and identifiers.
+
+### `list_product_brands`
+
+Purpose: list public product brands.
+
+Prompt: "List brands matching Seachem."
+
+```json
+{
+  "language": "en",
+  "query": "Seachem"
+}
+```
+
+Output: matching public brand names and metadata.
+
+### `search_equipment`
+
+Purpose: search aquarium and habitat equipment products.
+
+Prompt: "Find heaters for a freshwater setup."
+
+```json
+{
+  "query": "heater",
+  "language": "en",
+  "use_case": "freshwater",
+  "limit": 5
+}
+```
+
+Output: equipment product matches with structured public catalog fields.
+
+### `get_equipment_profile`
+
+Purpose: retrieve one equipment product profile.
+
+Prompt: "Open this equipment profile."
+
+```json
+{
+  "slug": "eheim/thermocontrol",
+  "language": "en"
+}
+```
+
+Output: public equipment details, category, brand and usage fields when
+available.
+
+### `search_fertilizers`
+
+Purpose: search fertilizer products and nutrient profiles.
+
+Prompt: "Find liquid fertilizers for planted aquariums."
+
+```json
+{
+  "query": "flourish",
+  "language": "en",
+  "category": "fertilizer",
+  "limit": 5
+}
+```
+
+Output: fertilizer product matches and nutrient metadata when available.
+
+### `get_fertilizer_profile`
+
+Purpose: retrieve one fertilizer profile.
+
+Prompt: "Open this fertilizer profile."
+
+```json
+{
+  "slug": "seachem/flourish",
+  "language": "en"
+}
+```
+
+Output: structured fertilizer data, dosing metadata and public catalog details
+when available.
+
+</details>
+
+<details>
+<summary><strong>Compatibility, water and habitat suggestions</strong></summary>
+
+### `check_species_compatibility`
+
+Purpose: check basic compatibility among habitat species.
+
+Prompt: "Can Neon Tetra and Corydoras paleatus work in a 90 L planted tank?"
+
+```json
+{
+  "species": ["Paracheirodon innesi", "Corydoras paleatus"],
+  "language": "en",
+  "tank_liters": 90,
+  "ph": 6.8,
+  "temperature": 24
+}
+```
+
+Output: advisory compatibility signals, warnings, rationale and constraints.
+
+### `get_water_parameters`
+
+Purpose: retrieve recommended water parameters for a fish or plant.
+
+Prompt: "What water parameters does Neon Tetra prefer?"
+
+```json
+{
+  "slug": "paracheirodon-innesi",
+  "type": "fish",
+  "language": "en"
+}
+```
+
+Output: public temperature, pH, GH/KH and related parameter guidance where
+available.
+
+### `suggest_species_for_tank`
+
+Purpose: suggest aquatic species based on tank and water parameters.
+
+Prompt: "Suggest beginner-friendly species for a 120 L planted tank."
+
+```json
+{
+  "tank_liters": 120,
+  "language": "en",
+  "ph": 6.8,
+  "temperature": 24,
+  "beginner_friendly": true,
+  "planted_tank": true,
+  "limit": 8
+}
+```
+
+Output: public species suggestions with warnings and basic rationale.
+
+### `suggest_habitat_for_tank`
+
+Purpose: suggest a complete public habitat plan.
+
+Prompt: "Plan a balanced planted community habitat for 120 L."
+
+```json
+{
+  "tank_liters": 120,
+  "language": "en",
+  "ph": 6.8,
+  "temperature": 24,
+  "beginner_friendly": true,
+  "planted_tank": true,
+  "co2": "low",
+  "light_level": "medium",
+  "setup_intent": "community",
+  "target_difficulty": "balanced",
+  "water_type": "FRESHWATER",
+  "limit": 8
+}
+```
+
+Output: fish, invertebrates, plants, products, warnings, motivations, related
+guides and advisory disclaimer.
+
+</details>
+
+<details>
+<summary><strong>Fertilization</strong></summary>
+
+### `search_fertilization_regimes`
+
+Purpose: search fertilization regimes and dosing philosophies.
+
+Prompt: "Find regimes for low-tech planted tanks."
+
+```json
+{
+  "query": "low tech",
+  "language": "en",
+  "topic": "planted",
+  "limit": 5
+}
+```
+
+Output: public regime matches with summary, topics and public URLs when
+available.
+
+### `get_fertilization_regime`
+
+Purpose: retrieve one fertilization regime.
+
+Prompt: "Open the Estimative Index regime profile."
+
+```json
+{
+  "slug": "estimative-index",
+  "language": "en"
+}
+```
+
+Output: structured public dosing philosophy/regime details.
+
+### `calculate_fertilizer_dose`
+
+Purpose: calculate an advisory fertilizer dose for a catalog product and tank
+volume.
+
+Prompt: "Calculate the dose of Seachem Flourish for 120 L."
+
+```json
+{
+  "brand_name": "Seachem",
+  "product_name": "Flourish",
+  "volume_liters": 120
+}
+```
+
+Output: advisory dose estimate and product-related dosing context.
+
+### `calculate_nutrient_gaps`
+
+Purpose: compare nutrient measurements against targets.
+
+Prompt: "Compare my nitrate and potassium readings with planted tank targets."
+
+```json
+{
+  "language": "en",
+  "volume_liters": 120,
+  "measurements": [
+    {
+      "kind": "nitrogen_mg_l",
+      "value": 5
+    },
+    {
+      "kind": "potassium_mg_l",
+      "value": 8
+    }
+  ],
+  "targets": {
+    "nitrogen_mg_l": 10,
+    "potassium_mg_l": 15
+  }
+}
+```
+
+Output: nutrient gap estimates without saving measurements.
+
+### `calculate_weekly_dose_totals`
+
+Purpose: calculate weekly totals for a non-persistent dosing plan.
+
+Prompt: "Add up my weekly liquid fertilizer plan."
+
+```json
+{
+  "language": "en",
+  "volume_liters": 120,
+  "items": [
+    {
+      "brand_name": "Seachem",
+      "product_name": "Flourish",
+      "method": "LIQUID",
+      "dose_value": 5,
+      "dose_unit": "ml",
+      "days_of_week": [1, 3, 5]
+    }
+  ]
+}
+```
+
+Output: weekly product totals and schedule summary.
+
+### `generate_fertilization_plan`
+
+Purpose: generate an advisory non-persistent fertilization plan.
+
+Prompt: "Generate a balanced planted tank fertilization plan for 120 L."
+
+```json
+{
+  "language": "en",
+  "volume_liters": 120,
+  "regime": "balanced",
+  "targets": {
+    "nitrogen_mg_l": 10,
+    "phosphorus_mg_l": 1,
+    "potassium_mg_l": 15,
+    "iron_mg_l": 0.1
+  }
+}
+```
+
+Output: advisory plan, nutrient targets, product suggestions and disclaimer.
+
+</details>
+
+<details>
+<summary><strong>Calculators</strong></summary>
+
+### `calculate_tank_volume`
+
+Purpose: calculate gross and net aquarium volume estimates.
+
+Prompt: "Calculate net volume for a 60 x 30 x 36 cm tank."
+
+```json
+{
+  "shape": "rect",
+  "length_cm": 60,
+  "width_cm": 30,
+  "height_cm": 36,
+  "substrate_depth_cm": 5,
+  "hardscape_displacement_liters": 4
+}
+```
+
+Output: gross and net volume estimates.
+
+### `calculate_tank_weight`
+
+Purpose: estimate aquarium weight from dimensions and material inputs.
+
+Prompt: "Estimate the filled weight of a 120 L aquarium."
+
+```json
+{
+  "shape": "rect",
+  "length_cm": 80,
+  "width_cm": 35,
+  "height_cm": 45,
+  "glass_thickness_mm": 8,
+  "substrate_depth_cm": 6,
+  "hardscape_weight_kg": 12,
+  "equipment_weight_kg": 5
+}
+```
+
+Output: advisory total weight estimate and component breakdown.
+
+### `calculate_water_change`
+
+Purpose: calculate water change volume, weekly totals and dilution estimates.
+
+Prompt: "How much water is a 30 percent change on 120 L twice per week?"
+
+```json
+{
+  "volume_liters": 120,
+  "change_percent": 30,
+  "changes_per_week": 2
+}
+```
+
+Output: per-change volume and weekly total estimates.
+
+### `calculate_water_chemistry`
+
+Purpose: calculate hardness conversions, CO2, salinity and water mixing.
+
+Prompt: "Estimate CO2 from pH 6.8 and KH 4."
+
+```json
+{
+  "co2": {
+    "ph": 6.8,
+    "kh_dkh": 4
+  },
+  "general_hardness": {
+    "unit": "dgh",
+    "value": 8
+  }
+}
+```
+
+Output: public chemistry conversions and advisory estimates.
+
+### `convert_units`
+
+Purpose: convert aquarium-relevant units.
+
+Prompt: "Convert 120 liters and 24 C."
+
+```json
+{
+  "volume": {
+    "unit": "l",
+    "value": 120
+  },
+  "temperature": {
+    "unit": "c",
+    "value": 24
+  }
+}
+```
+
+Output: converted values for supported units.
+
+### `calculate_equipment_requirements`
+
+Purpose: calculate advisory heater, lighting and electricity requirements.
+
+Prompt: "Estimate heater and lighting needs for a 120 L aquarium."
+
+```json
+{
+  "heater": {
+    "volume_liters": 120,
+    "ambient_c": 20,
+    "target_c": 25,
+    "insulation": "normal"
+  },
+  "lighting": {
+    "volume_liters": 120,
+    "lumens": 3600
+  },
+  "electricity": {
+    "wattage": 100,
+    "hours_per_day": 8,
+    "cost_per_kwh": 0.25
+  }
+}
+```
+
+Output: advisory equipment estimates and electricity usage/cost summary.
+
+</details>
 
 ## Discovery And Directory Status
 
@@ -129,29 +927,6 @@ the listing.
 
 Publication tracking and reusable submission copy live in
 `docs/publication-checklist.md` and `docs/directory-submission-payloads.md`.
-
-## Apps-Compatible Widget
-
-The server advertises a read-only MCP Apps / ChatGPT Apps widget resource for
-Apps-compatible hosts:
-
-- resource URI: `ui://widget/habitat-explorer.v3.html`
-- MIME type: `text/html;profile=mcp-app`
-- widget: `Atlarium Habitat Explorer`
-
-This is not a public ChatGPT approval claim. Tool responses keep plain JSON text
-for generic MCP clients and also return `structuredContent` for compatible
-widget hosts.
-
-## Public Validation
-
-Run the live monitor and full public tool validation:
-
-```bash
-pnpm mcp:monitor:public
-pnpm mcp:validate:public
-pnpm directories:submit -- --check
-```
 
 ## Local Development
 
@@ -182,45 +957,6 @@ Production deployments must run behind a TLS-terminating reverse proxy or
 Ingress that overwrites `X-Forwarded-For`, `X-Forwarded-Host` and
 `X-Forwarded-Proto` before traffic reaches this server.
 
-## Publication And Directories
-
-Publication tracking and reusable submission copy live in
-`docs/publication-checklist.md`.
-
-Directory-specific payloads and technical launch copy live in
-`docs/directory-submission-payloads.md` and
-`docs/mcp-technical-launch-kit.md`.
-
-GitHub repository presentation notes and social preview upload steps live in
-`docs/github-showcase.md`.
-
-Generate directory payloads:
-
-```bash
-pnpm directories:submit -- --payload
-```
-
-Check live discovery:
-
-```bash
-pnpm directories:submit -- --check
-```
-
-## Kubernetes
-
-Kubernetes manifests live in `deploy/kubernetes`.
-
-Preferred Atlarium local pipeline:
-
-```bash
-pnpm pipeline:local
-PUSH_IMAGE=true pnpm pipeline:local
-PUSH_IMAGE=true DEPLOY_KUBERNETES=true pnpm pipeline:local
-PUSH_IMAGE=true DEPLOY_KUBERNETES=true VALIDATE_PUBLIC=true pnpm pipeline:local
-```
-
-The image is published as `ghcr.io/techgardeners/atlarium-mcp`.
-
 ## Quality Gate
 
 ```bash
@@ -241,8 +977,10 @@ pnpm mcp:conformance
 With production DNS and TLS live:
 
 ```bash
-pnpm mcp:conformance:public
+pnpm mcp:monitor:public
+pnpm directories:submit -- --check
 pnpm mcp:validate:public
+pnpm mcp:conformance:public
 ```
 
 ## Contributing
