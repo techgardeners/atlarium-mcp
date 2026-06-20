@@ -10,6 +10,7 @@ import {
   habitatExplorerMimeType,
   habitatExplorerResourceMeta,
   habitatExplorerResourceUri,
+  habitatExplorerResourceUris,
 } from "../src/apps/habitat-explorer.js";
 import { getRuntimeConfig } from "../src/config.js";
 import { createHttpApp } from "../src/http.js";
@@ -125,14 +126,19 @@ describe("ChatGPT App widget", () => {
         await client.connect(transport);
         const resources = await client.listResources();
 
-        expect(resources.resources).toEqual([
-          expect.objectContaining({
-            mimeType: habitatExplorerMimeType,
-            name: "atlarium-habitat-explorer",
-            title: "Atlarium Habitat Explorer",
-            uri: habitatExplorerResourceUri,
-          }),
-        ]);
+        expect(resources.resources).toEqual(
+          expect.arrayContaining([
+            expect.objectContaining({
+              mimeType: habitatExplorerMimeType,
+              name: "atlarium-habitat-explorer",
+              title: "Atlarium Habitat Explorer",
+              uri: habitatExplorerResourceUri,
+            }),
+          ]),
+        );
+        expect(resources.resources.map((resource) => resource.uri)).toEqual(
+          expect.arrayContaining([...habitatExplorerResourceUris]),
+        );
 
         const widget = await client.readResource({ uri: habitatExplorerResourceUri });
         expect(widget.contents).toEqual([
@@ -148,6 +154,19 @@ describe("ChatGPT App widget", () => {
             uri: habitatExplorerResourceUri,
           }),
         ]);
+
+        for (const uri of habitatExplorerResourceUris.filter(
+          (resourceUri) => resourceUri !== habitatExplorerResourceUri,
+        )) {
+          const legacyWidget = await client.readResource({ uri });
+          expect(legacyWidget.contents).toEqual([
+            expect.objectContaining({
+              mimeType: habitatExplorerMimeType,
+              text: expect.stringContaining("Atlarium Habitat Explorer"),
+              uri,
+            }),
+          ]);
+        }
       } finally {
         await client.close();
       }

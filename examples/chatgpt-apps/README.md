@@ -20,6 +20,9 @@ depends on OpenAI review.
 - App type: MCP Apps / ChatGPT Apps connector with a widget UI.
 - Widget name: Atlarium Habitat Explorer.
 - Widget resource URI: `ui://widget/habitat-explorer.v3.html`.
+- Legacy widget resource aliases `ui://widget/habitat-explorer.v2.html` and
+  `ui://widget/habitat-explorer.v1.html` are also served for ChatGPT metadata
+  caches that still point at an older output template.
 - Widget MIME type: `text/html;profile=mcp-app`.
 - Widget domain: `https://mcp.atlarium.bio` through `_meta.ui.domain` and
   `_meta["openai/widgetDomain"]`.
@@ -67,7 +70,8 @@ depends on OpenAI review.
 - In ChatGPT web Developer Mode, connector metadata can remain cached after a
   widget URI change. Open Settings -> Apps, select the Atlarium draft app and
   click `Actualizar`; confirm the app detail shows the v3 output template before
-  rerunning screenshots.
+  rerunning screenshots. The server still serves v2/v1 aliases, but refreshing
+  metadata is the preferred review path.
 - A privacy policy must be published and explain personal data categories, purposes, recipients, retention and user controls.
 - Keep public copy factual: do not claim public ChatGPT approval or availability until review is complete.
 

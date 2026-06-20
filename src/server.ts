@@ -4,6 +4,7 @@ import {
   habitatExplorerHtml,
   habitatExplorerResourceMeta,
   habitatExplorerResourceUri,
+  habitatExplorerResourceUris,
 } from "./apps/habitat-explorer.js";
 import { AtlariumApiClient } from "./atlarium-api.js";
 import type { RuntimeConfig } from "./config.js";
@@ -29,21 +30,31 @@ export function createAtlariumMcpServer(
     },
   );
 
-  server.registerResource(
-    "atlarium-habitat-explorer",
-    habitatExplorerResourceUri,
-    habitatExplorerResourceMeta,
-    (uri) => ({
-      contents: [
-        {
-          uri: uri.href,
-          mimeType: habitatExplorerResourceMeta.mimeType,
-          text: habitatExplorerHtml(),
-          _meta: habitatExplorerResourceMeta._meta,
-        },
-      ],
-    }),
-  );
+  for (const uri of habitatExplorerResourceUris) {
+    const isCurrentResource = uri === habitatExplorerResourceUri;
+    server.registerResource(
+      isCurrentResource
+        ? "atlarium-habitat-explorer"
+        : `atlarium-habitat-explorer-compat-${uri.match(/v(\d+)/)?.[1] ?? "legacy"}`,
+      uri,
+      {
+        ...habitatExplorerResourceMeta,
+        title: isCurrentResource
+          ? habitatExplorerResourceMeta.title
+          : `${habitatExplorerResourceMeta.title} legacy template`,
+      },
+      (resourceUri) => ({
+        contents: [
+          {
+            uri: resourceUri.href,
+            mimeType: habitatExplorerResourceMeta.mimeType,
+            text: habitatExplorerHtml(),
+            _meta: habitatExplorerResourceMeta._meta,
+          },
+        ],
+      }),
+    );
+  }
 
   for (const tool of toolDefinitions) {
     server.registerTool(

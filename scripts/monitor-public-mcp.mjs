@@ -52,6 +52,10 @@ const expectedTools = [
   "suggest_habitat_for_tank",
 ];
 const expectedResourceUri = "ui://widget/habitat-explorer.v3.html";
+const expectedLegacyResourceUris = [
+  "ui://widget/habitat-explorer.v2.html",
+  "ui://widget/habitat-explorer.v1.html",
+];
 const expectedResourceMimeType = "text/html;profile=mcp-app";
 const expectedPrompts = [
   "atlarium_species_search",
@@ -186,6 +190,17 @@ async function checkMcpSession() {
       html.text.includes("Atlarium Habitat Explorer"),
       "widget HTML missing app title",
     );
+    for (const uri of expectedLegacyResourceUris) {
+      const legacyWidgetResult = await client.readResource({ uri });
+      const legacyHtml = legacyWidgetResult.contents.find(
+        (content) => content.mimeType === expectedResourceMimeType && "text" in content,
+      );
+      assert(legacyHtml, `resources/read did not return legacy widget HTML for ${uri}`);
+      assert(
+        legacyHtml.text.includes("Atlarium Habitat Explorer"),
+        `legacy widget HTML missing app title for ${uri}`,
+      );
+    }
 
     const toolsResult = await client.listTools();
     const toolNames = toolsResult.tools.map((tool) => tool.name);
