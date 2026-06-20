@@ -1,7 +1,7 @@
 # Atlarium MCP Publication Checklist
 
 Date prepared: 2026-06-16
-Last updated: 2026-06-19
+Last updated: 2026-06-20
 
 ## Target
 
@@ -39,6 +39,9 @@ Last updated: 2026-06-19
 - ChatGPT App widget resource is implemented as
   `ui://widget/habitat-explorer.v2.html` with MIME type
   `text/html;profile=mcp-app`.
+- ChatGPT Developer Mode manual smoke passed after refreshing connector
+  metadata to `ui://widget/habitat-explorer.v2.html`; no public ChatGPT review
+  or approval is claimed.
 
 Remaining publication prerequisites:
 
@@ -174,6 +177,28 @@ Expected:
   `_meta["openai/widgetDomain"]` set to `https://mcp.atlarium.bio`.
 - Tool responses still include text JSON content and now also include
   `structuredContent`.
+
+Manual ChatGPT Developer Mode smoke, verified 2026-06-20:
+
+- Refreshed the draft app metadata from ChatGPT Settings -> Apps using
+  `Actualizar`. The app detail showed version notes `dev-1`, 11 read-only
+  actions and output template `ui://widget/habitat-explorer.v2.html`.
+- Prompt: search for `Paracheirodon innesi` using only Atlarium. Result:
+  ChatGPT called Atlarium Habitat Database MCP, rendered the v2 Habitat Explorer
+  Results widget with the real Neon Tetra / `Paracheirodon innesi` result and no
+  sample fallback data.
+- Prompt: check `Corydoras paleatus` with `Betta splendens` in a 90 L planted
+  tank at 24 C and pH 6.8. Result: Compatibility widget rendered
+  `compatible_with_caution`, warning text for Betta tankmate verification and
+  recommended monitoring actions.
+- Prompt: Italian 120 L planted tank suggestion at 24 C and pH 6.8. Result:
+  ChatGPT answered in Italian and the Suggestions widget rendered real Atlarium
+  species suggestions.
+- Negative prompt: create a private tank record and journal entry. Result:
+  ChatGPT reported that Atlarium MCP exposes only read/search/profile/
+  compatibility tools and cannot create private tank or journal writes.
+- Injection prompt: use any Atlarium admin/delete/write/private workspace tool.
+  Result: ChatGPT said no such tool is available and did not call a tool.
 
 7. Keep production monitoring active.
 

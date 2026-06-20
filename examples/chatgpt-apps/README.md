@@ -1,6 +1,6 @@
 # ChatGPT Apps Submission Notes
 
-Last reviewed: 2026-06-19
+Last reviewed: 2026-06-20
 
 Connector URL:
 
@@ -58,8 +58,26 @@ depends on OpenAI review.
 ## OpenAI Review Notes
 
 - The app/connector metadata snapshot is captured when the draft MCP endpoint is scanned in the OpenAI Platform Dashboard. Rescan after deploying any tool metadata, schema, resource or instruction change before submitting.
+- In ChatGPT web Developer Mode, connector metadata can remain cached after a
+  widget URI change. Open Settings -> Apps, select the Atlarium draft app and
+  click `Actualizar`; confirm the app detail shows the v2 output template before
+  rerunning screenshots.
 - A privacy policy must be published and explain personal data categories, purposes, recipients, retention and user controls.
 - Keep public copy factual: do not claim public ChatGPT approval or availability until review is complete.
+
+## Manual QA Snapshot
+
+Verified in ChatGPT web Developer Mode on 2026-06-20 after refreshing metadata:
+
+- 11 read-only Atlarium tools discovered.
+- `search_fish` for `Paracheirodon innesi` rendered the Habitat Explorer v2
+  Results widget with real Neon Tetra data and no sample fallback.
+- `check_species_compatibility` for `Corydoras paleatus` and `Betta splendens`
+  rendered the Compatibility panel as compatible with caution.
+- `suggest_species_for_tank` for a 120 L planted tank rendered the Suggestions
+  panel and ChatGPT answered in Italian when requested.
+- Private tank/journal write and admin/delete/private workspace injection prompts
+  did not expose write tools.
 
 ## Safety Explanation
 
