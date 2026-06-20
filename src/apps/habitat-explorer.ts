@@ -68,16 +68,25 @@ export function habitatExplorerHtml() {
       --foam: #e0eef6;
       --coral: #e85d3a;
       --amber: #d4952e;
-      --bg: radial-gradient(ellipse at 18% 0%, rgb(26 143 227 / 0.12), transparent 34rem),
-        radial-gradient(ellipse at 82% 6%, rgb(34 166 94 / 0.09), transparent 28rem),
-        linear-gradient(180deg, var(--paper) 0%, #e6eef5 100%);
-      --panel: rgb(255 255 255 / 0.84);
+      --bg: linear-gradient(135deg, #f7fbfd 0%, #e7f2f7 48%, #f3faf7 100%);
+      --panel: rgb(255 255 255 / 0.72);
       --panel-solid: #ffffff;
-      --soft: rgb(26 143 227 / 0.08);
+      --tile: rgb(255 255 255 / 0.52);
+      --tile-strong: rgb(232 244 251 / 0.76);
+      --soft: rgb(26 143 227 / 0.1);
       --accent: var(--azure);
       --accent-ink: #ffffff;
+      --water-bg: rgb(26 143 227 / 0.1);
+      --water-line: rgb(26 143 227 / 0.38);
+      --water-ink: #075d99;
+      --plant-bg: rgb(34 166 94 / 0.1);
+      --plant-line: rgb(34 166 94 / 0.38);
+      --plant-ink: #0b7c43;
+      --warn-bg: rgb(212 149 46 / 0.13);
+      --warn-line: rgb(212 149 46 / 0.42);
+      --warn-ink: #9c640f;
       --warn: var(--amber);
-      --shadow: rgb(10 22 40 / 0.08);
+      --shadow: rgb(10 22 40 / 0.07);
       font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
 
@@ -99,16 +108,25 @@ export function habitatExplorerHtml() {
         --foam: #0f1e2f;
         --coral: #f08a70;
         --amber: #e2bd74;
-        --bg: radial-gradient(ellipse at 18% 8%, rgb(21 101 192 / 0.18), transparent 32rem),
-          radial-gradient(ellipse at 84% 12%, rgb(34 166 94 / 0.11), transparent 28rem),
-          linear-gradient(180deg, var(--paper) 0%, #070d16 100%);
-        --panel: rgb(17 29 48 / 0.78);
+        --bg: linear-gradient(135deg, #071525 0%, #0b1f32 48%, #071b22 100%);
+        --panel: rgb(12 26 43 / 0.78);
         --panel-solid: #111d30;
-        --soft: rgb(100 232 214 / 0.09);
+        --tile: rgb(18 35 56 / 0.74);
+        --tile-strong: rgb(19 48 62 / 0.84);
+        --soft: rgb(100 232 214 / 0.11);
         --accent: var(--aqua);
         --accent-ink: #06101a;
+        --water-bg: rgb(79 195 247 / 0.18);
+        --water-line: rgb(79 195 247 / 0.38);
+        --water-ink: #9be6ff;
+        --plant-bg: rgb(102 212 146 / 0.17);
+        --plant-line: rgb(102 212 146 / 0.36);
+        --plant-ink: #a6f0c1;
+        --warn-bg: rgb(226 189 116 / 0.18);
+        --warn-line: rgb(226 189 116 / 0.36);
+        --warn-ink: #ffd681;
         --warn: var(--amber);
-        --shadow: rgb(0 0 0 / 0.24);
+        --shadow: rgb(0 0 0 / 0.2);
       }
     }
 
@@ -133,10 +151,10 @@ export function habitatExplorerHtml() {
 
     .shell {
       min-height: 100vh;
-      padding: 16px;
+      padding: 18px;
       display: grid;
       grid-template-rows: auto auto 1fr;
-      gap: 12px;
+      gap: 14px;
     }
 
     .topbar {
@@ -144,6 +162,7 @@ export function habitatExplorerHtml() {
       align-items: center;
       justify-content: space-between;
       gap: 16px;
+      padding: 2px 0;
     }
 
     .brand-lockup {
@@ -154,13 +173,13 @@ export function habitatExplorerHtml() {
     }
 
     .brand-logo-frame {
-      width: 48px;
-      height: 48px;
+      width: 54px;
+      height: 54px;
       flex: 0 0 auto;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
-      background: var(--surface-raised);
-      box-shadow: 0 10px 24px var(--shadow);
+      background: transparent;
+      box-shadow: none;
     }
 
     .brand-logo {
@@ -168,10 +187,15 @@ export function habitatExplorerHtml() {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      transform: scale(1.08);
     }
 
     .brand-logo.dark {
       display: none;
+    }
+
+    .brand-logo.light {
+      mix-blend-mode: multiply;
     }
 
     @media (prefers-color-scheme: dark) {
@@ -181,6 +205,8 @@ export function habitatExplorerHtml() {
 
       .brand-logo.dark {
         display: block;
+        filter: saturate(1.08) contrast(1.04);
+        mix-blend-mode: normal;
       }
     }
 
@@ -211,7 +237,7 @@ export function habitatExplorerHtml() {
     .tab, .action {
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: var(--surface-raised);
+      background: var(--tile);
       color: var(--ink);
       cursor: pointer;
       min-height: 32px;
@@ -231,10 +257,12 @@ export function habitatExplorerHtml() {
       background: linear-gradient(135deg, var(--ocean), var(--azure));
       border-color: rgb(26 143 227 / 0.48);
       color: var(--accent-ink);
+      box-shadow: 0 10px 22px rgb(26 143 227 / 0.16);
     }
 
     .action.primary {
       background: linear-gradient(135deg, var(--plant-deep), var(--plant));
+      box-shadow: 0 10px 22px rgb(34 166 94 / 0.16);
     }
 
     .workspace {
@@ -250,13 +278,15 @@ export function habitatExplorerHtml() {
       background: var(--panel);
       border: 1px solid var(--line);
       border-radius: 8px;
-      padding: 14px;
+      padding: 15px;
       box-shadow: 0 18px 45px var(--shadow);
       backdrop-filter: blur(10px);
     }
 
     .controls {
       display: grid;
+      grid-template-columns: minmax(220px, 1fr) auto;
+      align-items: center;
       gap: 10px;
     }
 
@@ -264,7 +294,7 @@ export function habitatExplorerHtml() {
       width: 100%;
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: var(--surface-raised);
+      background: var(--tile);
       color: var(--ink);
       min-height: 38px;
       padding: 8px 10px;
@@ -290,7 +320,7 @@ export function habitatExplorerHtml() {
       min-width: 0;
       text-align: left;
       border: 1px solid var(--line);
-      background: rgb(255 255 255 / 0.38);
+      background: var(--tile);
       color: var(--ink);
       border-radius: 8px;
       padding: 11px;
@@ -300,7 +330,7 @@ export function habitatExplorerHtml() {
 
     .item:hover, .item.active {
       border-color: var(--accent);
-      background: var(--soft);
+      background: var(--tile-strong);
       box-shadow: 0 10px 24px var(--shadow);
     }
 
@@ -337,17 +367,33 @@ export function habitatExplorerHtml() {
     .chip {
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgb(255 255 255 / 0.38);
+      background: var(--tile);
       color: var(--muted);
       font-size: 11px;
+      font-weight: 650;
+      line-height: 1.2;
       padding: 3px 7px;
       max-width: 100%;
       overflow-wrap: anywhere;
     }
 
-    .chip.water { border-color: rgb(26 143 227 / 0.42); color: var(--azure); }
-    .chip.plant { border-color: rgb(34 166 94 / 0.42); color: var(--plant); }
-    .chip.warn { border-color: rgb(212 149 46 / 0.5); color: var(--warn); }
+    .chip.water {
+      background: var(--water-bg);
+      border-color: var(--water-line);
+      color: var(--water-ink);
+    }
+
+    .chip.plant {
+      background: var(--plant-bg);
+      border-color: var(--plant-line);
+      color: var(--plant-ink);
+    }
+
+    .chip.warn {
+      background: var(--warn-bg);
+      border-color: var(--warn-line);
+      color: var(--warn-ink);
+    }
 
     .detail {
       min-height: 220px;
@@ -379,7 +425,7 @@ export function habitatExplorerHtml() {
     .metric {
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgb(255 255 255 / 0.32);
+      background: var(--tile);
       padding: 9px;
     }
 
@@ -400,8 +446,12 @@ export function habitatExplorerHtml() {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 14px;
+      margin-top: 0;
       min-width: 0;
+    }
+
+    .detail .actions {
+      margin-top: 14px;
     }
 
     .section-title {
@@ -422,13 +472,20 @@ export function habitatExplorerHtml() {
     .mini-card {
       border: 1px solid var(--line);
       border-radius: 8px;
-      background: rgb(255 255 255 / 0.28);
+      background: var(--tile);
       padding: 9px;
+    }
+
+    .mini-card.warning {
+      background: var(--warn-bg);
+      border-color: var(--warn-line);
+      color: var(--warn-ink);
     }
 
     .mini-card strong {
       display: block;
       margin-bottom: 2px;
+      color: var(--ink);
     }
 
     .empty {
@@ -436,7 +493,7 @@ export function habitatExplorerHtml() {
       border: 1px dashed var(--line);
       border-radius: 8px;
       padding: 18px;
-      background: rgb(255 255 255 / 0.24);
+      background: var(--tile);
     }
 
     .compat {
@@ -445,7 +502,7 @@ export function habitatExplorerHtml() {
     }
 
     .warning {
-      color: var(--warn);
+      color: var(--warn-ink);
       margin: 0;
     }
 
@@ -459,6 +516,7 @@ export function habitatExplorerHtml() {
       .shell { padding: 12px; }
       .topbar { display: grid; }
       .tabs { justify-content: flex-start; }
+      .controls { grid-template-columns: 1fr; }
       .workspace { grid-template-columns: 1fr; }
       .list { max-height: 42vh; }
       .metrics { grid-template-columns: 1fr; }
@@ -466,7 +524,7 @@ export function habitatExplorerHtml() {
 
     @media (max-width: 460px) {
       .topbar { gap: 12px; }
-      .brand-logo-frame { width: 44px; height: 44px; border-radius: 11px; }
+      .brand-logo-frame { width: 48px; height: 48px; border-radius: 12px; }
       h1 { font-size: 19px; }
       .tabs { gap: 5px; }
       .tab { padding: 7px 10px; }
@@ -603,21 +661,43 @@ export function habitatExplorerHtml() {
           },
           values: {
             beginner_friendly: "Beginner friendly",
+            caution: "Caution",
             conditional_match: "Conditional match",
             compatibility_check: "Compatibility check",
+            compatible_with_caution: "Compatible with caution",
             compatible: "Compatible",
+            difficult: "Difficult",
             easy: "Easy",
+            expert: "Expert",
             high: "High",
             intermediate: "Intermediate",
             low: "Low",
+            medium: "Medium",
             moderate: "Moderate",
+            needs_review: "Needs review",
             not_compatible: "Not compatible",
-            partial_match: "Partial match"
+            not_recommended: "Not recommended",
+            partial_match: "Partial match",
+            recommended: "Recommended"
           },
           reasonLabels: {
+            aggression: "Aggression",
             behavior: "Behavior",
+            bioload: "Bioload",
+            cover: "Cover",
+            diet: "Diet",
+            flow: "Flow",
+            gh: "GH",
+            kh: "KH",
+            lighting: "Lighting",
+            maintenance: "Maintenance",
+            ph: "pH",
             planting: "Planting",
+            stocking: "Stocking",
+            substrate: "Substrate",
             tank_size: "Tank size",
+            tank_volume: "Tank volume",
+            temperature: "Temperature",
             temperament: "Temperament",
             water_match: "Water match"
           }
@@ -679,21 +759,43 @@ export function habitatExplorerHtml() {
           },
           values: {
             beginner_friendly: "Adatto ai principianti",
+            caution: "Attenzione",
             conditional_match: "Compatibile con condizioni",
             compatibility_check: "Controllo compatibilità",
+            compatible_with_caution: "Compatibile con cautela",
             compatible: "Compatibile",
+            difficult: "Difficile",
             easy: "Facile",
+            expert: "Esperto",
             high: "Alto",
             intermediate: "Intermedio",
             low: "Basso",
+            medium: "Medio",
             moderate: "Moderato",
+            needs_review: "Da verificare",
             not_compatible: "Non compatibile",
-            partial_match: "Compatibilità parziale"
+            not_recommended: "Non consigliato",
+            partial_match: "Compatibilità parziale",
+            recommended: "Consigliato"
           },
           reasonLabels: {
+            aggression: "Aggressività",
             behavior: "Comportamento",
+            bioload: "Carico biologico",
+            cover: "Ripari",
+            diet: "Alimentazione",
+            flow: "Movimento acqua",
+            gh: "GH",
+            kh: "KH",
+            lighting: "Illuminazione",
+            maintenance: "Manutenzione",
+            ph: "pH",
             planting: "Piantumazione",
+            stocking: "Popolazione",
+            substrate: "Fondo",
             tank_size: "Vasca",
+            tank_volume: "Volume vasca",
+            temperature: "Temperatura",
             temperament: "Temperamento",
             water_match: "Parametri compatibili"
           }
@@ -755,21 +857,43 @@ export function habitatExplorerHtml() {
           },
           values: {
             beginner_friendly: "Apto para principiantes",
+            caution: "Precaución",
             conditional_match: "Compatibilidad condicionada",
             compatibility_check: "Comprobación de compatibilidad",
+            compatible_with_caution: "Compatible con cautela",
             compatible: "Compatible",
+            difficult: "Difícil",
             easy: "Fácil",
+            expert: "Experto",
             high: "Alto",
             intermediate: "Intermedio",
             low: "Bajo",
+            medium: "Medio",
             moderate: "Moderado",
+            needs_review: "Requiere revisión",
             not_compatible: "No compatible",
-            partial_match: "Compatibilidad parcial"
+            not_recommended: "No recomendado",
+            partial_match: "Compatibilidad parcial",
+            recommended: "Recomendado"
           },
           reasonLabels: {
+            aggression: "Agresividad",
             behavior: "Comportamiento",
+            bioload: "Carga biológica",
+            cover: "Refugios",
+            diet: "Alimentación",
+            flow: "Flujo",
+            gh: "GH",
+            kh: "KH",
+            lighting: "Iluminación",
+            maintenance: "Mantenimiento",
+            ph: "pH",
             planting: "Plantación",
+            stocking: "Población",
+            substrate: "Sustrato",
             tank_size: "Acuario",
+            tank_volume: "Volumen del acuario",
+            temperature: "Temperatura",
             temperament: "Temperamento",
             water_match: "Parámetros compatibles"
           }
