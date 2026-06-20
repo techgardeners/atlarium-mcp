@@ -113,10 +113,9 @@ Manual blocker:
 ```text
 Published and visible at `ilgrafico79/atlarium-habitat-database`. The latest
 release succeeded and Smithery discovered version 2.0.0 with 39 tools, 9
-prompts and 3 resources. Quality score is 88/100 after parameter descriptions
-were added and redeployed; `Parameter descriptions` shows 39/39. Optional
-remaining score work: upload `docs/assets/chatgpt-app-icon.png` as the custom
-server icon through the Smithery UI or API.
+prompts and 3 resources. Quality score is 96/100 after parameter descriptions
+and custom icon upload; `Parameter descriptions` shows 39/39. The remaining
+score gap is Smithery's non-breaking naming heuristic.
 ```
 
 Payload:

@@ -112,8 +112,8 @@ Docs: ${docs}
 Description: ${shortDescription}
 ${surfaceStatement}
 Safety: ${safetyStatement}
-Quality score: 88/100 after parameter descriptions were added; custom icon
-upload remains optional score work.
+Quality score: 96/100 after parameter descriptions and custom icon upload.
+The remaining score gap is the non-breaking Smithery naming heuristic.
 
 ## Glama
 
