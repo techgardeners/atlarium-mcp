@@ -50,7 +50,7 @@
     {
       "name": "atlarium-habitat-explorer",
       "title": "Atlarium Habitat Explorer",
-      "uri": "ui://widget/habitat-explorer.v1.html",
+      "uri": "ui://widget/habitat-explorer.v2.html",
       "mimeType": "text/html;profile=mcp-app",
       "description": "Interactive read-only ChatGPT App widget for habitat results, profiles, compatibility and tank suggestions."
     }

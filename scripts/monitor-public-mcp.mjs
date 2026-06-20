@@ -23,7 +23,7 @@ const expectedTools = [
   "search_guides",
   "get_guide",
 ];
-const expectedResourceUri = "ui://widget/habitat-explorer.v1.html";
+const expectedResourceUri = "ui://widget/habitat-explorer.v2.html";
 const expectedResourceMimeType = "text/html;profile=mcp-app";
 
 const forbiddenToolPattern =

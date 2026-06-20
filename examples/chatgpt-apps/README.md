@@ -19,7 +19,7 @@ depends on OpenAI review.
 
 - App type: MCP Apps / ChatGPT Apps connector with a widget UI.
 - Widget name: Atlarium Habitat Explorer.
-- Widget resource URI: `ui://widget/habitat-explorer.v1.html`.
+- Widget resource URI: `ui://widget/habitat-explorer.v2.html`.
 - Widget MIME type: `text/html;profile=mcp-app`.
 - Widget domain: `https://mcp.atlarium.bio` through `_meta.ui.domain` and
   `_meta["openai/widgetDomain"]`.

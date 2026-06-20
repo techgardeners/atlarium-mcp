@@ -89,7 +89,7 @@ husbandry constraints.
 The server includes a read-only MCP Apps / ChatGPT Apps widget resource for
 Apps-compatible hosts:
 
-- resource URI: `ui://widget/habitat-explorer.v1.html`
+- resource URI: `ui://widget/habitat-explorer.v2.html`
 - MIME type: `text/html;profile=mcp-app`
 - widget: `Atlarium Habitat Explorer`
 

@@ -27,9 +27,9 @@ describe("tool registry", () => {
       toolDefinitions.every(
         (tool) =>
           tool.appMeta?.["openai/outputTemplate"] ===
-            "ui://widget/habitat-explorer.v1.html" &&
+            "ui://widget/habitat-explorer.v2.html" &&
           (tool.appMeta?.ui as { resourceUri?: string } | undefined)?.resourceUri ===
-            "ui://widget/habitat-explorer.v1.html",
+            "ui://widget/habitat-explorer.v2.html",
       ),
     ).toBe(true);
     expect(toolDefinitions.some((tool) => tool.name.startsWith("create_"))).toBe(false);

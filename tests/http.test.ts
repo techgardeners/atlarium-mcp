@@ -134,7 +134,7 @@ describe("HTTP app", () => {
           mimeType: "text/html;profile=mcp-app",
           name: "atlarium-habitat-explorer",
           title: "Atlarium Habitat Explorer",
-          uri: "ui://widget/habitat-explorer.v1.html",
+          uri: "ui://widget/habitat-explorer.v2.html",
         }),
       ]);
       expect(body.tools.map((tool: { name: string }) => tool.name)).toEqual(
@@ -149,9 +149,9 @@ describe("HTTP app", () => {
           }) =>
             tool.inputSchema?.additionalProperties === false &&
             tool.outputSchema &&
-            tool._meta?.ui?.resourceUri === "ui://widget/habitat-explorer.v1.html" &&
+            tool._meta?.ui?.resourceUri === "ui://widget/habitat-explorer.v2.html" &&
             tool._meta?.["openai/outputTemplate"] ===
-              "ui://widget/habitat-explorer.v1.html",
+              "ui://widget/habitat-explorer.v2.html",
         ),
       ).toBe(true);
     });

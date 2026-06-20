@@ -1,4 +1,4 @@
-export const habitatExplorerResourceUri = "ui://widget/habitat-explorer.v1.html";
+export const habitatExplorerResourceUri = "ui://widget/habitat-explorer.v2.html";
 export const habitatExplorerMimeType = "text/html;profile=mcp-app";
 export const habitatExplorerWidgetDomain = "https://mcp.atlarium.bio";
 

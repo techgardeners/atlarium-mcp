@@ -37,7 +37,7 @@ Last updated: 2026-06-19
 - GitHub Actions monitors are active for public MCP health/server-card/tools-list
   and daily directory/registry discovery checks.
 - ChatGPT App widget resource is implemented as
-  `ui://widget/habitat-explorer.v1.html` with MIME type
+  `ui://widget/habitat-explorer.v2.html` with MIME type
   `text/html;profile=mcp-app`.
 
 Remaining publication prerequisites:
@@ -166,7 +166,7 @@ npx @modelcontextprotocol/inspector@latest --server-url https://mcp.atlarium.bio
 
 Expected:
 
-- `resources/list` contains `ui://widget/habitat-explorer.v1.html`.
+- `resources/list` contains `ui://widget/habitat-explorer.v2.html`.
 - `resources/read` returns the Habitat Explorer HTML resource.
 - Visual tools include `_meta.ui.resourceUri` and
   `_meta["openai/outputTemplate"]`.
