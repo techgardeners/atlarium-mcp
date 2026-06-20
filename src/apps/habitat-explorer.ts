@@ -1231,6 +1231,126 @@ export function habitatExplorerHtml() {
         })[char]);
       }
 
+      function samplePayload() {
+        const samples = {
+          en: {
+            language: "en",
+            tool: "search_fish",
+            data: {
+              results: [
+                {
+                  common_name: "Blue Acara",
+                  scientific_name: "Andinoacara pulcher",
+                  slug: "aequidens-pulcher",
+                  min_tank_liters: 120,
+                  temperature_range: { min: 22, max: 30, unit: "C" },
+                  ph_range: { min: 6.5, max: 8 },
+                  care_level: "moderate",
+                  summary: "A resilient cichlid to evaluate with tank size, cover and community temperament in mind."
+                },
+                {
+                  common_name: "Harlequin Rasbora",
+                  scientific_name: "Trigonostigma heteromorpha",
+                  slug: "trigonostigma-heteromorpha",
+                  min_tank_liters: 60,
+                  temperature_range: { min: 23, max: 28, unit: "C" },
+                  ph_range: { min: 6, max: 7.5 },
+                  care_level: "easy",
+                  summary: "A peaceful schooling fish that prefers stable water and planted swimming space."
+                },
+                {
+                  common_name: "Java Fern",
+                  scientific_name: "Microsorum pteropus",
+                  slug: "microsorum-pteropus",
+                  min_tank_liters: 20,
+                  temperature_range: { min: 20, max: 28, unit: "C" },
+                  ph_range: { min: 6, max: 8 },
+                  care_level: "beginner_friendly",
+                  summary: "A hardy epiphyte for driftwood or rock layouts, useful for low-maintenance aquariums."
+                }
+              ]
+            }
+          },
+          it: {
+            language: "it",
+            tool: "search_fish",
+            data: {
+              results: [
+                {
+                  common_name: "Acara blu",
+                  scientific_name: "Andinoacara pulcher",
+                  slug: "aequidens-pulcher",
+                  min_tank_liters: 120,
+                  temperature_range: { min: 22, max: 30, unit: "C" },
+                  ph_range: { min: 6.5, max: 8 },
+                  care_level: "moderate",
+                  summary: "Un ciclide robusto da valutare considerando litraggio, ripari e temperamento in comunità."
+                },
+                {
+                  common_name: "Rasbora arlecchino",
+                  scientific_name: "Trigonostigma heteromorpha",
+                  slug: "trigonostigma-heteromorpha",
+                  min_tank_liters: 60,
+                  temperature_range: { min: 23, max: 28, unit: "C" },
+                  ph_range: { min: 6, max: 7.5 },
+                  care_level: "easy",
+                  summary: "Un pesce di branco pacifico che preferisce acqua stabile e spazio libero tra le piante."
+                },
+                {
+                  common_name: "Felce di Giava",
+                  scientific_name: "Microsorum pteropus",
+                  slug: "microsorum-pteropus",
+                  min_tank_liters: 20,
+                  temperature_range: { min: 20, max: 28, unit: "C" },
+                  ph_range: { min: 6, max: 8 },
+                  care_level: "beginner_friendly",
+                  summary: "Un'epifita resistente per legni o rocce, utile negli acquari a bassa manutenzione."
+                }
+              ]
+            }
+          },
+          es: {
+            language: "es",
+            tool: "search_fish",
+            data: {
+              results: [
+                {
+                  common_name: "Acara azul",
+                  scientific_name: "Andinoacara pulcher",
+                  slug: "aequidens-pulcher",
+                  min_tank_liters: 120,
+                  temperature_range: { min: 22, max: 30, unit: "C" },
+                  ph_range: { min: 6.5, max: 8 },
+                  care_level: "moderate",
+                  summary: "Un cíclido resistente que conviene evaluar por volumen, refugios y temperamento comunitario."
+                },
+                {
+                  common_name: "Rasbora arlequín",
+                  scientific_name: "Trigonostigma heteromorpha",
+                  slug: "trigonostigma-heteromorpha",
+                  min_tank_liters: 60,
+                  temperature_range: { min: 23, max: 28, unit: "C" },
+                  ph_range: { min: 6, max: 7.5 },
+                  care_level: "easy",
+                  summary: "Un pez de cardumen pacífico que prefiere agua estable y espacio entre plantas."
+                },
+                {
+                  common_name: "Helecho de Java",
+                  scientific_name: "Microsorum pteropus",
+                  slug: "microsorum-pteropus",
+                  min_tank_liters: 20,
+                  temperature_range: { min: 20, max: 28, unit: "C" },
+                  ph_range: { min: 6, max: 8 },
+                  care_level: "beginner_friendly",
+                  summary: "Una epífita resistente para troncos o rocas, útil en acuarios de bajo mantenimiento."
+                }
+              ]
+            }
+          }
+        };
+        return samples[state.language] || samples.en;
+      }
+
       tabs.forEach((tab) => tab.addEventListener("click", () => {
         state.tab = tab.dataset.tab || "results";
         render();
@@ -1270,23 +1390,7 @@ export function habitatExplorerHtml() {
       if (openai && openai.toolOutput) {
         receivePayload(openai.toolOutput);
       } else {
-        receivePayload({
-          tool: "search_fish",
-          data: {
-            results: [
-              {
-                common_name: "Blue Acara",
-                scientific_name: "Andinoacara pulcher",
-                slug: "aequidens-pulcher",
-                min_tank_liters: 120,
-                temperature_range: { min: 22, max: 30, unit: "C" },
-                ph_range: { min: 6.5, max: 8 },
-                care_level: "moderate",
-                summary: "A sturdy cichlid best reviewed with tank size and community temperament in mind."
-              }
-            ]
-          }
-        });
+        receivePayload(samplePayload());
       }
     })();
   </script>
