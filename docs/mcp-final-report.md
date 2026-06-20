@@ -27,7 +27,7 @@ new ChatGPT App UI implementation.
 | Smithery | Not listed; ready for maintainer submission | Smithery CLI search did not return Atlarium; `https://smithery.ai/new` redirects to hosted auth. | Submit payload from `docs/directory-submission-payloads.md`. | Atlarium/TechGardeners OAuth/login required. |
 | Glama | Indexed as connector; claim file live | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` returns HTTP 200 with Atlarium title, endpoint and registry name. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email. | Complete claim in Glama if the UI asks for confirmation. | Possible manual claim UI. |
 | MCP.so | Submitted; listing not visible yet | GitHub issue comment `4722425013` exists and includes name, endpoint and registry. Candidate listing returned `Project not found`. | Monitor issue/listing; no badge until visible. | MCP.so maintainer publication. |
-| PulseMCP | Manual check blocked; registry ingestion expected | Automated fetch of search/submit pages returned HTTP 403 Cloudflare block. | Recheck in browser or email payload after processing window if absent. | Browser/email required. |
+| PulseMCP | Listed / visible | `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database` shows Atlarium Habitat Database, provider Tech Gardeners, `server.json file available`, `bio.atlarium/habitat-database`, auth Open, Streamable HTTP and Free cost. | Monitor the listing and keep registry/server.json metadata current before adding badges elsewhere. | None for visibility; automated curl can still hit Cloudflare 403. |
 
 ## GitHub Actions
 
@@ -94,10 +94,10 @@ The response body contains the Glama connector schema and maintainer email
 
 ## Residual Risks
 
-- Glama ownership claim file is live; final acceptance may still require manual confirmation in Glama.
+- Glama connector listing and ownership claim file are live; final owner controls may still require manual confirmation in Glama.
 - Smithery requires maintainer OAuth/login.
 - MCP.so submission is posted but publication is controlled by MCP.so maintainers.
-- PulseMCP automated verification is blocked by Cloudflare from the audit environment.
+- PulseMCP listing is visible; automated verification can still be blocked by Cloudflare from some audit environments.
 - ChatGPT privacy-policy blocker is resolved: `https://atlarium.bio/privacy`
   and `https://atlarium.bio/en/privacy` return HTTP 200 and the page includes
   MCP / ChatGPT App data-access notes.
@@ -107,6 +107,6 @@ The response body contains the Glama connector schema and maintainer email
 
 1. Complete the Glama claim flow if the page still asks for manual confirmation.
 2. Submit Smithery through an Atlarium/TechGardeners account.
-3. Recheck MCP.so and PulseMCP listings before adding any badges.
+3. Recheck MCP.so before adding any MCP.so badge; treat PulseMCP as visible but verify badge policy first.
 4. Capture ChatGPT Developer Mode screenshots and refresh connector metadata
    before submission.

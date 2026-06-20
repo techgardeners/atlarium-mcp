@@ -1,5 +1,6 @@
 export const habitatExplorerResourceUri = "ui://widget/habitat-explorer.v1.html";
 export const habitatExplorerMimeType = "text/html;profile=mcp-app";
+export const habitatExplorerWidgetDomain = "https://mcp.atlarium.bio";
 
 export const habitatExplorerToolMeta = {
   ui: {
@@ -15,6 +16,7 @@ export const habitatExplorerResourceMeta = {
   mimeType: habitatExplorerMimeType,
   _meta: {
     ui: {
+      domain: habitatExplorerWidgetDomain,
       csp: {
         connectDomains: [],
         resourceDomains: [],
@@ -25,6 +27,7 @@ export const habitatExplorerResourceMeta = {
     },
     "openai/widgetDescription":
       "Render Atlarium habitat data as searchable cards, profile panels and compatibility summaries.",
+    "openai/widgetDomain": habitatExplorerWidgetDomain,
     "openai/widgetPrefersBorder": false,
     "openai/widgetCSP": {
       connect_domains: [],

@@ -95,7 +95,9 @@ For Apps-compatible hosts, the server also advertises the read-only ChatGPT
 App widget resource `ui://widget/habitat-explorer.v1.html` with MIME type
 `text/html;profile=mcp-app`. The widget is `Atlarium Habitat Explorer` and is
 linked from tool metadata through `_meta.ui.resourceUri` plus
-`_meta["openai/outputTemplate"]`.
+`_meta["openai/outputTemplate"]`. The widget resource declares the dedicated
+origin `https://mcp.atlarium.bio` through `_meta.ui.domain` and
+`_meta["openai/widgetDomain"]`.
 
 ## Short Demo Script
 

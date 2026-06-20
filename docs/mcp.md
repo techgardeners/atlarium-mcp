@@ -51,6 +51,7 @@ The server also exposes a read-only MCP Apps / ChatGPT Apps widget resource:
 - Resource URI: `ui://widget/habitat-explorer.v1.html`
 - MIME type: `text/html;profile=mcp-app`
 - Title: `Atlarium Habitat Explorer`
+- Dedicated widget origin: `https://mcp.atlarium.bio`
 
 The widget renders structured tool results as habitat cards, profiles,
 compatibility summaries and tank suggestions. Tool responses keep plain JSON
@@ -64,7 +65,9 @@ light and dark surfaces. Its UI labels and status messages localize to English,
 Italian or Spanish from the host/browser locale, while tool calls pass the same
 language where supported. It does not load remote images, fonts, scripts, styles
 or iframes, so the widget CSP keeps `connectDomains`, `resourceDomains` and
-`frameDomains` empty.
+`frameDomains` empty. The resource metadata also declares `_meta.ui.domain` and
+the ChatGPT compatibility alias `_meta["openai/widgetDomain"]` for app
+submission.
 
 ## Tools
 

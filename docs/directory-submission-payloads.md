@@ -198,19 +198,25 @@ Safety: read-only; no user accounts, workspaces, admin APIs, private data or wri
 
 ## PulseMCP
 
-Submission URL:
+Visible listing:
+
+```text
+https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database
+```
+
+Submission URL for future corrections:
 
 ```text
 https://www.pulsemcp.com/submit
 ```
 
-Manual blocker:
+Operational note:
 
 ```text
-Automated checks from the audit environment returned HTTP 403 Cloudflare block. Use a browser or email follow-up if registry ingestion does not surface the listing.
+The public listing is visible, but automated checks from some audit environments can still return HTTP 403 because of Cloudflare. Use a browser or search fallback before assuming the listing disappeared.
 ```
 
-Email payload:
+Email payload if maintainers request a correction:
 
 ```text
 To: hello@pulsemcp.com

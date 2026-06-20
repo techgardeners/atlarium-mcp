@@ -73,6 +73,10 @@ describe("ChatGPT App widget", () => {
   });
 
   it("declares standard and ChatGPT-compatible widget CSP metadata", () => {
+    expect(habitatExplorerResourceMeta._meta.ui.domain).toBe("https://mcp.atlarium.bio");
+    expect(habitatExplorerResourceMeta._meta["openai/widgetDomain"]).toBe(
+      "https://mcp.atlarium.bio",
+    );
     expect(habitatExplorerResourceMeta._meta.ui.csp).toEqual({
       connectDomains: [],
       frameDomains: [],

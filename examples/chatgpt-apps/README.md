@@ -21,6 +21,8 @@ depends on OpenAI review.
 - Widget name: Atlarium Habitat Explorer.
 - Widget resource URI: `ui://widget/habitat-explorer.v1.html`.
 - Widget MIME type: `text/html;profile=mcp-app`.
+- Widget domain: `https://mcp.atlarium.bio` through `_meta.ui.domain` and
+  `_meta["openai/widgetDomain"]`.
 - Widget source: `src/apps/habitat-explorer.ts`.
 - Widget visual treatment: self-contained Atlarium-native UI using inline brand
   colors and embedded JPEG logo data URIs for light and dark surfaces; no remote
