@@ -446,8 +446,8 @@ export function habitatExplorerHtml() {
       display: block;
       overflow: hidden;
       width: 100%;
-      aspect-ratio: 16 / 7;
-      max-height: 190px;
+      aspect-ratio: 16 / 9;
+      max-height: 240px;
       margin-bottom: 12px;
       border: 1px solid var(--line);
       border-radius: 8px;
