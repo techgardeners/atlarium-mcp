@@ -617,42 +617,669 @@ export function habitatExplorerHtml() {
         text-align: left;
       }
     }
+
+    :root {
+      color-scheme: dark;
+      --deep-blue: #071019;
+      --ocean: #0b2435;
+      --azure: #20b8f2;
+      --lagoon: #0e3448;
+      --aqua: #42d6e6;
+      --plant: #73dc99;
+      --plant-deep: #0a8f69;
+      --paper: #071019;
+      --surface: #091521;
+      --surface-raised: #0c1d2a;
+      --ink: #ecf8f6;
+      --muted: #93b0bc;
+      --line: rgb(120 184 200 / 0.16);
+      --foam: #102433;
+      --coral: #f08a70;
+      --amber: #e2bd74;
+      --bg: linear-gradient(90deg, #071019 0%, #0a1521 48%, #0d1d22 100%);
+      --panel: #091521;
+      --panel-solid: #0a1722;
+      --tile: transparent;
+      --tile-strong: linear-gradient(90deg, rgb(29 118 143 / 0.3), rgb(16 39 53 / 0.76));
+      --soft: #06111d;
+      --accent: var(--aqua);
+      --accent-ink: #03151d;
+      --water-bg: #0e3448;
+      --water-line: #1e617b;
+      --water-ink: #a9e8f5;
+      --plant-bg: #133d2d;
+      --plant-line: #267a4f;
+      --plant-ink: #aaf0c1;
+      --warn-bg: rgb(226 189 116 / 0.16);
+      --warn-line: rgb(226 189 116 / 0.34);
+      --warn-ink: #ffd681;
+      --warn: var(--amber);
+      --shadow: rgb(0 0 0 / 0.24);
+    }
+
+    body {
+      background: #071019;
+    }
+
+    svg {
+      display: block;
+      width: 20px;
+      height: 20px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .shell {
+      min-height: 100vh;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      grid-template-rows: 1fr;
+      gap: 0;
+      background: var(--bg);
+    }
+
+    .rail {
+      border-right: 1px solid var(--line);
+      background: rgb(5 13 22 / 0.78);
+      padding: 18px 12px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .rail .brand-logo-frame {
+      width: 54px;
+      height: 54px;
+      border-radius: 16px;
+      background: #071019;
+      border: 1px solid rgb(116 182 202 / 0.18);
+      box-shadow: 0 18px 40px rgb(0 0 0 / 0.28);
+    }
+
+    .rail .brand-logo.light {
+      display: none;
+    }
+
+    .rail .brand-logo.dark {
+      display: block;
+      filter: saturate(1.08) contrast(1.04);
+      mix-blend-mode: screen;
+    }
+
+    .rail-divider {
+      width: 32px;
+      height: 1px;
+      background: var(--line);
+      margin: 2px 0 1px;
+    }
+
+    .rail-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      border: 1px solid rgb(139 201 220 / 0.18);
+      background: rgb(255 255 255 / 0.025);
+      color: #9ec4cc;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .rail-button:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+      box-shadow: 0 12px 24px var(--shadow);
+    }
+
+    .rail-button[aria-selected="true"] {
+      color: #03151d;
+      border-color: #2fd2ec;
+      background: linear-gradient(135deg, #20b8f2, #70e39d);
+      box-shadow: 0 18px 34px rgb(42 190 228 / 0.24);
+    }
+
+    .main {
+      min-width: 0;
+      padding: 24px 24px 26px;
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr);
+      gap: 16px;
+    }
+
+    .topbar {
+      height: 60px;
+      padding: 0;
+      align-items: flex-start;
+    }
+
+    .brand-lockup {
+      gap: 0;
+    }
+
+    .brand-lockup > .brand-logo-frame {
+      display: none;
+    }
+
+    h1 {
+      margin-top: 5px;
+      font-size: 24px;
+      line-height: 1.02;
+      font-weight: 820;
+      color: var(--ink);
+    }
+
+    .status {
+      color: var(--muted);
+      margin-top: 5px;
+      font-size: 13px;
+    }
+
+    .tabs {
+      gap: 8px;
+      align-items: center;
+    }
+
+    .tab, .action {
+      min-height: 36px;
+      border-color: rgb(142 191 205 / 0.24);
+      background: rgb(255 255 255 / 0.025);
+      color: #cbe5e6;
+      font-weight: 670;
+      padding: 8px 15px;
+    }
+
+    .tab[aria-selected="true"] {
+      background: var(--plant);
+      border-color: var(--plant);
+      color: #061511;
+      box-shadow: 0 14px 26px rgb(115 220 153 / 0.18);
+    }
+
+    .controls {
+      margin: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 10px;
+      align-items: center;
+      padding: 10px;
+      border-radius: 15px;
+      border: 1px solid rgb(120 184 200 / 0.14);
+      background: #0d1a27;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .filter {
+      min-height: 44px;
+      border-radius: 12px;
+      border-color: rgb(132 196 214 / 0.18);
+      background: #07121d;
+      color: var(--ink);
+      padding: 0 15px;
+    }
+
+    .filter::placeholder {
+      color: rgb(147 176 188 / 0.86);
+    }
+
+    .actions {
+      gap: 10px;
+    }
+
+    .action {
+      min-height: 44px;
+      background: #102433;
+      color: #d8eff0;
+      border-color: rgb(132 196 214 / 0.18);
+      padding: 0 18px;
+    }
+
+    .action.primary {
+      background: linear-gradient(135deg, #0a8f69, #18aa80);
+      border-color: #11a177;
+      color: #ffffff;
+      box-shadow: 0 18px 34px rgb(10 143 105 / 0.22);
+    }
+
+    .workspace {
+      margin-top: 0;
+      min-height: 0;
+      display: grid;
+      grid-template-columns: 414px minmax(0, 1fr);
+      gap: 0;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: #081521;
+    }
+
+    .list-pane {
+      min-width: 0;
+      padding: 14px;
+      border-right: 1px solid var(--line);
+      background: #091521;
+      overflow: hidden;
+    }
+
+    .pane {
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .list {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+      grid-auto-rows: max-content;
+      max-height: none;
+      height: 100%;
+      overflow: auto;
+      padding-right: 2px;
+    }
+
+    .item {
+      border-color: transparent;
+      background: transparent;
+      color: var(--ink);
+      border-radius: 14px;
+      padding: 12px;
+      min-height: 94px;
+      box-shadow: none;
+    }
+
+    .item.has-media {
+      grid-template-columns: 78px minmax(0, 1fr);
+      gap: 14px;
+      padding: 12px;
+    }
+
+    .item:hover, .item.active {
+      border-color: var(--accent);
+      background: var(--tile-strong);
+      box-shadow: inset 0 0 0 1px rgb(116 222 236 / 0.1);
+    }
+
+    .thumb-frame {
+      width: 78px;
+      height: 60px;
+      aspect-ratio: auto;
+      border-radius: 11px;
+      border: 0;
+      background: #06111d;
+      box-shadow: 0 12px 26px rgb(0 0 0 / 0.24);
+    }
+
+    .item-title {
+      display: block;
+      font-weight: 760;
+    }
+
+    .latin {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      text-align: left;
+      margin-top: 4px;
+    }
+
+    .chip {
+      font-size: 11px;
+      font-weight: 820;
+      padding: 4px 8px;
+      border-color: var(--water-line);
+      background: var(--water-bg);
+      color: var(--water-ink);
+    }
+
+    .chip.plant {
+      border-color: var(--plant-line);
+      background: var(--plant-bg);
+      color: var(--plant-ink);
+    }
+
+    .detail {
+      min-width: 0;
+      min-height: 0;
+      padding: 0;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 226px;
+      overflow: hidden;
+      border: 0;
+      border-radius: 0;
+      background: #0a1722;
+      box-shadow: none;
+      backdrop-filter: none;
+    }
+
+    .detail-main {
+      min-width: 0;
+      display: grid;
+      grid-template-rows: minmax(280px, 430px) minmax(0, 1fr);
+    }
+
+    .detail-main.no-media {
+      display: block;
+      overflow: auto;
+    }
+
+    .detail-main.no-media .detail-copy {
+      overflow: visible;
+    }
+
+    .detail-copy {
+      min-width: 0;
+      padding: 24px 24px 20px;
+      overflow: auto;
+    }
+
+    .detail-media {
+      display: block;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      max-height: none;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      border-bottom: 1px solid var(--line);
+      background: #06111d;
+    }
+
+    .detail h2 {
+      font-size: 29px;
+      line-height: 1.04;
+      margin: 0;
+      font-weight: 840;
+    }
+
+    .detail .latin {
+      margin-top: 5px;
+      font-size: 14px;
+    }
+
+    .status-strip {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .summary {
+      color: #d2e5e5;
+      margin: 16px 0 0;
+      font-size: 15px;
+      line-height: 1.46;
+    }
+
+    .body-copy {
+      color: #d2e5e5;
+      margin: 16px 0 0;
+    }
+
+    .metric-panel {
+      min-width: 0;
+      border-left: 1px solid var(--line);
+      background: #0c1d2a;
+      padding: 19px 18px;
+      overflow: auto;
+    }
+
+    .metric-panel-title {
+      color: var(--ink);
+      font-size: 11px;
+      font-weight: 860;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      margin: 0 0 13px;
+    }
+
+    .metrics {
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin: 0;
+    }
+
+    .metric {
+      min-height: 68px;
+      border-radius: 13px;
+      padding: 12px;
+      border-color: rgb(126 190 208 / 0.18);
+      background: #081520;
+    }
+
+    .metric strong {
+      color: #88a8b6;
+      font-size: 12px;
+      font-weight: 500;
+    }
+
+    .metric span {
+      margin-top: 5px;
+      color: var(--ink);
+      font-size: 21px;
+      line-height: 1.1;
+      font-weight: 760;
+    }
+
+    .detail .actions, .metric-panel .actions {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .detail .action {
+      width: 100%;
+      min-height: 38px;
+      justify-content: center;
+    }
+
+    .section-title {
+      color: var(--muted);
+      margin-top: 18px;
+    }
+
+    .stack {
+      gap: 10px;
+    }
+
+    .mini-card {
+      border-color: rgb(126 190 208 / 0.18);
+      background: #081520;
+      border-radius: 13px;
+      color: #d2e5e5;
+    }
+
+    .mini-card.profile-mini {
+      grid-template-columns: 54px minmax(0, 1fr);
+    }
+
+    .mini-thumb {
+      width: 54px;
+      border: 0;
+      background: #06111d;
+    }
+
+    .empty {
+      grid-column: 1 / -1;
+      align-self: start;
+      margin: 18px;
+      border-color: rgb(126 190 208 / 0.28);
+      background: #081520;
+    }
+
+    .compat {
+      border-left: 0;
+      padding-left: 0;
+    }
+
+    .disclaimer {
+      border-top: 1px solid rgb(126 190 208 / 0.14);
+      padding-top: 14px;
+      color: #7f9eaa;
+    }
+
+    @media (max-width: 920px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      .rail {
+        display: none;
+      }
+
+      .main {
+        padding: 18px;
+      }
+
+      .topbar {
+        height: auto;
+      }
+
+      .workspace {
+        grid-template-columns: 1fr;
+      }
+
+      .list-pane {
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .list {
+        max-height: 38vh;
+      }
+
+      .detail {
+        grid-template-columns: 1fr;
+      }
+
+      .detail-main {
+        grid-template-rows: minmax(240px, 360px) auto;
+      }
+
+      .metric-panel {
+        border-left: 0;
+        border-top: 1px solid var(--line);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .main {
+        padding: 14px;
+        gap: 12px;
+      }
+
+      .topbar {
+        display: grid;
+      }
+
+      .tabs {
+        justify-content: flex-start;
+      }
+
+      .tab {
+        padding: 7px 10px;
+      }
+
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      .controls .actions {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .workspace {
+        border-radius: 16px;
+      }
+
+      .item.has-media {
+        grid-template-columns: 64px minmax(0, 1fr);
+      }
+
+      .thumb-frame {
+        width: 64px;
+        height: 54px;
+      }
+
+      .detail-main {
+        grid-template-rows: minmax(220px, 300px) auto;
+      }
+
+      .detail-copy, .metric-panel {
+        padding: 18px;
+      }
+
+      .detail h2 {
+        font-size: 24px;
+      }
+    }
   </style>
 </head>
 <body>
   <main class="shell">
-    <header class="topbar">
-      <div class="brand-lockup">
-        <span class="brand-logo-frame" data-brand-logo role="img" aria-label="Atlarium logo">
-          <img class="brand-logo light" src="${ATLARIUM_LOGO_LIGHT_JPEG}" alt="" />
-          <img class="brand-logo dark" src="${ATLARIUM_LOGO_DARK_JPEG}" alt="" />
-        </span>
-        <div class="brand-copy">
-          <h1>Atlarium Habitat Explorer</h1>
-          <div class="status" id="status">Waiting for Atlarium tool data</div>
+    <aside class="rail" aria-label="Atlarium shortcuts">
+      <span class="brand-logo-frame" data-brand-logo role="img" aria-label="Atlarium logo">
+        <img class="brand-logo light" src="${ATLARIUM_LOGO_LIGHT_JPEG}" alt="" />
+        <img class="brand-logo dark" src="${ATLARIUM_LOGO_DARK_JPEG}" alt="" />
+      </span>
+      <span class="rail-divider" aria-hidden="true"></span>
+      <button class="rail-button" data-tab="results" aria-selected="true" aria-label="Results" title="Results">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 4 4"></path></svg>
+      </button>
+      <button class="rail-button" data-tab="profile" aria-selected="false" aria-label="Profile" title="Profile">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16"></path><path d="M4 12h10"></path><path d="M4 19h16"></path><path d="M18 10v8"></path></svg>
+      </button>
+      <button class="rail-button" data-tab="compatibility" aria-selected="false" aria-label="Compatibility" title="Compatibility">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8.5 12.5 6.8 14a4 4 0 0 0 5.7 5.7l2-2"></path><path d="m15.5 11.5 1.7-1.5a4 4 0 0 0-5.7-5.7l-2 2"></path><path d="m9 15 6-6"></path></svg>
+      </button>
+      <button class="rail-button" data-tab="suggestions" aria-selected="false" aria-label="Suggestions" title="Suggestions">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l1.7 5.1L19 10l-5.3 1.9L12 17l-1.7-5.1L5 10l5.3-1.9L12 3Z"></path><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8L19 15Z"></path></svg>
+      </button>
+    </aside>
+
+    <section class="main">
+      <header class="topbar">
+        <div class="brand-lockup">
+          <span class="brand-logo-frame" data-brand-logo role="img" aria-label="Atlarium logo">
+            <img class="brand-logo light" src="${ATLARIUM_LOGO_LIGHT_JPEG}" alt="" />
+            <img class="brand-logo dark" src="${ATLARIUM_LOGO_DARK_JPEG}" alt="" />
+          </span>
+          <div class="brand-copy">
+            <h1>Atlarium Habitat Explorer</h1>
+            <div class="status" id="status">Waiting for Atlarium tool data</div>
+          </div>
         </div>
-      </div>
-      <nav class="tabs" aria-label="Habitat views">
-        <button class="tab" data-tab="results" aria-selected="true">Results</button>
-        <button class="tab" data-tab="profile" aria-selected="false">Profile</button>
-        <button class="tab" data-tab="compatibility" aria-selected="false">Compatibility</button>
-        <button class="tab" data-tab="suggestions" aria-selected="false">Suggestions</button>
-      </nav>
-    </header>
+        <nav class="tabs" aria-label="Habitat views">
+          <button class="tab" data-tab="results" aria-selected="true">Results</button>
+          <button class="tab" data-tab="profile" aria-selected="false">Profile</button>
+          <button class="tab" data-tab="compatibility" aria-selected="false">Compatibility</button>
+          <button class="tab" data-tab="suggestions" aria-selected="false">Suggestions</button>
+        </nav>
+      </header>
 
-    <section class="pane controls">
-      <input id="filter" class="filter" type="search" placeholder="Filter visible habitat data" />
-      <div class="actions">
-        <button class="action primary" data-tool="suggest_species_for_tank">Suggest 90 L planted tank</button>
-        <button class="action" data-tool="check_species_compatibility">Check community pair</button>
-      </div>
-    </section>
+      <section class="controls">
+        <input id="filter" class="filter" type="search" placeholder="Filter visible habitat data" />
+        <div class="actions">
+          <button class="action primary" data-tool="suggest_species_for_tank">Suggest 90 L planted tank</button>
+          <button class="action" data-tool="check_species_compatibility">Check community pair</button>
+        </div>
+      </section>
 
-    <section class="workspace">
-      <div class="pane">
-        <div class="list" id="list"></div>
-      </div>
-      <aside class="pane detail" id="detail"></aside>
+      <section class="workspace">
+        <div class="list-pane">
+          <div class="list" id="list"></div>
+        </div>
+        <aside class="detail" id="detail"></aside>
+      </section>
     </section>
   </main>
 
@@ -668,6 +1295,7 @@ export function habitatExplorerHtml() {
       };
 
       const tabs = Array.from(document.querySelectorAll(".tab"));
+      const railButtons = Array.from(document.querySelectorAll(".rail-button"));
       const list = document.getElementById("list");
       const detail = document.getElementById("detail");
       const filter = document.getElementById("filter");
@@ -719,6 +1347,7 @@ export function habitatExplorerHtml() {
           sections: {
             watchPoints: "Watch points",
             recommendedActions: "Recommended actions",
+            parameters: "Parameters",
             speciesReviewed: "Species reviewed"
           },
           tools: {
@@ -846,6 +1475,7 @@ export function habitatExplorerHtml() {
           sections: {
             watchPoints: "Punti di attenzione",
             recommendedActions: "Azioni consigliate",
+            parameters: "Parametri",
             speciesReviewed: "Specie analizzate"
           },
           tools: {
@@ -973,6 +1603,7 @@ export function habitatExplorerHtml() {
           sections: {
             watchPoints: "Puntos de atención",
             recommendedActions: "Acciones recomendadas",
+            parameters: "Parámetros",
             speciesReviewed: "Especies revisadas"
           },
           tools: {
@@ -1114,6 +1745,11 @@ export function habitatExplorerHtml() {
         filter.placeholder = copy("filter.placeholder");
         tabs.forEach((tab) => {
           tab.textContent = copy("tabs." + (tab.dataset.tab || "results"));
+        });
+        railButtons.forEach((button) => {
+          const label = copy("tabs." + (button.dataset.tab || "results"));
+          button.setAttribute("aria-label", label);
+          button.setAttribute("title", label);
         });
         const suggestButton = document.querySelector('[data-tool="suggest_species_for_tank"]');
         const compatibilityButton = document.querySelector('[data-tool="check_species_compatibility"]');
@@ -1348,24 +1984,69 @@ export function habitatExplorerHtml() {
         detail.innerHTML = renderProfile(item);
       }
 
+      function profileMetrics(item, careValue) {
+        return [
+          metric(copy("metrics.tank"), item.min_tank_liters || item.minimum_tank_liters || item.tank_liters, "L"),
+          metric(copy("metrics.temperature"), rangeFor(item, "temperature_range", "C") || item.temperature),
+          metric("pH", rangeFor(item, "ph_range") || item.ph),
+          metric("GH / KH", [rangeFor(item, "gh_range"), rangeFor(item, "kh_range")].filter(Boolean).join(" / ")),
+          metric(copy("metrics.care"), valueLabel(careValue))
+        ].join("");
+      }
+
+      function statusChipsFor(item) {
+        return [item.temperament, item.behavior, item.care_level || item.difficulty || item.compatibility_level]
+          .filter(Boolean)
+          .slice(0, 3)
+          .map((value) => chip(valueLabel(value), "plant"))
+          .join("");
+      }
+
+      function statusStrip(chipsHtml) {
+        return chipsHtml ? '<div class="status-strip">' + chipsHtml + '</div>' : "";
+      }
+
+      function detailShell(options) {
+        const image = options.image || "";
+        const mainClass = image ? "detail-main" : "detail-main no-media";
+        const subtitle = options.subtitle || "";
+        const summary = options.summary || "";
+        const body = options.body || "";
+        const metrics = options.metrics || "";
+        const actions = options.actions || "";
+        const mainExtra = options.mainExtra || "";
+        const inspectorExtra = options.inspectorExtra || "";
+        return '<div class="' + mainClass + '">' +
+          mediaFrame(image, options.title, "detail-media") +
+          '<div class="detail-copy">' +
+          '<h2>' + escapeHtml(options.title) + '</h2>' +
+          (subtitle ? '<p class="latin">' + escapeHtml(subtitle) + '</p>' : "") +
+          statusStrip(options.chips || "") +
+          (summary ? '<p class="summary">' + escapeHtml(summary) + '</p>' : "") +
+          (body ? '<p class="body-copy">' + escapeHtml(body) + '</p>' : "") +
+          mainExtra +
+          '</div></div>' +
+          '<div class="metric-panel">' +
+          '<h3 class="metric-panel-title">' + escapeHtml(options.panelTitle || copy("sections.parameters")) + '</h3>' +
+          (metrics ? '<div class="metrics">' + metrics + '</div>' : "") +
+          (actions ? '<div class="actions">' + actions + '</div>' : "") +
+          inspectorExtra +
+          '</div>';
+      }
+
       function renderProfile(item) {
         const summary = item.summary || item.description || item.short_description || item.care_summary || item.notes || "";
         const title = titleFor(item);
-        return mediaFrame(imageFor(item), title, "detail-media") +
-          '<h2>' + escapeHtml(title) + '</h2>' +
-          '<p class="summary">' + escapeHtml(scientificFor(item) || item.slug || copy("detail.structuredProfile")) + '</p>' +
-          (summary ? '<p class="body-copy">' + escapeHtml(summary) + '</p>' : "") +
-          '<div class="metrics">' +
-          metric(copy("metrics.tank"), item.min_tank_liters || item.minimum_tank_liters || item.tank_liters, "L") +
-          metric(copy("metrics.temperature"), rangeFor(item, "temperature_range", "C") || item.temperature) +
-          metric("pH", rangeFor(item, "ph_range") || item.ph) +
-          metric("GH / KH", [rangeFor(item, "gh_range"), rangeFor(item, "kh_range")].filter(Boolean).join(" / ")) +
-          metric(copy("metrics.care"), valueLabel(item.care_level || item.difficulty)) +
-          '</div>' +
-          '<div class="actions">' +
-          actionButton("get_water_parameters", copy("actions.waterParameters")) +
-          actionButton("search_guides", copy("actions.careGuides")) +
-          '</div>';
+        return detailShell({
+          image: imageFor(item),
+          title,
+          subtitle: scientificFor(item) || item.slug || copy("detail.structuredProfile"),
+          summary,
+          chips: statusChipsFor(item),
+          metrics: profileMetrics(item, item.care_level || item.difficulty),
+          actions: actionButton("get_water_parameters", copy("actions.waterParameters")) +
+            actionButton("search_guides", copy("actions.careGuides"))
+        });
       }
 
       function renderCompatibility(item) {
@@ -1376,31 +2057,33 @@ export function habitatExplorerHtml() {
         const actions = Array.isArray(item.recommended_actions) ? item.recommended_actions : [];
         const profiles = Array.isArray(item.species_profiles) ? item.species_profiles : [];
         const disclaimer = item.disclaimer || "";
-        return '<div class="compat">' +
-          '<h2>' + escapeHtml(valueLabel(level)) + '</h2>' +
-          '<p class="summary">' + escapeHtml(summary || copy("detail.compatibilityFallback")) + '</p>' +
-          renderNoticeList(copy("sections.watchPoints"), warnings.concat(issues), "warning") +
-          renderNoticeList(copy("sections.recommendedActions"), actions, "") +
-          renderSpeciesProfiles(profiles) +
-          (disclaimer ? '<p class="disclaimer">' + escapeHtml(disclaimer) + '</p>' : "") +
-          '</div>';
+        return detailShell({
+          title: valueLabel(level),
+          subtitle: scientificFor(item),
+          summary: summary || copy("detail.compatibilityFallback"),
+          chips: chip(valueLabel(level), "plant"),
+          mainExtra: '<div class="compat">' +
+            renderNoticeList(copy("sections.watchPoints"), warnings.concat(issues), "warning") +
+            renderNoticeList(copy("sections.recommendedActions"), actions, "") +
+            '</div>',
+          panelTitle: copy("detail.compatibilityReview"),
+          metrics: metric(copy("detail.compatibilityReview"), valueLabel(level)),
+          inspectorExtra: renderSpeciesProfiles(profiles) +
+            (disclaimer ? '<p class="disclaimer">' + escapeHtml(disclaimer) + '</p>' : "")
+        });
       }
 
       function renderSuggestion(item) {
         const reason = item.reason || item.rationale || item.summary || "";
         const reasonChips = reasonParts(reason).map((part) => chip(part, "plant")).join("");
         const title = titleFor(item);
-        return mediaFrame(imageFor(item), title, "detail-media") +
-          '<h2>' + escapeHtml(title) + '</h2>' +
-          '<p class="summary">' + escapeHtml(scientificFor(item) || item.slug || copy("detail.suggestedCandidate")) + '</p>' +
-          (reasonChips ? '<div class="chips">' + reasonChips + '</div>' : "") +
-          '<div class="metrics">' +
-          metric(copy("metrics.tank"), item.min_tank_liters || item.minimum_tank_liters || item.tank_liters, "L") +
-          metric(copy("metrics.temperature"), rangeFor(item, "temperature_range", "C") || item.temperature) +
-          metric("pH", rangeFor(item, "ph_range") || item.ph) +
-          metric("GH / KH", [rangeFor(item, "gh_range"), rangeFor(item, "kh_range")].filter(Boolean).join(" / ")) +
-          metric(copy("metrics.care"), valueLabel(item.care_level || item.difficulty || item.temperament)) +
-          '</div>';
+        return detailShell({
+          image: imageFor(item),
+          title,
+          subtitle: scientificFor(item) || item.slug || copy("detail.suggestedCandidate"),
+          chips: reasonChips || statusChipsFor(item),
+          metrics: profileMetrics(item, item.care_level || item.difficulty || item.temperament)
+        });
       }
 
       function reasonParts(reason) {
@@ -1461,11 +2144,17 @@ export function habitatExplorerHtml() {
       function render() {
         renderLocale();
         tabs.forEach((tab) => tab.setAttribute("aria-selected", String(tab.dataset.tab === state.tab)));
+        railButtons.forEach((button) => button.setAttribute("aria-selected", String(button.dataset.tab === state.tab)));
         status.textContent = state.data
           ? formatMessage("status.showing", { tool: toolLabel(state.tool) })
           : copy("status.waiting");
         renderList();
         renderDetail();
+      }
+
+      function activateTab(tabName) {
+        state.tab = tabName || "results";
+        render();
       }
 
       function callTool(name) {
@@ -1626,9 +2315,8 @@ export function habitatExplorerHtml() {
         return samples[state.language] || samples.en;
       }
 
-      tabs.forEach((tab) => tab.addEventListener("click", () => {
-        state.tab = tab.dataset.tab || "results";
-        render();
+      tabs.concat(railButtons).forEach((tab) => tab.addEventListener("click", () => {
+        activateTab(tab.dataset.tab || "results");
       }));
 
       filter.addEventListener("input", () => {

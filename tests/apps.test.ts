@@ -64,6 +64,11 @@ describe("ChatGPT App widget", () => {
     expect(html).toContain("toolLabel(state.tool)");
     expect(html).toContain("reasonParts");
     expect(html).toContain("recommended_actions");
+    expect(html).toContain('class="rail"');
+    expect(html).toContain('class="rail-button"');
+    expect(html).toContain('class="metric-panel"');
+    expect(html).toContain("detail-main");
+    expect(html).toContain("<svg");
     expect(html).toContain("atlariumImageHosts");
     expect(html).toContain("safeImageUrl");
     expect(html).toContain("imageFor");
@@ -83,7 +88,8 @@ describe("ChatGPT App widget", () => {
     expect(html).toContain("suggest_species_for_tank");
     expect(html).toContain("isChatGptHost");
     expect(html).not.toContain("<iframe");
-    expect(html).not.toContain("<svg");
+    expect(html).not.toContain("<symbol");
+    expect(html).not.toContain("<use");
     expect(html).not.toContain("data-brand-mark");
     expect(html).not.toContain("Showing \" +");
     expect(html).not.toContain("Requested \" + name");

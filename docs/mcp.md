@@ -61,18 +61,19 @@ generic MCP clients and also include `structuredContent` for Apps-compatible
 hosts. Tools link to the widget with `_meta.ui.resourceUri` and the ChatGPT
 compatibility alias `_meta["openai/outputTemplate"]`.
 
-The widget is styled as a self-contained Atlarium-native interface using inline
-CSS tokens from the public Atlarium palette and embedded JPEG logo data URIs for
-light and dark surfaces. Its UI labels and status messages localize to English,
-Italian or Spanish from the host/browser locale, while tool calls pass the same
-language where supported. It does not load remote fonts, scripts, styles,
-iframes or fetch data from the widget. Optional species media is rendered only
-when it is already present in structured tool payloads as data images or HTTPS
-Atlarium image URLs, with the widget CSP keeping `connectDomains` and
-`frameDomains` empty and limiting `resourceDomains` to `https://atlarium.bio`
-and `https://mcp.atlarium.bio`. The resource metadata also declares
-`_meta.ui.domain` and the ChatGPT compatibility alias
-`_meta["openai/widgetDomain"]` for app submission.
+The widget is styled as a self-contained Atlarium Habitat OS Pro interface:
+dark premium surfaces, an icon rail on desktop, dense searchable results,
+large habitat media and a technical inspector panel for metrics and actions. It
+uses inline CSS tokens and embedded JPEG logo data URIs for brand surfaces. Its
+UI labels and status messages localize to English, Italian or Spanish from the
+host/browser locale, while tool calls pass the same language where supported. It
+does not load remote fonts, scripts, styles, iframes or fetch data from the
+widget. Optional species media is rendered only when it is already present in
+structured tool payloads as data images or HTTPS Atlarium image URLs, with the
+widget CSP keeping `connectDomains` and `frameDomains` empty and limiting
+`resourceDomains` to `https://atlarium.bio` and `https://mcp.atlarium.bio`. The
+resource metadata also declares `_meta.ui.domain` and the ChatGPT compatibility
+alias `_meta["openai/widgetDomain"]` for app submission.
 
 ## Tools
 
