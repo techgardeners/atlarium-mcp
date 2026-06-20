@@ -14,15 +14,16 @@
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/techgardeners/atlarium-mcp"></a>
   <a href="https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database"><img alt="Official MCP Registry" src="https://img.shields.io/badge/Official_MCP_Registry-bio.atlarium%2Fhabitat--database-0E7C86"></a>
   <img alt="Transport: Streamable HTTP" src="https://img.shields.io/badge/transport-Streamable_HTTP-145C9E">
-  <img alt="Read-only MCP tools" src="https://img.shields.io/badge/tools-11_read--only-2D7D46">
+  <img alt="Read-only MCP tools" src="https://img.shields.io/badge/tools-39_read--only-2D7D46">
   <img alt="Auth none" src="https://img.shields.io/badge/auth-none-4B5563">
 </p>
 
 Atlarium Habitat Database MCP is a public read-only MCP server that gives AI
-agents structured access to Atlarium habitat data. It exposes public tools for
-species, plants, products, water parameters, compatibility checks, guides and
-habitat planning without exposing Atlarium accounts, private workspaces, admin
-APIs or write operations.
+agents structured access to Atlarium habitat data and public advisory
+functions. It exposes public tools for species, plants, products, guides,
+algae, diseases, plant problems, medicines, water parameters, compatibility,
+fertilization, calculators and habitat planning without exposing Atlarium
+accounts, private workspaces, admin APIs or write operations.
 
 ## At A Glance
 
@@ -31,7 +32,7 @@ APIs or write operations.
 | MCP endpoint | `https://mcp.atlarium.bio/mcp` |
 | Transport | Streamable HTTP |
 | Authentication | none |
-| Tool surface | 11 public read-only tools |
+| Tool surface | 39 public read-only tools |
 | Server card | `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` |
 | Human docs | `https://atlarium.bio/mcp` |
 | Official MCP Registry | `bio.atlarium/habitat-database` |
@@ -74,9 +75,13 @@ pnpm mcp:monitor:public
 | --- | --- |
 | Fish and aquatic animals | `search_fish`, `get_fish_profile` |
 | Aquatic plants | `search_plants`, `get_plant_profile` |
-| Habitat products | `search_products`, `get_product_profile` |
-| Planning and compatibility | `check_species_compatibility`, `get_water_parameters`, `suggest_species_for_tank` |
-| Guides | `search_guides`, `get_guide` |
+| General products and guides | `search_products`, `get_product_profile`, `search_guides`, `get_guide` |
+| Diagnostics | `search_algae`, `get_algae_profile`, `search_diseases`, `get_disease_profile`, `search_plant_problems`, `get_plant_problem_profile`, `search_medicines`, `get_medicine_profile`, `match_diagnostic_profiles` |
+| Product catalog | `list_product_categories`, `list_product_brands`, `search_equipment`, `get_equipment_profile`, `search_fertilizers`, `get_fertilizer_profile` |
+| Compatibility and water | `check_species_compatibility`, `get_water_parameters`, `suggest_species_for_tank` |
+| Fertilization | `search_fertilization_regimes`, `get_fertilization_regime`, `calculate_fertilizer_dose`, `calculate_nutrient_gaps`, `calculate_weekly_dose_totals`, `generate_fertilization_plan` |
+| Calculators | `calculate_tank_volume`, `calculate_tank_weight`, `calculate_water_change`, `calculate_water_chemistry`, `convert_units`, `calculate_equipment_requirements` |
+| Habitat planner | `suggest_habitat_for_tank` |
 
 All tools are read-only. Compatibility checks and tank suggestions are advisory
 and should be verified against real livestock, equipment, water chemistry and
@@ -117,7 +122,7 @@ Publication tracking and reusable submission copy live in
 The server advertises a read-only MCP Apps / ChatGPT Apps widget resource for
 Apps-compatible hosts:
 
-- resource URI: `ui://widget/habitat-explorer.v2.html`
+- resource URI: `ui://widget/habitat-explorer.v3.html`
 - MIME type: `text/html;profile=mcp-app`
 - widget: `Atlarium Habitat Explorer`
 

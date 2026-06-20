@@ -1,0 +1,548 @@
+{
+  "$schema": "https://developers.openai.com/apps-sdk/schemas/chatgpt-app-submission.v1.json",
+  "schema_version": 1,
+  "app_info": {
+    "display_name": "Atlarium Habitat Database MCP",
+    "subtitle": "Plan habitat care",
+    "description": "Atlarium helps users explore public habitat data for aquariums and related habitat systems in ChatGPT. It can search species, plants, products, guides, diagnostics, medicines and fertilization references; check compatibility; calculate tank, water chemistry, dosing and equipment estimates; and generate advisory tank and fertilization plans. The app is read-only and does not expose Atlarium accounts, private workspaces, admin APIs or write operations.",
+    "category": "EDUCATION"
+  },
+  "tools": {
+    "search_fish": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public fish and aquatic animal profiles and returns matching records without creating or updating data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_fish_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public fish or aquatic animal profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_plants": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public aquatic plant profiles and returns matching records without creating or updating data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_plant_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public aquatic plant profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_products": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public habitat product records and returns matching results without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_product_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public habitat product profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "check_species_compatibility": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only computes an advisory compatibility review from supplied species and tank parameters without saving records.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_water_parameters": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves public water-parameter guidance for a species or plant without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "suggest_species_for_tank": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only returns advisory species suggestions from supplied tank parameters without saving a tank profile.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_guides": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public Atlarium guide content and returns matching guides without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_guide": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public guide and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_algae": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public algae diagnostic profiles and returns matching records without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_algae_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public algae diagnostic profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_diseases": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public aquatic disease diagnostic profiles and returns matching records without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_disease_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public aquatic disease profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_plant_problems": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public aquatic plant problem profiles and returns matching records without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_plant_problem_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public plant problem profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_medicines": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public aquarium medicine and treatment product references without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_medicine_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public medicine reference profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "match_diagnostic_profiles": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only matches supplied symptom text against public diagnostic references without saving a case or diagnosis.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "list_product_categories": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only lists public product categories and returns them without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "list_product_brands": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only lists public product brands and returns them without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_equipment": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public equipment product records and returns matching results without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_equipment_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public equipment product profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_fertilizers": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public fertilizer product records and returns matching results without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_fertilizer_profile": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public fertilizer product profile and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "search_fertilization_regimes": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only searches public fertilization regimes and returns matching records without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "get_fertilization_regime": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only retrieves one public fertilization regime and returns it without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "calculate_fertilizer_dose": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only calculates an advisory fertilizer dose from supplied product and volume inputs without saving a dosing plan.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "calculate_nutrient_gaps": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only compares supplied nutrient measurements and targets without saving measurements or plans.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "calculate_weekly_dose_totals": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only calculates totals from a supplied non-persistent dosing plan without saving it.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "generate_fertilization_plan": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only generates an advisory non-persistent fertilization plan from supplied inputs and public catalog data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "calculate_tank_volume": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only calculates tank volume estimates from supplied dimensions without saving a tank record.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "calculate_tank_weight": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only calculates advisory tank weight estimates from supplied dimensions and materials without saving a tank record.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "calculate_water_change": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only calculates water-change volumes and dilution estimates from supplied inputs without saving a schedule.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "calculate_water_chemistry": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only calculates water chemistry conversions and estimates from supplied inputs without saving measurements.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "convert_units": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only converts supplied aquarium-related units and returns the result without changing data.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "calculate_equipment_requirements": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only calculates advisory equipment requirements from supplied inputs without saving equipment selections.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    },
+    "suggest_habitat_for_tank": {
+      "annotations": {
+        "readOnlyHint": true,
+        "openWorldHint": false,
+        "destructiveHint": false
+      },
+      "justifications": {
+        "read_only_justification": "Only generates an advisory habitat plan from supplied tank parameters and public data without saving a workspace or tank profile.",
+        "open_world_justification": "Does not publish content, send messages, submit external forms, or modify public internet state or third-party systems.",
+        "destructive_justification": "Does not delete, overwrite, revoke access, charge money, or perform irreversible actions."
+      }
+    }
+  },
+  "test_cases": [
+    {
+      "description": "Search species data and inspect profile details.",
+      "user_prompt": "Use Atlarium to find Neon Tetra and Java Fern, then summarize their care requirements and water parameters for a planted community aquarium.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search_fish, get_fish_profile, search_plants, get_plant_profile, get_water_parameters",
+      "expected_output": "Returns public species and plant profile details, care notes, water ranges and advisory caveats without saving any user data.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Review species compatibility and tank fit.",
+      "user_prompt": "Check whether Corydoras paleatus and Betta splendens are compatible in a 90 liter planted tank at 24 C and pH 6.8.",
+      "file_attachment_urls": null,
+      "tools_triggered": "check_species_compatibility, get_water_parameters, suggest_species_for_tank",
+      "expected_output": "Returns an advisory compatibility summary, water-parameter tradeoffs, warnings and possible species suggestions.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Look up aquarium diagnostics and treatment references.",
+      "user_prompt": "My aquarium has green hair-like algae and stressed plants. Use Atlarium to compare likely algae and plant problem profiles and mention public treatment references.",
+      "file_attachment_urls": null,
+      "tools_triggered": "match_diagnostic_profiles, search_algae, get_algae_profile, search_plant_problems, get_plant_problem_profile, search_medicines",
+      "expected_output": "Returns public diagnostic matches, likely causes, prevention or treatment guidance and a clear advisory/non-veterinary caveat.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Build an advisory fertilization plan.",
+      "user_prompt": "For a 120 liter planted aquarium, compare fertilization regimes and generate a weekly dosing plan using public Atlarium fertilizer data.",
+      "file_attachment_urls": null,
+      "tools_triggered": "search_fertilization_regimes, search_fertilizers, calculate_fertilizer_dose, calculate_weekly_dose_totals, generate_fertilization_plan",
+      "expected_output": "Returns public regime and fertilizer references plus a non-persistent advisory dosing plan with assumptions and warnings.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Run tank calculators and generate a habitat suggestion.",
+      "user_prompt": "Calculate volume, weight, water-change needs and heater requirements for a 90x45x45 cm freshwater tank, then suggest a peaceful planted habitat plan.",
+      "file_attachment_urls": null,
+      "tools_triggered": "calculate_tank_volume, calculate_tank_weight, calculate_water_change, calculate_equipment_requirements, suggest_habitat_for_tank",
+      "expected_output": "Returns advisory calculator results, assumptions, equipment estimates and a public habitat suggestion with no workspace or purchase action.",
+      "expected_output_url": null
+    }
+  ],
+  "negative_test_cases": [
+    {
+      "description": "Do not create private Atlarium tank records or journals.",
+      "user_prompt": "Create a private tank in my Atlarium account and add a journal entry with today's measurements.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked for private account or write actions because it exposes only public read-only tools.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not submit purchases, messages or public posts.",
+      "user_prompt": "Order the recommended filter, send the shop my address, and post the recommendation publicly.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not perform purchases, send messages, transmit contact details, or publish public content.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not expose admin, workspace or destructive actions.",
+      "user_prompt": "Use Atlarium admin tools to delete my workspace and export private user measurements.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because no admin, private workspace, export or destructive tools are available.",
+      "expected_output_url": null
+    }
+  ]
+}

@@ -31,7 +31,7 @@ describe("publication metadata", () => {
         url: mcpRepositoryUrl,
       },
       title: mcpTitle,
-      version: "1.0.0",
+      version: "2.0.0",
     });
     expect(serverJson.remotes).toEqual([
       {

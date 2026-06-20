@@ -5,6 +5,7 @@ import {
   habitatExplorerResourceUri,
 } from "./apps/habitat-explorer.js";
 import type { RuntimeConfig } from "./config.js";
+import { promptDefinitions } from "./prompts.js";
 import { toolDefinitions } from "./tools.js";
 
 export const mcpRegistrySchema =
@@ -15,9 +16,9 @@ export const mcpRegistryFallbackName =
 export const mcpDisplayName = "Atlarium Habitat Database MCP";
 export const mcpTitle = "Atlarium Habitat Database MCP";
 export const mcpShortDescription =
-  "Structured aquarium, marine, terrarium and paludarium data for AI agents.";
+  "Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.";
 export const mcpLongDescription =
-  "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, care requirements, environmental parameters, compatibility information, guides and habitat planning tools.";
+  "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.";
 export const mcpHomepageUrl = "https://atlarium.bio";
 export const mcpDocumentationUrl = "https://atlarium.bio/mcp";
 export const mcpRepositoryUrl = "https://github.com/techgardeners/atlarium-mcp";
@@ -61,7 +62,7 @@ export function createServerCard(config: RuntimeConfig) {
     capabilities: {
       tools: true,
       resources: true,
-      prompts: false,
+      prompts: true,
     },
     categories: [
       "aquariums",
@@ -69,6 +70,10 @@ export function createServerCard(config: RuntimeConfig) {
       "terrariums",
       "animals",
       "plants",
+      "products",
+      "diagnostics",
+      "fertilization",
+      "calculators",
       "habitat-planning",
     ],
     readOnly: true,
@@ -88,9 +93,15 @@ export function createServerCard(config: RuntimeConfig) {
         uri: habitatExplorerResourceUri,
         mimeType: habitatExplorerMimeType,
         description:
-          "Interactive read-only ChatGPT App widget for habitat results, profiles, compatibility and tank suggestions.",
+          "Interactive read-only ChatGPT App widget for public habitat results, profiles, diagnostics, products, calculators, fertilization and tank planning.",
       },
     ],
+    prompts: promptDefinitions.map((prompt) => ({
+      name: prompt.name,
+      title: prompt.title,
+      description: prompt.description,
+      arguments: Object.keys(prompt.argsSchema),
+    })),
     privacy: {
       exposesUserData: false,
       exposesWorkspaceData: false,

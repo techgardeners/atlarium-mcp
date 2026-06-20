@@ -22,9 +22,48 @@ const expectedTools = [
   "suggest_species_for_tank",
   "search_guides",
   "get_guide",
+  "search_algae",
+  "get_algae_profile",
+  "search_diseases",
+  "get_disease_profile",
+  "search_plant_problems",
+  "get_plant_problem_profile",
+  "search_medicines",
+  "get_medicine_profile",
+  "match_diagnostic_profiles",
+  "list_product_categories",
+  "list_product_brands",
+  "search_equipment",
+  "get_equipment_profile",
+  "search_fertilizers",
+  "get_fertilizer_profile",
+  "search_fertilization_regimes",
+  "get_fertilization_regime",
+  "calculate_fertilizer_dose",
+  "calculate_nutrient_gaps",
+  "calculate_weekly_dose_totals",
+  "generate_fertilization_plan",
+  "calculate_tank_volume",
+  "calculate_tank_weight",
+  "calculate_water_change",
+  "calculate_water_chemistry",
+  "convert_units",
+  "calculate_equipment_requirements",
+  "suggest_habitat_for_tank",
 ];
-const expectedResourceUri = "ui://widget/habitat-explorer.v2.html";
+const expectedResourceUri = "ui://widget/habitat-explorer.v3.html";
 const expectedResourceMimeType = "text/html;profile=mcp-app";
+const expectedPrompts = [
+  "atlarium_species_search",
+  "atlarium_compatibility_check",
+  "atlarium_habitat_plan",
+  "atlarium_algae_diagnosis",
+  "atlarium_disease_diagnosis",
+  "atlarium_plant_problem_diagnosis",
+  "atlarium_product_selection",
+  "atlarium_fertilization_plan",
+  "atlarium_tank_calculations",
+];
 
 const forbiddenToolPattern =
   /(workspace|auth|admin|user|write|delete|create|update|secret|token)/i;
@@ -91,8 +130,10 @@ async function checkServerCard() {
     card.capabilities?.resources === true,
     "server-card capabilities.resources is not true",
   );
+  assert(card.capabilities?.prompts === true, "server-card capabilities.prompts is not true");
   assert(Array.isArray(card.tools), "server-card tools is not an array");
   assert(Array.isArray(card.resources), "server-card resources is not an array");
+  assert(Array.isArray(card.prompts), "server-card prompts is not an array");
 
   const toolNames = card.tools.map((tool) => tool.name);
   assertToolSurface(toolNames);
@@ -111,7 +152,11 @@ async function checkServerCard() {
     `widget mime type is ${widget.mimeType}`,
   );
 
-  return `${toolNames.length} read-only tools, widget resource advertised`;
+  const promptNames = card.prompts.map((prompt) => prompt.name);
+  const missingPrompts = expectedPrompts.filter((name) => !promptNames.includes(name));
+  assert(missingPrompts.length === 0, `server-card missing prompts: ${missingPrompts.join(", ")}`);
+
+  return `${toolNames.length} read-only tools, ${promptNames.length} prompts, widget resource advertised`;
 }
 
 async function checkMcpSession() {
@@ -145,7 +190,11 @@ async function checkMcpSession() {
     const toolsResult = await client.listTools();
     const toolNames = toolsResult.tools.map((tool) => tool.name);
     assertToolSurface(toolNames);
-    return `${toolNames.length} tools and widget resource from JSON-RPC`;
+    const promptsResult = await client.listPrompts();
+    const promptNames = promptsResult.prompts.map((prompt) => prompt.name);
+    const missingPrompts = expectedPrompts.filter((name) => !promptNames.includes(name));
+    assert(missingPrompts.length === 0, `prompts/list missing ${missingPrompts.join(", ")}`);
+    return `${toolNames.length} tools, ${promptNames.length} prompts and widget resource from JSON-RPC`;
   } finally {
     await client.close();
   }

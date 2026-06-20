@@ -19,7 +19,7 @@ depends on OpenAI review.
 
 - App type: MCP Apps / ChatGPT Apps connector with a widget UI.
 - Widget name: Atlarium Habitat Explorer.
-- Widget resource URI: `ui://widget/habitat-explorer.v2.html`.
+- Widget resource URI: `ui://widget/habitat-explorer.v3.html`.
 - Widget MIME type: `text/html;profile=mcp-app`.
 - Widget domain: `https://mcp.atlarium.bio` through `_meta.ui.domain` and
   `_meta["openai/widgetDomain"]`.
@@ -40,15 +40,15 @@ depends on OpenAI review.
 
 - App name: `Atlarium Habitat Database MCP`
 - Short description: `Structured aquarium, marine, terrarium and paludarium data for AI agents.`
-- Long description: `Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, care requirements, environmental parameters, compatibility information, guides and habitat planning tools.`
-- Widget description: interactive read-only habitat cards for species, plants, compatibility and tank suggestions.
+- Long description: `Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.`
+- Widget description: interactive read-only habitat cards for species, plants, diagnostics, products, calculators, fertilization, compatibility and tank suggestions.
 - Docs: `https://atlarium.bio/mcp`
 - Server card: `https://mcp.atlarium.bio/.well-known/mcp/server-card.json`
 - Repository: `https://github.com/techgardeners/atlarium-mcp`
 - Official MCP Registry name: `bio.atlarium/habitat-database`
 - Transport: Streamable HTTP
 - Authentication: none
-- Tool count: 11
+- Tool count: 39
 - Tool safety: read-only tools only; no write, workspace, auth, user or admin APIs.
 - Company / publisher: TechGardeners, `info@techgardeners.com`
 - App icon asset: `docs/assets/chatgpt-app-icon.png`, a 1024x1024 Atlarium
@@ -65,7 +65,7 @@ depends on OpenAI review.
 - The app/connector metadata snapshot is captured when the draft MCP endpoint is scanned in the OpenAI Platform Dashboard. Rescan after deploying any tool metadata, schema, resource or instruction change before submitting.
 - In ChatGPT web Developer Mode, connector metadata can remain cached after a
   widget URI change. Open Settings -> Apps, select the Atlarium draft app and
-  click `Actualizar`; confirm the app detail shows the v2 output template before
+  click `Actualizar`; confirm the app detail shows the v3 output template before
   rerunning screenshots.
 - A privacy policy must be published and explain personal data categories, purposes, recipients, retention and user controls.
 - Keep public copy factual: do not claim public ChatGPT approval or availability until review is complete.
@@ -74,8 +74,8 @@ depends on OpenAI review.
 
 Verified in ChatGPT web Developer Mode on 2026-06-20 after refreshing metadata:
 
-- 11 read-only Atlarium tools discovered.
-- `search_fish` for `Paracheirodon innesi` rendered the Habitat Explorer v2
+- 39 read-only Atlarium tools discovered.
+- `search_fish` for `Paracheirodon innesi` rendered the Habitat Explorer v3
   Results widget with real Neon Tetra data and no sample fallback.
 - `check_species_compatibility` for `Corydoras paleatus` and `Betta splendens`
   rendered the Compatibility panel as compatible with caution.
@@ -96,7 +96,7 @@ livestock, equipment, water chemistry and local husbandry constraints.
 
 - ChatGPT connector creation with `https://mcp.atlarium.bio/mcp`.
 - Refreshed connector metadata showing the Atlarium tools.
-- Endpoint scan showing the 11 expected read-only tools.
+- Endpoint scan showing the 39 expected read-only tools.
 - Habitat Explorer Results view rendering a fish search result.
 - Habitat Explorer Results view with species thumbnails when image fields are
   present in the tool payload.
@@ -106,6 +106,12 @@ livestock, equipment, water chemistry and local husbandry constraints.
   and reviewed species with media thumbnails for a community pair.
 - Habitat Explorer Suggestions view rendering tank suggestions and readable
   reason chips with media for a planted freshwater aquarium.
+- Habitat Explorer Diagnostics view rendering algae, disease, plant problem or
+  medicine results from public tool output.
+- Habitat Explorer Product/Fertilization view rendering public equipment,
+  fertilizer, fertilization regime or dose-plan output.
+- Habitat Explorer Calculator view rendering volume, weight, water chemistry,
+  unit conversion or equipment requirement output.
 - Visual QA captures for Results, Profile, Compatibility and Suggestions in
   light mode, dark mode and a narrow mobile viewport.
 - Localization QA capture with Italian locale, confirming translated labels and
@@ -184,11 +190,45 @@ Searches or retrieves guide data for nitrate, summarizes monitoring guidance and
 keeps the answer within public educational content.
 ```
 
+```text
+Use Atlarium to identify likely causes of black beard algae and summarize public treatment options.
+```
+
+Expected response:
+
+```text
+Calls `search_algae` and, where useful, `get_algae_profile`; summarizes causes,
+treatments, prevention and an advisory diagnostic caveat.
+```
+
+```text
+Generate an advisory fertilization plan for a 90 liter planted tank using public Atlarium catalog data.
+```
+
+Expected response:
+
+```text
+Uses fertilization regime/search/calculation tools, returns a non-persistent
+plan, and states that dosing must be adjusted against measurements and livestock
+safety.
+```
+
+```text
+Calculate volume, estimated weight and weekly water-change amount for a 60 x 30 x 36 cm aquarium.
+```
+
+Expected response:
+
+```text
+Uses public calculator tools and reports assumptions plus the advisory safety
+boundary for weight and water planning.
+```
+
 ## Demo Script
 
 1. Open the connector creation or draft app flow.
 2. Enter connector URL `https://mcp.atlarium.bio/mcp`.
-3. Scan the endpoint and confirm the 11 expected read-only tools appear.
+3. Scan the endpoint and confirm the 39 expected read-only tools appear.
 4. Run the test prompts above and capture the tool call transcript.
 5. Confirm the safety statement appears in the app listing/review notes.
 6. Confirm the privacy policy URL is still live before submission.

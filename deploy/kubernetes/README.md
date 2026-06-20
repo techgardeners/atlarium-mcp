@@ -18,14 +18,14 @@ Target: Atlarium Kubernetes, namespace `atlarium-mcp`, public host
 Default image:
 
 ```bash
-ghcr.io/techgardeners/atlarium-mcp:1.0.0
+ghcr.io/techgardeners/atlarium-mcp:2.0.0
 ```
 
 To use the Atlarium registry instead:
 
 ```bash
 kubectl kustomize deploy/kubernetes \
-  | sed 's#ghcr.io/techgardeners/atlarium-mcp:1.0.0#registry.atlarium.bio/atlarium-mcp:1.0.0#' \
+  | sed 's#ghcr.io/techgardeners/atlarium-mcp:2.0.0#registry.atlarium.bio/atlarium-mcp:2.0.0#' \
   | kubectl apply -f -
 ```
 
@@ -93,5 +93,6 @@ Expected public behavior:
 - `/.well-known/mcp/server-card.json` returns HTTP 200 JSON.
 - `GET /mcp` returns sanitized JSON-RPC HTTP 405.
 - `POST /mcp` accepts MCP Streamable HTTP JSON-RPC.
-- `tools/list` returns exactly the 11 read-only Atlarium tools.
+- `tools/list` returns exactly the 39 read-only Atlarium tools.
+- `prompts/list` returns the guided public Atlarium prompts.
 - No workspace, auth, user, admin or write tools are exposed.

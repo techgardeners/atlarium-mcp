@@ -97,7 +97,7 @@ describe("HTTP app", () => {
       await expect(response.json()).resolves.toEqual({
         service: mcpDisplayName,
         status: "ok",
-        version: "1.0.0",
+        version: "2.0.0",
       });
     });
   });
@@ -116,7 +116,7 @@ describe("HTTP app", () => {
           type: "none",
         },
         capabilities: {
-          prompts: false,
+          prompts: true,
           resources: true,
           tools: true,
         },
@@ -134,9 +134,15 @@ describe("HTTP app", () => {
           mimeType: "text/html;profile=mcp-app",
           name: "atlarium-habitat-explorer",
           title: "Atlarium Habitat Explorer",
-          uri: "ui://widget/habitat-explorer.v2.html",
+          uri: "ui://widget/habitat-explorer.v3.html",
         }),
       ]);
+      expect(body.prompts).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({ name: "atlarium_species_search" }),
+          expect.objectContaining({ name: "atlarium_tank_calculations" }),
+        ]),
+      );
       expect(body.tools.map((tool: { name: string }) => tool.name)).toEqual(
         toolDefinitions.map((tool) => tool.name),
       );
@@ -149,9 +155,9 @@ describe("HTTP app", () => {
           }) =>
             tool.inputSchema?.additionalProperties === false &&
             tool.outputSchema &&
-            tool._meta?.ui?.resourceUri === "ui://widget/habitat-explorer.v2.html" &&
+            tool._meta?.ui?.resourceUri === "ui://widget/habitat-explorer.v3.html" &&
             tool._meta?.["openai/outputTemplate"] ===
-              "ui://widget/habitat-explorer.v2.html",
+              "ui://widget/habitat-explorer.v3.html",
         ),
       ).toBe(true);
     });

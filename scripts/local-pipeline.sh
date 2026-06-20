@@ -2,7 +2,7 @@
 set -eu
 
 IMAGE="${IMAGE:-ghcr.io/techgardeners/atlarium-mcp}"
-TAG="${TAG:-1.0.0}"
+TAG="${TAG:-2.0.0}"
 PLATFORM="${PLATFORM:-linux/amd64}"
 NAMESPACE="${NAMESPACE:-atlarium-mcp}"
 KUSTOMIZE_DIR="${KUSTOMIZE_DIR:-deploy/kubernetes}"

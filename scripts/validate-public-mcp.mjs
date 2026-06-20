@@ -16,47 +16,47 @@ const expectedTools = [
   "suggest_species_for_tank",
   "search_guides",
   "get_guide",
+  "search_algae",
+  "get_algae_profile",
+  "search_diseases",
+  "get_disease_profile",
+  "search_plant_problems",
+  "get_plant_problem_profile",
+  "search_medicines",
+  "get_medicine_profile",
+  "match_diagnostic_profiles",
+  "list_product_categories",
+  "list_product_brands",
+  "search_equipment",
+  "get_equipment_profile",
+  "search_fertilizers",
+  "get_fertilizer_profile",
+  "search_fertilization_regimes",
+  "get_fertilization_regime",
+  "calculate_fertilizer_dose",
+  "calculate_nutrient_gaps",
+  "calculate_weekly_dose_totals",
+  "generate_fertilization_plan",
+  "calculate_tank_volume",
+  "calculate_tank_weight",
+  "calculate_water_change",
+  "calculate_water_chemistry",
+  "convert_units",
+  "calculate_equipment_requirements",
+  "suggest_habitat_for_tank",
 ];
 
 const toolCalls = [
   ["search_fish", { query: "acara", language: "en", limit: 1 }],
-  ["get_fish_profile", { slug: "aequidens-pulcher", language: "en" }],
-  ["search_plants", { query: "anubias", language: "en", limit: 1 }],
-  ["get_plant_profile", { slug: "anubias-barteri", language: "en" }],
-  ["search_products", { query: "filter", language: "en", limit: 1 }],
-  [
-    "get_product_profile",
-    { slug: "equipment/filter/amtra/filpo-click-200", language: "en" },
-  ],
-  [
-    "check_species_compatibility",
-    {
-      species: ["aequidens-pulcher", "paracheirodon-innesi"],
-      language: "en",
-      tank_liters: 200,
-      ph: 7,
-      gh: 8,
-      kh: 4,
-      temperature: 25,
-    },
-  ],
-  ["get_water_parameters", { type: "fish", slug: "aequidens-pulcher", language: "en" }],
-  [
-    "suggest_species_for_tank",
-    {
-      tank_liters: 120,
-      language: "en",
-      ph: 7,
-      gh: 8,
-      kh: 4,
-      temperature: 25,
-      beginner_friendly: true,
-      planted_tank: true,
-      limit: 3,
-    },
-  ],
+  ["search_algae", { query: "green", language: "en", limit: 1 }],
+  ["list_product_categories", { language: "en" }],
+  ["search_equipment", { query: "filter", language: "en", limit: 1 }],
+  ["search_fertilization_regimes", { language: "en", limit: 1 }],
+  ["calculate_tank_volume", { shape: "rect", length_cm: 60, width_cm: 30, height_cm: 36 }],
+  ["calculate_water_change", { volume_liters: 120, change_percent: 30, changes_per_week: 1 }],
+  ["generate_fertilization_plan", { language: "en", volume_liters: 90, regime: "SEACHEM" }],
+  ["suggest_habitat_for_tank", { language: "en", tank_liters: 120, planted_tank: true, limit: 3 }],
   ["search_guides", { query: "temperature", language: "en", limit: 1 }],
-  ["get_guide", { slug: "water-parameters/temperature", language: "en" }],
 ];
 
 function previewToolText(result) {
@@ -98,6 +98,15 @@ try {
   const toolNames = toolsResult.tools.map((tool) => tool.name);
   assertToolSurface(toolNames);
   console.log(`tools/list ok: ${toolNames.length} read-only tools`);
+
+  const promptsResult = await client.listPrompts();
+  const promptNames = promptsResult.prompts.map((prompt) => prompt.name);
+  for (const prompt of ["atlarium_species_search", "atlarium_habitat_plan", "atlarium_tank_calculations"]) {
+    if (!promptNames.includes(prompt)) {
+      throw new Error(`missing prompt ${prompt}`);
+    }
+  }
+  console.log(`prompts/list ok: ${promptNames.length} guided prompts`);
 
   for (const [name, args] of toolCalls) {
     const result = await client.callTool(

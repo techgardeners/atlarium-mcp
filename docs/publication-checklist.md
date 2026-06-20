@@ -26,7 +26,7 @@ Last updated: 2026-06-20
 - `https://atlarium.bio/llms.txt` includes the MCP discovery section.
 - GitHub repo metadata, README, MIT license, contributing/security notes and client examples are ready.
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
-- `pnpm mcp:validate:public` verifies all 11 read-only tools with real public calls.
+- `pnpm mcp:validate:public` verifies representative calls across the 39-tool read-only V2 surface.
 - Official MCP Registry publish succeeded for `bio.atlarium/habitat-database`.
 - Glama indexes the registry entry as a connector at
   `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database`.
@@ -37,10 +37,10 @@ Last updated: 2026-06-20
 - GitHub Actions monitors are active for public MCP health/server-card/tools-list
   and daily directory/registry discovery checks.
 - ChatGPT App widget resource is implemented as
-  `ui://widget/habitat-explorer.v2.html` with MIME type
+  `ui://widget/habitat-explorer.v3.html` with MIME type
   `text/html;profile=mcp-app`.
 - ChatGPT Developer Mode manual smoke passed after refreshing connector
-  metadata to `ui://widget/habitat-explorer.v2.html`; no public ChatGPT review
+  metadata to `ui://widget/habitat-explorer.v3.html`; no public ChatGPT review
   or approval is claimed.
 - ChatGPT App icon asset is prepared at `docs/assets/chatgpt-app-icon.png`.
 
@@ -83,8 +83,8 @@ PUSH_IMAGE=true pnpm pipeline:local
 Manual equivalent:
 
 ```bash
-docker build -t ghcr.io/techgardeners/atlarium-mcp:1.0.0 .
-docker push ghcr.io/techgardeners/atlarium-mcp:1.0.0
+docker build -t ghcr.io/techgardeners/atlarium-mcp:2.0.0 .
+docker push ghcr.io/techgardeners/atlarium-mcp:2.0.0
 ```
 
 2. Deploy to Atlarium Kubernetes.
@@ -146,7 +146,8 @@ HTTPS endpoint.
 
 6. Verify the real tool surface.
 
-Run `initialize`, `tools/list` and one controlled `tools/call` for each tool:
+Run `initialize`, `tools/list`, `prompts/list`, `resources/read` and controlled
+tool calls across every family:
 
 - `search_fish`
 - `get_fish_profile`
@@ -159,6 +160,11 @@ Run `initialize`, `tools/list` and one controlled `tools/call` for each tool:
 - `suggest_species_for_tank`
 - `search_guides`
 - `get_guide`
+- diagnostics: `search_algae`, `search_diseases`, `search_plant_problems`, `search_medicines`, `match_diagnostic_profiles`
+- product catalog: `list_product_categories`, `list_product_brands`, `search_equipment`, `search_fertilizers`
+- fertilization: `search_fertilization_regimes`, `calculate_fertilizer_dose`, `calculate_nutrient_gaps`, `calculate_weekly_dose_totals`, `generate_fertilization_plan`
+- calculators: `calculate_tank_volume`, `calculate_tank_weight`, `calculate_water_change`, `calculate_water_chemistry`, `convert_units`, `calculate_equipment_requirements`
+- planner: `suggest_habitat_for_tank`
 
 Confirm no workspace, auth, admin, user or write tools are listed.
 
@@ -170,7 +176,7 @@ npx @modelcontextprotocol/inspector@latest --server-url https://mcp.atlarium.bio
 
 Expected:
 
-- `resources/list` contains `ui://widget/habitat-explorer.v2.html`.
+- `resources/list` contains `ui://widget/habitat-explorer.v3.html`.
 - `resources/read` returns the Habitat Explorer HTML resource.
 - Visual tools include `_meta.ui.resourceUri` and
   `_meta["openai/outputTemplate"]`.
@@ -182,8 +188,8 @@ Expected:
 Manual ChatGPT Developer Mode smoke, verified 2026-06-20:
 
 - Refreshed the draft app metadata from ChatGPT Settings -> Apps using
-  `Actualizar`. The app detail showed version notes `dev-1`, 11 read-only
-  actions and output template `ui://widget/habitat-explorer.v2.html`.
+  `Actualizar`. The app detail should show 39 read-only actions and output
+  template `ui://widget/habitat-explorer.v3.html`.
 - Prompt: search for `Paracheirodon innesi` using only Atlarium. Result:
   ChatGPT called Atlarium Habitat Database MCP, rendered the v2 Habitat Explorer
   Results widget with the real Neon Tetra / `Paracheirodon innesi` result and no
@@ -207,7 +213,7 @@ The repository contains two GitHub Actions workflows:
 
 - `.github/workflows/public-mcp-monitor.yml` runs every 30 minutes and verifies
   docs, health, server-card validity, `GET /mcp` 405 behavior, JSON-RPC
-  initialize, `tools/list` with the expected 11 read-only tools and the
+  initialize, `tools/list` with the expected 39 read-only tools, `prompts/list` and the
   ChatGPT App widget resource.
 - `.github/workflows/mcp-directory-audit.yml` runs daily and checks public docs,
   health, server-card, MCP GET behavior and Official MCP Registry presence.
@@ -302,7 +308,7 @@ Last verified: `2026-06-20T00:16:56Z`.
 
 | Directory | URL | Status | Evidence | Next action | Owner / manual blocker |
 | --- | --- | --- | --- | --- | --- |
-| Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active | Registry API returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, `server.version = 1.0.0`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`, and `isLatest = true` under `_meta.io.modelcontextprotocol.registry/official`. | Monitor and publish future versions from `server.json`. | Atlarium DNS ownership already used for publication. |
+| Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active; V2 update required | Registry API previously returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`, and `isLatest = true` under `_meta.io.modelcontextprotocol.registry/official`. | Publish the updated `server.json` with version 2.0.0 after endpoint validation. | Atlarium DNS ownership already used for publication. |
 | Smithery | https://smithery.ai/new | Not listed; ready for maintainer submission | `npx -y smithery mcp search "Atlarium Habitat Database MCP"` did not return Atlarium. Smithery publish docs still direct maintainers to `https://smithery.ai/new`; unauthenticated fetch of that URL redirects to `/servers/new` and returns HTTP 404 markdown. | Sign in to Smithery, submit the public HTTPS endpoint, server card and repo using `docs/directory-submission-payloads.md`; if `/new` fails after login, navigate from Smithery's Publish flow. | Atlarium/TechGardeners account or OAuth login required. |
 | Glama | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database | Indexed as connector; claim file live | Connector page returned HTTP 200 with title `Atlarium Habitat Database MCP - MCP Connector | Glama`, registry name and endpoint `https://mcp.atlarium.bio/mcp`. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email `info@techgardeners.com`. | Complete the Glama claim flow in the web UI if manual confirmation is still required. | Atlarium/TechGardeners account or maintainer access may be required. |
 | MCP.so | https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013 | Submitted through public GitHub issue flow; listing not found yet | GitHub API confirmed issue comment `4722425013`, created `2026-06-16T19:06:21Z`, includes Atlarium name, endpoint and registry name. Candidate listing `https://mcp.so/server/atlarium-habitat-database` returned page title `- MCP Server` with `Project not found`. | Monitor issue comment and published listing; avoid badges until a listing is visible. | MCP.so maintainers control publication. |

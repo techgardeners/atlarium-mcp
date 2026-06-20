@@ -48,7 +48,7 @@ const envSchema = z
       .min(1)
       .max(80)
       .default("Atlarium Habitat Database MCP"),
-    MCP_VERSION: z.string().trim().min(1).max(40).default("1.0.0"),
+    MCP_VERSION: z.string().trim().min(1).max(40).default("2.0.0"),
     MCP_PORT: z.coerce.number().int().min(1).max(65_535).default(43118),
     MCP_PUBLIC_BASE_URL: z.url().default("https://mcp.atlarium.bio"),
     ATLARIUM_API_BASE_URL: z.url().default("https://atlarium.bio/api/public/mcp/v1"),

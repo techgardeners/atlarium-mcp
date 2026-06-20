@@ -2,9 +2,9 @@
   "name": "Atlarium Habitat Database MCP",
   "title": "Atlarium Habitat Database MCP",
   "slug": "atlarium-habitat-database",
-  "description": "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, care requirements, environmental parameters, compatibility information, guides and habitat planning tools.",
+  "description": "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.",
   "shortDescription": "Structured aquarium, marine, terrarium and paludarium data for AI agents.",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "homepage": "https://atlarium.bio",
   "documentationUrl": "https://atlarium.bio/mcp",
   "repository": {
@@ -22,7 +22,7 @@
   "capabilities": {
     "tools": true,
     "resources": true,
-    "prompts": false
+    "prompts": true
   },
   "categories": [
     "aquariums",
@@ -30,6 +30,10 @@
     "terrariums",
     "animals",
     "plants",
+    "products",
+    "diagnostics",
+    "fertilization",
+    "calculators",
     "habitat-planning"
   ],
   "readOnly": true,
@@ -44,16 +48,55 @@
     "get_water_parameters",
     "suggest_species_for_tank",
     "search_guides",
-    "get_guide"
+    "get_guide",
+    "search_algae",
+    "get_algae_profile",
+    "search_diseases",
+    "get_disease_profile",
+    "search_plant_problems",
+    "get_plant_problem_profile",
+    "search_medicines",
+    "get_medicine_profile",
+    "match_diagnostic_profiles",
+    "list_product_categories",
+    "list_product_brands",
+    "search_equipment",
+    "get_equipment_profile",
+    "search_fertilizers",
+    "get_fertilizer_profile",
+    "search_fertilization_regimes",
+    "get_fertilization_regime",
+    "calculate_fertilizer_dose",
+    "calculate_nutrient_gaps",
+    "calculate_weekly_dose_totals",
+    "generate_fertilization_plan",
+    "calculate_tank_volume",
+    "calculate_tank_weight",
+    "calculate_water_change",
+    "calculate_water_chemistry",
+    "convert_units",
+    "calculate_equipment_requirements",
+    "suggest_habitat_for_tank"
   ],
   "resources": [
     {
       "name": "atlarium-habitat-explorer",
       "title": "Atlarium Habitat Explorer",
-      "uri": "ui://widget/habitat-explorer.v2.html",
+      "uri": "ui://widget/habitat-explorer.v3.html",
       "mimeType": "text/html;profile=mcp-app",
-      "description": "Interactive read-only ChatGPT App widget for habitat results, profiles, compatibility and tank suggestions."
+      "description": "Interactive read-only ChatGPT App widget for public habitat results, profiles, diagnostics, products, calculators, fertilization and tank planning."
     }
+  ],
+  "prompts": [
+    "atlarium_species_search",
+    "atlarium_compatibility_check",
+    "atlarium_habitat_plan",
+    "atlarium_algae_diagnosis",
+    "atlarium_disease_diagnosis",
+    "atlarium_plant_problem_diagnosis",
+    "atlarium_product_selection",
+    "atlarium_fertilization_plan",
+    "atlarium_tank_calculations"
   ],
   "privacy": {
     "exposesUserData": false,

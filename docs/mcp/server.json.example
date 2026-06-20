@@ -2,12 +2,12 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "bio.atlarium/habitat-database",
   "title": "Atlarium Habitat Database MCP",
-  "description": "Structured aquarium, marine, terrarium and paludarium data for AI agents.",
+  "description": "Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.",
   "repository": {
     "source": "github",
     "url": "https://github.com/techgardeners/atlarium-mcp"
   },
-  "version": "1.0.0",
+  "version": "2.0.0",
   "remotes": [
     {
       "type": "streamable-http",

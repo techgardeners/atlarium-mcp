@@ -31,7 +31,7 @@ spec:
           type: RuntimeDefault
       containers:
         - name: atlarium-mcp
-          image: ghcr.io/techgardeners/atlarium-mcp:1.0.0
+          image: ghcr.io/techgardeners/atlarium-mcp:2.0.0
           imagePullPolicy: Always
           ports:
             - name: http

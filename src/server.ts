@@ -7,6 +7,7 @@ import {
 } from "./apps/habitat-explorer.js";
 import { AtlariumApiClient } from "./atlarium-api.js";
 import type { RuntimeConfig } from "./config.js";
+import { promptDefinitions } from "./prompts.js";
 import { runTool, toolDefinitions } from "./tools.js";
 
 export function createAtlariumMcpServer(
@@ -22,6 +23,7 @@ export function createAtlariumMcpServer(
       capabilities: {
         tools: {},
         resources: {},
+        prompts: {},
         logging: {},
       },
     },
@@ -53,6 +55,7 @@ export function createAtlariumMcpServer(
         outputSchema: tool.outputSchema,
         annotations: {
           readOnlyHint: true,
+          openWorldHint: false,
           destructiveHint: false,
           idempotentHint: true,
         },
@@ -60,6 +63,18 @@ export function createAtlariumMcpServer(
       },
       async (input: Record<string, unknown>) =>
         runTool(tool.name, () => tool.handler(api, input)),
+    );
+  }
+
+  for (const prompt of promptDefinitions) {
+    server.registerPrompt(
+      prompt.name,
+      {
+        title: prompt.title,
+        description: prompt.description,
+        argsSchema: prompt.argsSchema,
+      },
+      (args) => prompt.handler(args),
     );
   }
 

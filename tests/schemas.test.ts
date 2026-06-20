@@ -2,10 +2,16 @@ import { describe, expect, it } from "vitest";
 
 import {
   compatibilitySchema,
+  convertUnitsSchema,
+  equipmentRequirementsSchema,
+  fertilizationPlanSchema,
+  searchDiagnosticsSchema,
   getPathProfileSchema,
   getProfileSchema,
+  habitatSuggestionSchema,
   searchFishSchema,
   suggestionsSchema,
+  tankVolumeSchema,
   waterParametersSchema,
 } from "../src/schemas.js";
 
@@ -53,5 +59,27 @@ describe("tool input schemas", () => {
     expect(suggestionsSchema.safeParse({ tank_liters: 60, temperature: 25 }).success).toBe(true);
     expect(suggestionsSchema.safeParse({ tank_liters: 0 }).success).toBe(false);
     expect(suggestionsSchema.safeParse({ tank_liters: 60, temperature: 50 }).success).toBe(false);
+  });
+
+  it("bounds diagnostic, calculator and fertilization inputs", () => {
+    expect(searchDiagnosticsSchema.safeParse({ query: "spots", difficulty: 3 }).success).toBe(true);
+    expect(searchDiagnosticsSchema.safeParse({ query: "spots", difficulty: 9 }).success).toBe(false);
+    expect(tankVolumeSchema.safeParse({ shape: "rect", length_cm: 60, width_cm: 30, height_cm: 35 }).success).toBe(true);
+    expect(tankVolumeSchema.safeParse({ shape: "rect", length_cm: -1 }).success).toBe(false);
+    expect(convertUnitsSchema.safeParse({ volume: { unit: "galUs", value: 10 } }).success).toBe(true);
+    expect(equipmentRequirementsSchema.safeParse({ heater: { insulation: "normal", volume_liters: 90 } }).success).toBe(true);
+    expect(fertilizationPlanSchema.safeParse({
+      volume_liters: 90,
+      items: [
+        {
+          product_name: "Flourish",
+          method: "LIQUID",
+          dose_value: 2,
+          days_of_week: [1, 4],
+        },
+      ],
+    }).success).toBe(true);
+    expect(habitatSuggestionSchema.safeParse({ tank_liters: 120, water_type: "FRESHWATER" }).success).toBe(true);
+    expect(habitatSuggestionSchema.safeParse({ tank_liters: 120, water_type: "PRIVATE" }).success).toBe(false);
   });
 });

@@ -1,6 +1,6 @@
 # Atlarium MCP Directory Submission Payloads
 
-Last verified: `2026-06-19T23:40:14Z`
+Last verified: `2026-06-20`
 
 Use these payloads for directory submission, claim and follow-up flows. Do not
 add directory badges or claim official support until the specific directory
@@ -23,7 +23,7 @@ Structured aquarium, marine, terrarium and paludarium data for AI agents.
 Long description:
 
 ```text
-Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, care requirements, environmental parameters, compatibility information, guides and habitat planning tools.
+Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.
 ```
 
 Connection:
@@ -53,6 +53,9 @@ Terrariums
 Animals
 Plants
 Habitat planning
+Diagnostics
+Fertilization
+Calculators
 Research and data
 ```
 
@@ -91,7 +94,7 @@ versions with the registry publisher after endpoint validation.
 Current evidence:
 
 ```text
-Registry API returned metadata.count = 1, server.name = bio.atlarium/habitat-database, server.version = 1.0.0, official status active, publishedAt = 2026-06-16T10:01:55.780369Z and isLatest = true under _meta.io.modelcontextprotocol.registry/official.
+Registry API previously returned metadata.count = 1, server.name = bio.atlarium/habitat-database, official status active, publishedAt = 2026-06-16T10:01:55.780369Z and isLatest = true under _meta.io.modelcontextprotocol.registry/official. For V2, publish the updated `server.json` with version 2.0.0 after public endpoint validation.
 ```
 
 ## Smithery
@@ -119,6 +122,7 @@ Authentication: none
 Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
 Docs: https://atlarium.bio/mcp
 Description: Structured aquarium, marine, terrarium and paludarium data for AI agents.
+Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
 Safety: Public read-only tools only; no user, workspace, admin, auth or write APIs.
 ```
 
@@ -193,6 +197,7 @@ Docs: https://atlarium.bio/mcp
 Repository: https://github.com/techgardeners/atlarium-mcp
 Official MCP Registry: bio.atlarium/habitat-database
 
+Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
 Safety: read-only; no user accounts, workspaces, admin APIs, private data or write operations.
 ```
 
@@ -235,6 +240,7 @@ Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
 Docs: https://atlarium.bio/mcp
 Repository: https://github.com/techgardeners/atlarium-mcp
 Official MCP Registry: bio.atlarium/habitat-database
+Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
 Safety: public read-only tools only; no user, workspace, admin or write APIs.
 
 Thank you.

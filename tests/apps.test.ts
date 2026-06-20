@@ -147,4 +147,38 @@ describe("ChatGPT App widget", () => {
       }
     });
   });
+
+  it("advertises guided public prompts through MCP", async () => {
+    await withServer(async (baseUrl) => {
+      const client = new Client({
+        name: "atlarium-prompts-test",
+        version: "1.0.0",
+      });
+      const transport = new StreamableHTTPClientTransport(new URL(`${baseUrl}/mcp`));
+
+      try {
+        await client.connect(transport);
+        const prompts = await client.listPrompts();
+
+        expect(prompts.prompts.map((prompt) => prompt.name)).toEqual(
+          expect.arrayContaining([
+            "atlarium_species_search",
+            "atlarium_habitat_plan",
+            "atlarium_tank_calculations",
+          ]),
+        );
+
+        const prompt = await client.getPrompt({
+          name: "atlarium_tank_calculations",
+          arguments: { task: "volume for a 60x30x36 cm tank" },
+        });
+        expect(prompt.messages[0]?.content).toMatchObject({
+          type: "text",
+          text: expect.stringContaining("calculate_tank_volume"),
+        });
+      } finally {
+        await client.close();
+      }
+    });
+  });
 });

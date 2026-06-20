@@ -1,15 +1,30 @@
 import type { RuntimeConfig, SupportedLanguage } from "./config.js";
 import { ToolExecutionError } from "./errors.js";
 import type {
+  convertUnitsSchema,
   compatibilitySchema,
+  equipmentRequirementsSchema,
+  fertilizationPlanSchema,
+  fertilizerDoseSchema,
   getProfileSchema,
   getPathProfileSchema,
+  habitatSuggestionSchema,
+  listProductBrandsSchema,
+  listProductCategoriesSchema,
+  searchDiagnosticsSchema,
+  searchEquipmentSchema,
+  searchFertilizationRegimesSchema,
+  searchFertilizersSchema,
   searchFishSchema,
   searchGuidesSchema,
   searchPlantsSchema,
   searchProductsSchema,
   suggestionsSchema,
+  tankVolumeSchema,
+  tankWeightSchema,
   waterParametersSchema,
+  waterChangeSchema,
+  waterChemistrySchema,
 } from "./schemas.js";
 import type { z } from "zod";
 
@@ -19,12 +34,27 @@ type QueryValue = boolean | number | string | undefined;
 type SearchFishInput = z.infer<typeof searchFishSchema>;
 type SearchPlantsInput = z.infer<typeof searchPlantsSchema>;
 type SearchProductsInput = z.infer<typeof searchProductsSchema>;
+type SearchEquipmentInput = z.infer<typeof searchEquipmentSchema>;
+type SearchFertilizersInput = z.infer<typeof searchFertilizersSchema>;
+type SearchDiagnosticsInput = z.infer<typeof searchDiagnosticsSchema>;
+type ListProductCategoriesInput = z.infer<typeof listProductCategoriesSchema>;
+type ListProductBrandsInput = z.infer<typeof listProductBrandsSchema>;
+type SearchFertilizationRegimesInput = z.infer<typeof searchFertilizationRegimesSchema>;
 type GetProfileInput = z.infer<typeof getProfileSchema>;
 type GetPathProfileInput = z.infer<typeof getPathProfileSchema>;
 type CompatibilityInput = z.infer<typeof compatibilitySchema>;
 type WaterParametersInput = z.infer<typeof waterParametersSchema>;
 type SuggestionsInput = z.infer<typeof suggestionsSchema>;
 type SearchGuidesInput = z.infer<typeof searchGuidesSchema>;
+type FertilizerDoseInput = z.infer<typeof fertilizerDoseSchema>;
+type FertilizationPlanInput = z.infer<typeof fertilizationPlanSchema>;
+type TankVolumeInput = z.infer<typeof tankVolumeSchema>;
+type TankWeightInput = z.infer<typeof tankWeightSchema>;
+type WaterChangeInput = z.infer<typeof waterChangeSchema>;
+type WaterChemistryInput = z.infer<typeof waterChemistrySchema>;
+type ConvertUnitsInput = z.infer<typeof convertUnitsSchema>;
+type EquipmentRequirementsInput = z.infer<typeof equipmentRequirementsSchema>;
+type HabitatSuggestionInput = z.infer<typeof habitatSuggestionSchema>;
 
 function appendQuery(url: URL, params: Record<string, QueryValue>) {
   for (const [key, value] of Object.entries(params)) {
@@ -38,6 +68,19 @@ function appendQuery(url: URL, params: Record<string, QueryValue>) {
 
 function booleanParam(value: boolean | undefined) {
   return value === undefined ? undefined : String(value);
+}
+
+function pathSegments(slug: string) {
+  return slug.split("/").filter(Boolean).map(encodeURIComponent).join("/");
+}
+
+function stripProductPrefix(slug: string, prefixes: string[]) {
+  for (const prefix of prefixes) {
+    if (slug.startsWith(`${prefix}/`)) {
+      return slug.slice(prefix.length + 1);
+    }
+  }
+  return slug;
 }
 
 export class AtlariumApiClient {
@@ -115,6 +158,152 @@ export class AtlariumApiClient {
 
   async getGuide(input: GetPathProfileInput) {
     return this.get(`guides/${input.slug.split("/").map(encodeURIComponent).join("/")}`, {
+      language: this.language(input.language),
+    });
+  }
+
+  async searchAlgae(input: SearchDiagnosticsInput) {
+    return this.get("diagnostics/algae", this.withDefaultLanguage(input));
+  }
+
+  async getAlgaeProfile(input: GetProfileInput) {
+    return this.get(`diagnostics/algae/${encodeURIComponent(input.slug)}`, {
+      language: this.language(input.language),
+    });
+  }
+
+  async searchDiseases(input: SearchDiagnosticsInput) {
+    return this.get("diagnostics/diseases", this.withDefaultLanguage(input));
+  }
+
+  async getDiseaseProfile(input: GetProfileInput) {
+    return this.get(`diagnostics/diseases/${encodeURIComponent(input.slug)}`, {
+      language: this.language(input.language),
+    });
+  }
+
+  async searchPlantProblems(input: SearchDiagnosticsInput) {
+    return this.get("diagnostics/plant-problems", this.withDefaultLanguage(input));
+  }
+
+  async getPlantProblemProfile(input: GetProfileInput) {
+    return this.get(`diagnostics/plant-problems/${encodeURIComponent(input.slug)}`, {
+      language: this.language(input.language),
+    });
+  }
+
+  async searchMedicines(input: SearchDiagnosticsInput) {
+    return this.get("diagnostics/medicines", this.withDefaultLanguage(input));
+  }
+
+  async getMedicineProfile(input: GetProfileInput) {
+    return this.get(`diagnostics/medicines/${encodeURIComponent(input.slug)}`, {
+      language: this.language(input.language),
+    });
+  }
+
+  async matchDiagnosticProfiles(input: SearchDiagnosticsInput) {
+    return this.post("diagnostics/match", {
+      ...input,
+      language: this.language(input.language),
+    });
+  }
+
+  async listProductCategories(input: ListProductCategoriesInput) {
+    return this.get("products/categories", {
+      language: this.language(input.language),
+      product_type: input.type,
+    });
+  }
+
+  async listProductBrands(input: ListProductBrandsInput) {
+    return this.get("products/brands", this.withDefaultLanguage(input));
+  }
+
+  async searchEquipment(input: SearchEquipmentInput) {
+    return this.get("products/equipment", this.withDefaultLanguage(input));
+  }
+
+  async getEquipmentProfile(input: GetPathProfileInput) {
+    const slug = stripProductPrefix(input.slug, ["equipment"]);
+    return this.get(`products/equipment/${pathSegments(slug)}`, {
+      language: this.language(input.language),
+    });
+  }
+
+  async searchFertilizers(input: SearchFertilizersInput) {
+    return this.get("products/fertilizers", this.withDefaultLanguage(input));
+  }
+
+  async getFertilizerProfile(input: GetPathProfileInput) {
+    const slug = stripProductPrefix(input.slug, ["fertilizer", "fertilizers"]);
+    return this.get(`products/fertilizers/${pathSegments(slug)}`, {
+      language: this.language(input.language),
+    });
+  }
+
+  async searchFertilizationRegimes(input: SearchFertilizationRegimesInput) {
+    return this.get("fertilization-regimes", this.withDefaultLanguage(input));
+  }
+
+  async getFertilizationRegime(input: GetProfileInput) {
+    return this.get(`fertilization-regimes/${encodeURIComponent(input.slug)}`, {
+      language: this.language(input.language),
+    });
+  }
+
+  async calculateFertilizerDose(input: FertilizerDoseInput) {
+    return this.post("fertilization/fertilizer-dose", input);
+  }
+
+  async calculateNutrientGaps(input: FertilizationPlanInput) {
+    return this.post("fertilization/nutrient-gaps", {
+      ...input,
+      language: this.language(input.language),
+    });
+  }
+
+  async calculateWeeklyDoseTotals(input: FertilizationPlanInput) {
+    return this.post("fertilization/weekly-dose-totals", {
+      ...input,
+      language: this.language(input.language),
+    });
+  }
+
+  async generateFertilizationPlan(input: FertilizationPlanInput) {
+    return this.post("fertilization/plan", {
+      ...input,
+      language: this.language(input.language),
+    });
+  }
+
+  async calculateTankVolume(input: TankVolumeInput) {
+    return this.post("calculators/tank-volume", input);
+  }
+
+  async calculateTankWeight(input: TankWeightInput) {
+    return this.post("calculators/tank-weight", input);
+  }
+
+  async calculateWaterChange(input: WaterChangeInput) {
+    return this.post("calculators/water-change", input);
+  }
+
+  async calculateWaterChemistry(input: WaterChemistryInput) {
+    return this.post("calculators/water-chemistry", input);
+  }
+
+  async convertUnits(input: ConvertUnitsInput) {
+    return this.post("calculators/convert-units", input);
+  }
+
+  async calculateEquipmentRequirements(input: EquipmentRequirementsInput) {
+    return this.post("calculators/equipment-requirements", input);
+  }
+
+  async suggestHabitatForTank(input: HabitatSuggestionInput) {
+    return this.post("habitat-suggestions", {
+      ...input,
       language: this.language(input.language),
     });
   }

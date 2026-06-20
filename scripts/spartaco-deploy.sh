@@ -3,7 +3,7 @@ set -eu
 
 SSH_HOST="${SSH_HOST:-epk}"
 IMAGE="${IMAGE:-ghcr.io/techgardeners/atlarium-mcp}"
-TAG="${TAG:-1.0.0}"
+TAG="${TAG:-2.0.0}"
 NAMESPACE="${NAMESPACE:-atlarium-mcp}"
 KUSTOMIZE_DIR="${KUSTOMIZE_DIR:-deploy/kubernetes}"
 TLS_SOURCE_NAMESPACE="${TLS_SOURCE_NAMESPACE:-aquarium}"
@@ -40,7 +40,7 @@ console.log(JSON.stringify(secret));
 
 printf "\n==> apply kustomize manifests through %s\n" "$SSH_HOST"
 kubectl kustomize "$KUSTOMIZE_DIR" \
-  | sed "s|ghcr.io/techgardeners/atlarium-mcp:1.0.0|$IMAGE:$TAG|g" \
+  | sed "s|ghcr.io/techgardeners/atlarium-mcp:2.0.0|$IMAGE:$TAG|g" \
   | ssh "$SSH_HOST" "kubectl apply -f -"
 
 run ssh "$SSH_HOST" "kubectl -n '$NAMESPACE' set image deployment/atlarium-mcp atlarium-mcp='$IMAGE:$TAG'"

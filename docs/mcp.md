@@ -15,9 +15,9 @@ Long description:
 
 > Atlarium MCP is a public read-only MCP server that gives AI agents structured
 > access to data for aquariums, marine tanks, coldwater systems, terrariums,
-> paludariums and vivariums. It includes animals, plants, products, care
-> requirements, environmental parameters, compatibility information, guides and
-> habitat planning tools.
+> paludariums and vivariums. It includes animals, plants, products, guides,
+> algae, diseases, plant problems, medicines, compatibility, fertilization,
+> public calculators and habitat planning tools.
 
 ## Public URLs
 
@@ -48,16 +48,17 @@ The server uses MCP Streamable HTTP via `@modelcontextprotocol/sdk`.
 
 The server also exposes a read-only MCP Apps / ChatGPT Apps widget resource:
 
-- Resource URI: `ui://widget/habitat-explorer.v2.html`
+- Resource URI: `ui://widget/habitat-explorer.v3.html`
 - MIME type: `text/html;profile=mcp-app`
 - Title: `Atlarium Habitat Explorer`
 - Dedicated widget origin: `https://mcp.atlarium.bio`
 
 The widget renders structured tool results as habitat cards, profiles,
-compatibility summaries and tank suggestions. Tool responses keep plain JSON
-text content for generic MCP clients and also include `structuredContent` for
-Apps-compatible hosts. Tools link to the widget with `_meta.ui.resourceUri` and
-the ChatGPT compatibility alias `_meta["openai/outputTemplate"]`.
+diagnostic summaries, product results, calculator output, compatibility
+summaries and tank suggestions. Tool responses keep plain JSON text content for
+generic MCP clients and also include `structuredContent` for Apps-compatible
+hosts. Tools link to the widget with `_meta.ui.resourceUri` and the ChatGPT
+compatibility alias `_meta["openai/outputTemplate"]`.
 
 The widget is styled as a self-contained Atlarium-native interface using inline
 CSS tokens from the public Atlarium palette and embedded JPEG logo data URIs for
@@ -74,25 +75,33 @@ and `https://mcp.atlarium.bio`. The resource metadata also declares
 
 ## Tools
 
-- `search_fish`: search fish and aquatic animal profiles in the Atlarium habitat database.
-- `get_fish_profile`: get a structured fish or aquatic animal profile.
-- `search_plants`: search aquatic plants.
-- `get_plant_profile`: get a structured aquatic plant profile.
-- `search_products`: search habitat products for aquariums, terrariums and related systems.
-- `get_product_profile`: get a structured habitat product profile.
-- `check_species_compatibility`: check basic compatibility between habitat species.
-- `get_water_parameters`: get recommended water parameters for an aquatic species or plant.
-- `suggest_species_for_tank`: suggest compatible aquatic species from tank size and water parameters.
-- `search_guides`: search Atlarium habitat guides and educational content.
-- `get_guide`: get a structured guide.
+Current V2 public tool groups:
 
-All tools are read-only and have `readOnlyHint: true`, `destructiveHint: false`
-and `idempotentHint: true`. No additional write, auth, user, workspace or admin
-tools are added for the ChatGPT App.
+- Species and plants: `search_fish`, `get_fish_profile`, `search_plants`,
+  `get_plant_profile`, `get_water_parameters`, `suggest_species_for_tank`,
+  `check_species_compatibility`, `suggest_habitat_for_tank`.
+- Products and equipment: `search_products`, `get_product_profile`,
+  `list_product_categories`, `list_product_brands`, `search_equipment`,
+  `get_equipment_profile`.
+- Diagnostics and treatment references: `search_algae`, `get_algae_profile`,
+  `search_diseases`, `get_disease_profile`, `search_plant_problems`,
+  `get_plant_problem_profile`, `search_medicines`, `get_medicine_profile`,
+  `match_diagnostic_profiles`.
+- Fertilization: `search_fertilizers`, `get_fertilizer_profile`,
+  `search_fertilization_regimes`, `get_fertilization_regime`,
+  `calculate_fertilizer_dose`, `calculate_nutrient_gaps`,
+  `calculate_weekly_dose_totals`, `generate_fertilization_plan`.
+- Calculators and guides: `calculate_tank_volume`, `calculate_tank_weight`,
+  `calculate_water_change`, `calculate_water_chemistry`, `convert_units`,
+  `calculate_equipment_requirements`, `search_guides`, `get_guide`.
+
+All tools are read-only and have `readOnlyHint: true`, `openWorldHint: false`,
+`destructiveHint: false` and `idempotentHint: true`. No write, auth, user,
+workspace or admin tools are added for the ChatGPT App.
 
 ## Security
 
-- No login is required in v1.
+- No login is required.
 - No write, destructive, workspace, auth, user or admin tools are registered.
 - Rate limiting is enabled by default.
 - Inputs are validated with strict Zod schemas.
@@ -143,13 +152,13 @@ npx @modelcontextprotocol/inspector@latest --server-url http://localhost:43118/m
 ```
 
 In the inspector, confirm `resources/list` includes
-`ui://widget/habitat-explorer.v2.html` and `resources/read` returns HTML with
+`ui://widget/habitat-explorer.v3.html` and `resources/read` returns HTML with
 MIME type `text/html;profile=mcp-app`.
 
 The conformance script runs the core, tools and DNS rebinding scenarios that
 match this server's declared capabilities. The upstream active suite also
-contains prompts, resources, completion and elicitation scenarios that are not
-part of this v1 server.
+contains completion and elicitation scenarios that are not part of this public
+server.
 
 ## Production Validation
 

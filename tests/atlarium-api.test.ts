@@ -62,6 +62,61 @@ describe("Atlarium API client", () => {
     );
   });
 
+  it("maps V2 diagnostic and product endpoints", async () => {
+    const api = new AtlariumApiClient(config, fetchMock);
+
+    await api.searchAlgae({ language: "it", query: "bba", limit: 2 });
+    await api.getEquipmentProfile({
+      language: "en",
+      slug: "equipment/filter/amtra/filpo-click-200",
+    });
+    await api.getFertilizerProfile({
+      language: "en",
+      slug: "fertilizer/macros/seachem/flourish-nitrogen",
+    });
+
+    const urls = fetchMock.mock.calls.map((call) => (call[0] as URL).href);
+    expect(urls).toEqual([
+      "http://localhost:43117/api/public/mcp/v1/diagnostics/algae?language=it&query=bba&limit=2",
+      "http://localhost:43117/api/public/mcp/v1/products/equipment/filter/amtra/filpo-click-200?language=en",
+      "http://localhost:43117/api/public/mcp/v1/products/fertilizers/macros/seachem/flourish-nitrogen?language=en",
+    ]);
+  });
+
+  it("maps V2 calculator, fertilization and habitat endpoints as POST requests", async () => {
+    const api = new AtlariumApiClient(config, fetchMock);
+
+    await api.calculateTankVolume({
+      shape: "rect",
+      length_cm: 60,
+      width_cm: 30,
+      height_cm: 36,
+    });
+    await api.generateFertilizationPlan({
+      language: "en",
+      regime: "SEACHEM",
+      volume_liters: 90,
+    });
+    await api.suggestHabitatForTank({
+      language: "en",
+      tank_liters: 120,
+      planted_tank: true,
+      limit: 3,
+    });
+
+    expect(fetchMock.mock.calls.map((call) => (call[0] as URL).pathname)).toEqual([
+      "/api/public/mcp/v1/calculators/tank-volume",
+      "/api/public/mcp/v1/fertilization/plan",
+      "/api/public/mcp/v1/habitat-suggestions",
+    ]);
+    expect(fetchMock.mock.calls.every((call) => call[1]?.method === "POST")).toBe(true);
+    expect(JSON.parse(fetchMock.mock.calls[1]?.[1]?.body as string)).toMatchObject({
+      language: "en",
+      regime: "SEACHEM",
+      volume_liters: 90,
+    });
+  });
+
   it("uses the configured default language when a tool omits language", async () => {
     const api = new AtlariumApiClient(
       getRuntimeConfig({

@@ -11,7 +11,7 @@ describe("runtime config", () => {
     });
 
     expect(config.MCP_SERVICE_NAME).toBe(mcpDisplayName);
-    expect(config.MCP_VERSION).toBe("1.0.0");
+    expect(config.MCP_VERSION).toBe("2.0.0");
     expect(config.MCP_DEFAULT_LANGUAGE).toBe("en");
     expect(config.atlariumApiBaseUrl.href).toBe("https://atlarium.bio/api/public/mcp/v1");
     expect(config.trustProxy).toBe(1);

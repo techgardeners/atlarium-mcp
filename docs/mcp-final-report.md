@@ -1,18 +1,17 @@
 # Atlarium MCP Final Report
 
-Report time: `2026-06-19T23:21:28Z`
+Report time: `2026-06-20`
 
-Scope: public Atlarium MCP block only. This report does not cover general
-Atlarium marketing, Product Hunt, aquarium communities, creator outreach, or
-new ChatGPT App UI implementation.
+Scope: public Atlarium MCP V2 block only. This report does not cover general
+Atlarium marketing, Product Hunt, aquarium communities or creator outreach.
 
 ## Live URLs
 
 | Surface | URL | Status |
 | --- | --- | --- |
 | MCP endpoint | https://mcp.atlarium.bio/mcp | `GET` returns expected HTTP 405 JSON-RPC method-not-allowed; JSON-RPC session passes. |
-| Healthcheck | https://mcp.atlarium.bio/health | HTTP 200, `status = ok`, version `1.0.0`. |
-| Server card | https://mcp.atlarium.bio/.well-known/mcp/server-card.json | HTTP 200, 11 read-only tools and widget resource advertised. |
+| Healthcheck | https://mcp.atlarium.bio/health | Should return HTTP 200, `status = ok`, version `2.0.0` after deploy. |
+| Server card | https://mcp.atlarium.bio/.well-known/mcp/server-card.json | Should advertise 39 read-only tools, prompts and widget resource after deploy. |
 | Human docs | https://atlarium.bio/mcp | HTTP 200. |
 | Client docs | `/mcp/openai-agents`, `/mcp/claude`, `/mcp/cursor`, `/mcp/windsurf`, `/mcp/vscode`, `/mcp/antigravity`, `/mcp/smithery`, `/mcp/chatgpt` | HTTP 200 for each checked page. |
 | Sitemap | https://atlarium.bio/sitemap.xml | HTTP 200. |
@@ -43,7 +42,7 @@ Local repo checks:
 ```text
 pnpm lint       PASS
 pnpm typecheck  PASS
-pnpm test       PASS, 8 files, 37 tests
+pnpm test       PASS, 8 files, 42 tests
 pnpm build      PASS
 ```
 
@@ -52,7 +51,7 @@ Public MCP checks:
 ```text
 pnpm mcp:monitor:public        PASS
 pnpm directories:submit -- --check  PASS
-pnpm mcp:validate:public       PASS, tools/list plus all 11 tool calls
+pnpm mcp:validate:public       V2 validator covers tools/list, prompts/list and representative tool calls by family
 ```
 
 Web/docs checks:
@@ -85,6 +84,10 @@ The response body contains the Glama connector schema and maintainer email
 - `src/http.ts`: added public `/.well-known/glama.json` route.
 - `src/metadata.ts`: added Glama claim metadata.
 - `tests/http.test.ts`: added Glama claim route test.
+- V2 update: public tool surface expanded to 39 read-only tools, prompts enabled,
+  widget resource updated to `ui://widget/habitat-explorer.v3.html`, and
+  docs/submission payloads updated for diagnostics, products, fertilization,
+  calculators and habitat planning.
 - `README.md`: linked the new directory payload and launch-kit docs.
 - `docs/publication-checklist.md`: updated directory tracker with URL, status, evidence, next action and blocker columns.
 - `docs/directory-submission-payloads.md`: added final directory submission and claim payloads.

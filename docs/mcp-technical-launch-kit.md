@@ -1,6 +1,6 @@
 # Atlarium MCP Technical Launch Kit
 
-Last updated: 2026-06-19
+Last updated: 2026-06-20
 
 ## Technical Article
 
@@ -9,9 +9,10 @@ Last updated: 2026-06-19
 Atlarium Habitat Database MCP is a public read-only Model Context Protocol
 server for structured aquarium, marine, terrarium and paludarium habitat data.
 It is designed for agents that need species profiles, aquatic plant profiles,
-product references, water parameters, compatibility checks, guide content and
-freshwater tank suggestions without touching private Atlarium accounts or
-workspace data.
+product references, diagnostics, medicines, water parameters, compatibility
+checks, fertilization support, guide content, public calculators and complete
+habitat suggestions without touching private Atlarium accounts or workspace
+data.
 
 The public endpoint is:
 
@@ -28,25 +29,23 @@ https://mcp.atlarium.bio/.well-known/mcp/server-card.json
 bio.atlarium/habitat-database
 ```
 
-The tool surface is intentionally small and inspectable:
+The V2 tool surface is public, read-only and grouped by family:
 
-- `search_fish`
-- `get_fish_profile`
-- `search_plants`
-- `get_plant_profile`
-- `search_products`
-- `get_product_profile`
-- `check_species_compatibility`
-- `get_water_parameters`
-- `suggest_species_for_tank`
-- `search_guides`
-- `get_guide`
+- Catalog: `search_fish`, `get_fish_profile`, `search_plants`, `get_plant_profile`.
+- General products and guides: `search_products`, `get_product_profile`, `search_guides`, `get_guide`.
+- Compatibility and water: `check_species_compatibility`, `get_water_parameters`, `suggest_species_for_tank`.
+- Diagnostics: `search_algae`, `get_algae_profile`, `search_diseases`, `get_disease_profile`, `search_plant_problems`, `get_plant_problem_profile`, `search_medicines`, `get_medicine_profile`, `match_diagnostic_profiles`.
+- Product catalog: `list_product_categories`, `list_product_brands`, `search_equipment`, `get_equipment_profile`, `search_fertilizers`, `get_fertilizer_profile`.
+- Fertilization: `search_fertilization_regimes`, `get_fertilization_regime`, `calculate_fertilizer_dose`, `calculate_nutrient_gaps`, `calculate_weekly_dose_totals`, `generate_fertilization_plan`.
+- Calculators: `calculate_tank_volume`, `calculate_tank_weight`, `calculate_water_change`, `calculate_water_chemistry`, `convert_units`, `calculate_equipment_requirements`.
+- Planner: `suggest_habitat_for_tank`.
 
-All 11 tools are read-only. The server card marks the server as `auth.type =
+All 39 tools are read-only. The server card marks the server as `auth.type =
 none`, `readOnly = true`, and exposes no workspace, auth, admin, user or write
-tools. Compatibility and tank planning outputs are advisory; they are meant to
-help agents organize public reference data, not replace care decisions for real
-animals, plants, equipment or water chemistry.
+tools. Diagnostics, compatibility, fertilization, calculator and tank planning
+outputs are advisory; they are meant to help agents organize public reference
+data, not replace care decisions for real animals, plants, equipment, water
+chemistry or structural safety.
 
 For client setup, use any MCP client that supports remote Streamable HTTP MCP
 servers. For example, in clients that accept an MCP server config:
@@ -76,8 +75,9 @@ pnpm mcp:validate:public
 ```
 
 Those checks verify the live docs, health endpoint, server card, JSON-RPC
-session and the expected 11-tool read-only surface. The validation script also
-calls each public tool once with controlled inputs.
+session, prompts, widget resource and the expected 39-tool read-only surface.
+The validation script calls representative tools from each public family with
+controlled inputs.
 
 The source repository is:
 
@@ -92,7 +92,7 @@ https://atlarium.bio/mcp
 ```
 
 For Apps-compatible hosts, the server also advertises the read-only ChatGPT
-App widget resource `ui://widget/habitat-explorer.v2.html` with MIME type
+App widget resource `ui://widget/habitat-explorer.v3.html` with MIME type
 `text/html;profile=mcp-app`. The widget is `Atlarium Habitat Explorer` and is
 linked from tool metadata through `_meta.ui.resourceUri` plus
 `_meta["openai/outputTemplate"]`. The widget resource declares the dedicated
@@ -133,7 +133,7 @@ pnpm mcp:monitor:public
 Expected result:
 
 ```text
-11 tools from JSON-RPC tools/list
+39 tools from JSON-RPC tools/list
 ```
 
 ### 3. Query habitat data
@@ -192,7 +192,7 @@ Use the Atlarium Habitat Explorer widget to show a profile card for Blue Acara a
 Expected behavior:
 
 ```text
-An Apps-compatible host reads `ui://widget/habitat-explorer.v2.html`, renders
+An Apps-compatible host reads `ui://widget/habitat-explorer.v3.html`, renders
 the Habitat Explorer widget and uses structured tool output to populate the
 profile card. Generic MCP clients can still consume the plain JSON text output.
 ```
@@ -212,8 +212,9 @@ Docs: https://atlarium.bio/mcp
 Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
 Repo: https://github.com/techgardeners/atlarium-mcp
 
-Tool surface: 11 read-only tools for species, plants, products, water
-parameters, compatibility checks, guide lookup and freshwater tank suggestions.
+Tool surface: 39 read-only tools for species, plants, products, diagnostics,
+medicines, water parameters, compatibility checks, fertilization, calculators,
+guide lookup and complete habitat suggestions.
 Auth: none. Data: public Atlarium habitat data. No user/workspace/admin/write
 tools.
 ```
@@ -228,9 +229,12 @@ Use cases:
 - search fish and aquatic animal profiles
 - retrieve aquatic plant profiles
 - search habitat products
+- search algae, diseases, plant problems and medicines
 - check basic species compatibility
+- calculate volume, weight, water changes, water chemistry and equipment needs
+- build advisory fertilization plans from public catalog data
 - get water parameter guidance
-- suggest peaceful freshwater species for a tank profile
+- suggest complete habitat plans for a tank profile
 - search public Atlarium guides
 
 Endpoint: https://mcp.atlarium.bio/mcp
@@ -251,8 +255,9 @@ Registry: bio.atlarium/habitat-database
 Docs: https://atlarium.bio/mcp
 Repo: https://github.com/techgardeners/atlarium-mcp
 
-It exposes 11 read-only tools for public habitat data and does not expose
-private Atlarium accounts, workspaces, admin APIs or write operations.
+It exposes 39 read-only tools for public habitat data and advisory public
+functions. It does not expose private Atlarium accounts, workspaces, admin APIs
+or write operations.
 
 We are completing directory claim/submission flows and will add directory badges
 only after each listing is accepted and visible.
