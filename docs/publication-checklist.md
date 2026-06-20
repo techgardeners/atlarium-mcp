@@ -66,9 +66,23 @@ Repository production assets:
 
 GitHub repository settings:
 
-- Description: `Public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data.`
+- Description: `Public read-only MCP server for Atlarium habitat data, diagnostics, calculators and advisory planning.`
 - Homepage: `https://atlarium.bio/mcp`
-- Topics: `mcp`, `model-context-protocol`, `streamable-http`, `aquarium`, `marine`, `terrarium`, `paludarium`, `ai-agents`, `habitat-data`
+- Topics: `mcp`, `model-context-protocol`, `streamable-http`, `aquarium`, `marine`, `terrarium`, `paludarium`, `ai-agents`, `habitat-data`, `diagnostics`, `fertilization`, `aquarium-calculators`, `mcp-app`
+
+## MCP Update Rule
+
+Every MCP contract update must update the public GitHub-facing docs in the same
+release. Before publishing any new MCP version, tool, prompt, widget resource,
+server-card field or directory metadata, verify and update at minimum:
+
+- `README.md`
+- `docs/mcp.md`
+- `docs/github-showcase.md`
+- `server.json`
+- `docs/mcp/server-card.json.example`
+- `docs/directory-submission-payloads.md`
+- `docs/publication-checklist.md`
 
 ## Production Deployment
 
@@ -276,13 +290,13 @@ Atlarium Habitat Database MCP
 Short description:
 
 ```text
-Structured aquarium, marine, terrarium and paludarium data for AI agents.
+Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
 ```
 
 Long description:
 
 ```text
-Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, care requirements, environmental parameters, compatibility information, guides and habitat planning tools.
+Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.
 ```
 
 Connection:

@@ -6,9 +6,10 @@ coldwater systems, terrariums, paludariums and vivariums.
 ## Atlarium Habitat Database MCP
 
 Atlarium Habitat Database MCP is a public read-only Model Context Protocol
-server for structured habitat data. It gives AI agents access to animal and
-plant profiles, habitat products, care requirements, environmental parameters,
-species compatibility, guides and habitat planning tools.
+server for structured habitat data and public advisory functions. It gives AI
+agents access to animals, plants, products, guides, algae, diseases, plant
+problems, medicines, water parameters, compatibility, fertilization, aquarium
+calculators and habitat planning tools.
 
 Production MCP endpoint:
 
@@ -47,5 +48,5 @@ Important limits:
 - No write tools
 - No workspace tools
 - No user, auth, admin, journal, schedule or measurement data
-- Compatibility and suggestions are advisory and should be verified for each
-  real habitat setup
+- Compatibility, diagnostics, fertilization, calculators and suggestions are
+  advisory and should be verified for each real habitat setup

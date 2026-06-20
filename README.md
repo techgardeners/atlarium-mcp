@@ -5,7 +5,7 @@
 <h1 align="center">Atlarium Habitat Database MCP</h1>
 
 <p align="center">
-  Structured aquarium, marine, terrarium and paludarium data for AI agents.
+  Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
 </p>
 
 <p align="center">
@@ -13,8 +13,10 @@
   <a href="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml"><img alt="MCP Directory Audit" src="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/techgardeners/atlarium-mcp"></a>
   <a href="https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database"><img alt="Official MCP Registry" src="https://img.shields.io/badge/Official_MCP_Registry-bio.atlarium%2Fhabitat--database-0E7C86"></a>
+  <img alt="Version 2.0.0" src="https://img.shields.io/badge/version-2.0.0-0E7C86">
   <img alt="Transport: Streamable HTTP" src="https://img.shields.io/badge/transport-Streamable_HTTP-145C9E">
   <img alt="Read-only MCP tools" src="https://img.shields.io/badge/tools-39_read--only-2D7D46">
+  <img alt="Prompts enabled" src="https://img.shields.io/badge/prompts-enabled-6B7280">
   <img alt="Auth none" src="https://img.shields.io/badge/auth-none-4B5563">
 </p>
 
@@ -30,9 +32,12 @@ accounts, private workspaces, admin APIs or write operations.
 | Surface | Value |
 | --- | --- |
 | MCP endpoint | `https://mcp.atlarium.bio/mcp` |
+| MCP version | `2.0.0` |
 | Transport | Streamable HTTP |
 | Authentication | none |
 | Tool surface | 39 public read-only tools |
+| Prompts | 9 guided public prompts |
+| Apps widget | `ui://widget/habitat-explorer.v3.html` |
 | Server card | `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` |
 | Human docs | `https://atlarium.bio/mcp` |
 | Official MCP Registry | `bio.atlarium/habitat-database` |
@@ -83,9 +88,17 @@ pnpm mcp:monitor:public
 | Calculators | `calculate_tank_volume`, `calculate_tank_weight`, `calculate_water_change`, `calculate_water_chemistry`, `convert_units`, `calculate_equipment_requirements` |
 | Habitat planner | `suggest_habitat_for_tank` |
 
-All tools are read-only. Compatibility checks and tank suggestions are advisory
-and should be verified against real livestock, equipment, water chemistry and
-husbandry constraints.
+All tools are read-only. Compatibility checks, diagnostics, fertilization plans,
+equipment estimates, aquarium calculators and tank suggestions are advisory and
+should be verified against real livestock, equipment, water chemistry, local
+regulations and husbandry constraints.
+
+## Prompt Surface
+
+The server advertises guided prompts for species search, compatibility, habitat
+planning, algae, diseases, plant problems, product selection, fertilization and
+tank calculations. These prompts do not add write access; they guide clients
+toward the same public read-only tool surface.
 
 ## Client Examples
 
@@ -108,11 +121,11 @@ the listing.
 
 | Directory | Status |
 | --- | --- |
-| Official MCP Registry | Published as `bio.atlarium/habitat-database`. |
-| Glama | Indexed as a connector; ownership claim is prepared through `/.well-known/glama.json`. |
+| Official MCP Registry | Published as `bio.atlarium/habitat-database`; publish the V2 `server.json` update after coordinated endpoint validation. |
+| Glama | Indexed as a connector; ownership claim is prepared through `/.well-known/glama.json`; refresh V2 metadata after registry sync. |
 | Smithery | Ready for maintainer submission; no public listing claim yet. |
 | MCP.so | Submitted through the public GitHub issue flow; no public listing badge yet. |
-| PulseMCP | Listed publicly; automated checks may still be blocked by Cloudflare. |
+| PulseMCP | Listed publicly; update/verify V2 metadata after the public V2 rollout. |
 
 Publication tracking and reusable submission copy live in
 `docs/publication-checklist.md` and `docs/directory-submission-payloads.md`.
@@ -235,8 +248,9 @@ pnpm mcp:validate:public
 ## Contributing
 
 See `CONTRIBUTING.md`. Public tool changes must update the server
-implementation, tests, server-card metadata, `server.json`, docs, examples and
-directory publication notes in the same release.
+implementation, tests, server-card metadata, `server.json`, `README.md`,
+`docs/mcp.md`, docs, examples and directory publication notes in the same
+release.
 
 ## Security
 

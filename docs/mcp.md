@@ -9,7 +9,8 @@ without access to private workspace or user data.
 
 Description:
 
-> Structured aquarium, marine, terrarium and paludarium data for AI agents.
+> Structured aquarium, marine, terrarium and paludarium data and public
+> advisory functions for AI agents.
 
 Long description:
 

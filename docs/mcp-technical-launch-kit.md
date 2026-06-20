@@ -4,15 +4,15 @@ Last updated: 2026-06-20
 
 ## Technical Article
 
-# Atlarium Habitat Database MCP: structured habitat data for AI agents
+# Atlarium Habitat Database MCP: structured habitat data and public advisory functions for AI agents
 
 Atlarium Habitat Database MCP is a public read-only Model Context Protocol
-server for structured aquarium, marine, terrarium and paludarium habitat data.
-It is designed for agents that need species profiles, aquatic plant profiles,
-product references, diagnostics, medicines, water parameters, compatibility
-checks, fertilization support, guide content, public calculators and complete
-habitat suggestions without touching private Atlarium accounts or workspace
-data.
+server for structured aquarium, marine, terrarium and paludarium habitat data
+and public advisory functions. It is designed for agents that need species
+profiles, aquatic plant profiles, product references, diagnostics, medicines,
+water parameters, compatibility checks, fertilization support, guide content,
+public calculators and complete habitat suggestions without touching private
+Atlarium accounts or workspace data.
 
 The public endpoint is:
 
@@ -205,7 +205,8 @@ profile card. Generic MCP clients can still consume the plain JSON text output.
 Atlarium Habitat Database MCP is live in the Official MCP Registry as `bio.atlarium/habitat-database`.
 
 It is a public read-only Streamable HTTP MCP server for structured aquarium,
-marine, terrarium and paludarium habitat data.
+marine, terrarium and paludarium habitat data, diagnostics, calculators and
+advisory planning.
 
 Endpoint: https://mcp.atlarium.bio/mcp
 Docs: https://atlarium.bio/mcp

@@ -8,7 +8,7 @@ unsupported directory or client approval claims.
 Target values:
 
 ```text
-Description: Public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data.
+Description: Public read-only MCP server for Atlarium habitat data, diagnostics, calculators and advisory planning.
 Homepage: https://atlarium.bio/mcp
 Visibility: public
 Issues: enabled
@@ -35,19 +35,23 @@ terrarium
 paludarium
 habitat-data
 habitat-planning
+aquarium-calculators
+diagnostics
+fertilization
+mcp-app
 ```
 
 Apply supported settings with:
 
 ```bash
 gh repo edit techgardeners/atlarium-mcp \
-  --description "Public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data." \
+  --description "Public read-only MCP server for Atlarium habitat data, diagnostics, calculators and advisory planning." \
   --homepage "https://atlarium.bio/mcp" \
   --enable-issues=true \
   --enable-wiki=false \
   --enable-projects=false \
   --enable-discussions=false \
-  --add-topic mcp-server,remote-mcp,aquarium-data,habitat-planning,ai-tools
+  --add-topic mcp-server,remote-mcp,aquarium-data,habitat-planning,ai-tools,aquarium-calculators,diagnostics,fertilization,mcp-app
 ```
 
 Verify with:
@@ -78,8 +82,17 @@ Manual steps:
 ## Claim Rules
 
 - Show the Official MCP Registry status because `bio.atlarium/habitat-database`
-  is published and active.
+  is published and active. Do not imply a V2 registry refresh until the updated
+  `server.json` is published and visible.
 - Do not add Smithery, MCP.so, PulseMCP or client approval badges until the
   external listing or approval is visible.
 - Keep ChatGPT copy limited to submission/app-readiness notes until public
   review is complete.
+
+## MCP Update Rule
+
+Every MCP contract, version, tool, prompt, widget or public metadata change must
+update the GitHub-facing README and repository presentation copy in the same
+release. At minimum check `README.md`, `docs/mcp.md`,
+`docs/github-showcase.md`, `server.json`, `docs/mcp/server-card.json.example`
+and directory/submission payloads before publishing.

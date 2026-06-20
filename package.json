@@ -1,7 +1,7 @@
 {
   "name": "atlarium-mcp",
   "version": "2.0.0",
-  "description": "Public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data.",
+  "description": "Public read-only MCP server for Atlarium habitat data, diagnostics, calculators and advisory planning.",
   "license": "MIT",
   "type": "module",
   "homepage": "https://atlarium.bio/mcp",
@@ -21,6 +21,10 @@
     "terrarium",
     "paludarium",
     "habitat-data",
+    "diagnostics",
+    "fertilization",
+    "aquarium-calculators",
+    "mcp-app",
     "ai-agents"
   ],
   "engines": {
