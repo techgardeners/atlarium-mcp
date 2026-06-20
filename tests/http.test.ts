@@ -182,6 +182,23 @@ describe("HTTP app", () => {
     });
   });
 
+  it("serves the OpenAI Apps domain challenge file", async () => {
+    const app = createHttpApp(
+      testConfig({
+        OPENAI_APPS_CHALLENGE_TOKEN: "challenge-test-token",
+      }),
+    );
+
+    await withServer(app, async (baseUrl) => {
+      const response = await fetch(`${baseUrl}/.well-known/openai-apps-challenge`);
+
+      expect(response.status).toBe(200);
+      expect(response.headers.get("cache-control")).toBe("no-store");
+      expect(response.headers.get("content-type")).toContain("text/plain");
+      await expect(response.text()).resolves.toBe("challenge-test-token");
+    });
+  });
+
   it("sets security headers without leaking Express fingerprinting", async () => {
     const app = createHttpApp(testConfig());
 

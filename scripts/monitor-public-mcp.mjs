@@ -7,6 +7,12 @@ const healthUrl = process.env.MCP_MONITOR_HEALTH_URL ?? "https://mcp.atlarium.bi
 const serverCardUrl =
   process.env.MCP_MONITOR_SERVER_CARD_URL ??
   "https://mcp.atlarium.bio/.well-known/mcp/server-card.json";
+const openaiAppsChallengeUrl =
+  process.env.MCP_MONITOR_OPENAI_APPS_CHALLENGE_URL ??
+  "https://mcp.atlarium.bio/.well-known/openai-apps-challenge";
+const openaiAppsChallengeToken =
+  process.env.MCP_MONITOR_OPENAI_APPS_CHALLENGE_TOKEN ??
+  "tW6HmNIvGw-oL1mq-d0brGwZl-quGv5UFBw66EqtS4g";
 const docsUrl = process.env.MCP_MONITOR_DOCS_URL ?? "https://atlarium.bio/mcp";
 const timeoutMs = Number(process.env.MCP_MONITOR_TIMEOUT_MS ?? 15_000);
 
@@ -110,6 +116,12 @@ async function readJson(label, url) {
   return response.json();
 }
 
+async function readText(label, url) {
+  const response = await fetchWithTimeout(url);
+  assert(response.status === 200, `${label} returned HTTP ${response.status}`);
+  return response.text();
+}
+
 async function checkHealth() {
   const health = await readJson("health", healthUrl);
   assert(health.status === "ok", `health.status is ${JSON.stringify(health.status)}`);
@@ -118,6 +130,15 @@ async function checkHealth() {
     `health.service is ${JSON.stringify(health.service)}`,
   );
   return `${health.service} ${health.version ?? "unknown-version"}`;
+}
+
+async function checkOpenaiAppsChallenge() {
+  const token = await readText("openai-apps-challenge", openaiAppsChallengeUrl);
+  assert(
+    token === openaiAppsChallengeToken,
+    "openai-apps-challenge token did not match the configured token",
+  );
+  return "domain challenge token available";
 }
 
 async function checkServerCard() {
@@ -233,6 +254,7 @@ const failures = (
   await Promise.all([
     step("docs", () => checkHttpStatus("docs", docsUrl, 200)),
     step("health", checkHealth),
+    step("openai-apps-challenge", checkOpenaiAppsChallenge),
     step("server-card", checkServerCard),
     step("mcp-get", () => checkHttpStatus("mcp-get", endpoint, 405)),
     step("mcp-json-rpc", checkMcpSession),

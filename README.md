@@ -952,6 +952,7 @@ ATLARIUM_API_BASE_URL=http://localhost:43117/api/public/mcp/v1 pnpm dev
 - `MCP_TRUST_PROXY`: Express proxy trust setting; default `1` assumes one trusted reverse proxy in production.
 - `ATLARIUM_API_TIMEOUT_MS`: upstream public API timeout in milliseconds.
 - `ATLARIUM_API_RESPONSE_MAX_BYTES`: maximum upstream JSON response size.
+- `OPENAI_APPS_CHALLENGE_TOKEN`: public OpenAI Apps domain verification token served from `/.well-known/openai-apps-challenge`.
 
 Production deployments must run behind a TLS-terminating reverse proxy or
 Ingress that overwrites `X-Forwarded-For`, `X-Forwarded-Host` and

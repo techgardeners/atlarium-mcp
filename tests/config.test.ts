@@ -17,6 +17,9 @@ describe("runtime config", () => {
     expect(config.trustProxy).toBe(1);
     expect(config.ATLARIUM_API_TIMEOUT_MS).toBe(5_000);
     expect(config.ATLARIUM_API_RESPONSE_MAX_BYTES).toBe(1_048_576);
+    expect(config.OPENAI_APPS_CHALLENGE_TOKEN).toBe(
+      "tW6HmNIvGw-oL1mq-d0brGwZl-quGv5UFBw66EqtS4g",
+    );
     expect(config.allowedHosts).toEqual(["mcp.atlarium.bio", "localhost"]);
   });
 

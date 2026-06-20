@@ -79,6 +79,13 @@ export function createHttpApp(
     res.json(createGlamaConnectorClaim());
   });
 
+  app.get("/.well-known/openai-apps-challenge", (_req, res) => {
+    res
+      .type("text/plain")
+      .set("cache-control", "no-store")
+      .send(config.OPENAI_APPS_CHALLENGE_TOKEN);
+  });
+
   app.post("/mcp", express.json({ limit: MCP_BODY_LIMIT }), async (req, res) => {
     const startedAt = Date.now();
     const mcpServer =

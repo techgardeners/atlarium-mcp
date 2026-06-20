@@ -70,6 +70,12 @@ const envSchema = z
       .min(1_024)
       .max(5_000_000)
       .default(1_048_576),
+    OPENAI_APPS_CHALLENGE_TOKEN: z
+      .string()
+      .trim()
+      .min(1)
+      .max(256)
+      .default("tW6HmNIvGw-oL1mq-d0brGwZl-quGv5UFBw66EqtS4g"),
   })
   .superRefine((env, ctx) => {
     if (env.NODE_ENV !== "production") {
