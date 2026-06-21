@@ -925,7 +925,7 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 | Smithery | Published at [`ilgrafico79/atlarium-habitat-database`](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); latest release `SUCCESS`, quality score `96/100`, parameter descriptions `39/39`, custom icon uploaded. Technical verification checks pass; full Smithery verification still requires a paid developer plan. |
 | MCP.so | Listed publicly at [`atlarium-habitat-database-mcp`](https://mcp.so/server/atlarium-habitat-database-mcp); no badge added yet. |
 | PulseMCP | Listed publicly; verify badge policy before adding a badge. |
-| mcpservers.org | Submitted / pending review; no public listing badge yet. |
+| mcpservers.org | Listed publicly at [`techgardeners/atlarium-mcp`](https://mcpservers.org/servers/techgardeners/atlarium-mcp); no badge added yet. |
 | MCPRepository | Submitted / queued at [`techgardeners/atlarium-mcp`](https://mcprepository.com/techgardeners/atlarium-mcp); no public listing badge yet. |
 | MCP Server Hub | Submitted / pending review; no public listing badge yet. |
 | ChatGPT App | Submitted / in review; no public approval claim yet. |

@@ -1,6 +1,6 @@
 # Atlarium MCP Directory Submission Payloads
 
-Last verified: `2026-06-20`
+Last verified: `2026-06-21`
 
 Use these payloads for directory submission, claim and follow-up flows. Do not
 add directory badges or claim official support until the specific directory
@@ -276,16 +276,16 @@ TechGardeners maintainer.
 
 ## mcpservers.org
 
-Submission/search URL:
+Listing URL:
 
 ```text
-https://mcpservers.org/search
+https://mcpservers.org/servers/techgardeners/atlarium-mcp
 ```
 
 Status:
 
 ```text
-Submitted / pending review. The free submission form confirmed "Submission Successful" for "Atlarium Habitat Database MCP" and said the submission will be reviewed within 12 hours. No public listing is accepted until the listing URL is visible.
+Listed / visible. The public listing returns HTTP 200 and includes "Atlarium Habitat Database MCP", the canonical endpoint https://mcp.atlarium.bio/mcp, repository, docs, server card and 39-tool read-only surface.
 ```
 
 Payload:
@@ -299,6 +299,14 @@ Auth: none
 Description: Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
 Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
 Safety: read-only; no user accounts, workspaces, admin APIs, private data or write operations.
+```
+
+Use this accepted listing as secondary evidence in follow-ups for directories
+that are still queued or pending:
+
+```text
+Accepted public directory listing:
+https://mcpservers.org/servers/techgardeners/atlarium-mcp
 ```
 
 ## MCPRepository
@@ -327,6 +335,29 @@ Official MCP Registry: bio.atlarium/habitat-database
 Tags: aquarium, marine, terrarium, paludarium, habitat-data, diagnostics, fertilization, calculators, mcp-app
 ```
 
+Follow-up payload while the expected page still returns 404:
+
+```text
+Hi MCPRepository team,
+
+The Atlarium Habitat Database MCP repository was accepted into your queue with
+status "queued", valid true and duplicate false, but the expected public page is
+still returning 404:
+
+https://mcprepository.com/techgardeners/atlarium-mcp
+
+Could you please refresh or publish the queued listing?
+
+Evidence:
+- GitHub repository: https://github.com/techgardeners/atlarium-mcp
+- Public MCP endpoint: https://mcp.atlarium.bio/mcp
+- Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+- Docs: https://atlarium.bio/mcp
+- Official registry: bio.atlarium/habitat-database
+- Accepted mcpservers.org listing:
+  https://mcpservers.org/servers/techgardeners/atlarium-mcp
+```
+
 ## MCP Server Hub
 
 Submission URL:
@@ -353,6 +384,27 @@ Authentication: none
 Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
 Docs: https://atlarium.bio/mcp
 Description: Atlarium MCP is a public read-only MCP server for structured aquarium, marine, terrarium and paludarium habitat data, diagnostics, products, fertilization, calculators, compatibility and advisory habitat planning.
+```
+
+Follow-up payload if the listing remains absent from public search:
+
+```text
+Hi MCP Server Hub team,
+
+We submitted Atlarium Habitat Database MCP through the embedded Tally form and
+received the "Form submitted" confirmation, but the server is still not visible
+in public search.
+
+Could you please confirm whether it is still queued for review?
+
+Evidence:
+- Repository: https://github.com/techgardeners/atlarium-mcp
+- Public MCP endpoint: https://mcp.atlarium.bio/mcp
+- Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
+- Docs: https://atlarium.bio/mcp
+- Official registry: bio.atlarium/habitat-database
+- Accepted mcpservers.org listing:
+  https://mcpservers.org/servers/techgardeners/atlarium-mcp
 ```
 
 ## MCP Market / Marketplace

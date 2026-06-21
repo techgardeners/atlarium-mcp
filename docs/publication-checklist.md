@@ -336,7 +336,7 @@ Atlarium Habitat Database MCP is read-only. It does not expose user accounts, wo
 
 ## Submission Tracker
 
-Last verified: `2026-06-20T05:47:44Z`.
+Last verified: `2026-06-21T18:47:38Z`.
 
 | Directory | URL | Status | Evidence | Next action | Owner / manual blocker |
 | --- | --- | --- | --- | --- | --- |
@@ -351,7 +351,7 @@ Secondary directory backlog:
 | Directory | URL | Status | Evidence | Next action |
 | --- | --- | --- | --- | --- |
 | MCP Scoreboard | https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/ | Listed / unscored | Public listing shows Atlarium Habitat Database MCP, TechGardeners, GitHub and endpoint links, latest health check `Up`, and score `Unscored`. | Owner verification or remote scoring may require GitHub login; no score badge until the score is meaningful. |
-| mcpservers.org | https://mcpservers.org/search | Submitted / pending review | Free form confirmed `Submission Successful` for `Atlarium Habitat Database MCP` and said review should happen within 12 hours. | Monitor approval email and listing URL; avoid badges until visible. |
+| mcpservers.org | https://mcpservers.org/servers/techgardeners/atlarium-mcp | Listed / visible | Public listing returns HTTP 200 and includes `Atlarium Habitat Database MCP`, the canonical endpoint `https://mcp.atlarium.bio/mcp`, repository, docs, server card and 39-tool read-only surface. | Monitor listing metadata after server-card or README changes; add badge/link only after badge policy approval. |
 | MCP Market | https://mcpmarket.com/submit | Blocked | Submission page is external; automated fetch can hit a Vercel checkpoint. | Browser/manual submission; paid acceleration optional, no badge until listing exists. |
 | MCP Marketplace | https://mcp-marketplace.io/submit | Blocked | Search found no Atlarium listing; submit redirects to login. | Submit after login if this directory is worth prioritizing. |
 | MCPRepository | https://mcprepository.com/techgardeners/atlarium-mcp | Submitted / queued | API accepted `https://github.com/techgardeners/atlarium-mcp` with `status: queued`, `valid: true`, `duplicate: false`, and returned the expected listing URL. | Verify the generated listing URL before adding a badge. |
