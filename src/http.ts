@@ -11,8 +11,8 @@ import { createGlamaConnectorClaim, createServerCard } from "./metadata.js";
 import { createAtlariumMcpServer } from "./server.js";
 
 const HTTP_REQUEST_TIMEOUT_MS = 30_000;
-const HTTP_HEADERS_TIMEOUT_MS = 10_000;
-const HTTP_KEEP_ALIVE_TIMEOUT_MS = 5_000;
+const HTTP_HEADERS_TIMEOUT_MS = 66_000;
+const HTTP_KEEP_ALIVE_TIMEOUT_MS = 65_000;
 const MCP_BODY_LIMIT = "128kb";
 
 type Closable = {
@@ -161,20 +161,7 @@ export function createHttpApp(
 }
 
 export function listen(config: RuntimeConfig) {
-  const app = createHttpApp(config);
-  const server = createServer(app);
-
-  server.requestTimeout = HTTP_REQUEST_TIMEOUT_MS;
-  server.headersTimeout = HTTP_HEADERS_TIMEOUT_MS;
-  server.keepAliveTimeout = HTTP_KEEP_ALIVE_TIMEOUT_MS;
-  server.timeout = HTTP_REQUEST_TIMEOUT_MS;
-
-  server.on("clientError", (error, socket) => {
-    log("warn", "http_client_error", { message: error.message });
-    if (!socket.writableEnded) {
-      socket.end("HTTP/1.1 400 Bad Request\r\nConnection: close\r\n\r\n");
-    }
-  });
+  const server = createHttpServer(config);
 
   server.listen(config.MCP_PORT, config.host, () => {
     log("info", "mcp_started", {
@@ -183,6 +170,25 @@ export function listen(config: RuntimeConfig) {
       public_base_url: config.publicBaseUrl.href,
       atlarium_api_base_url: config.atlariumApiBaseUrl.href,
     });
+  });
+
+  return server;
+}
+
+export function createHttpServer(config: RuntimeConfig) {
+  const app = createHttpApp(config);
+  const server = createServer(app);
+
+  server.requestTimeout = HTTP_REQUEST_TIMEOUT_MS;
+  server.headersTimeout = HTTP_HEADERS_TIMEOUT_MS;
+  server.keepAliveTimeout = HTTP_KEEP_ALIVE_TIMEOUT_MS;
+  server.timeout = 0;
+
+  server.on("clientError", (error, socket) => {
+    log("warn", "http_client_error", { message: error.message });
+    if (!socket.writableEnded) {
+      socket.end("HTTP/1.1 400 Bad Request\r\nConnection: close\r\n\r\n");
+    }
   });
 
   return server;

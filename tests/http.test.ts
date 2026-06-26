@@ -5,7 +5,7 @@ import type { Server } from "node:http";
 import { describe, expect, it, vi } from "vitest";
 
 import { getRuntimeConfig } from "../src/config.js";
-import { createHttpApp } from "../src/http.js";
+import { createHttpApp, createHttpServer } from "../src/http.js";
 import { mcpDisplayName } from "../src/metadata.js";
 import { toolDefinitions } from "../src/tools.js";
 
@@ -88,6 +88,15 @@ async function rawHttpRequest(
 }
 
 describe("HTTP app", () => {
+  it("configures Cloudflare-friendly HTTP server timeouts", () => {
+    const server = createHttpServer(testConfig());
+
+    expect(server.requestTimeout).toBe(30_000);
+    expect(server.headersTimeout).toBe(66_000);
+    expect(server.keepAliveTimeout).toBe(65_000);
+    expect(server.timeout).toBe(0);
+  });
+
   it("serves a public healthcheck", async () => {
     const app = createHttpApp(testConfig());
 
