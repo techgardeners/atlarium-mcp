@@ -12,8 +12,9 @@ metadata:
     nginx.ingress.kubernetes.io/limit-burst-multiplier: "2"
     nginx.ingress.kubernetes.io/proxy-body-size: "128k"
     nginx.ingress.kubernetes.io/proxy-connect-timeout: "35"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "35"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "35"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "120"
+    nginx.ingress.kubernetes.io/proxy-request-buffering: "off"
 spec:
   ingressClassName: nginx
   tls:

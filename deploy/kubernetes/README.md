@@ -64,6 +64,20 @@ rules allow registry scanners and MCP clients to reach:
 - `GET /.well-known/mcp/server-card.json`
 - `POST /mcp`
 
+For the proxied Cloudflare path, keep the shared `ingress-nginx` controller
+origin keep-alive aligned with Cloudflare's long-lived origin connections:
+
+```bash
+kubectl -n ingress-nginx patch configmap ingress-nginx-controller \
+  --type merge \
+  -p '{"data":{"keep-alive":"900","keep-alive-requests":"10000"}}'
+kubectl -n ingress-nginx exec deployment/ingress-nginx-controller -- \
+  grep -n "keepalive_timeout\\|keepalive_requests" /etc/nginx/nginx.conf
+```
+
+Expected controller values include `keepalive_timeout 900s` and
+`keepalive_requests 10000`.
+
 ## TLS
 
 The manifest uses the existing Atlarium Cloudflare Origin Certificate secret
