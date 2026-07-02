@@ -38,7 +38,7 @@ Atlarium marketing, Product Hunt, aquarium communities or creator outreach.
 
 | Surface | Status | Evidence | Next action | Manual blocker |
 | --- | --- | --- | --- | --- |
-| ChatGPT App review | Submitted / in review | Submission package includes endpoint, privacy URL, `chatgpt-app-submission.json`, app icon, screenshots, demo video, read-only safety notes and the live OpenAI Apps challenge endpoint. | Monitor OpenAI review. If requested, patch repo/server/docs, redeploy, rescan metadata and reply in the portal. | OpenAI account access for portal state, review replies and final acceptance. |
+| ChatGPT App review | Not approved on 2026-07-02 / fixes deployed / pending dashboard resubmission | Updated package includes endpoint, privacy URL, revised `chatgpt-app-submission.json`, app icon, remediation notes, read-only safety notes and the live OpenAI Apps challenge endpoint. Previous widget-only screenshots must be replaced with real ChatGPT web/mobile publishing screenshots. | Rescan metadata and resubmit in the OpenAI Platform dashboard after replacing screenshots. | OpenAI account access for screenshot upload, portal state, review replies and final submit. |
 
 ## GitHub Actions
 
@@ -137,9 +137,10 @@ The response body contains the Glama connector schema and maintainer email
 - ChatGPT privacy-policy blocker is resolved: `https://atlarium.bio/privacy`
   and `https://atlarium.bio/en/privacy` return HTTP 200 and the page includes
   MCP / ChatGPT App data-access notes.
-- ChatGPT App public approval must not be claimed until review is complete.
-- ChatGPT App is submitted / in review; OpenAI can request changes before
-  acceptance.
+- ChatGPT App public approval must not be claimed until OpenAI accepts a
+  resubmission.
+- ChatGPT App was not approved on 2026-07-02; remediation is ready, pending
+  deploy validation, new ChatGPT web/mobile screenshots and resubmission.
 
 ## Next Actions
 

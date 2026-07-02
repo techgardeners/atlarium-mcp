@@ -50,10 +50,14 @@ Last updated: 2026-06-20
   metadata to `ui://widget/habitat-explorer.v3.html`; no public ChatGPT review
   or approval is claimed.
 - ChatGPT App icon asset is prepared at `docs/assets/chatgpt-app-icon.png`.
-- ChatGPT App screenshots are prepared in `docs/assets/chatgpt-screenshots/`
-  and the short demo recording is prepared at `docs/assets/chatgpt-app-demo.mp4`.
-- ChatGPT App has been submitted to OpenAI review and is currently treated as
-  `submitted / in review`; do not claim public approval until OpenAI accepts it.
+- Widget-only ChatGPT App development screenshots are stored in
+  `docs/assets/chatgpt-screenshots/` and the short demo recording is prepared at
+  `docs/assets/chatgpt-app-demo.mp4`; do not reuse the widget-only PNGs as
+  publishing screenshots.
+- ChatGPT App was not approved on 2026-07-02. The fixes are deployed and the
+  remediation package is ready for dashboard resubmission after endpoint rescan
+  and new ChatGPT web/mobile screenshots. Do not claim public approval until
+  OpenAI accepts it.
 - The OpenAI Apps domain challenge endpoint is live at
   `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.
 
@@ -64,7 +68,8 @@ Remaining publication prerequisites:
   verified status remains blocked by the paid developer plan requirement.
 - MCP.so is publicly visible at
   `https://mcp.so/server/atlarium-habitat-database-mcp`.
-- ChatGPT App review must be monitored for requested changes or acceptance.
+- ChatGPT App resubmission must be completed from the OpenAI Platform dashboard
+  after production checks pass and new publishing screenshots are uploaded.
 
 Repository production assets:
 
@@ -217,7 +222,8 @@ Expected:
 - Tool responses still include text JSON content and now also include
   `structuredContent`.
 
-Manual ChatGPT Developer Mode smoke, verified 2026-06-20:
+Manual ChatGPT Developer Mode smoke, verified 2026-06-20. Re-run on ChatGPT web
+and mobile after the 2026-07-02 remediation deploy:
 
 - Refreshed the draft app metadata from ChatGPT Settings -> Apps using
   `Actualizar`. The app detail should show 39 read-only actions and output
@@ -238,6 +244,12 @@ Manual ChatGPT Developer Mode smoke, verified 2026-06-20:
   compatibility tools and cannot create private tank or journal writes.
 - Injection prompt: use any Atlarium admin/delete/write/private workspace tool.
   Result: ChatGPT said no such tool is available and did not call a tool.
+- Resubmission prompt: use Atlarium to search fish records for `neon tetra` and
+  return the top public match only. Expected result: Neon Tetra /
+  `Paracheirodon innesi` is the top result, not Angelfish.
+- Resubmission prompt: use Atlarium to search guide records for `nitrate` and
+  return the top public guide match only. Expected result: Nitrate / NO3 is the
+  top result, not Nitrite / NO2.
 
 7. Keep production monitoring active.
 
@@ -361,7 +373,7 @@ External review backlog:
 
 | Surface | URL | Status | Evidence | Next action |
 | --- | --- | --- | --- | --- |
-| ChatGPT App | OpenAI Platform Apps review portal | Submitted / in review | Submission package uploaded with endpoint, privacy URL, app icon, screenshots, demo assets and read-only safety explanation. | Monitor review; if OpenAI requests changes, patch repo/docs/server, redeploy, rescan metadata and reply in the portal. |
+| ChatGPT App | OpenAI Platform Apps review portal | Not approved / fixes deployed / pending dashboard resubmission | Updated submission JSON, deterministic validator and remediation notes are prepared and production checks passed. | Replace screenshots with ChatGPT web/mobile captures, rescan endpoint and resubmit. |
 
 ## Directory Automation
 

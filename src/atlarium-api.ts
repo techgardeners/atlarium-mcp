@@ -30,6 +30,17 @@ import type { z } from "zod";
 
 type Fetch = typeof fetch;
 type QueryValue = boolean | number | string | undefined;
+type SearchInput = {
+  limit?: number;
+  offset?: number;
+  query?: string;
+};
+type SearchPayload = Record<string, unknown> & {
+  has_more?: unknown;
+  limit?: unknown;
+  results?: unknown;
+};
+type SearchRecord = Record<string, unknown>;
 
 type SearchFishInput = z.infer<typeof searchFishSchema>;
 type SearchPlantsInput = z.infer<typeof searchPlantsSchema>;
@@ -90,7 +101,7 @@ export class AtlariumApiClient {
   ) {}
 
   async searchFish(input: SearchFishInput) {
-    return this.get("fish", this.withDefaultLanguage(input));
+    return this.search("fish", input);
   }
 
   async getFishProfile(input: GetProfileInput) {
@@ -100,7 +111,7 @@ export class AtlariumApiClient {
   }
 
   async searchPlants(input: SearchPlantsInput) {
-    return this.get("plants", this.withDefaultLanguage(input));
+    return this.search("plants", input);
   }
 
   async getPlantProfile(input: GetProfileInput) {
@@ -110,7 +121,7 @@ export class AtlariumApiClient {
   }
 
   async searchProducts(input: SearchProductsInput) {
-    return this.get("products", this.withDefaultLanguage(input));
+    return this.search("products", input);
   }
 
   async getProductProfile(input: GetPathProfileInput) {
@@ -153,7 +164,7 @@ export class AtlariumApiClient {
   }
 
   async searchGuides(input: SearchGuidesInput) {
-    return this.get("guides", this.withDefaultLanguage(input));
+    return this.search("guides", input);
   }
 
   async getGuide(input: GetPathProfileInput) {
@@ -163,7 +174,7 @@ export class AtlariumApiClient {
   }
 
   async searchAlgae(input: SearchDiagnosticsInput) {
-    return this.get("diagnostics/algae", this.withDefaultLanguage(input));
+    return this.search("diagnostics/algae", input);
   }
 
   async getAlgaeProfile(input: GetProfileInput) {
@@ -173,7 +184,7 @@ export class AtlariumApiClient {
   }
 
   async searchDiseases(input: SearchDiagnosticsInput) {
-    return this.get("diagnostics/diseases", this.withDefaultLanguage(input));
+    return this.search("diagnostics/diseases", input);
   }
 
   async getDiseaseProfile(input: GetProfileInput) {
@@ -183,7 +194,7 @@ export class AtlariumApiClient {
   }
 
   async searchPlantProblems(input: SearchDiagnosticsInput) {
-    return this.get("diagnostics/plant-problems", this.withDefaultLanguage(input));
+    return this.search("diagnostics/plant-problems", input);
   }
 
   async getPlantProblemProfile(input: GetProfileInput) {
@@ -193,7 +204,7 @@ export class AtlariumApiClient {
   }
 
   async searchMedicines(input: SearchDiagnosticsInput) {
-    return this.get("diagnostics/medicines", this.withDefaultLanguage(input));
+    return this.search("diagnostics/medicines", input);
   }
 
   async getMedicineProfile(input: GetProfileInput) {
@@ -221,7 +232,7 @@ export class AtlariumApiClient {
   }
 
   async searchEquipment(input: SearchEquipmentInput) {
-    return this.get("products/equipment", this.withDefaultLanguage(input));
+    return this.search("products/equipment", input);
   }
 
   async getEquipmentProfile(input: GetPathProfileInput) {
@@ -232,7 +243,7 @@ export class AtlariumApiClient {
   }
 
   async searchFertilizers(input: SearchFertilizersInput) {
-    return this.get("products/fertilizers", this.withDefaultLanguage(input));
+    return this.search("products/fertilizers", input);
   }
 
   async getFertilizerProfile(input: GetPathProfileInput) {
@@ -243,7 +254,7 @@ export class AtlariumApiClient {
   }
 
   async searchFertilizationRegimes(input: SearchFertilizationRegimesInput) {
-    return this.get("fertilization-regimes", this.withDefaultLanguage(input));
+    return this.search("fertilization-regimes", input);
   }
 
   async getFertilizationRegime(input: GetProfileInput) {
@@ -312,6 +323,15 @@ export class AtlariumApiClient {
     const url = this.url(path);
     appendQuery(url, params);
     return this.request(url);
+  }
+
+  private async search<T extends SearchInput & { language?: SupportedLanguage }>(
+    path: string,
+    input: T,
+  ) {
+    const providerInput = this.withSearchReviewLimit(this.withDefaultLanguage(input));
+    const payload = await this.get(path, providerInput);
+    return rerankSearchResults(payload, input.query, input.limit);
   }
 
   private async post(path: string, body: unknown) {
@@ -389,6 +409,125 @@ export class AtlariumApiClient {
       language: this.language(input.language),
     };
   }
+
+  private withSearchReviewLimit<T extends SearchInput>(input: T): T {
+    if (!input.query || (input.offset ?? 0) > 0 || input.limit !== 1) {
+      return input;
+    }
+
+    return {
+      ...input,
+      limit: 10,
+    };
+  }
+}
+
+function rerankSearchResults(
+  payload: unknown,
+  query: string | undefined,
+  requestedLimit: number | undefined,
+) {
+  if (!query || !isSearchPayload(payload) || !Array.isArray(payload.results)) {
+    return payload;
+  }
+
+  const ranked = payload.results
+    .filter(isSearchRecord)
+    .map((record, index) => ({
+      index,
+      record,
+      score: searchScore(record, query),
+    }))
+    .sort((left, right) => right.score - left.score || left.index - right.index)
+    .map((item) => item.record);
+
+  const results =
+    requestedLimit === undefined ? ranked : ranked.slice(0, requestedLimit);
+
+  return {
+    ...payload,
+    has_more:
+      requestedLimit === undefined
+        ? payload.has_more
+        : ranked.length > requestedLimit || payload.has_more === true,
+    limit: requestedLimit ?? payload.limit,
+    results,
+  };
+}
+
+function isSearchPayload(value: unknown): value is SearchPayload {
+  return isSearchRecord(value);
+}
+
+function isSearchRecord(value: unknown): value is SearchRecord {
+  return typeof value === "object" && value !== null && !Array.isArray(value);
+}
+
+function searchScore(record: SearchRecord, query: string) {
+  const normalizedQuery = normalizeSearchText(query);
+  if (!normalizedQuery) {
+    return 0;
+  }
+
+  const nameFields = [
+    "common_name",
+    "scientific_name",
+    "title",
+    "name",
+    "slug",
+    "brand",
+    "product_name",
+  ];
+  const bodyFields = ["summary", "short_description", "description", "topic", "type"];
+  const nameScore = scoreFields(record, nameFields, normalizedQuery);
+  const bodyScore = scoreFields(record, bodyFields, normalizedQuery);
+
+  return Math.max(nameScore, bodyScore > 0 ? bodyScore - 400 : 0);
+}
+
+function scoreFields(
+  record: SearchRecord,
+  fields: string[],
+  normalizedQuery: string,
+) {
+  const queryTokens = normalizedQuery.split(" ");
+
+  return fields.reduce((bestScore, field) => {
+    const value = record[field];
+    if (typeof value !== "string") {
+      return bestScore;
+    }
+
+    const normalizedValue = normalizeSearchText(value);
+    if (!normalizedValue) {
+      return bestScore;
+    }
+
+    let score = 0;
+    if (normalizedValue === normalizedQuery) {
+      score = 1000;
+    } else if (normalizedValue.startsWith(`${normalizedQuery} `)) {
+      score = 850;
+    } else if (normalizedValue.includes(` ${normalizedQuery} `)) {
+      score = 700;
+    } else if (queryTokens.every((token) => normalizedValue.includes(token))) {
+      score = 550;
+    } else if (queryTokens.some((token) => normalizedValue.includes(token))) {
+      score = 250;
+    }
+
+    return Math.max(bestScore, score);
+  }, 0);
+}
+
+function normalizeSearchText(value: string) {
+  return value
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+    .replace(/\s+/g, " ");
 }
 
 async function readResponseText(response: Response, maxBytes: number) {

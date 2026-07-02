@@ -48,6 +48,94 @@ describe("Atlarium API client", () => {
     expect(fetchMock.mock.calls[0]?.[1]?.signal).toBeInstanceOf(AbortSignal);
   });
 
+  it("promotes exact fish name matches ahead of description-only matches", async () => {
+    fetchMock.mockResolvedValueOnce(
+      new Response(
+        JSON.stringify({
+          has_more: false,
+          limit: 10,
+          offset: 0,
+          results: [
+            {
+              common_name: "Angelfish",
+              short_description: "Will prey on Neon Tetras at night.",
+              slug: "pterophyllum-scalare",
+            },
+            {
+              common_name: "Neon Tetra",
+              scientific_name: "Paracheirodon innesi",
+              slug: "paracheirodon-innesi",
+            },
+          ],
+          total: 2,
+        }),
+        { status: 200, headers: { "content-type": "application/json" } },
+      ),
+    );
+    const api = new AtlariumApiClient(config, fetchMock);
+
+    const result = await api.searchFish({
+      language: "en",
+      limit: 1,
+      query: "neon tetra",
+    });
+
+    const url = fetchMock.mock.calls[0]?.[0] as URL;
+    expect(url.searchParams.get("limit")).toBe("10");
+    expect(result).toMatchObject({
+      limit: 1,
+      results: [
+        {
+          common_name: "Neon Tetra",
+          slug: "paracheirodon-innesi",
+        },
+      ],
+    });
+  });
+
+  it("promotes exact guide titles ahead of nearby summary matches", async () => {
+    fetchMock.mockResolvedValueOnce(
+      new Response(
+        JSON.stringify({
+          has_more: false,
+          limit: 10,
+          offset: 0,
+          results: [
+            {
+              slug: "water-parameters/no2",
+              summary: "Nitrite appears during the nitrification cycle.",
+              title: "Nitrite",
+            },
+            {
+              slug: "water-parameters/no3",
+              summary: "Nitrate is the end product of normal nitrification.",
+              title: "Nitrate",
+            },
+          ],
+          total: 2,
+        }),
+        { status: 200, headers: { "content-type": "application/json" } },
+      ),
+    );
+    const api = new AtlariumApiClient(config, fetchMock);
+
+    const result = await api.searchGuides({
+      language: "en",
+      limit: 1,
+      query: "nitrate",
+    });
+
+    expect(result).toMatchObject({
+      limit: 1,
+      results: [
+        {
+          slug: "water-parameters/no3",
+          title: "Nitrate",
+        },
+      ],
+    });
+  });
+
   it("maps composite product slugs without flattening path segments", async () => {
     const api = new AtlariumApiClient(config, fetchMock);
 

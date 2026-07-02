@@ -75,8 +75,9 @@ widget CSP keeping `connectDomains` and `frameDomains` empty and limiting
 resource metadata also declares `_meta.ui.domain` and the ChatGPT compatibility
 alias `_meta["openai/widgetDomain"]` for app submission.
 
-ChatGPT App status: submitted / in review. Do not claim public ChatGPT approval
-or availability until OpenAI accepts the submission.
+ChatGPT App status: not approved on 2026-07-02; remediation is prepared for
+resubmission. Do not claim public ChatGPT approval or availability until OpenAI
+accepts a resubmission.
 
 ## Tools
 

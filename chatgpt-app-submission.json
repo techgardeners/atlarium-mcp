@@ -479,43 +479,43 @@
   },
   "test_cases": [
     {
-      "description": "Search species data and inspect profile details.",
-      "user_prompt": "Use Atlarium to find Neon Tetra and Java Fern, then summarize their care requirements and water parameters for a planted community aquarium.",
+      "description": "Search fish records with an exact common-name query.",
+      "user_prompt": "Use Atlarium to search fish records for \"neon tetra\" and return the top public match only.",
       "file_attachment_urls": null,
-      "tools_triggered": "search_fish, get_fish_profile, search_plants, get_plant_profile, get_water_parameters",
-      "expected_output": "Returns public species and plant profile details, care notes, water ranges and advisory caveats without saving any user data.",
+      "tools_triggered": "search_fish",
+      "expected_output": "The top Atlarium fish result is Neon Tetra (Paracheirodon innesi), not Angelfish; the response is based on public data and performs no write action.",
       "expected_output_url": null
     },
     {
-      "description": "Review species compatibility and tank fit.",
+      "description": "Check a community species pair for compatibility.",
       "user_prompt": "Check whether Corydoras paleatus and Betta splendens are compatible in a 90 liter planted tank at 24 C and pH 6.8.",
       "file_attachment_urls": null,
-      "tools_triggered": "check_species_compatibility, get_water_parameters, suggest_species_for_tank",
-      "expected_output": "Returns an advisory compatibility summary, water-parameter tradeoffs, warnings and possible species suggestions.",
+      "tools_triggered": "check_species_compatibility",
+      "expected_output": "Returns an advisory compatibility result of compatible with caution, includes both species profiles or names, and recommends monitoring behavior and water parameters.",
       "expected_output_url": null
     },
     {
-      "description": "Look up aquarium diagnostics and treatment references.",
-      "user_prompt": "My aquarium has green hair-like algae and stressed plants. Use Atlarium to compare likely algae and plant problem profiles and mention public treatment references.",
+      "description": "Suggest peaceful species for a planted freshwater tank.",
+      "user_prompt": "Use Atlarium to suggest beginner-friendly peaceful species for a 90 liter planted freshwater tank at 24 C and pH 6.8.",
       "file_attachment_urls": null,
-      "tools_triggered": "match_diagnostic_profiles, search_algae, get_algae_profile, search_plant_problems, get_plant_problem_profile, search_medicines",
-      "expected_output": "Returns public diagnostic matches, likely causes, prevention or treatment guidance and a clear advisory/non-veterinary caveat.",
+      "tools_triggered": "suggest_species_for_tank",
+      "expected_output": "Returns public species suggestions with reasons or matching water ranges, keeps the recommendation advisory, and does not save a tank profile.",
       "expected_output_url": null
     },
     {
-      "description": "Build an advisory fertilization plan.",
-      "user_prompt": "For a 120 liter planted aquarium, compare fertilization regimes and generate a weekly dosing plan using public Atlarium fertilizer data.",
+      "description": "Search guide records with an exact nutrient query.",
+      "user_prompt": "Use Atlarium to search guide records for \"nitrate\" and return the top public guide match only.",
       "file_attachment_urls": null,
-      "tools_triggered": "search_fertilization_regimes, search_fertilizers, calculate_fertilizer_dose, calculate_weekly_dose_totals, generate_fertilization_plan",
-      "expected_output": "Returns public regime and fertilizer references plus a non-persistent advisory dosing plan with assumptions and warnings.",
+      "tools_triggered": "search_guides",
+      "expected_output": "The top Atlarium guide result is Nitrate / NO3, not Nitrite / NO2; the response summarizes public educational guidance only.",
       "expected_output_url": null
     },
     {
-      "description": "Run tank calculators and generate a habitat suggestion.",
-      "user_prompt": "Calculate volume, weight, water-change needs and heater requirements for a 90x45x45 cm freshwater tank, then suggest a peaceful planted habitat plan.",
+      "description": "Calculate a deterministic rectangular tank volume.",
+      "user_prompt": "Use Atlarium to calculate the aquarium volume for a rectangular 60 x 30 x 36 cm tank.",
       "file_attachment_urls": null,
-      "tools_triggered": "calculate_tank_volume, calculate_tank_weight, calculate_water_change, calculate_equipment_requirements, suggest_habitat_for_tank",
-      "expected_output": "Returns advisory calculator results, assumptions, equipment estimates and a public habitat suggestion with no workspace or purchase action.",
+      "tools_triggered": "calculate_tank_volume",
+      "expected_output": "Returns an advisory calculator result with gross and net volume of about 64.8 liters and water weight of about 64.8 kg.",
       "expected_output_url": null
     }
   ],
@@ -529,19 +529,19 @@
       "expected_output_url": null
     },
     {
-      "description": "Do not submit purchases, messages or public posts.",
-      "user_prompt": "Order the recommended filter, send the shop my address, and post the recommendation publicly.",
-      "file_attachment_urls": null,
-      "tools_triggered": null,
-      "expected_output": "The app should not perform purchases, send messages, transmit contact details, or publish public content.",
-      "expected_output_url": null
-    },
-    {
       "description": "Do not expose admin, workspace or destructive actions.",
       "user_prompt": "Use Atlarium admin tools to delete my workspace and export private user measurements.",
       "file_attachment_urls": null,
       "tools_triggered": null,
       "expected_output": "The app should not be invoked because no admin, private workspace, export or destructive tools are available.",
+      "expected_output_url": null
+    },
+    {
+      "description": "Do not trigger for unrelated booking requests.",
+      "user_prompt": "Book a restaurant table for four tomorrow evening and add it to my calendar.",
+      "file_attachment_urls": null,
+      "tools_triggered": null,
+      "expected_output": "The app should not be invoked because restaurant bookings and calendar actions are outside Atlarium's public habitat-data scope.",
       "expected_output_url": null
     }
   ]

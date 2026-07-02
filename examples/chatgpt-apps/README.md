@@ -1,6 +1,6 @@
 # ChatGPT Apps Submission Notes
 
-Last reviewed: 2026-06-20
+Last reviewed: 2026-07-02
 
 Connector URL:
 
@@ -8,14 +8,16 @@ Connector URL:
 https://mcp.atlarium.bio/mcp
 ```
 
-Use this as the submitted ChatGPT Apps package record. Do not claim public
-ChatGPT availability until review is complete.
+Use this as the ChatGPT Apps resubmission package record. Do not claim public
+ChatGPT availability until review is accepted.
 
 This package covers the implemented Habitat Explorer widget, submission
 metadata, tests, screenshots and safety notes. Public ChatGPT availability still
 depends on OpenAI review.
 
-Current review status: `submitted / in review`.
+Current review status: `not approved / fixes deployed / pending dashboard resubmission`.
+See `docs/chatgpt-review-remediation.md` for the rejection remediation record,
+validation command and screenshot replacement checklist.
 
 ## App Surface
 
@@ -66,7 +68,10 @@ Current review status: `submitted / in review`.
   HTTP 200.
 - OpenAI Apps challenge:
   `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.
-- Screenshots showing connection, tool discovery, widget rendering and sample tool responses.
+- New screenshots must show the real in-ChatGPT web/mobile app experience,
+  including tool calls and widget/text output. The widget-only PNGs in
+  `docs/assets/chatgpt-screenshots/` are development evidence and must not be
+  reused as publishing screenshots.
 
 ## OpenAI Review Notes
 
@@ -81,7 +86,8 @@ Current review status: `submitted / in review`.
 
 ## Manual QA Snapshot
 
-Verified in ChatGPT web Developer Mode on 2026-06-20 after refreshing metadata:
+Verified in ChatGPT web Developer Mode on 2026-06-20 after refreshing metadata.
+Re-run these checks on web and mobile after the 2026-07-02 remediation deploy:
 
 - 39 read-only Atlarium tools discovered.
 - `search_fish` for `Paracheirodon innesi` rendered the Habitat Explorer v3
@@ -122,8 +128,9 @@ livestock, equipment, water chemistry and local husbandry constraints.
   fertilizer, fertilization regime or dose-plan output.
 - Habitat Explorer Calculator view rendering volume, weight, water chemistry,
   unit conversion or equipment requirement output.
-- Visual QA captures for Results, Profile, Compatibility and Suggestions in
-  light mode, dark mode and a narrow mobile viewport.
+- Publishing captures for Results, Profile, Compatibility and Suggestions in
+  ChatGPT web and mobile. Captures must include the ChatGPT host UI, not only
+  the embedded widget.
 - Localization QA capture with Italian locale, confirming translated labels and
   no raw tool keys in status messages.
 - Safety/privacy notes visible in the submission form.
@@ -132,106 +139,58 @@ livestock, equipment, water chemistry and local husbandry constraints.
 ## Test Prompts
 
 ```text
-Use Atlarium to compare neon tetra and harlequin rasbora care requirements for a planted community aquarium.
+Use Atlarium to search fish records for "neon tetra" and return the top public match only.
 ```
 
 Expected response:
 
 ```text
-Returns a care comparison grounded in public species data, including tank size,
-temperature, pH/GH/KH ranges where available, temperament and schooling notes.
-The response should call out that the result is advisory.
+The top Atlarium fish result is Neon Tetra (Paracheirodon innesi), not
+Angelfish. The response is based on public data and performs no write action.
 ```
 
 ```text
-Check whether Corydoras paleatus and Betta splendens are compatible, and explain the water parameter tradeoffs.
-```
-
-Expected response:
-
-```text
-Calls the compatibility tool with both species, summarizes compatibility signals
-and explains any parameter or behavior tradeoffs without presenting the answer
-as definitive husbandry advice.
-```
-
-```text
-Suggest peaceful freshwater species for a 90 liter planted tank at 24 C with pH 6.8.
+Check whether Corydoras paleatus and Betta splendens are compatible in a 90 liter planted tank at 24 C and pH 6.8.
 ```
 
 Expected response:
 
 ```text
-Calls the tank suggestion tool with 90 liters, 24 C and pH 6.8, returns a short
-ranked list of peaceful freshwater suggestions and includes the advisory safety
-boundary.
+Calls `check_species_compatibility`, returns compatible with caution, includes
+both species and recommends monitoring behavior and water parameters.
 ```
 
 ```text
-Use the Atlarium Habitat Explorer widget to show a profile card for Blue Acara and then inspect its water parameters.
-```
-
-Expected response:
-
-```text
-Retrieves the Blue Acara public profile, renders the habitat card when the
-ChatGPT UI is available and summarizes water parameters from the tool result.
-```
-
-```text
-Use Atlarium to suggest species for a 120 liter planted tank and show the suggestions as habitat cards.
+Use Atlarium to suggest beginner-friendly peaceful species for a 90 liter planted freshwater tank at 24 C and pH 6.8.
 ```
 
 Expected response:
 
 ```text
-Calls `suggest_species_for_tank`, renders suggestion cards when the ChatGPT UI is
-available and keeps the recommendations read-only and advisory.
+Calls `suggest_species_for_tank`, returns public species suggestions with
+reasons or matching water ranges, and does not save a tank profile.
 ```
 
 ```text
-Find Atlarium guide data for nitrate and summarize what an aquarist should monitor.
-```
-
-Expected response:
-
-```text
-Searches or retrieves guide data for nitrate, summarizes monitoring guidance and
-keeps the answer within public educational content.
-```
-
-```text
-Use Atlarium to identify likely causes of black beard algae and summarize public treatment options.
+Use Atlarium to search guide records for "nitrate" and return the top public guide match only.
 ```
 
 Expected response:
 
 ```text
-Calls `search_algae` and, where useful, `get_algae_profile`; summarizes causes,
-treatments, prevention and an advisory diagnostic caveat.
+Calls `search_guides`. The top Atlarium guide result is Nitrate / NO3, not
+Nitrite / NO2, and the response summarizes public educational guidance only.
 ```
 
 ```text
-Generate an advisory fertilization plan for a 90 liter planted tank using public Atlarium catalog data.
-```
-
-Expected response:
-
-```text
-Uses fertilization regime/search/calculation tools, returns a non-persistent
-plan, and states that dosing must be adjusted against measurements and livestock
-safety.
-```
-
-```text
-Calculate volume, estimated weight and weekly water-change amount for a 60 x 30 x 36 cm aquarium.
+Use Atlarium to calculate the aquarium volume for a rectangular 60 x 30 x 36 cm tank.
 ```
 
 Expected response:
 
 ```text
-Uses public calculator tools and reports assumptions plus the advisory safety
-boundary for weight and water planning.
+Calls `calculate_tank_volume` and returns gross/net volume of about 64.8 liters
+with advisory calculator wording.
 ```
 
 ## Demo Script
@@ -242,5 +201,6 @@ boundary for weight and water planning.
 4. Run the test prompts above and capture the tool call transcript.
 5. Confirm the safety statement appears in the app listing/review notes.
 6. Confirm the privacy policy URL is still live before any review response.
-7. After any UI-thread change deploys, rescan the endpoint before replying in
-   the OpenAI review portal.
+7. Run `pnpm chatgpt:validate-submission` against production.
+8. After any UI-thread change deploys, rescan the endpoint before resubmitting
+   in the OpenAI review portal.

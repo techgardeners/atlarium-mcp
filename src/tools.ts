@@ -39,7 +39,6 @@ type ToolInput = Record<string, unknown>;
 export const appToolOutputSchema = z
   .object({
     data: z.unknown(),
-    generated_at: z.string(),
     tool: z.string(),
   })
   .strict();
@@ -381,7 +380,6 @@ export async function runTool(
     const value = await handler();
     const structuredContent = {
       data: value,
-      generated_at: new Date().toISOString(),
       tool: name,
     };
     log("info", "mcp_tool_call", {

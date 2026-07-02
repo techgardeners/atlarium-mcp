@@ -116,7 +116,7 @@ pnpm mcp:monitor:public
 | VS Code | Copy `examples/vscode/mcp.json`; VS Code uses `type: "http"` for remote MCP servers. |
 | Antigravity | Use `examples/antigravity/mcp.json` only in builds that support remote MCP servers. |
 | Generic Streamable HTTP | Use the JSON-RPC examples in `examples/generic-streamable-http`. |
-| ChatGPT Apps | Submitted for review with the Habitat Explorer widget; use `examples/chatgpt-apps` for review notes, smoke prompts and screenshot checklist. Public approval is not claimed. |
+| ChatGPT Apps | Not approved on 2026-07-02; fixes are deployed and the package is ready for dashboard resubmission with the Habitat Explorer widget. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes, smoke prompts and screenshot checklist. Public approval is not claimed. |
 
 These are compatibility notes, not vendor endorsements. Do not make vendor or
 directory support claims for ChatGPT, Claude, Cursor, Windsurf, VS Code,
@@ -140,10 +140,11 @@ product results, calculator output, compatibility summaries, fertilization
 plans and habitat suggestions. It does not add write access and does not expose
 workspace, auth, admin, journal, schedule or measurement data.
 
-ChatGPT Developer Mode screenshots and a short demo recording are checked in
+Widget-only development screenshots and a short demo recording are checked in
 under `docs/assets/chatgpt-screenshots/` and `docs/assets/chatgpt-app-demo.mp4`.
-The ChatGPT App is submitted / in review; do not describe it as approved or
-publicly available until OpenAI accepts it.
+For resubmission, replace the uploaded images with real ChatGPT web/mobile
+screenshots that include the host UI. The ChatGPT App is not approved; do not
+describe it as approved or publicly available until OpenAI accepts it.
 
 ## Tool Surface
 
@@ -928,7 +929,7 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 | mcpservers.org | Listed publicly at [`techgardeners/atlarium-mcp`](https://mcpservers.org/servers/techgardeners/atlarium-mcp); no badge added yet. |
 | MCPRepository | Submitted / queued at [`techgardeners/atlarium-mcp`](https://mcprepository.com/techgardeners/atlarium-mcp); no public listing badge yet. |
 | MCP Server Hub | Submitted / pending review; no public listing badge yet. |
-| ChatGPT App | Submitted / in review; no public approval claim yet. |
+| ChatGPT App | Not approved on 2026-07-02; fixes deployed and pending dashboard resubmission; no public approval claim yet. |
 
 Publication tracking and reusable submission copy live in
 `docs/publication-checklist.md`, `docs/directory-submission-payloads.md` and

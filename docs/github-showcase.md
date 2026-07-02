@@ -89,10 +89,10 @@ complete whenever the public MCP contract changes:
   VS Code, Antigravity, generic Streamable HTTP and ChatGPT Apps.
 - ChatGPT App/widget section with accurate status and no public approval claim.
 - Tool surface table and one collapsible example for every public tool.
-- Real widget screenshots captured from ChatGPT Developer Mode or an equivalent
-  live Apps-compatible host.
+- Real ChatGPT web/mobile screenshots for publishing. Widget-only development
+  captures can remain in the repo, but should not be uploaded for review.
 
-Current screenshot and demo assets:
+Current development screenshot and demo assets:
 
 ```text
 docs/assets/chatgpt-app-demo.mp4
@@ -110,8 +110,8 @@ docs/assets/chatgpt-screenshots/suggestions.png
 - Do not add Smithery, MCP.so, PulseMCP or client approval badges until the
   external listing or approval is visible and badge policy is intentionally
   approved.
-- Keep ChatGPT copy limited to submitted/in-review notes until public
-  review is complete.
+- Keep ChatGPT copy limited to not-approved/pending-resubmission notes until
+  public review is accepted.
 
 ## MCP Update Rule
 
