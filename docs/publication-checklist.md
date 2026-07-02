@@ -236,9 +236,10 @@ and mobile after the 2026-07-02 remediation deploy:
   tank at 24 C and pH 6.8. Result: Compatibility widget rendered
   `compatible_with_caution`, warning text for Betta tankmate verification and
   recommended monitoring actions.
-- Prompt: Italian 120 L planted tank suggestion at 24 C and pH 6.8. Result:
-  ChatGPT answered in Italian and the Suggestions widget rendered real Atlarium
-  species suggestions.
+- Prompt: beginner-friendly 120 L planted tank suggestion at 24 C and pH 6.8
+  in English. Result: ChatGPT answered in English and the Suggestions widget
+  rendered real Atlarium species suggestions with English labels and advisory
+  copy.
 - Negative prompt: create a private tank record and journal entry. Result:
   ChatGPT reported that Atlarium MCP exposes only read/search/profile/
   compatibility tools and cannot create private tank or journal writes.

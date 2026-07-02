@@ -95,7 +95,8 @@ Re-run these checks on web and mobile after the 2026-07-02 remediation deploy:
 - `check_species_compatibility` for `Corydoras paleatus` and `Betta splendens`
   rendered the Compatibility panel as compatible with caution.
 - `suggest_species_for_tank` for a 120 L planted tank rendered the Suggestions
-  panel and ChatGPT answered in Italian when requested.
+  panel in English for directory screenshots; keep Italian as separate locale
+  QA only.
 - Private tank/journal write and admin/delete/private workspace injection prompts
   did not expose write tools.
 
@@ -118,10 +119,10 @@ livestock, equipment, water chemistry and local husbandry constraints.
   placeholder letters.
 - Habitat Explorer Profile view rendering a fish or plant profile with detail
   media and a technical inspector panel when available.
-- Habitat Explorer Compatibility view rendering warnings, recommended actions
-  and reviewed species with media thumbnails for a community pair.
-- Habitat Explorer Suggestions view rendering tank suggestions and readable
-  reason chips with media for a planted freshwater aquarium.
+- Habitat Explorer Compatibility view rendering English warnings, recommended
+  actions and reviewed species with media thumbnails for a community pair.
+- Habitat Explorer Suggestions view rendering English tank suggestions and
+  readable reason chips with media for a planted freshwater aquarium.
 - Habitat Explorer Diagnostics view rendering algae, disease, plant problem or
   medicine results from public tool output.
 - Habitat Explorer Product/Fertilization view rendering public equipment,
