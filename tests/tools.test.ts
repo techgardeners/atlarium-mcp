@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 
 import {
@@ -6,6 +6,7 @@ import {
   runTool,
   toolDefinitions,
 } from "../src/tools.js";
+import { ToolExecutionError } from "../src/errors.js";
 
 type JsonSchema = {
   description?: string;
@@ -85,9 +86,9 @@ describe("tool registry", () => {
       toolDefinitions.every(
         (tool) =>
           tool.appMeta?.["openai/outputTemplate"] ===
-            "ui://widget/habitat-explorer.v3.html" &&
+            "ui://widget/habitat-explorer.v4.html" &&
           (tool.appMeta?.ui as { resourceUri?: string } | undefined)?.resourceUri ===
-            "ui://widget/habitat-explorer.v3.html",
+            "ui://widget/habitat-explorer.v4.html",
       ),
     ).toBe(true);
     expect(toolDefinitions.some((tool) => tool.name.startsWith("create_"))).toBe(false);
@@ -117,5 +118,21 @@ describe("tool registry", () => {
       },
     });
     expect(result.content[0]?.text).toContain("Blue Acara");
+  });
+
+  it("logs only normalized operational error codes", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    try {
+      const result = await runTool("get_fish_profile", async () => {
+        throw new ToolExecutionError("not_found", "CLIENT_FRAGMENT", 404);
+      });
+
+      expect(result).toMatchObject({ isError: true });
+      const logLines = warn.mock.calls.flat().join("\n");
+      expect(logLines).toContain('"error_code":"not_found"');
+      expect(logLines).not.toContain("CLIENT_FRAGMENT");
+    } finally {
+      warn.mockRestore();
+    }
   });
 });

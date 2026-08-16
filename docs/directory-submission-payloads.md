@@ -97,7 +97,7 @@ versions with the registry publisher after endpoint validation.
 Current evidence:
 
 ```text
-Registry API previously returned metadata.count = 1, server.name = bio.atlarium/habitat-database, official status active, publishedAt = 2026-06-16T10:01:55.780369Z and isLatest = true under _meta.io.modelcontextprotocol.registry/official. For V2, publish the updated `server.json` with version 2.0.0 after public endpoint validation.
+Registry API previously returned metadata.count = 1, server.name = bio.atlarium/habitat-database, official status active, publishedAt = 2026-06-16T10:01:55.780369Z and isLatest = true under _meta.io.modelcontextprotocol.registry/official. For V2, publish the updated `server.json` with version 2.0.1 after public endpoint validation.
 ```
 
 ## Smithery
@@ -112,7 +112,7 @@ Manual blocker:
 
 ```text
 Published and visible at `ilgrafico79/atlarium-habitat-database`. The latest
-release succeeded and Smithery discovered version 2.0.0 with 39 tools, 9
+release succeeded and Smithery discovered version 2.0.1 with 39 tools, 9
 prompts and 3 resources. Quality score is 96/100 after parameter descriptions
 and custom icon upload; `Parameter descriptions` shows 39/39. The remaining
 score gap is Smithery's non-breaking naming heuristic.
@@ -189,7 +189,7 @@ https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013
 Status:
 
 ```text
-Submitted through MCP.so public GitHub issue flow on 2026-06-16T19:06:21Z and through the MCP.so UI on 2026-06-20 after maintainer sign-in. The public listing is visible at https://mcp.so/server/atlarium-habitat-database-mcp and returns HTTP 200 with title "Atlarium Habitat Database MCP MCP Server", the canonical public read-only description and the GitHub repository link. The signed-in `https://mcp.so/my-servers` dashboard for Roberto ilGrafico / `ilgrafico79@gmail.com` currently shows `No servers`, so treat the public listing URL as canonical visibility evidence and treat dashboard ownership/edit access as a separate follow-up. The older candidate slug https://mcp.so/server/atlarium-habitat-database still returns "Project not found"; use the `atlarium-habitat-database-mcp` slug.
+Submitted through MCP.so public GitHub issue flow on 2026-06-16T19:06:21Z and through the MCP.so UI on 2026-06-20 after maintainer sign-in. The public listing is visible at https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners and returns HTTP 200 with title "Atlarium Habitat Database MCP MCP Server", the canonical public read-only description and the GitHub repository link. The signed-in `https://mcp.so/my-servers` dashboard for Roberto ilGrafico / `ilgrafico79@gmail.com` currently shows `No servers`, so treat the public listing URL as canonical visibility evidence and treat dashboard ownership/edit access as a separate follow-up. The older candidate slug https://mcp.so/server/atlarium-habitat-database still returns "Project not found"; use the `atlarium-habitat-database-mcp` slug.
 ```
 
 Follow-up payload if maintainers request a refresh:
@@ -217,7 +217,7 @@ Ownership/editing follow-up if the MCP.so dashboard still shows no servers:
 Hi MCP.so team,
 
 The Atlarium Habitat Database MCP listing is publicly visible at:
-https://mcp.so/server/atlarium-habitat-database-mcp
+https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners
 
 However, when signed in as Roberto ilGrafico / ilgrafico79@gmail.com, the
 https://mcp.so/my-servers dashboard still shows "No servers", so we cannot edit

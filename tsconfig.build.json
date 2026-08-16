@@ -5,5 +5,5 @@
     "outDir": "dist",
     "sourceMap": true
   },
-  "exclude": ["tests/**/*.ts"]
+  "exclude": ["tests/**/*.ts", "src/apps/habitat-explorer-ui/**"]
 }

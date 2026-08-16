@@ -2,8 +2,9 @@ import { ZodError, z } from "zod";
 
 import { habitatExplorerToolMeta } from "./apps/habitat-explorer.js";
 import { AtlariumApiClient } from "./atlarium-api.js";
-import { errorMessage } from "./errors.js";
+import { errorMessage, operationalErrorCode } from "./errors.js";
 import { log } from "./logger.js";
+import { mcpRequestLogFields } from "./request-context.js";
 import { jsonText } from "./serialization.js";
 import {
   compatibilitySchema,
@@ -84,7 +85,7 @@ export const toolDefinitions = [
   publicTool(
     "get_fish_profile",
     "Get fish profile",
-    "Get a structured fish or aquatic animal profile from the Atlarium habitat database.",
+    "Get a structured fish or aquatic animal profile using the exact slug returned by search_fish.",
     getProfileSchema,
     (api, input) => api.getFishProfile(getProfileSchema.parse(input)),
   ),
@@ -98,7 +99,7 @@ export const toolDefinitions = [
   publicTool(
     "get_plant_profile",
     "Get plant profile",
-    "Get a structured aquatic plant profile.",
+    "Get a structured aquatic plant profile using the exact slug returned by search_plants.",
     getProfileSchema,
     (api, input) => api.getPlantProfile(getProfileSchema.parse(input)),
   ),
@@ -112,7 +113,7 @@ export const toolDefinitions = [
   publicTool(
     "get_product_profile",
     "Get product profile",
-    "Get a structured public habitat product profile.",
+    "Get a structured public habitat product profile using the exact slug returned by search_products.",
     getPathProfileSchema,
     (api, input) => api.getProductProfile(getPathProfileSchema.parse(input)),
   ),
@@ -126,7 +127,7 @@ export const toolDefinitions = [
   publicTool(
     "get_water_parameters",
     "Get water parameters",
-    "Get recommended water parameters for an aquatic species or plant.",
+    "Get recommended water parameters using the exact slug returned by search_fish or search_plants.",
     waterParametersSchema,
     (api, input) => api.getWaterParameters(waterParametersSchema.parse(input)),
   ),
@@ -147,7 +148,7 @@ export const toolDefinitions = [
   publicTool(
     "get_guide",
     "Get guide",
-    "Get a structured public Atlarium guide.",
+    "Get a structured public Atlarium guide using the exact slug returned by search_guides.",
     getPathProfileSchema,
     (api, input) => api.getGuide(getPathProfileSchema.parse(input)),
   ),
@@ -161,7 +162,7 @@ export const toolDefinitions = [
   publicTool(
     "get_algae_profile",
     "Get algae profile",
-    "Get a structured public algae diagnostic profile.",
+    "Get a structured public algae diagnostic profile using the exact slug returned by search_algae.",
     getProfileSchema,
     (api, input) => api.getAlgaeProfile(getProfileSchema.parse(input)),
   ),
@@ -175,7 +176,7 @@ export const toolDefinitions = [
   publicTool(
     "get_disease_profile",
     "Get disease profile",
-    "Get a structured public aquatic disease profile.",
+    "Get a structured public aquatic disease profile using the exact slug returned by search_diseases.",
     getProfileSchema,
     (api, input) => api.getDiseaseProfile(getProfileSchema.parse(input)),
   ),
@@ -189,7 +190,7 @@ export const toolDefinitions = [
   publicTool(
     "get_plant_problem_profile",
     "Get plant problem profile",
-    "Get a structured public aquatic plant problem or deficiency profile.",
+    "Get a structured public aquatic plant problem or deficiency profile using the exact slug returned by search_plant_problems.",
     getProfileSchema,
     (api, input) => api.getPlantProblemProfile(getProfileSchema.parse(input)),
   ),
@@ -203,7 +204,7 @@ export const toolDefinitions = [
   publicTool(
     "get_medicine_profile",
     "Get medicine profile",
-    "Get a structured public aquarium medicine profile.",
+    "Get a structured public aquarium medicine profile using the exact slug returned by search_medicines.",
     getProfileSchema,
     (api, input) => api.getMedicineProfile(getProfileSchema.parse(input)),
   ),
@@ -238,7 +239,7 @@ export const toolDefinitions = [
   publicTool(
     "get_equipment_profile",
     "Get equipment profile",
-    "Get a structured public equipment product profile.",
+    "Get a structured public equipment product profile using the exact slug returned by search_equipment.",
     getPathProfileSchema,
     (api, input) => api.getEquipmentProfile(getPathProfileSchema.parse(input)),
   ),
@@ -252,7 +253,7 @@ export const toolDefinitions = [
   publicTool(
     "get_fertilizer_profile",
     "Get fertilizer profile",
-    "Get a structured public fertilizer product profile.",
+    "Get a structured public fertilizer product profile using the exact slug returned by search_fertilizers.",
     getPathProfileSchema,
     (api, input) => api.getFertilizerProfile(getPathProfileSchema.parse(input)),
   ),
@@ -267,7 +268,7 @@ export const toolDefinitions = [
   publicTool(
     "get_fertilization_regime",
     "Get fertilization regime",
-    "Get a structured public fertilization regime.",
+    "Get a structured public fertilization regime using the exact slug returned by search_fertilization_regimes.",
     getFertilizationRegimeSchema,
     (api, input) =>
       api.getFertilizationRegime(getFertilizationRegimeSchema.parse(input)),
@@ -383,9 +384,10 @@ export async function runTool(
       tool: name,
     };
     log("info", "mcp_tool_call", {
+      ...mcpRequestLogFields(),
       tool: name,
       duration_ms: Date.now() - startedAt,
-      status: "ok",
+      result: "ok",
     });
     return {
       structuredContent,
@@ -393,10 +395,11 @@ export async function runTool(
     };
   } catch (error) {
     log("warn", "mcp_tool_call", {
+      ...mcpRequestLogFields(),
       tool: name,
       duration_ms: Date.now() - startedAt,
-      status: "error",
-      error: errorMessage(error),
+      result: "error",
+      error_code: operationalErrorCode(error),
     });
     return toolError(error);
   }

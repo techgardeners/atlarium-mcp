@@ -92,7 +92,7 @@ https://atlarium.bio/mcp
 ```
 
 For Apps-compatible hosts, the server also advertises the read-only ChatGPT
-App widget resource `ui://widget/habitat-explorer.v3.html` with MIME type
+App widget resource `ui://widget/habitat-explorer.v4.html` with MIME type
 `text/html;profile=mcp-app`. The widget is `Atlarium Habitat Explorer` and is
 linked from tool metadata through `_meta.ui.resourceUri` plus
 `_meta["openai/outputTemplate"]`. The widget resource declares the dedicated
@@ -210,7 +210,7 @@ Use the Atlarium Habitat Explorer widget to show a profile card for Blue Acara a
 Expected behavior:
 
 ```text
-An Apps-compatible host reads `ui://widget/habitat-explorer.v3.html`, renders
+An Apps-compatible host reads `ui://widget/habitat-explorer.v4.html`, renders
 the Habitat Explorer widget and uses structured tool output to populate the
 profile card. Generic MCP clients can still consume the plain JSON text output.
 ```
@@ -290,7 +290,7 @@ Explorer widget. The first ChatGPT App review was not approved on 2026-07-02;
 test-case and screenshot remediation is ready for resubmission.
 
 Endpoint: https://mcp.atlarium.bio/mcp
-Widget resource: ui://widget/habitat-explorer.v3.html
+Widget resource: ui://widget/habitat-explorer.v4.html
 Docs: https://atlarium.bio/mcp
 Repo: https://github.com/techgardeners/atlarium-mcp
 

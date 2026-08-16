@@ -22,6 +22,11 @@ describe("repository publication assets", () => {
     expect(pathExists(".github/workflows/public-mcp-monitor.yml")).toBe(true);
     expect(pathExists(".github/workflows/mcp-directory-audit.yml")).toBe(true);
     expect(pathExists("scripts/monitor-public-mcp.mjs")).toBe(true);
+    expect(pathExists("plugin.json")).toBe(true);
+    expect(pathExists(".cursor-plugin/plugin.json")).toBe(true);
+    expect(pathExists("mcp.json")).toBe(true);
+    expect(pathExists("llms-install.md")).toBe(true);
+    expect(pathExists("config/distribution-registry.json")).toBe(true);
   });
 
   it("keeps package metadata suitable for public discovery", () => {
@@ -49,6 +54,9 @@ describe("repository publication assets", () => {
     );
     expect((pkg.scripts as Record<string, string>)["mcp:monitor:public"]).toBe(
       "node scripts/monitor-public-mcp.mjs",
+    );
+    expect((pkg.scripts as Record<string, string>)["mcp:report:usage"]).toBe(
+      "node scripts/report-mcp-usage.mjs",
     );
   });
 

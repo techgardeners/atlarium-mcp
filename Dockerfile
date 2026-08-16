@@ -4,7 +4,8 @@ COPY package.json pnpm-lock.yaml ./
 RUN corepack enable && pnpm install --frozen-lockfile
 
 FROM deps AS build
-COPY tsconfig.json tsconfig.build.json ./
+COPY tsconfig.json tsconfig.build.json tsconfig.server.json tsconfig.widget.json ./
+COPY scripts ./scripts
 COPY src ./src
 RUN pnpm build
 

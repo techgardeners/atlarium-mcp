@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["schemaVersion", "verifiedAt", "release", "statuses", "targets"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "verifiedAt": { "type": "string", "format": "date-time" },
+    "release": {
+      "type": "object",
+      "required": ["version", "endpoint", "repository", "widgetUri", "tools", "prompts", "authentication", "readOnly"]
+    },
+    "statuses": {
+      "type": "array",
+      "items": { "type": "string" },
+      "uniqueItems": true
+    },
+    "targets": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "name", "category", "status", "publicPage", "verifiedAt", "evidence"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^[a-z0-9_]+$" },
+          "name": { "type": "string", "minLength": 1 },
+          "category": { "type": "string", "minLength": 1 },
+          "status": { "type": "string" },
+          "listingUrl": { "type": ["string", "null"], "format": "uri" },
+          "submissionUrl": { "type": ["string", "null"], "format": "uri" },
+          "publicPage": { "type": "boolean" },
+          "verifiedAt": { "type": "string", "format": "date-time" },
+          "evidence": { "type": "string", "minLength": 1 },
+          "verificationStatuses": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 100, "maximum": 599 }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

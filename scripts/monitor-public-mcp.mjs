@@ -57,8 +57,9 @@ const expectedTools = [
   "calculate_equipment_requirements",
   "suggest_habitat_for_tank",
 ];
-const expectedResourceUri = "ui://widget/habitat-explorer.v3.html";
+const expectedResourceUri = "ui://widget/habitat-explorer.v4.html";
 const expectedLegacyResourceUris = [
+  "ui://widget/habitat-explorer.v3.html",
   "ui://widget/habitat-explorer.v2.html",
   "ui://widget/habitat-explorer.v1.html",
 ];
@@ -95,8 +96,11 @@ function assertToolSurface(toolNames) {
 }
 
 async function fetchWithTimeout(url, init = {}) {
+  const headers = new Headers(init.headers);
+  headers.set("x-atlarium-probe", "public-monitor");
   return fetch(url, {
     ...init,
+    headers,
     signal: AbortSignal.timeout(timeoutMs),
   });
 }
@@ -189,7 +193,11 @@ async function checkMcpSession() {
     name: "atlarium-public-monitor",
     version: "1.0.0",
   });
-  const transport = new StreamableHTTPClientTransport(new URL(endpoint));
+  const transport = new StreamableHTTPClientTransport(new URL(endpoint), {
+    requestInit: {
+      headers: { "x-atlarium-probe": "public-monitor" },
+    },
+  });
 
   try {
     await client.connect(transport);

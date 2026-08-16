@@ -80,7 +80,7 @@ const singleSlug = z
   .min(1)
   .max(160)
   .regex(/^[a-z0-9]+(?:[._-][a-z0-9]+)*$/i, "Slug must be a single safe path segment.")
-  .describe("Single safe public Atlarium slug without path separators.");
+  .describe("Exact single-segment slug returned by the related Atlarium search tool.");
 const pathSlug = z
   .string()
   .trim()
@@ -90,7 +90,7 @@ const pathSlug = z
     /^[a-z0-9]+(?:[._-][a-z0-9]+)*(?:\/[a-z0-9]+(?:[._-][a-z0-9]+)*)*$/i,
     "Slug path must contain safe path segments.",
   )
-  .describe("Safe public Atlarium slug path made of one or more path segments.");
+  .describe("Exact safe slug path returned by the related Atlarium search tool.");
 
 export const searchFishSchema = z
   .object({

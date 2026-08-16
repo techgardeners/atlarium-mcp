@@ -106,7 +106,7 @@ describe("HTTP app", () => {
       await expect(response.json()).resolves.toEqual({
         service: mcpDisplayName,
         status: "ok",
-        version: "2.0.0",
+        version: "2.0.1",
       });
     });
   });
@@ -143,7 +143,7 @@ describe("HTTP app", () => {
           mimeType: "text/html;profile=mcp-app",
           name: "atlarium-habitat-explorer",
           title: "Atlarium Habitat Explorer",
-          uri: "ui://widget/habitat-explorer.v3.html",
+          uri: "ui://widget/habitat-explorer.v4.html",
         }),
       ]);
       expect(body.prompts).toEqual(
@@ -164,9 +164,9 @@ describe("HTTP app", () => {
           }) =>
             tool.inputSchema?.additionalProperties === false &&
             tool.outputSchema &&
-            tool._meta?.ui?.resourceUri === "ui://widget/habitat-explorer.v3.html" &&
+            tool._meta?.ui?.resourceUri === "ui://widget/habitat-explorer.v4.html" &&
             tool._meta?.["openai/outputTemplate"] ===
-              "ui://widget/habitat-explorer.v3.html",
+              "ui://widget/habitat-explorer.v4.html",
         ),
       ).toBe(true);
     });
@@ -256,20 +256,74 @@ describe("HTTP app", () => {
 
   it("returns sanitized JSON for malformed MCP JSON bodies", async () => {
     const app = createHttpApp(testConfig());
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
 
-    await withServer(app, async (baseUrl) => {
-      const response = await fetch(`${baseUrl}/mcp`, {
-        body: "{",
-        headers: { "content-type": "application/json" },
-        method: "POST",
+    try {
+      await withServer(app, async (baseUrl) => {
+        const response = await fetch(`${baseUrl}/mcp`, {
+          body: '{"prompt":"CLIENT_FRAGMENT"',
+          headers: { "content-type": "application/json" },
+          method: "POST",
+        });
+
+        expect(response.status).toBe(400);
+        await expect(response.json()).resolves.toEqual({
+          error: "invalid_json",
+          message: "Invalid JSON request body.",
+        });
       });
 
-      expect(response.status).toBe(400);
-      await expect(response.json()).resolves.toEqual({
-        error: "invalid_json",
-        message: "Invalid JSON request body.",
-      });
+      const logLines = warn.mock.calls.flat().join("\n");
+      expect(logLines).toContain('"error_code":"validation_error"');
+      expect(logLines).not.toContain("CLIENT_FRAGMENT");
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
+  it("labels synthetic MCP traffic without logging arguments", async () => {
+    const info = vi.spyOn(console, "log").mockImplementation(() => undefined);
+    const app = createHttpApp(testConfig(), {
+      createMcpServer: () =>
+        ({
+          close: vi.fn().mockResolvedValue(undefined),
+          connect: vi.fn().mockResolvedValue(undefined),
+        }) as never,
+      createTransport: () =>
+        ({
+          close: vi.fn().mockResolvedValue(undefined),
+          handleRequest: vi.fn(async (_req, res) => {
+            res.status(200).json({ ok: true });
+          }),
+        }) as never,
     });
+
+    try {
+      await withServer(app, async (baseUrl) => {
+        const response = await fetch(`${baseUrl}/mcp`, {
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method: "tools/call",
+            params: { name: "search_fish", arguments: { query: "DO_NOT_LOG" } },
+          }),
+          headers: {
+            "content-type": "application/json",
+            "x-atlarium-probe": "public-monitor",
+          },
+          method: "POST",
+        });
+        expect(response.status).toBe(200);
+      });
+
+      const logLines = info.mock.calls.flat().join("\n");
+      expect(logLines).toContain('"rpc_method":"tools/call"');
+      expect(logLines).toContain('"tool":"search_fish"');
+      expect(logLines).toContain('"probe":"public-monitor"');
+      expect(logLines).not.toContain("DO_NOT_LOG");
+    } finally {
+      info.mockRestore();
+    }
   });
 
   it("rate limits requests when enabled", async () => {

@@ -18,14 +18,14 @@ Target: Atlarium Kubernetes, namespace `atlarium-mcp`, public host
 Default image:
 
 ```bash
-ghcr.io/techgardeners/atlarium-mcp:2.0.0
+ghcr.io/techgardeners/atlarium-mcp:2.0.1
 ```
 
 To use the Atlarium registry instead:
 
 ```bash
 kubectl kustomize deploy/kubernetes \
-  | sed 's#ghcr.io/techgardeners/atlarium-mcp:2.0.0#registry.atlarium.bio/atlarium-mcp:2.0.0#' \
+  | sed 's#ghcr.io/techgardeners/atlarium-mcp:2.0.1#registry.atlarium.bio/atlarium-mcp:2.0.1#' \
   | kubectl apply -f -
 ```
 

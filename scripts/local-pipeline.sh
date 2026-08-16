@@ -2,7 +2,8 @@
 set -eu
 
 IMAGE="${IMAGE:-ghcr.io/techgardeners/atlarium-mcp}"
-TAG="${TAG:-2.0.0}"
+PACKAGE_VERSION="$(node -p "require('./package.json').version")"
+TAG="${TAG:-$PACKAGE_VERSION}"
 PLATFORM="${PLATFORM:-linux/amd64}"
 NAMESPACE="${NAMESPACE:-atlarium-mcp}"
 KUSTOMIZE_DIR="${KUSTOMIZE_DIR:-deploy/kubernetes}"

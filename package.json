@@ -1,6 +1,6 @@
 {
   "name": "atlarium-mcp",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Public read-only MCP server for Atlarium habitat data, diagnostics, calculators and advisory planning.",
   "license": "MIT",
   "type": "module",
@@ -32,12 +32,18 @@
   },
   "packageManager": "pnpm@10.30.0",
   "scripts": {
-    "dev": "tsx src/index.ts",
+    "dev": "pnpm widget:build && tsx src/index.ts",
     "start": "node dist/index.js",
-    "build": "tsc -p tsconfig.build.json",
-    "lint": "tsc --noEmit --pretty false",
-    "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "build": "pnpm widget:build && tsc -p tsconfig.build.json",
+    "lint": "pnpm typecheck:server --pretty false && pnpm typecheck:widget --pretty false",
+    "typecheck": "pnpm typecheck:server && pnpm typecheck:widget",
+    "typecheck:server": "tsc --noEmit -p tsconfig.server.json",
+    "typecheck:widget": "tsc --noEmit -p tsconfig.widget.json",
+    "test": "pnpm widget:build && vitest run",
+    "widget:dev": "vite --config src/apps/habitat-explorer-ui/vite.config.ts",
+    "widget:build": "node scripts/build-widget.mjs",
+    "widget:validate": "pnpm widget:build && node scripts/validate-widget.mjs",
+    "widget:screenshots": "pnpm widget:build && node scripts/capture-widget-screenshots.mjs",
     "audit:prod": "pnpm audit --prod",
     "pipeline:local": "scripts/local-pipeline.sh",
     "deploy:spartaco": "scripts/spartaco-deploy.sh",
@@ -49,21 +55,43 @@
     "mcp:monitor:public": "node scripts/monitor-public-mcp.mjs",
     "mcp:validate:public": "node scripts/validate-public-mcp.mjs",
     "chatgpt:validate-submission": "node scripts/validate-chatgpt-submission.mjs",
-    "directories:submit": "node scripts/submit-directories.mjs"
+    "directories:submit": "node scripts/submit-directories.mjs",
+    "mcp:report:usage": "node scripts/report-mcp-usage.mjs",
+    "version:check": "node scripts/check-version-parity.mjs"
   },
   "dependencies": {
-    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@modelcontextprotocol/sdk": "^1.30.0",
+    "@openai/apps-sdk-ui": "0.2.2",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
-    "express-rate-limit": "^8.5.2",
-    "helmet": "^8.2.0",
+    "express-rate-limit": "^8.6.2",
+    "helmet": "^8.3.0",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
     "zod": "^4.4.3"
   },
   "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "@tailwindcss/vite": "4.3.3",
     "@types/express": "^5.0.6",
     "@types/node": "^22.19.21",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@vitejs/plugin-react": "6.0.5",
+    "tailwindcss": "4.3.3",
     "tsx": "^4.21.0",
     "typescript": "^5",
+    "vite": "8.2.1",
+    "vite-plugin-singlefile": "2.3.3",
     "vitest": "^4.1.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "fast-uri": "3.1.5",
+      "lodash": "4.18.1"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

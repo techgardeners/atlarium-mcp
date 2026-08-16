@@ -4,7 +4,7 @@
   "slug": "atlarium-habitat-database",
   "description": "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.",
   "shortDescription": "Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "homepage": "https://atlarium.bio",
   "documentationUrl": "https://atlarium.bio/mcp",
   "repository": {
@@ -82,7 +82,7 @@
     {
       "name": "atlarium-habitat-explorer",
       "title": "Atlarium Habitat Explorer",
-      "uri": "ui://widget/habitat-explorer.v3.html",
+      "uri": "ui://widget/habitat-explorer.v4.html",
       "mimeType": "text/html;profile=mcp-app",
       "description": "Interactive read-only ChatGPT App widget for public habitat results, profiles, diagnostics, products, calculators, fertilization and tank planning."
     }

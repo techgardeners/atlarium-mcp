@@ -13,7 +13,7 @@
   <a href="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml"><img alt="MCP Directory Audit" src="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/techgardeners/atlarium-mcp"></a>
   <a href="https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database"><img alt="Official MCP Registry" src="https://img.shields.io/badge/Official_MCP_Registry-bio.atlarium%2Fhabitat--database-0E7C86"></a>
-  <img alt="Version 2.0.0" src="https://img.shields.io/badge/version-2.0.0-0E7C86">
+  <img alt="Version 2.0.1" src="https://img.shields.io/badge/version-2.0.1-0E7C86">
   <img alt="Transport: Streamable HTTP" src="https://img.shields.io/badge/transport-Streamable_HTTP-145C9E">
   <img alt="Read-only MCP tools" src="https://img.shields.io/badge/tools-39_read--only-2D7D46">
   <img alt="Prompts enabled" src="https://img.shields.io/badge/prompts-enabled-6B7280">
@@ -45,12 +45,12 @@ write operations.
 | Surface | Value |
 | --- | --- |
 | MCP endpoint | `https://mcp.atlarium.bio/mcp` |
-| MCP version | `2.0.0` |
+| MCP version | `2.0.1` |
 | Transport | Streamable HTTP |
 | Authentication | none |
 | Tool surface | 39 public read-only tools |
 | Prompts | 9 guided public prompts |
-| Apps widget | `ui://widget/habitat-explorer.v3.html` |
+| Apps widget | `ui://widget/habitat-explorer.v4.html` |
 | Server card | `https://mcp.atlarium.bio/.well-known/mcp/server-card.json` |
 | Human docs | `https://atlarium.bio/mcp` |
 | Official MCP Registry | `bio.atlarium/habitat-database` |
@@ -111,7 +111,8 @@ pnpm mcp:monitor:public
 | --- | --- |
 | OpenAI Agents SDK | See `examples/openai-agents-python` for a Python agent that connects to the remote Streamable HTTP endpoint. |
 | Claude Code | Run `claude mcp add --transport http atlarium https://mcp.atlarium.bio/mcp`, then ask Claude to use Atlarium. |
-| Cursor | Copy `examples/cursor/mcp.json` into your Cursor MCP config and reload Cursor. |
+| Cursor | Use the [Add to Cursor deep link](cursor://anysphere.cursor-deeplink/mcp/install?name=atlarium&config=eyJ1cmwiOiJodHRwczovL21jcC5hdGxhcml1bS5iaW8vbWNwIn0=) or the root `mcp.json`. |
+| Cline | Add the hosted endpoint as a Streamable HTTP remote server; `llms-install.md` contains deterministic agent setup instructions. |
 | Windsurf | Copy `examples/windsurf/mcp_config.json` into Windsurf MCP settings and refresh Cascade MCP servers. |
 | VS Code | Copy `examples/vscode/mcp.json`; VS Code uses `type: "http"` for remote MCP servers. |
 | Antigravity | Use `examples/antigravity/mcp.json` only in builds that support remote MCP servers. |
@@ -129,7 +130,7 @@ Apps-compatible hosts:
 
 | Field | Value |
 | --- | --- |
-| Resource URI | `ui://widget/habitat-explorer.v3.html` |
+| Resource URI | `ui://widget/habitat-explorer.v4.html` |
 | MIME type | `text/html;profile=mcp-app` |
 | Widget | `Atlarium Habitat Explorer` |
 | Widget domain | `https://mcp.atlarium.bio` |
@@ -921,19 +922,22 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 
 | Directory | Status |
 | --- | --- |
-| Official MCP Registry | Published as `bio.atlarium/habitat-database`; publish the V2 `server.json` update after coordinated endpoint validation. |
+| Official MCP Registry | Published as `bio.atlarium/habitat-database`; release `2.0.1` is prepared for publication after production validation. |
+| GitHub | Canonical public source repository. |
 | Glama | Ownership verified; listing healthy with 39 tools and canonical V2 description. |
-| Smithery | Published at [`ilgrafico79/atlarium-habitat-database`](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); latest release `SUCCESS`, quality score `96/100`, parameter descriptions `39/39`, custom icon uploaded. Technical verification checks pass; full Smithery verification still requires a paid developer plan. |
-| MCP.so | Listed publicly at [`atlarium-habitat-database-mcp`](https://mcp.so/server/atlarium-habitat-database-mcp); no badge added yet. |
+| Smithery | [Published listing](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); metadata refresh follows the production release. |
+| MCP.so | [Listed publicly](https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners); metadata refresh follows the production release. |
 | PulseMCP | Listed publicly; verify badge policy before adding a badge. |
 | mcpservers.org | Listed publicly at [`techgardeners/atlarium-mcp`](https://mcpservers.org/servers/techgardeners/atlarium-mcp); no badge added yet. |
-| MCPRepository | Submitted / queued at [`techgardeners/atlarium-mcp`](https://mcprepository.com/techgardeners/atlarium-mcp); no public listing badge yet. |
-| MCP Server Hub | Submitted / pending review; no public listing badge yet. |
-| ChatGPT App | Not approved on 2026-07-02; fixes deployed and pending dashboard resubmission; no public approval claim yet. |
+| MCPRepository | [Published listing](https://mcprepository.com/techgardeners/atlarium-mcp), verified by its public page. |
+| MCP Scoreboard | Public listing exists and remains unscored; no score badge is claimed. |
+| MCP Queen | [Verified public evidence page](https://mcpqueen.com/s/bio.atlarium%2Fhabitat-database) with live protocol probing. |
 
 Publication tracking and reusable submission copy live in
-`docs/publication-checklist.md`, `docs/directory-submission-payloads.md` and
-`docs/mcp-submission-cockpit.md`.
+`config/distribution-registry.json`, `docs/publication-checklist.md`,
+`docs/directory-submission-payloads.md` and `docs/mcp-submission-cockpit.md`.
+Pending, blocked and rejected targets remain in the operational registry and
+are not presented as accepted public listings.
 
 ## Local Development
 

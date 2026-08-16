@@ -194,7 +194,11 @@ const client = new Client({
   name: "atlarium-chatgpt-submission-validator",
   version: "1.0.0",
 });
-const transport = new StreamableHTTPClientTransport(new URL(endpoint));
+const transport = new StreamableHTTPClientTransport(new URL(endpoint), {
+  requestInit: {
+    headers: { "x-atlarium-probe": "chatgpt-submission-validator" },
+  },
+});
 
 try {
   await client.connect(transport);

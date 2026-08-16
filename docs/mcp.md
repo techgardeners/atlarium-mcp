@@ -49,7 +49,7 @@ The server uses MCP Streamable HTTP via `@modelcontextprotocol/sdk`.
 
 The server also exposes a read-only MCP Apps / ChatGPT Apps widget resource:
 
-- Resource URI: `ui://widget/habitat-explorer.v3.html`
+- Resource URI: `ui://widget/habitat-explorer.v4.html`
 - MIME type: `text/html;profile=mcp-app`
 - Title: `Atlarium Habitat Explorer`
 - Dedicated widget origin: `https://mcp.atlarium.bio`
@@ -158,7 +158,7 @@ npx @modelcontextprotocol/inspector@latest --server-url http://localhost:43118/m
 ```
 
 In the inspector, confirm `resources/list` includes
-`ui://widget/habitat-explorer.v3.html` and `resources/read` returns HTML with
+`ui://widget/habitat-explorer.v4.html` and `resources/read` returns HTML with
 MIME type `text/html;profile=mcp-app`.
 
 The conformance script runs the core, tools and DNS rebinding scenarios that

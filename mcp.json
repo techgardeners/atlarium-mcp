@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "atlarium": {
+      "type": "streamableHttp",
+      "url": "https://mcp.atlarium.bio/mcp"
+    }
+  }
+}

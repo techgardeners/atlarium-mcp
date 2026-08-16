@@ -90,7 +90,11 @@ const client = new Client({
   name: "atlarium-public-validation",
   version: "1.0.0",
 });
-const transport = new StreamableHTTPClientTransport(new URL(endpoint));
+const transport = new StreamableHTTPClientTransport(new URL(endpoint), {
+  requestInit: {
+    headers: { "x-atlarium-probe": "public-validator" },
+  },
+});
 
 try {
   await client.connect(transport);

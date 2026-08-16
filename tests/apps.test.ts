@@ -50,51 +50,22 @@ describe("ChatGPT App widget", () => {
     const html = habitatExplorerHtml();
 
     expect(html).toContain("Atlarium Habitat Explorer");
-    expect(html).toContain("--deep-blue");
-    expect(html).toContain("--azure");
-    expect(html).toContain("data-brand-logo");
-    expect(html).toContain("data:image/jpeg;base64");
-    expect(html).toContain("brand-logo light");
-    expect(html).toContain("brand-logo dark");
-    expect(html).toContain("mix-blend-mode: multiply");
-    expect(html).toContain("uiCopy");
-    expect(html).toContain("Ricerca pesci");
-    expect(html).toContain("Acara blu");
-    expect(html).toContain("Rasbora arlecchino");
-    expect(html).toContain("language: state.language");
-    expect(html).toContain("toolLabel(state.tool)");
-    expect(html).toContain("reasonParts");
-    expect(html).toContain("recommended_actions");
-    expect(html).toContain('class="rail"');
-    expect(html).toContain('class="rail-button"');
-    expect(html).toContain('class="metric-panel"');
-    expect(html).toContain("detail-main");
-    expect(html).toContain("<svg");
-    expect(html).toContain("atlariumImageHosts");
-    expect(html).toContain("safeImageUrl");
-    expect(html).toContain("imageFor");
-    expect(html).toContain("thumb-frame");
-    expect(html).toContain("detail-media");
-    expect(html).toContain("profile-mini");
-    expect(html).toContain("image_url");
-    expect(html).toContain("--water-bg");
-    expect(html).toContain("--plant-bg");
-    expect(html).toContain("--warn-bg");
-    expect(html).toContain(".mini-card.warning");
+    expect(html).toContain("data:image/webp;base64");
+    expect(html).toContain("--color-text");
+    expect(html).toContain("--atlarium-cyan");
+    expect(html).toContain("requestDisplayMode");
+    expect(html).toContain("setWidgetState");
+    expect(html).toContain("notifyIntrinsicHeight");
     expect(html).toContain("ui/notifications/tool-result");
     expect(html).toContain("openai:set_globals");
     expect(html).toContain("toolResponseMetadata");
-    expect(html).toContain("mcp_tool_result");
-    expect(html).toContain("tools/call");
-    expect(html).toContain("suggest_species_for_tank");
-    expect(html).toContain("isChatGptHost");
     expect(html).not.toContain("<iframe");
-    expect(html).not.toContain("<symbol");
-    expect(html).not.toContain("<use");
-    expect(html).not.toContain("data-brand-mark");
-    expect(html).not.toContain("Showing \" +");
-    expect(html).not.toContain("Requested \" + name");
-    expect(html).not.toMatch(/https?:\/\//);
+    expect(html).not.toContain("isChatGptHost");
+    expect(html).not.toContain('class="rail"');
+    expect(html).not.toContain('class="rail-button"');
+    expect(html).not.toContain("data-brand-logo");
+    expect(html).not.toContain("Rasbora arlecchino");
+    expect(html).not.toContain("Acara blu");
   });
 
   it("declares standard and ChatGPT-compatible widget CSP metadata", () => {
@@ -102,6 +73,7 @@ describe("ChatGPT App widget", () => {
     expect(habitatExplorerResourceMeta._meta["openai/widgetDomain"]).toBe(
       "https://mcp.atlarium.bio",
     );
+    expect(habitatExplorerResourceMeta._meta["openai/widgetPrefersBorder"]).toBe(true);
     expect(habitatExplorerResourceMeta._meta.ui.csp).toEqual({
       connectDomains: [],
       frameDomains: [],

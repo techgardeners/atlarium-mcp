@@ -8,12 +8,18 @@ import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/
 import type { RuntimeConfig } from "./config.js";
 import { log } from "./logger.js";
 import { createGlamaConnectorClaim, createServerCard } from "./metadata.js";
+import {
+  createMcpRequestContext,
+  runWithMcpRequestContext,
+} from "./request-context.js";
 import { createAtlariumMcpServer } from "./server.js";
+import { toolDefinitions } from "./tools.js";
 
 const HTTP_REQUEST_TIMEOUT_MS = 30_000;
 const HTTP_HEADERS_TIMEOUT_MS = 66_000;
 const HTTP_KEEP_ALIVE_TIMEOUT_MS = 65_000;
 const MCP_BODY_LIMIT = "128kb";
+const PUBLIC_TOOL_NAMES = new Set(toolDefinitions.map((tool) => tool.name));
 
 type Closable = {
   close: () => Promise<void> | void;
@@ -49,10 +55,10 @@ export function createHttpApp(
         limit: config.MCP_RATE_LIMIT_MAX,
         standardHeaders: true,
         legacyHeaders: false,
-        handler: (req, res) => {
+        handler: (_req, res) => {
           log("warn", "mcp_rate_limit", {
-            ip: req.ip,
-            path: req.path,
+            result: "error",
+            error_code: "validation_error",
           });
           res.status(429).json({
             error: "rate_limit_exceeded",
@@ -88,6 +94,11 @@ export function createHttpApp(
 
   app.post("/mcp", express.json({ limit: MCP_BODY_LIMIT }), async (req, res) => {
     const startedAt = Date.now();
+    const requestContext = createMcpRequestContext(
+      req.body,
+      req.headers["x-atlarium-probe"],
+      PUBLIC_TOOL_NAMES,
+    );
     const mcpServer =
       dependencies.createMcpServer?.(config) ?? createAtlariumMcpServer(config);
     const transport =
@@ -104,37 +115,35 @@ export function createHttpApp(
       void cleanup();
     });
 
-    try {
-      await mcpServer.connect(transport);
-      await transport.handleRequest(req, res, req.body);
-      log("info", "mcp_request", {
-        duration_ms: Date.now() - startedAt,
-        method: req.method,
-        path: req.path,
-        status: "ok",
-      });
-    } catch (error) {
-      await cleanup();
-      log("error", "mcp_request", {
-        duration_ms: Date.now() - startedAt,
-        method: req.method,
-        path: req.path,
-        status: "error",
-      });
-      if (!res.headersSent) {
-        res.status(500).json({
-          jsonrpc: "2.0",
-          error: {
-            code: -32603,
-            message: "Internal server error",
-          },
-          id: null,
+    await runWithMcpRequestContext(requestContext, async () => {
+      try {
+        await mcpServer.connect(transport);
+        await transport.handleRequest(req, res, req.body);
+        log("info", "mcp_request", {
+          ...requestContext,
+          duration_ms: Date.now() - startedAt,
+          result: "ok",
         });
+      } catch {
+        await cleanup();
+        log("error", "mcp_request", {
+          ...requestContext,
+          duration_ms: Date.now() - startedAt,
+          result: "error",
+          error_code: "internal_error",
+        });
+        if (!res.headersSent) {
+          res.status(500).json({
+            jsonrpc: "2.0",
+            error: {
+              code: -32603,
+              message: "Internal server error",
+            },
+            id: null,
+          });
+        }
       }
-      if (error instanceof Error) {
-        log("error", "mcp_internal_error", { message: error.message });
-      }
-    }
+    });
   });
 
   app.all("/mcp", (_req, res) => {
@@ -185,7 +194,8 @@ export function createHttpServer(config: RuntimeConfig) {
   server.timeout = 0;
 
   server.on("clientError", (error, socket) => {
-    log("warn", "http_client_error", { message: error.message });
+    void error;
+    log("warn", "http_client_error", { error_code: "validation_error" });
     if (!socket.writableEnded) {
       socket.end("HTTP/1.1 400 Bad Request\r\nConnection: close\r\n\r\n");
     }
@@ -210,10 +220,10 @@ function createCleanup(mcpServer: Closable, transport: Closable) {
 async function closeQuietly(name: string, target: Closable) {
   try {
     await target.close();
-  } catch (error) {
+  } catch {
     log("warn", "mcp_cleanup_error", {
       target: name,
-      message: error instanceof Error ? error.message : "Unknown cleanup error.",
+      error_code: "internal_error",
     });
   }
 }
@@ -229,7 +239,7 @@ const errorHandler: ErrorRequestHandler = (error, req, res, next) => {
     method: req.method,
     path: req.path,
     status,
-    message: error instanceof Error ? error.message : "Unknown HTTP error.",
+    error_code: status >= 500 ? "internal_error" : "validation_error",
   });
 
   if (status === 413) {

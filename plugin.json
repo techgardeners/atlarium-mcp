@@ -1,0 +1,14 @@
+{
+  "name": "atlarium-habitat-database",
+  "version": "2.0.1",
+  "description": "Public read-only habitat data, diagnostics, calculators, compatibility and habitat planning for aquariums, terrariums and paludariums.",
+  "author": {
+    "name": "TechGardeners",
+    "email": "info@techgardeners.com"
+  },
+  "homepage": "https://atlarium.bio/mcp",
+  "repository": "https://github.com/techgardeners/atlarium-mcp",
+  "license": "MIT",
+  "keywords": ["mcp", "aquarium", "habitat", "diagnostics", "calculator", "read-only"],
+  "logo": "docs/assets/chatgpt-app-icon.png"
+}
