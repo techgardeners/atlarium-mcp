@@ -326,6 +326,56 @@ describe("HTTP app", () => {
     }
   });
 
+  it("classifies SDK-level slug validation without logging client input", async () => {
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => undefined);
+    const app = createHttpApp(testConfig(), {
+      createMcpServer: () =>
+        ({
+          close: vi.fn().mockResolvedValue(undefined),
+          connect: vi.fn().mockResolvedValue(undefined),
+        }) as never,
+      createTransport: () =>
+        ({
+          close: vi.fn().mockResolvedValue(undefined),
+          handleRequest: vi.fn(async (_req, res) => {
+            res.status(200).json({ ok: true });
+          }),
+        }) as never,
+    });
+
+    try {
+      await withServer(app, async (baseUrl) => {
+        const response = await fetch(`${baseUrl}/mcp`, {
+          body: JSON.stringify({
+            jsonrpc: "2.0",
+            id: 1,
+            method: "tools/call",
+            params: {
+              name: "get_fish_profile",
+              arguments: { slug: "CLIENT/FRAGMENT" },
+            },
+          }),
+          headers: {
+            "content-type": "application/json",
+            "x-atlarium-probe": "log-validation",
+          },
+          method: "POST",
+        });
+        expect(response.status).toBe(200);
+      });
+
+      const logLines = warn.mock.calls.flat().join("\n");
+      expect(logLines).toContain('"rpc_method":"tools/call"');
+      expect(logLines).toContain('"tool":"get_fish_profile"');
+      expect(logLines).toContain('"result":"error"');
+      expect(logLines).toContain('"error_code":"invalid_slug"');
+      expect(logLines).not.toContain("CLIENT/FRAGMENT");
+      expect(logLines).not.toContain('"arguments"');
+    } finally {
+      warn.mockRestore();
+    }
+  });
+
   it("rate limits requests when enabled", async () => {
     const app = createHttpApp(
       testConfig({

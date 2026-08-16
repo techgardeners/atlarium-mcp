@@ -6,9 +6,26 @@ const argv = process.argv.slice(2).filter((argument) => argument !== "--");
 const since = valueFor("--since") ?? "720h";
 const file = valueFor("--file");
 const production = argv.includes("--production");
+const strict = argv.includes("--strict");
+const ALLOWED_ERROR_CODES = new Set([
+  "not_found",
+  "invalid_slug",
+  "validation_error",
+  "internal_error",
+]);
+const FORBIDDEN_CLIENT_FIELDS = new Set([
+  "args",
+  "arguments",
+  "error",
+  "ip",
+  "message",
+  "prompt",
+  "user-agent",
+  "user_agent",
+]);
 
 if (argv.includes("--help")) {
-  console.log("Usage: pnpm mcp:report:usage -- [--production | --file=PATH] [--since=720h]");
+  console.log("Usage: pnpm mcp:report:usage -- [--production | --file=PATH] [--since=720h] [--strict]");
   process.exit(0);
 }
 
@@ -22,6 +39,9 @@ if (production === Boolean(file)) {
 const logText = production ? readProductionLogs(since) : readFileSync(file, "utf8");
 const report = summarize(logText, since);
 console.log(JSON.stringify(report, null, 2));
+if (strict && (report.privacy.forbidden_fields > 0 || report.privacy.invalid_error_codes > 0)) {
+  process.exitCode = 1;
+}
 
 function valueFor(name) {
   const inline = argv.find((argument) => argument.startsWith(`${name}=`));
@@ -73,6 +93,26 @@ function summarize(text, duration) {
     tools: countBy(calls, "tool"),
     errors: countErrors(entries),
     probes: countBy(entries.filter((entry) => entry.probe), "probe"),
+    privacy: privacySummary(entries),
+  };
+}
+
+function privacySummary(entries) {
+  const forbiddenFields = entries.reduce(
+    (total, entry) =>
+      total + Object.keys(entry).filter((key) => FORBIDDEN_CLIENT_FIELDS.has(key)).length,
+    0,
+  );
+  const invalidErrorCodes = entries.filter(
+    (entry) =>
+      (entry.result ?? entry.status) === "error" &&
+      typeof entry.error_code === "string" &&
+      !ALLOWED_ERROR_CODES.has(entry.error_code),
+  ).length;
+
+  return {
+    forbidden_fields: forbiddenFields,
+    invalid_error_codes: invalidErrorCodes,
   };
 }
 

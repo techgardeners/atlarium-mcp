@@ -6,6 +6,7 @@ import { createMcpExpressApp } from "@modelcontextprotocol/sdk/server/express.js
 import { StreamableHTTPServerTransport } from "@modelcontextprotocol/sdk/server/streamableHttp.js";
 
 import type { RuntimeConfig } from "./config.js";
+import { operationalErrorCode, type OperationalErrorCode } from "./errors.js";
 import { log } from "./logger.js";
 import { createGlamaConnectorClaim, createServerCard } from "./metadata.js";
 import {
@@ -20,6 +21,9 @@ const HTTP_HEADERS_TIMEOUT_MS = 66_000;
 const HTTP_KEEP_ALIVE_TIMEOUT_MS = 65_000;
 const MCP_BODY_LIMIT = "128kb";
 const PUBLIC_TOOL_NAMES = new Set(toolDefinitions.map((tool) => tool.name));
+const PUBLIC_TOOL_SCHEMAS = new Map(
+  toolDefinitions.map((tool) => [tool.name, tool.schema] as const),
+);
 
 type Closable = {
   close: () => Promise<void> | void;
@@ -99,6 +103,7 @@ export function createHttpApp(
       req.headers["x-atlarium-probe"],
       PUBLIC_TOOL_NAMES,
     );
+    const validationErrorCode = requestValidationErrorCode(req.body);
     const mcpServer =
       dependencies.createMcpServer?.(config) ?? createAtlariumMcpServer(config);
     const transport =
@@ -119,10 +124,11 @@ export function createHttpApp(
       try {
         await mcpServer.connect(transport);
         await transport.handleRequest(req, res, req.body);
-        log("info", "mcp_request", {
+        log(validationErrorCode ? "warn" : "info", "mcp_request", {
           ...requestContext,
           duration_ms: Date.now() - startedAt,
-          result: "ok",
+          result: validationErrorCode ? "error" : "ok",
+          ...(validationErrorCode ? { error_code: validationErrorCode } : {}),
         });
       } catch {
         await cleanup();
@@ -167,6 +173,36 @@ export function createHttpApp(
   app.use(errorHandler);
 
   return app;
+}
+
+function requestValidationErrorCode(
+  body: unknown,
+): OperationalErrorCode | undefined {
+  if (!body || typeof body !== "object" || Array.isArray(body)) {
+    return undefined;
+  }
+
+  const request = body as Record<string, unknown>;
+  if (request.method !== "tools/call") {
+    return undefined;
+  }
+
+  const params =
+    request.params &&
+    typeof request.params === "object" &&
+    !Array.isArray(request.params)
+      ? (request.params as Record<string, unknown>)
+      : undefined;
+  const schema =
+    typeof params?.name === "string"
+      ? PUBLIC_TOOL_SCHEMAS.get(params.name)
+      : undefined;
+  if (!schema) {
+    return undefined;
+  }
+
+  const parsed = schema.safeParse(params?.arguments ?? {});
+  return parsed.success ? undefined : operationalErrorCode(parsed.error);
 }
 
 export function listen(config: RuntimeConfig) {
