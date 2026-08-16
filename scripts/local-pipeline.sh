@@ -11,11 +11,17 @@ PUBLIC_BASE_URL="${PUBLIC_BASE_URL:-https://mcp.atlarium.bio}"
 PUSH_IMAGE="${PUSH_IMAGE:-false}"
 DEPLOY_KUBERNETES="${DEPLOY_KUBERNETES:-false}"
 VALIDATE_PUBLIC="${VALIDATE_PUBLIC:-false}"
+DOCKER_BIN="${DOCKER_BIN:-docker}"
 
 run() {
   printf "\n==> %s\n" "$*"
   "$@"
 }
+
+if ! "$DOCKER_BIN" info >/dev/null 2>&1; then
+  printf "Docker is unavailable. Start Docker Desktop (or set DOCKER_BIN to a compatible running client) and rerun the pipeline.\n" >&2
+  exit 1
+fi
 
 run pnpm lint
 run pnpm test
@@ -23,7 +29,7 @@ run pnpm build
 run pnpm audit:prod
 
 if [ "$PUSH_IMAGE" = "true" ]; then
-  if inspect_output="$(docker buildx imagetools inspect "$IMAGE:$TAG" 2>&1)"; then
+  if inspect_output="$("$DOCKER_BIN" buildx imagetools inspect "$IMAGE:$TAG" 2>&1)"; then
     printf "\nRefusing to overwrite immutable image tag %s:%s.\n" "$IMAGE" "$TAG" >&2
     exit 1
   fi
@@ -34,9 +40,9 @@ if [ "$PUSH_IMAGE" = "true" ]; then
       exit 1
       ;;
   esac
-  run docker buildx build --platform "$PLATFORM" -t "$IMAGE:$TAG" --push .
+  run "$DOCKER_BIN" buildx build --platform "$PLATFORM" -t "$IMAGE:$TAG" --push .
 else
-  run docker buildx build --platform "$PLATFORM" -t "$IMAGE:$TAG" --load .
+  run "$DOCKER_BIN" buildx build --platform "$PLATFORM" -t "$IMAGE:$TAG" --load .
 fi
 
 if [ "$DEPLOY_KUBERNETES" = "true" ]; then
