@@ -86,7 +86,7 @@ verify_deployment_state() {
     printf "Deployment image mismatch: expected %s, got %s.\n" "$expected_image" "$current_image" >&2
     return 1
   fi
-  ssh "$SSH_HOST" "kubectl -n '$NAMESPACE' get pods -l app=atlarium-mcp -o json" > "$PODS_JSON"
+  ssh "$SSH_HOST" "kubectl -n '$NAMESPACE' get pods -l app.kubernetes.io/name=atlarium-mcp -o json" > "$PODS_JSON"
   EXPECTED_IMAGE="$expected_image" node -e '
 const fs = require("node:fs");
 const payload = JSON.parse(fs.readFileSync(process.argv[1], "utf8"));

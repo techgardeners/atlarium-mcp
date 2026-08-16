@@ -22,6 +22,8 @@ describe("Spartaco deploy contract", () => {
     expect(deployScript).toContain("mcp:conformance:public");
     expect(deployScript).toContain('verify_version_endpoint "public health" "$PACKAGE_VERSION"');
     expect(deployScript).toContain('verify_deployment_state "$IMAGE:$TAG"');
+    expect(deployScript).toContain("-l app.kubernetes.io/name=atlarium-mcp -o json");
+    expect(deployScript).not.toContain("-l app=atlarium-mcp");
     expect(deployScript.indexOf("ROLLBACK_ARMED=false\ncleanup_temp")).toBeGreaterThan(
       deployScript.indexOf("mcp:conformance:public"),
     );
