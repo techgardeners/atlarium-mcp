@@ -4,7 +4,7 @@
   "verifiedAt": "2026-08-16T21:01:26Z",
   "followUpDays": [7, 14, 30],
   "release": {
-    "version": "2.0.1",
+    "version": "2.0.2",
     "endpoint": "https://mcp.atlarium.bio/mcp",
     "repository": "https://github.com/techgardeners/atlarium-mcp",
     "widgetUri": "ui://widget/habitat-explorer.v4.html",
@@ -281,7 +281,7 @@
         "payload": {
           "name": "Atlarium Habitat Database MCP",
           "repository": "https://github.com/techgardeners/atlarium-mcp",
-          "package": "ghcr.io/techgardeners/atlarium-mcp:2.0.1",
+          "package": "ghcr.io/techgardeners/atlarium-mcp:2.0.2",
           "packageType": "docker",
           "category": "other"
         },

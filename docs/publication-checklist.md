@@ -120,8 +120,8 @@ PUSH_IMAGE=true pnpm pipeline:local
 Manual equivalent:
 
 ```bash
-docker build -t ghcr.io/techgardeners/atlarium-mcp:2.0.1 .
-docker push ghcr.io/techgardeners/atlarium-mcp:2.0.1
+docker build -t ghcr.io/techgardeners/atlarium-mcp:2.0.2 .
+docker push ghcr.io/techgardeners/atlarium-mcp:2.0.2
 ```
 
 2. Deploy to Atlarium Kubernetes.

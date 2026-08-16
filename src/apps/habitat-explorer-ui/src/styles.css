@@ -183,7 +183,6 @@ h2, .subheading {
   width: 100%;
 }
 
-.media-fallback, .result-media--fallback { object-position: 64% center; }
 
 .result-copy { display: grid; gap: 3px; min-width: 0; }
 .result-copy strong { font-size: 1rem; line-height: 1.25; }

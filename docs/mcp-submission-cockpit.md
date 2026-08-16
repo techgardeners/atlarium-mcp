@@ -14,7 +14,7 @@ launch channels belong here.
 | Endpoint | `https://mcp.atlarium.bio/mcp` |
 | Transport | Streamable HTTP |
 | Auth | none |
-| Version | `2.0.1` |
+| Version | `2.0.2` |
 | Tool surface | 39 public read-only tools |
 | Prompts | 9 public guided prompts |
 | Widget | `ui://widget/habitat-explorer.v4.html` |

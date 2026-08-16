@@ -171,6 +171,36 @@ function imageFromCandidate(value: unknown): string {
   return "";
 }
 
+function catalogImageFromPublicUrl(item: DataRecord) {
+  const publicUrl = typeof item.public_url === "string" ? item.public_url.trim() : "";
+  const slug = typeof item.slug === "string" ? item.slug.trim() : "";
+  if (!publicUrl || !/^[a-z0-9]+(?:[._-][a-z0-9]+)*$/.test(slug)) return "";
+
+  try {
+    const page = new URL(publicUrl);
+    if (page.protocol !== "https:" || !ALLOWED_IMAGE_HOSTS.has(page.hostname)) return "";
+
+    const segments = page.pathname.split("/").filter(Boolean);
+    const catalogIndex = segments.indexOf("catalog");
+    const category = catalogIndex >= 0 ? segments[catalogIndex + 1] : undefined;
+    const publicSlug = catalogIndex >= 0 ? segments[catalogIndex + 2] : undefined;
+    const mediaCategory = category === "fish" ? "fish" : category === "plants" ? "plant" : undefined;
+    if (!mediaCategory || publicSlug !== slug) return "";
+
+    const source = `/media/catalog/species/${mediaCategory}/${slug}/01-ai.png`;
+    const image = new URL("/api/img/img-wm-v11/card-w828-q78.webp", "https://atlarium.bio");
+    image.searchParams.set("src", source);
+    image.searchParams.set("v", "img-wm-v11");
+    image.searchParams.set("w", "828");
+    image.searchParams.set("q", "78");
+    image.searchParams.set("f", "webp");
+    image.searchParams.set("p", "card");
+    return image.href;
+  } catch {
+    return "";
+  }
+}
+
 export function imageFor(item: DataRecord) {
   for (const key of IMAGE_KEYS) {
     const image = imageFromCandidate(item[key]);
@@ -183,7 +213,7 @@ export function imageFor(item: DataRecord) {
       if (image) return image;
     }
   }
-  return "";
+  return catalogImageFromPublicUrl(item);
 }
 
 export function humanize(value: string) {

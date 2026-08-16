@@ -66,6 +66,7 @@ describe("ChatGPT App widget", () => {
     expect(html).not.toContain("data-brand-logo");
     expect(html).not.toContain("Rasbora arlecchino");
     expect(html).not.toContain("Acara blu");
+    expect(html).not.toContain("Atlarium habitat mascots for ");
   });
 
   it("declares standard and ChatGPT-compatible widget CSP metadata", () => {

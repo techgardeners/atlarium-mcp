@@ -106,7 +106,7 @@ describe("HTTP app", () => {
       await expect(response.json()).resolves.toEqual({
         service: mcpDisplayName,
         status: "ok",
-        version: "2.0.1",
+        version: "2.0.2",
       });
     });
   });

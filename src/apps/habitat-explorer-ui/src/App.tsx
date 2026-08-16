@@ -56,16 +56,20 @@ function Media({ item, className = "feature-media" }: { item: DataRecord; classN
   const src = imageFor(item);
   const [failed, setFailed] = useState(false);
   const title = titleFor(item);
-  if (!src || failed) {
-    return (
-      <img
-        className={`${className} media-fallback`}
-        src={mascotScene}
-        alt={`Atlarium habitat mascots for ${title}`}
-      />
-    );
-  }
-  return <Image className={className} src={src} alt={title} loading="lazy" onError={() => setFailed(true)} />;
+  const scientific = scientificFor(item);
+
+  useEffect(() => setFailed(false), [src]);
+
+  if (!src || failed) return null;
+  return (
+    <Image
+      className={className}
+      src={src}
+      alt={scientific ? `${title} — ${scientific}` : title}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
 }
 
 function MascotMedia({ compact = false }: { compact?: boolean }) {

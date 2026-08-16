@@ -1,6 +1,6 @@
 {
   "name": "atlarium-mcp",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Public read-only MCP server for Atlarium habitat data, diagnostics, calculators and advisory planning.",
   "license": "MIT",
   "type": "module",

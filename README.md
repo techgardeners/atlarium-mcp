@@ -13,7 +13,7 @@
   <a href="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml"><img alt="MCP Directory Audit" src="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/techgardeners/atlarium-mcp"></a>
   <a href="https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database"><img alt="Official MCP Registry" src="https://img.shields.io/badge/Official_MCP_Registry-bio.atlarium%2Fhabitat--database-0E7C86"></a>
-  <img alt="Version 2.0.1" src="https://img.shields.io/badge/version-2.0.1-0E7C86">
+  <img alt="Version 2.0.2" src="https://img.shields.io/badge/version-2.0.2-0E7C86">
   <img alt="Transport: Streamable HTTP" src="https://img.shields.io/badge/transport-Streamable_HTTP-145C9E">
   <img alt="Read-only MCP tools" src="https://img.shields.io/badge/tools-39_read--only-2D7D46">
   <img alt="Prompts enabled" src="https://img.shields.io/badge/prompts-enabled-6B7280">
@@ -45,7 +45,7 @@ write operations.
 | Surface | Value |
 | --- | --- |
 | MCP endpoint | `https://mcp.atlarium.bio/mcp` |
-| MCP version | `2.0.1` |
+| MCP version | `2.0.2` |
 | Transport | Streamable HTTP |
 | Authentication | none |
 | Tool surface | 39 public read-only tools |

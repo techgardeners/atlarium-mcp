@@ -25,7 +25,7 @@ const fixtures = {
           temperature_range: { min: 20, max: 26, unit: "°C" },
           ph_range: { min: 4.5, max: 7.5 },
           care_level: "Easy",
-          image_url: "https://atlarium.bio/media/catalog/species/fish/paracheirodon-innesi/01-ai.png",
+          public_url: "https://atlarium.bio/en/catalog/fish/paracheirodon-innesi",
         },
         {
           common_name: "Harlequin rasbora",
@@ -36,6 +36,7 @@ const fixtures = {
           temperature_range: { min: 22, max: 27, unit: "°C" },
           ph_range: { min: 6, max: 7.5 },
           care_level: "Easy",
+          public_url: "https://atlarium.bio/en/catalog/fish/trigonostigma-heteromorpha",
         },
         {
           common_name: "Peppered corydoras",
@@ -46,6 +47,7 @@ const fixtures = {
           temperature_range: { min: 20, max: 25, unit: "°C" },
           ph_range: { min: 6, max: 7.6 },
           care_level: "Easy",
+          public_url: "https://atlarium.bio/en/catalog/fish/corydoras-paleatus",
         },
       ],
     },
@@ -63,7 +65,7 @@ const fixtures = {
       ph_range: { min: 4.5, max: 7.5 },
       gh_range: { min: 1, max: 8 },
       care_level: "Facile",
-      image_url: "https://atlarium.bio/media/catalog/species/fish/paracheirodon-innesi/01-ai.png",
+      public_url: "https://atlarium.bio/it/catalog/fish/paracheirodon-innesi",
     },
   },
   compatibility: {
@@ -84,9 +86,9 @@ const fixtures = {
     tool: "suggest_species_for_tank",
     data: {
       suggestions: [
-        { common_name: "Harlequin rasbora", scientific_name: "Trigonostigma heteromorpha", slug: "trigonostigma-heteromorpha", reason: "Peaceful school; compatible temperature; suitable for a planted 90 L tank", min_tank_liters: 60, care_level: "Easy" },
-        { common_name: "Cardinal tetra", scientific_name: "Paracheirodon axelrodi", slug: "paracheirodon-axelrodi", reason: "Calm midwater school; suitable pH range", min_tank_liters: 70, care_level: "Intermediate" },
-        { common_name: "Peppered corydoras", scientific_name: "Corydoras paleatus", slug: "corydoras-paleatus", reason: "Social bottom group; gentle community behavior", min_tank_liters: 80, care_level: "Easy" },
+        { common_name: "Harlequin rasbora", scientific_name: "Trigonostigma heteromorpha", slug: "trigonostigma-heteromorpha", public_url: "https://atlarium.bio/en/catalog/fish/trigonostigma-heteromorpha", reason: "Peaceful school; compatible temperature; suitable for a planted 90 L tank", min_tank_liters: 60, care_level: "Easy" },
+        { common_name: "Cardinal tetra", scientific_name: "Paracheirodon axelrodi", slug: "paracheirodon-axelrodi", public_url: "https://atlarium.bio/en/catalog/fish/paracheirodon-axelrodi", reason: "Calm midwater school; suitable pH range", min_tank_liters: 70, care_level: "Intermediate" },
+        { common_name: "Peppered corydoras", scientific_name: "Corydoras paleatus", slug: "corydoras-paleatus", public_url: "https://atlarium.bio/en/catalog/fish/corydoras-paleatus", reason: "Social bottom group; gentle community behavior", min_tank_liters: 80, care_level: "Easy" },
       ],
     },
   },
