@@ -38,7 +38,7 @@ Last updated: 2026-08-16
   the listing is healthy, and the public description uses the canonical V2 copy.
 - Smithery is published and visible at
   `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database`.
-  Production exposes version `2.0.1`, 39 tools, 9 prompts and 3 resources;
+  Production exposes version `2.0.1`, 39 tools, 9 prompts and 4 widget resources;
   do not publish a static third-party score.
 - PulseMCP lists Atlarium Habitat Database publicly at
   `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database`.
@@ -48,17 +48,20 @@ Last updated: 2026-08-16
   `ui://widget/habitat-explorer.v4.html` with MIME type
   `text/html;profile=mcp-app`.
 - ChatGPT Developer Mode manual smoke passed after refreshing connector
-  metadata to `ui://widget/habitat-explorer.v4.html`; no public ChatGPT review
-  or approval is claimed.
+  metadata to `ui://widget/habitat-explorer.v4.html`.
+- The existing OpenAI dashboard app version `1.0.0` is approved. Habitat
+  Explorer v4 / MCP `2.0.2` is not yet resubmitted or approved.
 - ChatGPT App icon asset is prepared at `docs/assets/chatgpt-app-icon.png`.
 - Widget-only ChatGPT App development screenshots are stored in
   `docs/assets/chatgpt-screenshots/` and the short demo recording is prepared at
   `docs/assets/chatgpt-app-demo.mp4`; do not reuse the widget-only PNGs as
   publishing screenshots.
-- ChatGPT App was not approved on 2026-07-02. The fixes are deployed and the
-  remediation package is ready for dashboard resubmission after endpoint rescan
-  and new ChatGPT web/mobile screenshots. Do not claim public approval until
-  OpenAI accepts it.
+- The first ChatGPT App review was not approved on 2026-07-02; the existing app
+  later reached approved status as version `1.0.0`. The v4 / `2.0.2` remediation
+  package remains a local candidate; visual approval was recorded on 2026-08-16
+  and it must now complete production deployment, endpoint rescan and new
+  ChatGPT web/mobile screenshots before resubmission. Do not claim approval for
+  that candidate until OpenAI accepts it.
 - The OpenAI Apps domain challenge endpoint is live at
   `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.
 

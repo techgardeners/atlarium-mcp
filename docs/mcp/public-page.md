@@ -54,7 +54,9 @@ https://github.com/techgardeners/atlarium-mcp
 - VS Code: https://atlarium.bio/mcp/vscode
 - Antigravity: https://atlarium.bio/mcp/antigravity
 - Smithery status: https://atlarium.bio/mcp/smithery
-- ChatGPT Apps not approved on 2026-07-02; fixes deployed and pending dashboard resubmission: https://atlarium.bio/mcp/chatgpt
+- Existing ChatGPT App `1.0.0` approved; Habitat Explorer v4 / MCP `2.0.2`
+  candidate visually approved on 2026-08-16 and pending deployment and dashboard resubmission:
+  https://atlarium.bio/mcp/chatgpt
 
 ## What It Provides
 

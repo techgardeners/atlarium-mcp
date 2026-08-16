@@ -66,22 +66,27 @@ selects a dedicated result view for searches, profiles, compatibility,
 suggestions, habitat plans, diagnostics, fertilization and calculators. Inline
 cards avoid nested scrolling and expose no more than two contextual actions;
 profiles and habitat plans can request fullscreen only when the host advertises
-that capability. The Atlarium mascots appear in loading, empty and habitat-plan
-states without duplicating the app name or icon rendered by ChatGPT.
+that capability. The existing transparent Atlarium mascot cutouts appear only
+on the left as small editorial accents in loading, empty and error states;
+they never replace catalog or result media and do not duplicate the app name
+or icon rendered by ChatGPT.
 
 The widget reacts to host theme, display mode, height, safe-area, locale and
 persisted widget state. UI, loading, error and advisory copy is localized in
 English, Italian and Spanish. It does not load remote fonts, scripts, styles,
-iframes or fetch data from the widget. Optional species media is rendered only
-when present in the real structured tool payload as an Atlarium HTTPS URL. The
-widget CSP keeps `connectDomains` and `frameDomains` empty and limits
+iframes or fetch data from the widget. Species and plant media comes only from
+trusted Atlarium HTTPS fields or from the canonical catalog image URL derived
+from a matching Atlarium public catalog URL and exact slug. Missing or failed
+media remains empty and never falls back to a mascot. The widget CSP keeps
+`connectDomains` and `frameDomains` empty and limits
 `resourceDomains` to `https://atlarium.bio` and `https://mcp.atlarium.bio`.
 The resource metadata also declares `_meta.ui.domain` and the ChatGPT
 compatibility alias `_meta["openai/widgetDomain"]` for app submission.
 
-ChatGPT App status: not approved on 2026-07-02; remediation is prepared for
-resubmission. Do not claim public ChatGPT approval or availability until OpenAI
-accepts a resubmission.
+ChatGPT App status: the existing `1.0.0` app is approved in the OpenAI App
+dashboard. Habitat Explorer v4 / MCP `2.0.2` remains a local candidate and has
+not been resubmitted; do not claim that candidate as approved or publicly
+available until OpenAI accepts the new submission.
 
 ## Tools
 

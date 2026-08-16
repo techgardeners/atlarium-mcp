@@ -116,4 +116,20 @@ describe("distribution registry", () => {
       rmSync(targetRoot, { recursive: true, force: true });
     }
   });
+
+  it("generates directory payloads from the published release without static scores", () => {
+    execFileSync(
+      process.execPath,
+      ["scripts/submit-directories.mjs", "--payload"],
+      { stdio: "pipe" },
+    );
+    const payload = readFileSync(
+      "tmp/directory-submissions/secondary-directory-payloads.md",
+      "utf8",
+    );
+
+    expect(payload).toContain(`Release: ${registry.release.version}`);
+    expect(payload).not.toContain(`Release: ${registry.release.candidateVersion}`);
+    expect(payload).not.toMatch(/Quality score:\s*\d/i);
+  });
 });

@@ -60,11 +60,32 @@ export function useOpenAiHost() {
   useEffect(() => {
     const notify = window.openai?.notifyIntrinsicHeight;
     if (!notify || typeof ResizeObserver === "undefined") return;
-    const observer = new ResizeObserver(() => notify(document.documentElement.scrollHeight));
-    observer.observe(document.body);
-    notify(document.documentElement.scrollHeight);
-    return () => observer.disconnect();
-  }, [snapshot.payload, snapshot.displayMode]);
+    const target = document.querySelector<HTMLElement>(".app-shell") ?? document.getElementById("root");
+    if (!target) return;
+    let frame = 0;
+    let lastHeight = -1;
+    const measure = () => {
+      frame = window.requestAnimationFrame(() => {
+        const contentHeight = Math.ceil(
+          Math.max(target.getBoundingClientRect().height, target.scrollHeight),
+        );
+        const height = snapshot.displayMode === "fullscreen" && snapshot.maxHeight
+          ? Math.max(contentHeight, snapshot.maxHeight)
+          : contentHeight;
+        if (height > 0 && height !== lastHeight) {
+          lastHeight = height;
+          notify(height);
+        }
+      });
+    };
+    const observer = new ResizeObserver(measure);
+    observer.observe(target);
+    measure();
+    return () => {
+      observer.disconnect();
+      window.cancelAnimationFrame(frame);
+    };
+  }, [snapshot.payload, snapshot.displayMode, snapshot.maxHeight]);
 
   return useMemo(() => snapshot, [snapshot]);
 }
@@ -81,6 +102,7 @@ export function persistWidgetState(state: Record<string, unknown>) {
 export async function requestDisplayMode(mode: "inline" | "fullscreen") {
   if (typeof window.openai?.requestDisplayMode !== "function") return false;
   await window.openai.requestDisplayMode({ mode });
+  persistWidgetState({ displayMode: mode });
   return true;
 }
 

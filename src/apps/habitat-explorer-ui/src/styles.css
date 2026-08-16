@@ -84,31 +84,35 @@ h2, .subheading {
   margin-top: 4px;
 }
 
-.mascot-media {
-  aspect-ratio: 2 / 1;
-  background: var(--atlarium-navy);
-  border-radius: 18px;
-  overflow: hidden;
-  position: relative;
-}
-
-.mascot-media::after {
-  background: linear-gradient(90deg, rgb(7 24 45 / 0.46), transparent 55%);
-  content: "";
-  inset: 0;
+.mascot-accent {
+  align-items: end;
+  align-self: center;
+  display: inline-flex;
+  flex: 0 0 auto;
+  height: 76px;
+  justify-content: center;
   pointer-events: none;
-  position: absolute;
+  position: relative;
+  width: 82px;
 }
 
-.mascot-media img { display: block; height: 100%; object-fit: cover; width: 100%; }
-
-.mascot-media--compact { aspect-ratio: 2 / 1; max-height: 180px; }
+.mascot-accent img {
+  display: block;
+  filter: drop-shadow(0 5px 8px rgb(7 24 45 / 0.18));
+  height: 72px;
+  object-fit: contain;
+  width: 72px;
+}
 
 .state-view {
+  align-items: center;
   display: grid;
-  gap: 18px;
+  gap: 14px;
+  grid-template-columns: 82px minmax(0, 1fr);
   margin: 0 auto;
   max-width: 760px;
+  min-height: 148px;
+  padding-block: 14px;
 }
 
 .state-copy { padding: 0 4px 4px; }
@@ -183,6 +187,26 @@ h2, .subheading {
   width: 100%;
 }
 
+.product-card-media {
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  padding: 12px;
+}
+
+.brand-lockup {
+  align-items: center;
+  color: var(--color-text-secondary);
+  display: inline-flex;
+  gap: 9px;
+  min-height: 34px;
+  width: fit-content;
+}
+
+.brand-lockup img { height: 30px; max-width: 126px; object-fit: contain; width: auto; }
+.brand-lockup > span { font-size: 0.78rem; font-weight: 700; letter-spacing: 0.025em; }
+.brand-lockup--compact { gap: 7px; min-height: 24px; }
+.brand-lockup--compact img { height: 22px; max-width: 92px; }
+.brand-lockup--compact > span { font-size: 0.72rem; }
 
 .result-copy { display: grid; gap: 3px; min-width: 0; }
 .result-copy strong { font-size: 1rem; line-height: 1.25; }
@@ -205,17 +229,117 @@ h2, .subheading {
 .metric dt { color: var(--color-text-secondary); font-size: 0.69rem; line-height: 1.2; }
 .metric dd { color: var(--color-text); font-size: 0.86rem; font-weight: 680; margin: 3px 0 0; overflow-wrap: anywhere; }
 
-.profile-view, .diagnostic-view {
+.profile-view, .diagnostic-view, .product-view {
   display: grid;
   gap: 18px;
   margin: 0 auto;
-  max-width: 920px;
+  max-width: 980px;
 }
 
+.profile-view:not(.has-media) { max-width: 800px; }
+
+.profile-hero { display: grid; gap: 18px; min-width: 0; }
 .profile-visual { min-width: 0; }
 .feature-media { aspect-ratio: 16 / 9; border-radius: 18px; display: block; object-fit: cover; width: 100%; }
+.profile-summary { min-width: 0; }
+.profile-summary .metric-grid { margin-top: 18px; }
+.profile-body { min-width: 0; }
 .profile-copy { min-width: 0; }
 .profile-copy .metric-grid { margin-top: 18px; }
+.profile-sections { display: grid; gap: 14px; margin-top: 16px; }
+.profile-section { border-top: 1px solid var(--color-border-subtle); padding-top: 12px; }
+.profile-section h2 {
+  color: var(--atlarium-cyan-strong);
+  font-size: 0.76rem;
+  font-weight: 760;
+  letter-spacing: 0.075em;
+  line-height: 1.25;
+  margin: 0 0 5px;
+  text-transform: uppercase;
+}
+[data-theme="dark"] .profile-section h2 { color: #68d4ea; }
+.profile-section p { color: var(--color-text-secondary); font-size: 0.94rem; line-height: 1.58; margin: 0; }
+.profile-sections.is-preview .profile-section p {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.product-hero { display: grid; gap: 18px; min-width: 0; }
+.product-visual {
+  align-items: center;
+  background: var(--color-surface-secondary);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 18px;
+  display: grid;
+  min-width: 0;
+  overflow: hidden;
+  padding: 18px;
+}
+.product-media { aspect-ratio: 4 / 3; display: block; object-fit: contain; width: 100%; }
+.product-summary { align-content: start; display: grid; gap: 9px; min-width: 0; }
+.product-summary .eyebrow { margin-bottom: 0; }
+.product-summary .brand-lockup { margin-bottom: 3px; }
+.product-summary .metric-grid { margin-top: 10px; }
+.product-overview, .product-specifications { border-top: 1px solid var(--color-border-subtle); padding-top: 15px; }
+.product-overview h2, .product-specifications h2 { margin-bottom: 8px; }
+.product-overview p { color: var(--color-text-secondary); font-size: 0.94rem; line-height: 1.62; max-width: 78ch; }
+.product-view:not(.is-fullscreen) .product-overview p {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  display: -webkit-box;
+  overflow: hidden;
+}
+
+.diagnostic-hero { display: grid; gap: 18px; min-width: 0; }
+.diagnostic-summary { align-content: start; display: grid; min-width: 0; }
+.diagnostic-summary .metric-grid { margin-top: 16px; }
+.diagnostic-view:not(.is-fullscreen) .diagnostic-summary .lede {
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  display: -webkit-box;
+  overflow: hidden;
+}
+.diagnostic-sections { display: grid; gap: 18px; }
+.diagnostic-section { border-top: 1px solid var(--color-border-subtle); min-width: 0; padding-top: 13px; }
+.diagnostic-section > h2, .diagnostic-related > h2 {
+  color: var(--atlarium-cyan-strong);
+  font-size: 0.74rem;
+  font-weight: 780;
+  letter-spacing: 0.08em;
+  margin-bottom: 9px;
+  text-transform: uppercase;
+}
+[data-theme="dark"] .diagnostic-section > h2, [data-theme="dark"] .diagnostic-related > h2 { color: #68d4ea; }
+.diagnostic-section.is-warning > h2 { color: var(--atlarium-warning); }
+[data-theme="dark"] .diagnostic-section.is-warning > h2 { color: #f2b765; }
+.diagnostic-block + .diagnostic-block { margin-top: 11px; }
+.diagnostic-block h3 {
+  color: var(--color-text);
+  font-size: 0.88rem;
+  font-weight: 730;
+  line-height: 1.3;
+  margin: 0 0 5px;
+}
+.diagnostic-block p, .diagnostic-section > p, .diagnostic-block li {
+  color: var(--color-text-secondary);
+  font-size: 0.88rem;
+  line-height: 1.55;
+}
+.diagnostic-block ul { display: grid; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.diagnostic-block li { border-left: 2px solid var(--atlarium-green); padding-left: 10px; }
+.diagnostic-section.is-warning .diagnostic-block li { border-left-color: var(--atlarium-warning); }
+.diagnostic-section > .metric-grid { margin-bottom: 10px; }
+.diagnostic-related { border-top: 1px solid var(--color-border-subtle); padding-top: 13px; }
+.diagnostic-related > div { display: flex; flex-wrap: wrap; gap: 7px; }
+.diagnostic-related span {
+  background: var(--color-background-secondary-soft);
+  border-radius: 999px;
+  color: var(--color-text-secondary);
+  font-size: 0.76rem;
+  padding: 5px 9px;
+}
 
 .action-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
 .advisory { border-top: 1px solid var(--color-border-subtle); color: var(--color-text-secondary); font-size: 0.76rem; margin-top: 18px; padding-top: 12px; }
@@ -224,9 +348,11 @@ h2, .subheading {
 .verdict > div:first-child { max-width: 68ch; }
 
 .species-pair { display: grid; gap: 10px; margin-top: 10px; }
-.species-row { align-items: center; border-bottom: 1px solid var(--color-border-subtle); display: grid; gap: 10px; grid-template-columns: 48px minmax(0, 1fr); padding: 8px 0; }
+.species-row { align-items: center; border-bottom: 1px solid var(--color-border-subtle); display: grid; gap: 10px; grid-template-columns: minmax(0, 1fr); padding: 8px 0; }
+.species-row.has-media { grid-template-columns: 48px minmax(0, 1fr); }
 .species-row img, .species-avatar { aspect-ratio: 1; border-radius: 10px; height: 48px; object-fit: cover; width: 48px; }
 .species-row > div { display: grid; min-width: 0; }
+.species-row strong { color: var(--color-text); }
 .species-row span { color: var(--color-text-secondary); font-size: 0.75rem; }
 .species-row .metric-grid { grid-column: 1 / -1; }
 
@@ -239,31 +365,78 @@ h2, .subheading {
 .suggestion-grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
 .suggestion-card { min-width: 0; }
 
-.habitat-view > * + * { margin-top: 18px; }
-.habitat-heading { max-width: 70ch; }
-.habitat-list { display: grid; gap: 0; margin-top: 8px; }
-.habitat-row { border-top: 1px solid var(--color-border-subtle); color: var(--color-text); display: grid; gap: 3px; padding: 10px 0; }
-.habitat-row span { color: var(--color-text-secondary); font-size: 0.82rem; }
-.compact-list { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 8px; }
-.compact-list span { background: var(--color-background-secondary-soft); border-radius: 999px; color: var(--color-text-secondary); font-size: 0.75rem; padding: 5px 9px; }
+.habitat-view { margin: 0 auto; max-width: 980px; }
+.habitat-view > * + * { margin-top: 20px; }
+.habitat-heading { max-width: 72ch; }
+.habitat-kpis { display: grid; gap: 8px; grid-template-columns: repeat(2, minmax(0, 1fr)); margin: 0; }
+.habitat-kpis > div { border-top: 1px solid var(--color-border-subtle); min-width: 0; padding-top: 8px; }
+.habitat-kpis dt { color: var(--color-text-secondary); font-size: 0.69rem; line-height: 1.2; }
+.habitat-kpis dd { color: var(--color-text); font-size: 0.9rem; font-weight: 700; margin: 3px 0 0; overflow-wrap: anywhere; }
+.habitat-section { min-width: 0; }
+.habitat-section-heading { align-items: center; display: flex; gap: 8px; justify-content: space-between; margin-bottom: 8px; }
+.habitat-section-heading h2 { font-size: 0.84rem; }
+.habitat-animal-grid, .habitat-plant-grid, .habitat-product-grid { display: grid; gap: 0 16px; }
+.habitat-animal, .habitat-plant, .habitat-product { border-top: 1px solid var(--color-border-subtle); min-width: 0; padding: 10px 0; }
+.habitat-animal, .habitat-plant { align-items: center; display: grid; gap: 10px; }
+.habitat-animal.has-media { grid-template-columns: 76px minmax(0, 1fr); }
+.habitat-plant.has-media { grid-template-columns: 64px minmax(0, 1fr); }
+.habitat-animal-media { aspect-ratio: 4 / 3; border-radius: 11px; display: block; height: 58px; object-fit: cover; width: 76px; }
+.habitat-plant-media { aspect-ratio: 1; border-radius: 11px; display: block; height: 58px; object-fit: cover; width: 58px; }
+.habitat-item-copy { display: grid; gap: 3px; min-width: 0; }
+.habitat-item-copy strong, .habitat-product > strong { color: var(--color-text); font-size: 0.88rem; line-height: 1.25; }
+.habitat-item-copy em { color: var(--color-text-secondary); font-size: 0.72rem; line-height: 1.25; }
+.habitat-item-copy > span, .habitat-product > span { color: var(--color-text-secondary); display: -webkit-box; font-size: 0.76rem; line-height: 1.38; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+.habitat-item-title { align-items: center; display: flex; gap: 7px; justify-content: space-between; min-width: 0; }
+.habitat-item-title strong { min-width: 0; overflow-wrap: anywhere; }
+.habitat-item-title > span { flex: 0 0 auto; }
+.habitat-product { align-content: start; display: grid; gap: 5px; }
+.habitat-product .brand-lockup { margin-bottom: 2px; }
+.habitat-guide-list { display: flex; flex-wrap: wrap; gap: 7px; }
+.habitat-guide-list span { background: var(--color-background-secondary-soft); border-radius: 999px; color: var(--color-text-secondary); font-size: 0.75rem; padding: 5px 9px; }
+.habitat-view:not(.is-fullscreen) .notice-list li { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; overflow: hidden; }
 
 .calculation-view { display: grid; gap: 20px; }
 .calculation-view > header { border-bottom: 1px solid var(--color-border-subtle); padding-bottom: 18px; }
+.calculation-view > header > .metric-grid { margin-top: 18px; max-width: 720px; }
 .calculation-value { display: grid; margin-top: 16px; }
 .calculation-value strong { color: var(--atlarium-cyan-strong); font-size: clamp(2rem, 9vw, 4.2rem); letter-spacing: -0.06em; line-height: 0.96; }
+.calculation-value strong small { font-size: 0.34em; font-weight: 720; letter-spacing: -0.01em; margin-left: 8px; }
 [data-theme="dark"] .calculation-value strong { color: #68d4ea; }
 .calculation-value span { color: var(--color-text-secondary); font-size: 0.78rem; margin-top: 6px; }
+.calculation-section { min-width: 0; }
+.calculation-section > h2 { border-bottom: 1px solid var(--color-border-subtle); font-size: 0.86rem; margin-bottom: 10px; padding-bottom: 8px; }
+.calculation-rows { display: grid; gap: 10px; }
+.calculation-row { background: var(--color-surface-elevated); border: 1px solid var(--color-border-subtle); border-radius: 13px; display: grid; gap: 10px; min-width: 0; padding: 11px; }
+.calculation-row > header { align-items: flex-start; display: flex; gap: 10px; justify-content: space-between; }
+.calculation-row > header > div { display: grid; min-width: 0; }
+.calculation-row > header strong { color: var(--color-text); font-size: 0.88rem; overflow-wrap: anywhere; }
+.calculation-row > header span { color: var(--color-text-secondary); font-size: 0.72rem; }
+.calculation-empty .metric-grid { margin-top: 12px; }
 
 @media (min-width: 700px) {
   .app-shell { padding: calc(16px + var(--safe-top)) calc(16px + var(--safe-right)) calc(16px + var(--safe-bottom)) calc(16px + var(--safe-left)); }
   .carousel { grid-auto-columns: minmax(250px, 34%); }
-  .profile-view, .diagnostic-view { align-items: start; grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr); }
+  .profile-hero.has-media { align-items: start; grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.05fr); }
+  .profile-view.is-fullscreen .profile-sections { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .diagnostic-hero.has-media { align-items: start; grid-template-columns: minmax(300px, 0.95fr) minmax(0, 1.05fr); }
+  .diagnostic-view.is-fullscreen .diagnostic-sections { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .product-hero.has-media { align-items: center; grid-template-columns: minmax(280px, 0.82fr) minmax(0, 1.18fr); }
+  .product-specifications .metric-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .habitat-kpis { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .habitat-animal-grid, .habitat-plant-grid, .habitat-product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .compatibility-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .species-row { grid-template-columns: 56px minmax(180px, 1fr) minmax(200px, 0.8fr); }
+  .species-row { grid-template-columns: minmax(180px, 1fr) minmax(200px, 0.8fr); }
+  .species-row.has-media { grid-template-columns: 56px minmax(180px, 1fr) minmax(200px, 0.8fr); }
   .species-row img, .species-avatar { height: 56px; width: 56px; }
   .species-row .metric-grid { grid-column: auto; }
-  .app-shell[data-display-mode="fullscreen"] .profile-view,
-  .app-shell[data-display-mode="fullscreen"] .diagnostic-view { grid-template-columns: minmax(0, 1.15fr) minmax(360px, 0.85fr); }
+  .app-shell[data-display-mode="fullscreen"] .profile-hero.has-media { grid-template-columns: minmax(420px, 1.08fr) minmax(360px, 0.92fr); }
+  .app-shell[data-display-mode="fullscreen"] .diagnostic-hero.has-media { grid-template-columns: minmax(420px, 1.08fr) minmax(360px, 0.92fr); }
+  .app-shell[data-display-mode="fullscreen"] .product-hero.has-media { grid-template-columns: minmax(380px, 0.9fr) minmax(420px, 1.1fr); }
+  .app-shell[data-display-mode="fullscreen"] .habitat-view { max-width: 1120px; }
+  .app-shell[data-display-mode="fullscreen"] .habitat-kpis { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+  .app-shell[data-display-mode="fullscreen"] .habitat-animal-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .app-shell[data-display-mode="fullscreen"] .habitat-plant-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .app-shell[data-display-mode="fullscreen"] .calculation-rows { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
 @media (max-width: 420px) {
@@ -271,11 +444,14 @@ h2, .subheading {
   .section-heading, .verdict { align-items: flex-start; flex-direction: column; gap: 10px; }
   .metric-grid { grid-template-columns: 1fr 1fr; }
   .action-row > button { flex: 1 1 100%; min-height: 44px; }
+  .mascot-accent { height: 64px; width: 68px; }
+  .mascot-accent img { height: 60px; width: 60px; }
+  .state-view { grid-template-columns: 68px minmax(0, 1fr); min-height: 128px; }
 }
 
 @media (prefers-reduced-motion: no-preference) {
-  .mascot-media { animation: habitat-arrive 420ms cubic-bezier(.22,.8,.36,1) both; }
-  .profile-copy, .collection-view, .compatibility-view, .suggestions-view, .calculation-view { animation: result-arrive 260ms ease-out both; }
+  .mascot-accent { animation: habitat-arrive 420ms cubic-bezier(.22,.8,.36,1) both; }
+  .profile-body, .profile-summary, .product-view, .collection-view, .compatibility-view, .suggestions-view, .calculation-view { animation: result-arrive 260ms ease-out both; }
   .result-card.is-selected { animation: selected-pulse 220ms ease-out; }
 }
 

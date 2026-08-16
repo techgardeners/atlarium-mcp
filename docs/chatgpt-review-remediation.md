@@ -1,6 +1,11 @@
 # ChatGPT App Review Remediation
 
-Last updated: `2026-07-02`
+Last updated: `2026-08-16`
+
+Current status: the existing OpenAI dashboard app version `1.0.0` is approved.
+This document records the earlier review findings and the remaining submission
+work for Habitat Explorer v4 / MCP `2.0.2`, which is not yet resubmitted or
+approved.
 
 OpenAI rejected the Atlarium Habitat Database MCP ChatGPT App review with two
 action items:
@@ -106,4 +111,6 @@ generated_at -> absent
    test prompts and expected outputs into the form.
 4. Submit for review.
 
-Do not claim ChatGPT approval until OpenAI accepts the resubmission.
+Do not claim Habitat Explorer v4 / MCP `2.0.2` approval until OpenAI accepts
+that resubmission; this does not change the approved status of the existing
+dashboard app version `1.0.0`.

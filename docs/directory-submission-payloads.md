@@ -112,7 +112,7 @@ Manual blocker:
 
 ```text
 Published and visible at `ilgrafico79/atlarium-habitat-database`. Production
-exposes version 2.0.1 with 39 tools, 9 prompts and 3 resources. Complete a
+exposes version 2.0.1 with 39 tools, 9 prompts and 4 widget resources. Complete a
 signed-in metadata refresh after runtime changes; do not publish a static score
 or purchase paid verification.
 ```

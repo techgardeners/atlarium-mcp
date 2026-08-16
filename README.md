@@ -117,7 +117,7 @@ pnpm mcp:monitor:public
 | VS Code | Copy `examples/vscode/mcp.json`; VS Code uses `type: "http"` for remote MCP servers. |
 | Antigravity | Use `examples/antigravity/mcp.json` only in builds that support remote MCP servers. |
 | Generic Streamable HTTP | Use the JSON-RPC examples in `examples/generic-streamable-http`. |
-| ChatGPT Apps | Not approved on 2026-07-02; fixes are deployed and the package is ready for dashboard resubmission with the Habitat Explorer widget. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes, smoke prompts and screenshot checklist. Public approval is not claimed. |
+| ChatGPT Apps | The existing app version `1.0.0` is approved in the OpenAI dashboard. Habitat Explorer v4 / MCP `2.0.2` is a local candidate that has not been resubmitted. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes, smoke prompts and the real ChatGPT screenshot checklist. |
 
 These are compatibility notes, not vendor endorsements. Do not make vendor or
 directory support claims for ChatGPT, Claude, Cursor, Windsurf, VS Code,
@@ -144,8 +144,10 @@ workspace, auth, admin, journal, schedule or measurement data.
 Widget-only development screenshots and a short demo recording are checked in
 under `docs/assets/chatgpt-screenshots/` and `docs/assets/chatgpt-app-demo.mp4`.
 For resubmission, replace the uploaded images with real ChatGPT web/mobile
-screenshots that include the host UI. The ChatGPT App is not approved; do not
-describe it as approved or publicly available until OpenAI accepts it.
+screenshots that include the host UI. The v4 / `2.0.2` candidate is not
+approved; do not describe it as approved or publicly available
+until OpenAI accepts that new submission. The existing dashboard app version
+`1.0.0` is approved.
 
 ## Tool Surface
 

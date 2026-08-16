@@ -11,7 +11,7 @@ marketing and unrelated website work are outside this report.
 - Production health reports `2.0.1` and `status = ok`.
 - The public Streamable HTTP endpoint is
   `https://mcp.atlarium.bio/mcp` with no authentication and read-only behavior.
-- The public surface remains exactly 39 tools, 9 prompts and 3 resources.
+- The public surface remains exactly 39 tools, 9 prompts and 4 widget resources.
 - Habitat Explorer v4 is served at
   `ui://widget/habitat-explorer.v4.html`; v3, v2 and v1 remain compatible aliases.
 - The Official MCP Registry exposes `bio.atlarium/habitat-database` version
@@ -35,7 +35,7 @@ Acceptance points verified by deterministic fixtures and screenshots:
 - host globals for theme, display mode, height, safe area, locale and widget
   state;
 - capability-detected fullscreen and persisted carousel selection;
-- mascots in loading, empty and habitat-plan states without duplicated app
+- mascots only in loading, empty and error states without duplicated app
   branding;
 - no hardcoded species fallback or demo content in live tool results;
 - maximum two inline actions, keyboard focus and reduced-motion support;
@@ -116,7 +116,7 @@ score or paid badge is claimed.
 | Cursor Marketplace | Submitted | Signed-in publisher application received. |
 | cursor.directory | In review | https://cursor.directory/plugins/atlarium-habitat-database |
 | MCP Server Hub | Resubmitted | Version `2.0.1` form confirmation received. |
-| MCP Marketplace | In review / scanning | Canonical listing updated to `2.0.1`; security re-scan requested. |
+| MCP Marketplace | Published / verified | Canonical `2.0.1` listing reports 39 tools, no auth, 10/10 low-risk security and successful public health probes. |
 | MCP.so ownership | In review | Public visibility is unaffected; ownership is needed only for dashboard edits. |
 | Cline Marketplace | Submitted | https://github.com/cline/mcp-marketplace/issues/2253 |
 | ChatGPT App | Prepared | Real ChatGPT web/mobile captures, metadata refresh and signed-in resubmission remain. |

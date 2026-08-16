@@ -24,6 +24,7 @@ const docs = "https://atlarium.bio/mcp";
 const serverCard = "https://mcp.atlarium.bio/.well-known/mcp/server-card.json";
 const health = "https://mcp.atlarium.bio/health";
 const registryName = serverJson.name;
+const publishedVersion = distributionRegistry.release.version;
 const registryUrl = `https://registry.modelcontextprotocol.io/v0.1/servers?search=${encodeURIComponent(registryName)}`;
 const auditHeaders = {
   accept: "text/html,application/json;q=0.9,*/*;q=0.8",
@@ -84,7 +85,7 @@ function validateSubmissionRecord(target) {
 }
 
 const connectionBlock = [
-  `Release: ${serverJson.version}`,
+  `Release: ${publishedVersion}`,
   `Transport: Streamable HTTP`,
   `Endpoint: ${endpoint}`,
   `Auth: none`,
@@ -175,8 +176,8 @@ Docs: ${docs}
 Description: ${shortDescription}
 ${surfaceStatement}
 Safety: ${safetyStatement}
-Quality score: 96/100 after parameter descriptions and custom icon upload.
-The remaining score gap is the non-breaking Smithery naming heuristic.
+Quality and verification status must be read from the live Smithery listing;
+do not copy a static score into public submission payloads.
 
 ## Glama
 
@@ -440,7 +441,7 @@ function getExistingMcpSoSubmissionUrl() {
     "-f",
     "per_page=100",
     "--jq",
-    `.[] | select((.body | contains("${name}")) and (.body | contains("Release: ${serverJson.version}"))) | .html_url`,
+    `.[] | select((.body | contains("${name}")) and (.body | contains("Release: ${publishedVersion}"))) | .html_url`,
   ]);
 
   return matchingCommentUrls.split("\n").find(Boolean);
@@ -456,7 +457,7 @@ function submitMcpSo() {
   const existingSubmissionUrl = getExistingMcpSoSubmissionUrl();
   if (existingSubmissionUrl) {
     console.log(
-      `MCP.so already has the ${serverJson.version} release update; skipping duplicate comment: ${existingSubmissionUrl}`,
+      `MCP.so already has the ${publishedVersion} release update; skipping duplicate comment: ${existingSubmissionUrl}`,
     );
     return;
   }

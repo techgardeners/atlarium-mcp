@@ -13,6 +13,7 @@ const requiredMarkers = [
   "setWidgetState",
   "notifyIntrinsicHeight",
   "data:image/webp",
+  "data-brand-logo",
 ];
 const forbiddenMarkers = [
   "rail-button",
@@ -20,7 +21,6 @@ const forbiddenMarkers = [
   "Suggest 90 L planted tank",
   "aequidens-pulcher",
   "paracheirodon-innesi",
-  "data-brand-logo",
   "<iframe",
 ];
 

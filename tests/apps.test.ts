@@ -1,6 +1,8 @@
 import { once } from "node:events";
+import { existsSync, statSync } from "node:fs";
 import type { Server } from "node:http";
 import type { AddressInfo } from "node:net";
+import { resolve } from "node:path";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
 import { describe, expect, it } from "vitest";
@@ -46,6 +48,24 @@ async function withServer<T>(
 }
 
 describe("ChatGPT App widget", () => {
+  it("ships only lightweight cutout mascots and removes the legacy hero scene", () => {
+    const assetDirectory = resolve(
+      import.meta.dirname,
+      "../src/apps/habitat-explorer-ui/assets",
+    );
+    const accents = [
+      resolve(assetDirectory, "mascot-chameleon-accent.webp"),
+      resolve(assetDirectory, "mascot-fish-accent.webp"),
+    ];
+
+    expect(existsSync(resolve(assetDirectory, "atlarium-mcp-mascots.webp"))).toBe(false);
+    for (const asset of accents) {
+      expect(existsSync(asset)).toBe(true);
+      expect(statSync(asset).size).toBeGreaterThan(0);
+      expect(statSync(asset).size).toBeLessThanOrEqual(12_000);
+    }
+  });
+
   it("ships a self-contained Habitat Explorer HTML resource", () => {
     const html = habitatExplorerHtml();
 
@@ -56,6 +76,8 @@ describe("ChatGPT App widget", () => {
     expect(html).toContain("requestDisplayMode");
     expect(html).toContain("setWidgetState");
     expect(html).toContain("notifyIntrinsicHeight");
+    expect(html).toContain("getBoundingClientRect");
+    expect(html).not.toContain("document.documentElement.scrollHeight");
     expect(html).toContain("ui/notifications/tool-result");
     expect(html).toContain("openai:set_globals");
     expect(html).toContain("toolResponseMetadata");
@@ -63,10 +85,12 @@ describe("ChatGPT App widget", () => {
     expect(html).not.toContain("isChatGptHost");
     expect(html).not.toContain('class="rail"');
     expect(html).not.toContain('class="rail-button"');
-    expect(html).not.toContain("data-brand-logo");
+    expect(html).toContain("data-brand-logo");
     expect(html).not.toContain("Rasbora arlecchino");
     expect(html).not.toContain("Acara blu");
     expect(html).not.toContain("Atlarium habitat mascots for ");
+    expect(html).not.toContain("mascot-media");
+    expect(html).toContain("data-mascot-accent");
   });
 
   it("declares standard and ChatGPT-compatible widget CSP metadata", () => {
