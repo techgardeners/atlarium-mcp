@@ -72,6 +72,20 @@ The initial production report confirms zero forbidden client fields and correct
 synthetic/external separation. The 14-day baseline remains a time-dependent
 follow-up rather than a release blocker.
 
+Initial production snapshot captured at `2026-08-16T22:02:46.618Z` with
+`--since=720h --strict`:
+
+- 192 MCP requests: 134 external and 58 synthetic;
+- 22 tool calls: 7 external and 15 synthetic;
+- zero request or tool-call errors;
+- zero unclassified events;
+- zero forbidden client fields and zero invalid error codes;
+- probes: 36 public monitor, 24 public validator and 13 ChatGPT submission
+  validator events.
+
+This is the release-day baseline. The required 14-day comparison must use the
+same strict command and remain separate from synthetic probe traffic.
+
 ## Accepted Public Distribution
 
 Only currently visible or accepted surfaces appear here. No static third-party
