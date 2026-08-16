@@ -37,9 +37,10 @@ function validateDistributionRegistry(registry) {
   const pendingStatuses = new Set(["submitted", "in_review"]);
   const ids = new Set();
 
-  if (registry.release?.version !== serverJson.version) {
+  const sourceVersion = registry.release?.candidateVersion ?? registry.release?.version;
+  if (sourceVersion !== serverJson.version) {
     throw new Error(
-      `Distribution release ${registry.release?.version} does not match server.json ${serverJson.version}.`,
+      `Distribution source version ${sourceVersion} does not match server.json ${serverJson.version}.`,
     );
   }
   if (JSON.stringify(registry.followUpDays) !== JSON.stringify([7, 14, 30])) {
@@ -292,11 +293,17 @@ async function check() {
     return;
   }
   const registry = await registryResponse.json();
-  const names = (registry.servers ?? [])
-    .map((entry) => entry.server?.name ?? entry.name)
-    .filter(Boolean);
-  const found = names.includes(registryName);
-  console.log(`official-registry: ${found ? "found" : "not-found"}`);
+  const found = (registry.servers ?? []).some((entry) => {
+    const server = entry.server ?? entry;
+    const official = entry._meta?.["io.modelcontextprotocol.registry/official"];
+    return server.name === registryName &&
+      server.version === distributionRegistry.release.version &&
+      official?.status === "active" &&
+      official?.isLatest === true;
+  });
+  console.log(
+    `official-registry:${distributionRegistry.release.version}: ${found ? "active-latest" : "not-active-latest"}`,
+  );
   if (!found) {
     process.exitCode = 1;
   }

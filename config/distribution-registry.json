@@ -4,7 +4,8 @@
   "verifiedAt": "2026-08-16T21:01:26Z",
   "followUpDays": [7, 14, 30],
   "release": {
-    "version": "2.0.2",
+    "version": "2.0.1",
+    "candidateVersion": "2.0.2",
     "endpoint": "https://mcp.atlarium.bio/mcp",
     "repository": "https://github.com/techgardeners/atlarium-mcp",
     "widgetUri": "ui://widget/habitat-explorer.v4.html",
@@ -282,7 +283,7 @@
         "payload": {
           "name": "Atlarium Habitat Database MCP",
           "repository": "https://github.com/techgardeners/atlarium-mcp",
-          "package": "ghcr.io/techgardeners/atlarium-mcp:2.0.2",
+          "package": "ghcr.io/techgardeners/atlarium-mcp:2.0.1",
           "packageType": "docker",
           "category": "other"
         },
@@ -501,7 +502,7 @@
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
       "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "Habitat Explorer v4 and submission assets are prepared; real ChatGPT web/mobile captures and the final signed-in resubmission remain required."
+      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. Habitat Explorer v4 / MCP 2.0.2 is a local candidate; final visual approval, production deployment, real ChatGPT web/mobile captures and the signed-in resubmission remain required."
     }
   ]
 }

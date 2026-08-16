@@ -16,7 +16,11 @@
     },
     "release": {
       "type": "object",
-      "required": ["version", "endpoint", "repository", "widgetUri", "tools", "prompts", "authentication", "readOnly"]
+      "required": ["version", "endpoint", "repository", "widgetUri", "tools", "prompts", "authentication", "readOnly"],
+      "properties": {
+        "version": { "type": "string", "minLength": 1 },
+        "candidateVersion": { "type": ["string", "null"], "minLength": 1 }
+      }
     },
     "statuses": {
       "type": "array",
