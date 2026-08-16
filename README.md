@@ -117,7 +117,7 @@ pnpm mcp:monitor:public
 | VS Code | Copy `examples/vscode/mcp.json`; VS Code uses `type: "http"` for remote MCP servers. |
 | Antigravity | Use `examples/antigravity/mcp.json` only in builds that support remote MCP servers. |
 | Generic Streamable HTTP | Use the JSON-RPC examples in `examples/generic-streamable-http`. |
-| ChatGPT Apps | The existing app version `1.0.0` is approved in the OpenAI dashboard. Habitat Explorer v4 / MCP `2.0.2` is a local candidate that has not been resubmitted. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes, smoke prompts and the real ChatGPT screenshot checklist. |
+| ChatGPT Apps | The existing app version `1.0.0` is approved in the OpenAI dashboard. Habitat Explorer v4 / MCP `2.0.2` is deployed and has not yet been resubmitted. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes, smoke prompts and the real ChatGPT screenshot checklist. |
 
 These are compatibility notes, not vendor endorsements. Do not make vendor or
 directory support claims for ChatGPT, Claude, Cursor, Windsurf, VS Code,
@@ -144,10 +144,10 @@ workspace, auth, admin, journal, schedule or measurement data.
 Widget-only development screenshots and a short demo recording are checked in
 under `docs/assets/chatgpt-screenshots/` and `docs/assets/chatgpt-app-demo.mp4`.
 For resubmission, replace the uploaded images with real ChatGPT web/mobile
-screenshots that include the host UI. The v4 / `2.0.2` candidate is not
-approved; do not describe it as approved or publicly available
-until OpenAI accepts that new submission. The existing dashboard app version
-`1.0.0` is approved.
+screenshots that include the host UI. The v4 / `2.0.2` candidate is live at the
+MCP endpoint but is not yet approved as the new ChatGPT App version; do not
+describe that app submission as approved until OpenAI accepts it. The existing
+dashboard app version `1.0.0` is approved.
 
 ## Tool Surface
 
@@ -924,11 +924,11 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 
 | Directory | Status |
 | --- | --- |
-| Official MCP Registry | Published as `bio.atlarium/habitat-database`; release `2.0.1` is active and latest. |
+| Official MCP Registry | Published as `bio.atlarium/habitat-database`; release `2.0.2` is active and latest. |
 | GitHub | Canonical public source repository. |
 | Glama | Ownership verified; listing healthy with 39 tools and canonical V2 description. |
-| Smithery | [Published listing](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); production metadata exposes version `2.0.1`, 39 tools and 9 prompts. |
-| MCP.so | [Listed publicly](https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners); the `2.0.1` refresh is awaiting directory processing. |
+| Smithery | [Published listing](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); production exposes version `2.0.2`, 39 tools and 9 prompts, while the directory refresh remains pending. |
+| MCP.so | [Listed publicly](https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners); the `2.0.2` refresh is awaiting directory processing. |
 | PulseMCP | Listed publicly; verify badge policy before adding a badge. |
 | mcpservers.org | Listed publicly at [`techgardeners/atlarium-mcp`](https://mcpservers.org/servers/techgardeners/atlarium-mcp); no badge added yet. |
 | MCPRepository | [Published listing](https://mcprepository.com/techgardeners/atlarium-mcp), verified by its public page. |

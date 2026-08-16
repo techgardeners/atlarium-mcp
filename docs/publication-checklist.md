@@ -27,9 +27,9 @@ Last updated: 2026-08-16
 - GitHub repo metadata, README, MIT license, contributing/security notes and client examples are ready.
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
 - `pnpm mcp:validate:public` verifies representative calls across the 39-tool read-only V2 surface.
-- Official MCP Registry `2.0.1` is `active` and `isLatest` for
+- Official MCP Registry `2.0.2` is `active` and `isLatest` for
   `bio.atlarium/habitat-database`; public `publishedAt` is
-  `2026-08-16T20:39:39.109808Z`.
+  `2026-08-16T23:10:31.800325Z`.
 - Glama indexes the registry entry as a connector at
   `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database`.
 - `https://mcp.atlarium.bio/.well-known/glama.json` serves the Glama ownership
@@ -38,7 +38,7 @@ Last updated: 2026-08-16
   the listing is healthy, and the public description uses the canonical V2 copy.
 - Smithery is published and visible at
   `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database`.
-  Production exposes version `2.0.1`, 39 tools, 9 prompts and 4 widget resources;
+  Production exposes version `2.0.2`, 39 tools, 9 prompts and 4 widget resources;
   do not publish a static third-party score.
 - PulseMCP lists Atlarium Habitat Database publicly at
   `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database`.
@@ -58,10 +58,9 @@ Last updated: 2026-08-16
   publishing screenshots.
 - The first ChatGPT App review was not approved on 2026-07-02; the existing app
   later reached approved status as version `1.0.0`. The v4 / `2.0.2` remediation
-  package remains a local candidate; visual approval was recorded on 2026-08-16
-  and it must now complete production deployment, endpoint rescan and new
-  ChatGPT web/mobile screenshots before resubmission. Do not claim approval for
-  that candidate until OpenAI accepts it.
+  package is visually approved and deployed; it must now complete the endpoint
+  rescan and new ChatGPT web/mobile screenshots before resubmission. Do not
+  claim approval for that app version until OpenAI accepts it.
 - The OpenAI Apps domain challenge endpoint is live at
   `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.
 
@@ -366,11 +365,11 @@ separate from pending and blocked operations.
 
 | Accepted public surface | Status | Evidence |
 | --- | --- | --- |
-| Official MCP Registry | Published / active / latest `2.0.1` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
+| Official MCP Registry | Published / active / latest `2.0.2` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
 | GitHub | Published | https://github.com/techgardeners/atlarium-mcp |
 | Smithery | Published | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database |
 | Glama | Ownership verified | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database |
-| MCP.so | Listed; `2.0.1` refresh submitted | https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners |
+| MCP.so | Listed; `2.0.2` refresh submitted | https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners |
 | PulseMCP | Listed | https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database |
 | MCP Scoreboard | Listed / unscored | https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/ |
 | mcpservers.org | Listed | https://mcpservers.org/servers/techgardeners/atlarium-mcp |

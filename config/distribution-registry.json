@@ -1,11 +1,11 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-16T21:01:26Z",
+  "verifiedAt": "2026-08-16T23:10:31Z",
   "followUpDays": [7, 14, 30],
   "release": {
-    "version": "2.0.1",
-    "candidateVersion": "2.0.2",
+    "version": "2.0.2",
+    "candidateVersion": null,
     "endpoint": "https://mcp.atlarium.bio/mcp",
     "repository": "https://github.com/techgardeners/atlarium-mcp",
     "widgetUri": "ui://widget/habitat-explorer.v4.html",
@@ -35,8 +35,8 @@
       "listingUrl": "https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database",
       "submissionUrl": "https://modelcontextprotocol.io/registry/quickstart",
       "publicPage": true,
-      "verifiedAt": "2026-08-16T20:46:22Z",
-      "evidence": "Official Registry API exposes bio.atlarium/habitat-database version 2.0.1 as active and latest; publishedAt is 2026-08-16T20:39:39.109808Z."
+      "verifiedAt": "2026-08-16T23:10:31Z",
+      "evidence": "Official Registry API exposes bio.atlarium/habitat-database version 2.0.2 as active and latest; publishedAt is 2026-08-16T23:10:31.800325Z."
     },
     {
       "id": "github",
@@ -58,7 +58,7 @@
       "submissionUrl": "https://smithery.ai/new",
       "publicPage": true,
       "verifiedAt": "2026-08-16T14:46:00Z",
-      "evidence": "Public listing returns HTTP 200; metadata refresh is required after production 2.0.1."
+      "evidence": "Public listing returns HTTP 200; metadata refresh is required after production 2.0.2."
     },
     {
       "id": "glama",
@@ -79,24 +79,24 @@
       "listingUrl": "https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners",
       "submissionUrl": "https://mcp.so/submit",
       "publicPage": true,
-      "verifiedAt": "2026-08-16T20:42:16Z",
+      "verifiedAt": "2026-08-16T23:14:04Z",
       "verificationStatuses": [200, 403],
-      "evidence": "Public listing returns HTTP 200; release 2.0.1 metadata refresh was submitted through the directory's canonical GitHub issue. Cloudflare may return HTTP 403 to the transparent GitHub Actions audit bot.",
+      "evidence": "Public listing returns HTTP 200; release 2.0.2 metadata refresh was submitted through the directory's canonical GitHub issue. Cloudflare may return HTTP 403 to the transparent GitHub Actions audit bot.",
       "submission": {
-        "submittedAt": "2026-08-16T20:42:16Z",
-        "attempt": 1,
-        "evidenceUrl": "https://github.com/chatmcp/mcpso/issues/1#issuecomment-5309572262",
+        "submittedAt": "2026-08-16T23:14:04Z",
+        "attempt": 2,
+        "evidenceUrl": "https://github.com/chatmcp/mcpso/issues/1#issuecomment-5310166395",
         "payload": {
           "name": "Atlarium Habitat Database MCP",
-          "release": "2.0.1",
+          "release": "2.0.2",
           "registryName": "bio.atlarium/habitat-database",
           "repository": "https://github.com/techgardeners/atlarium-mcp",
           "endpoint": "https://mcp.atlarium.bio/mcp"
         },
         "followUpAt": [
-          "2026-08-23T20:42:16Z",
-          "2026-08-30T20:42:16Z",
-          "2026-09-15T20:42:16Z"
+          "2026-08-23T23:14:04Z",
+          "2026-08-30T23:14:04Z",
+          "2026-09-15T23:14:04Z"
         ]
       }
     },
@@ -502,7 +502,7 @@
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
       "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. Habitat Explorer v4 / MCP 2.0.2 is a local candidate; final visual approval, production deployment, real ChatGPT web/mobile captures and the signed-in resubmission remain required."
+      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. Habitat Explorer v4 / MCP 2.0.2 is visually approved and deployed; real ChatGPT web/mobile captures and the signed-in resubmission remain required."
     }
   ]
 }

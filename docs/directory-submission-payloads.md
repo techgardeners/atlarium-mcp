@@ -97,7 +97,7 @@ versions with the registry publisher after endpoint validation.
 Current evidence:
 
 ```text
-Registry API returns bio.atlarium/habitat-database version 2.0.1 with official status active, publishedAt 2026-08-16T20:39:39.109808Z and isLatest true. Use `pnpm registry:publish` for future versions after public endpoint validation.
+Registry API returns bio.atlarium/habitat-database version 2.0.2 with official status active, publishedAt 2026-08-16T23:10:31.800325Z and isLatest true. Use `pnpm registry:publish` for future versions after public endpoint validation.
 ```
 
 ## Smithery
@@ -112,7 +112,7 @@ Manual blocker:
 
 ```text
 Published and visible at `ilgrafico79/atlarium-habitat-database`. Production
-exposes version 2.0.1 with 39 tools, 9 prompts and 4 widget resources. Complete a
+exposes version 2.0.2 with 39 tools, 9 prompts and 4 widget resources. Complete a
 signed-in metadata refresh after runtime changes; do not publish a static score
 or purchase paid verification.
 ```
@@ -188,7 +188,7 @@ https://github.com/chatmcp/mcpso/issues/1#issuecomment-5309572262
 Status:
 
 ```text
-The public listing is visible at https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners. Release 2.0.1 metadata was submitted through the canonical GitHub issue on 2026-08-16. Treat public visibility and owner-dashboard linkage as separate states; no submitter contact data belongs in this document.
+The public listing is visible at https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners. Release 2.0.2 metadata was submitted through the canonical GitHub issue on 2026-08-16. Treat public visibility and owner-dashboard linkage as separate states; no submitter contact data belongs in this document.
 ```
 
 Follow-up payload if maintainers request a refresh:

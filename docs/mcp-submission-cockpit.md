@@ -1,6 +1,6 @@
 # Atlarium MCP Submission Cockpit
 
-Last updated: `2026-08-16T20:46:22Z`
+Last updated: `2026-08-16T23:12:51Z`
 
 Use this cockpit when completing external MCP directory, claim and review flows.
 It is MCP-only: no general Atlarium marketing, creator outreach or non-MCP
@@ -14,8 +14,8 @@ launch channels belong here.
 | Endpoint | `https://mcp.atlarium.bio/mcp` |
 | Transport | Streamable HTTP |
 | Auth | none |
-| Candidate version | `2.0.2` — not deployed |
-| Current production / Registry | `2.0.1` |
+| Candidate version | none — source, production and Registry are aligned |
+| Current production / Registry | `2.0.2` |
 | Tool surface | 39 public read-only tools |
 | Prompts | 9 public guided prompts |
 | Widget | `ui://widget/habitat-explorer.v4.html` |
@@ -39,11 +39,11 @@ workspaces, admin APIs, private data or write operations.
 
 | Surface | URL | Status | Codex can do alone | User/account needed | Payload / file | Next action |
 | --- | --- | --- | --- | --- | --- | --- |
-| Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active / latest at `2.0.1` | Verify public endpoint and exact Registry version | Atlarium DNS key is required for future domain-namespace releases | `server.json`, `scripts/publish-official-registry.sh` | Use `pnpm registry:publish`; the workflow verifies the live DNS proof and public result. |
+| Official MCP Registry | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database | Published / active / latest at `2.0.2` | Verify public endpoint and exact Registry version | Atlarium DNS key is required for future domain-namespace releases | `server.json`, `scripts/publish-official-registry.sh` | Use `pnpm registry:publish`; the workflow verifies the live DNS proof and public result. |
 | ChatGPT App | OpenAI Platform Apps review portal | Existing app `1.0.0` approved; Habitat Explorer v4 / MCP `2.0.2` visually approved on 2026-08-16 and not yet resubmitted | Keep production endpoint green, keep deterministic submission validation passing and prepare real ChatGPT screenshots | OpenAI account for endpoint rescan, screenshot upload, review replies and final submit | `chatgpt-app-submission.json`, `examples/chatgpt-apps/README.md`, `docs/chatgpt-review-remediation.md` | After production deploy, replace widget-only screenshots with ChatGPT web/mobile captures, rescan endpoint and submit the new candidate. |
 | Glama | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database | Ownership verified / listing healthy | Monitor listing health, analytics and tool quality score | None for ownership; account needed only for future edits | `https://mcp.atlarium.bio/.well-known/glama.json` | Keep accepted; add badge/link only if badge policy is approved. |
-| Smithery | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database | Published / visible | Keep release metadata healthy and request a metadata refresh after runtime changes | Signed-in maintainer access is required for release controls; no paid verification will be purchased | `tmp/directory-submissions/secondary-directory-payloads.md` after `pnpm directories:submit -- --payload` | Production exposes `2.0.1`, 39 tools, 9 prompts and 4 widget resources; do not publish a static third-party score. |
-| MCP.so | https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners | Listed / visible; `2.0.1` refresh submitted | Monitor listing metadata and slug; request account linkage only if edits are needed | None for visibility; ownership linkage remains under review | `tmp/directory-submissions/mcp-so-comment.md` | Release update evidence: https://github.com/chatmcp/mcpso/issues/1#issuecomment-5309572262. |
+| Smithery | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database | Published / visible | Keep release metadata healthy and request a metadata refresh after runtime changes | Signed-in maintainer access is required for release controls; no paid verification will be purchased | `tmp/directory-submissions/secondary-directory-payloads.md` after `pnpm directories:submit -- --payload` | Production exposes `2.0.2`, 39 tools, 9 prompts and 4 widget resources; directory metadata refresh remains pending and no static score is published. |
+| MCP.so | https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners | Listed / visible; `2.0.2` refresh submitted | Monitor listing metadata and slug; request account linkage only if edits are needed | None for visibility; ownership linkage remains under review | `tmp/directory-submissions/mcp-so-comment.md` | Release update evidence: https://github.com/chatmcp/mcpso/issues/1#issuecomment-5310166395. |
 | PulseMCP | https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database | Listed / visible | Monitor listing and registry sync | None unless correction request is needed | `tmp/directory-submissions/pulsemcp-email.md` | Keep visible as accepted; add badges only after deciding badge policy. |
 | MCP Scoreboard | https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/ | Listed / unscored | Verify listing and draft scoring request | GitHub owner verification for scoring | `docs/directory-submission-payloads.md` | Request scoring only if owner verification is worth the time; no score badge while unscored. |
 | mcpservers.org | https://mcpservers.org/servers/techgardeners/atlarium-mcp | Listed / visible | Monitor listing metadata after server-card or README changes | None for visibility | `tmp/directory-submissions/secondary-directory-payloads.md` | Public page returns HTTP 200 with Atlarium title, canonical endpoint, repository, docs, server card and 39-tool read-only surface. Add badges only after badge policy approval. |

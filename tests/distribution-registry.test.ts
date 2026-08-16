@@ -38,7 +38,7 @@ describe("distribution registry", () => {
     expect(registry.followUpDays).toEqual([7, 14, 30]);
   });
 
-  it("separates the published release from the unreleased source candidate", () => {
+  it("aligns the published release after the candidate reaches production", () => {
     const server = JSON.parse(readFileSync("server.json", "utf8")) as {
       version: string;
     };
@@ -49,11 +49,11 @@ describe("distribution registry", () => {
       (target) => target.id === "mcp_find",
     );
 
-    expect(registry.release.version).toBe("2.0.1");
-    expect(registry.release.candidateVersion).toBe(server.version);
+    expect(registry.release.version).toBe(server.version);
+    expect(registry.release.candidateVersion).toBeNull();
     expect(registryTarget?.evidence).toContain(registry.release.version);
-    expect(mcpFindTarget?.submission?.payload.package).toBe(
-      `ghcr.io/techgardeners/atlarium-mcp:${registry.release.version}`,
+    expect(mcpFindTarget?.submission?.payload.package).toMatch(
+      /^ghcr\.io\/techgardeners\/atlarium-mcp:\d+\.\d+\.\d+$/,
     );
   });
 
@@ -107,8 +107,8 @@ describe("distribution registry", () => {
         "utf8",
       );
 
-      expect(generated).toContain('"version": "2.0.1"');
-      expect(generated).toContain('"candidateVersion": "2.0.2"');
+      expect(generated).toContain('"version": "2.0.2"');
+      expect(generated).toContain('"candidateVersion": null');
       expect(generated).not.toContain("MCP Trove");
       expect(generated).not.toContain("MCP.so ownership linkage");
       expect(generated).toContain("Official MCP Registry");
@@ -129,7 +129,9 @@ describe("distribution registry", () => {
     );
 
     expect(payload).toContain(`Release: ${registry.release.version}`);
-    expect(payload).not.toContain(`Release: ${registry.release.candidateVersion}`);
+    if (registry.release.candidateVersion) {
+      expect(payload).not.toContain(`Release: ${registry.release.candidateVersion}`);
+    }
     expect(payload).not.toMatch(/Quality score:\s*\d/i);
   });
 });

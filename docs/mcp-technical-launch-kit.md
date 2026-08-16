@@ -101,8 +101,8 @@ origin `https://mcp.atlarium.bio` through `_meta.ui.domain` and
 
 The first ChatGPT App submission was not approved on 2026-07-02. The existing
 dashboard app version `1.0.0` is now approved. Habitat Explorer v4 / MCP
-`2.0.2` is a separate local candidate and has not been resubmitted; public copy
-must distinguish the approved existing app from the pending v4 candidate until
+`2.0.2` is deployed and has not yet been resubmitted; public copy must
+distinguish the approved existing app from the pending v4 app version until
 OpenAI accepts the new submission.
 
 Submission assets:

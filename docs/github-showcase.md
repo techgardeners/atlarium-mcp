@@ -88,7 +88,7 @@ complete whenever the public MCP contract changes:
 - Client setup matrix for OpenAI Agents SDK, Claude Code, Cursor, Windsurf,
   VS Code, Antigravity, generic Streamable HTTP and ChatGPT Apps.
 - ChatGPT App/widget section that distinguishes the approved existing `1.0.0`
-  app from the not-yet-submitted Habitat Explorer v4 / MCP `2.0.2` candidate.
+  app from the deployed, not-yet-resubmitted Habitat Explorer v4 / MCP `2.0.2`.
 - Tool surface table and one collapsible example for every public tool.
 - Real ChatGPT web/mobile screenshots for publishing. Widget-only development
   captures can remain in the repo, but should not be uploaded for review.
@@ -106,8 +106,7 @@ docs/assets/chatgpt-screenshots/suggestions.png
 ## Claim Rules
 
 - Show the Official MCP Registry status because `bio.atlarium/habitat-database`
-  is published and active. Do not imply a V2 registry refresh until the updated
-  `server.json` is published and visible.
+  `2.0.2` is published, active and latest.
 - Do not add Smithery, MCP.so, PulseMCP or client approval badges until the
   external listing or approval is visible and badge policy is intentionally
   approved.

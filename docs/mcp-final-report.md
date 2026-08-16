@@ -1,6 +1,6 @@
-# Atlarium MCP 2.0.1 Final Report
+# Atlarium MCP 2.0.2 Final Report
 
-Report time: `2026-08-16T20:52:52Z`
+Report time: `2026-08-16T23:12:51Z`
 
 Scope: Atlarium Habitat Database MCP, Habitat Explorer v4, production
 reliability, Official MCP Registry and MCP/agent distribution. General Atlarium
@@ -8,15 +8,15 @@ marketing and unrelated website work are outside this report.
 
 ## Release Outcome
 
-- Production health reports `2.0.1` and `status = ok`.
+- Production health reports `2.0.2` and `status = ok`.
 - The public Streamable HTTP endpoint is
   `https://mcp.atlarium.bio/mcp` with no authentication and read-only behavior.
 - The public surface remains exactly 39 tools, 9 prompts and 4 widget resources.
 - Habitat Explorer v4 is served at
   `ui://widget/habitat-explorer.v4.html`; v3, v2 and v1 remain compatible aliases.
 - The Official MCP Registry exposes `bio.atlarium/habitat-database` version
-  `2.0.1` as `active` and `isLatest`; `publishedAt` is
-  `2026-08-16T20:39:39.109808Z`.
+  `2.0.2` as `active` and `isLatest`; `publishedAt` is
+  `2026-08-16T23:10:31.800325Z`.
 - The public server card, health route, MCP session, representative tool calls,
   ChatGPT submission validator and public conformance suite pass.
 
@@ -72,6 +72,18 @@ The initial production report confirms zero forbidden client fields and correct
 synthetic/external separation. The 14-day baseline remains a time-dependent
 follow-up rather than a release blocker.
 
+The final `2.0.2` rollout runs two replicas on immutable image digest
+`sha256:09686e5db2cc1b31f971d19ad26ee5f73c0cca53d8ed4cb6c3b7b4608b38b5a7`,
+both ready with zero restarts. The first rollout attempt failed the new
+pod-identity gate because it used a legacy label selector; automatic
+rollback restored image and public version `2.0.1`. The selector and regression
+contract were corrected before the successful second rollout.
+
+The strict post-release snapshot captured at `2026-08-16T23:15:02.760Z`
+contains 53 requests and 10 tool calls, all successful, with zero unclassified
+events, forbidden fields or invalid error codes. Synthetic probes remain
+separated from external traffic.
+
 Initial production snapshot captured at `2026-08-16T22:02:46.618Z` with
 `--since=720h --strict`:
 
@@ -93,11 +105,11 @@ score or paid badge is claimed.
 
 | Surface | State | Public evidence |
 | --- | --- | --- |
-| Official MCP Registry | Published / active / latest `2.0.1` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
+| Official MCP Registry | Published / active / latest `2.0.2` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
 | GitHub | Published | https://github.com/techgardeners/atlarium-mcp |
 | Smithery | Published | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database |
 | Glama | Ownership verified | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database |
-| MCP.so | Listed; `2.0.1` refresh submitted | https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners |
+| MCP.so | Listed; `2.0.2` refresh submitted | https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners |
 | PulseMCP | Listed | https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database |
 | MCP Scoreboard | Listed / unscored | https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/ |
 | mcpservers.org | Listed | https://mcpservers.org/servers/techgardeners/atlarium-mcp |
@@ -141,7 +153,7 @@ pnpm test                              PASS
 pnpm build                             PASS
 pnpm widget:validate                   PASS
 pnpm version:check                     PASS
-pnpm registry:verify                   PASS, 2.0.1 active/latest
+pnpm registry:verify                   PASS, 2.0.2 active/latest
 pnpm directories:submit -- --check     PASS
 pnpm mcp:monitor:public                PASS, 39 tools / 9 prompts / v4
 pnpm mcp:validate:public               PASS
@@ -164,4 +176,4 @@ Latest recorded automation evidence before the final source commit:
 - collect and append the 14-day production usage/error baseline.
 
 These are external review or elapsed-time states. They do not change the fact
-that MCP `2.0.1`, Habitat Explorer v4 and the Official Registry version are live.
+that MCP `2.0.2`, Habitat Explorer v4 and the Official Registry version are live.
