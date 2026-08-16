@@ -1,9 +1,10 @@
 # Habitat Explorer v4 — visual review gate
 
-Status: **visually approved on 2026-08-16 — release in progress**.
+Status: **visually approved and released on 2026-08-16**.
 
-This gallery completed the visual approval gate. Deployment, public validation
-and ChatGPT resubmission remain separate release gates.
+This gallery completed the visual approval gate. Production `2.0.2`, public
+validation and Official Registry publication are complete. ChatGPT App
+resubmission remains a separate external review gate.
 
 ## Final visual rules
 
@@ -71,6 +72,17 @@ and ChatGPT resubmission remain separate release gates.
 
 - [Desktop and fullscreen contact sheet](assets/chatgpt-screenshots/v4-review-desktop-contact-sheet.png)
 - [Mobile contact sheet](assets/chatgpt-screenshots/v4-review-mobile-contact-sheet.png)
+
+## Real ChatGPT host evidence
+
+These captures are separate from deterministic widget fixtures:
+
+- [direct fish search in ChatGPT web](assets/chatgpt-screenshots/real-host/search-fish-web.jpg)
+- [direct fish profile in ChatGPT web](assets/chatgpt-screenshots/real-host/fish-profile-web.jpg)
+- [fish profile at 390x844 responsive viewport](assets/chatgpt-screenshots/real-host/fish-profile-mobile-390x844.jpg)
+
+The 390x844 image proves responsive host rendering, not native iOS/Android
+execution. Native mobile recording remains required before final submission.
 
 ## Automated visual gate
 

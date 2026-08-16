@@ -84,9 +84,10 @@ The resource metadata also declares `_meta.ui.domain` and the ChatGPT
 compatibility alias `_meta["openai/widgetDomain"]` for app submission.
 
 ChatGPT App status: the existing `1.0.0` app is approved in the OpenAI App
-dashboard. Habitat Explorer v4 / MCP `2.0.2` is deployed but has not been
-resubmitted; do not claim that candidate as an approved ChatGPT App version
-until OpenAI accepts the new submission.
+dashboard. A `2.0.2` draft points to the deployed Habitat Explorer v4 endpoint;
+domain verification and the 39-tool rescan pass, but the draft has not been
+submitted. Do not claim that candidate as an approved ChatGPT App version until
+OpenAI accepts the new submission.
 
 ## Tools
 

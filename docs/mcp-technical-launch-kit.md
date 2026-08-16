@@ -101,9 +101,9 @@ origin `https://mcp.atlarium.bio` through `_meta.ui.domain` and
 
 The first ChatGPT App submission was not approved on 2026-07-02. The existing
 dashboard app version `1.0.0` is now approved. Habitat Explorer v4 / MCP
-`2.0.2` is deployed and has not yet been resubmitted; public copy must
-distinguish the approved existing app from the pending v4 app version until
-OpenAI accepts the new submission.
+`2.0.2` is deployed and a signed-in draft has rescanned all 39 tools; it has
+not yet been submitted. Public copy must distinguish the approved existing app
+from the pending v4 app version until OpenAI accepts the new submission.
 
 Submission assets:
 
@@ -114,6 +114,7 @@ docs/assets/chatgpt-screenshots/results.png        # widget-only development evi
 docs/assets/chatgpt-screenshots/profile.png        # widget-only development evidence
 docs/assets/chatgpt-screenshots/compatibility.png  # widget-only development evidence
 docs/assets/chatgpt-screenshots/suggestions.png    # widget-only development evidence
+docs/assets/chatgpt-screenshots/real-host/         # ChatGPT web and responsive host captures
 docs/chatgpt-review-remediation.md
 chatgpt-app-submission.json
 ```
@@ -289,8 +290,9 @@ We will add directory badges only after each badge/link policy is approved.
 Atlarium Habitat Database MCP includes an Apps-compatible read-only Habitat
 Explorer widget. The existing dashboard app version 1.0.0 is approved. Habitat
 Explorer v4 / MCP 2.0.2 includes the updated media, typography and compact
-mascot treatment. Visual approval was recorded on 2026-08-16; production
-deployment and resubmission are the remaining release steps.
+mascot treatment. Visual approval, production deployment, a 39-tool endpoint
+rescan and first real-host captures were recorded on 2026-08-16; native mobile
+recording, asset upload and resubmission are the remaining release steps.
 
 Endpoint: https://mcp.atlarium.bio/mcp
 Widget resource: ui://widget/habitat-explorer.v4.html

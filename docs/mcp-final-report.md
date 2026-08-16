@@ -41,9 +41,9 @@ Acceptance points verified by deterministic fixtures and screenshots:
 - maximum two inline actions, keyboard focus and reduced-motion support;
 - bundle budget below 500 KB compressed.
 
-Real ChatGPT web/mobile publishing screenshots and final App dashboard
-resubmission remain an account checkpoint; public ChatGPT approval is not
-claimed.
+Real ChatGPT web and responsive 390x844 publishing screenshots are recorded.
+Native mobile recording, final asset upload and App dashboard resubmission
+remain account checkpoints; public ChatGPT approval is not claimed.
 
 ## Production Reliability
 
@@ -131,7 +131,7 @@ score or paid badge is claimed.
 | MCP Marketplace | Published / verified | Canonical `2.0.1` listing reports 39 tools, no auth, 10/10 low-risk security and successful public health probes. |
 | MCP.so ownership | In review | Public visibility is unaffected; ownership is needed only for dashboard edits. |
 | Cline Marketplace | Submitted | https://github.com/cline/mcp-marketplace/issues/2253 |
-| ChatGPT App | Prepared | Real ChatGPT web/mobile captures, metadata refresh and signed-in resubmission remain. |
+| ChatGPT App | Draft prepared | Version `2.0.2`, domain verification and 39-tool rescan are saved; real web/responsive captures exist, while native mobile recording, asset upload and final submission remain. |
 
 MCP Trove and Lulu remain blocked because no legitimate current submission
 surface could be verified. GitHub MCP Registry onboarding is curated and can
@@ -171,7 +171,7 @@ Latest recorded automation evidence before the final source commit:
 ## Remaining External Checkpoints
 
 - complete Smithery sign-in to request an immediate metadata refresh;
-- capture real ChatGPT web and mobile screenshots and submit the updated App;
+- complete native mobile recording, upload the prepared assets and submit the updated App;
 - follow every non-terminal directory at days 7, 14 and 30;
 - collect and append the 14-day production usage/error baseline.
 

@@ -501,8 +501,8 @@
       "listingUrl": null,
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. Habitat Explorer v4 / MCP 2.0.2 is visually approved and deployed; real ChatGPT web/mobile captures and the signed-in resubmission remain required."
+      "verifiedAt": "2026-08-16T23:26:15Z",
+      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. A signed-in 2.0.2 draft points to the live MCP endpoint, domain verification passes and the portal rescan discovered the 39 public tools. Real ChatGPT web and responsive 390x844 captures are recorded; icon/submission JSON upload, native mobile recording and final resubmission remain required."
     }
   ]
 }

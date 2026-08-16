@@ -13,6 +13,33 @@ function readJson(path: string) {
   >;
 }
 
+function jpegDimensions(path: string) {
+  const data = readFileSync(join(process.cwd(), path));
+  expect(data.subarray(0, 3).toString("hex"), path).toBe("ffd8ff");
+
+  let offset = 2;
+  while (offset + 9 < data.length) {
+    if (data[offset] !== 0xff) {
+      offset += 1;
+      continue;
+    }
+    const marker = data[offset + 1]!;
+    if (marker === 0xd8 || marker === 0xd9) {
+      offset += 2;
+      continue;
+    }
+    const length = data.readUInt16BE(offset + 2);
+    if ([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker)) {
+      return {
+        height: data.readUInt16BE(offset + 5),
+        width: data.readUInt16BE(offset + 7),
+      };
+    }
+    offset += 2 + length;
+  }
+  throw new Error(`JPEG dimensions not found: ${path}`);
+}
+
 describe("repository publication assets", () => {
   it("publishes installability and governance files", () => {
     expect(pathExists("LICENSE")).toBe(true);
@@ -73,5 +100,42 @@ describe("repository publication assets", () => {
     ]) {
       expect(pathExists(path), path).toBe(true);
     }
+  });
+
+  it("keeps real ChatGPT host evidence separate from widget fixtures", () => {
+    const evidence = [
+      [
+        "docs/assets/chatgpt-screenshots/real-host/search-fish-web.jpg",
+        { width: 727, height: 1265 },
+      ],
+      [
+        "docs/assets/chatgpt-screenshots/real-host/fish-profile-web.jpg",
+        { width: 727, height: 1265 },
+      ],
+      [
+        "docs/assets/chatgpt-screenshots/real-host/fish-profile-mobile-390x844.jpg",
+        { width: 390, height: 844 },
+      ],
+    ] as const;
+
+    expect(
+      pathExists("docs/assets/chatgpt-screenshots/real-host/README.md"),
+    ).toBe(true);
+    for (const [path, dimensions] of evidence) {
+      expect(pathExists(path), path).toBe(true);
+      expect(jpegDimensions(path), path).toEqual(dimensions);
+    }
+
+    const manifest = readFileSync(
+      join(
+        process.cwd(),
+        "docs/assets/chatgpt-screenshots/real-host/README.md",
+      ),
+      "utf8",
+    );
+    expect(manifest).toMatch(/not evidence\s+of native iOS or Android/);
+    expect(readFileSync("docs/widget-visual-review.md", "utf8")).toContain(
+      "real-host/search-fish-web.jpg",
+    );
   });
 });

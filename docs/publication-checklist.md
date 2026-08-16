@@ -49,17 +49,20 @@ Last updated: 2026-08-16
   `text/html;profile=mcp-app`.
 - ChatGPT Developer Mode manual smoke passed after refreshing connector
   metadata to `ui://widget/habitat-explorer.v4.html`.
-- The existing OpenAI dashboard app version `1.0.0` is approved. Habitat
-  Explorer v4 / MCP `2.0.2` is not yet resubmitted or approved.
+- The existing OpenAI dashboard app version `1.0.0` is approved. A signed-in
+  `2.0.2` draft now points to the production endpoint; domain verification and
+  the 39-tool endpoint rescan pass. It is not yet submitted or approved.
 - ChatGPT App icon asset is prepared at `docs/assets/chatgpt-app-icon.png`.
-- Widget-only ChatGPT App development screenshots are stored in
-  `docs/assets/chatgpt-screenshots/` and the short demo recording is prepared at
-  `docs/assets/chatgpt-app-demo.mp4`; do not reuse the widget-only PNGs as
-  publishing screenshots.
+- Widget-only ChatGPT App development screenshots are stored directly in
+  `docs/assets/chatgpt-screenshots/`. Host-level web and responsive 390x844
+  captures are stored in `docs/assets/chatgpt-screenshots/real-host/`; native
+  mobile recording is still required. The existing short demo remains at
+  `docs/assets/chatgpt-app-demo.mp4`.
 - The first ChatGPT App review was not approved on 2026-07-02; the existing app
   later reached approved status as version `1.0.0`. The v4 / `2.0.2` remediation
-  package is visually approved and deployed; it must now complete the endpoint
-  rescan and new ChatGPT web/mobile screenshots before resubmission. Do not
+  package is visually approved and deployed; the endpoint rescan and first
+  real-host screenshots are complete, while native mobile recording and final
+  submission remain. Do not
   claim approval for that app version until OpenAI accepts it.
 - The OpenAI Apps domain challenge endpoint is live at
   `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.

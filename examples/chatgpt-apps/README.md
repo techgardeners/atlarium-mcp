@@ -1,6 +1,6 @@
 # ChatGPT Apps Submission Notes
 
-Last reviewed: 2026-07-02
+Last reviewed: 2026-08-16
 
 Connector URL:
 
@@ -15,9 +15,11 @@ This package covers the implemented Habitat Explorer widget, submission
 metadata, tests, screenshots and safety notes. Public ChatGPT availability still
 depends on OpenAI review.
 
-Current review status: `not approved / fixes deployed / pending dashboard resubmission`.
-See `docs/chatgpt-review-remediation.md` for the rejection remediation record,
-validation command and screenshot replacement checklist.
+Current review status: existing App `1.0.0` approved; version `2.0.2` draft
+saved, domain verified and 39-tool endpoint rescan complete; asset upload,
+native mobile recording and final submission pending. See
+`docs/chatgpt-review-remediation.md` for the remediation record and remaining
+review checklist.
 
 ## App Surface
 
@@ -32,12 +34,11 @@ validation command and screenshot replacement checklist.
 - Widget domain: `https://mcp.atlarium.bio` through `_meta.ui.domain` and
   `_meta["openai/widgetDomain"]`.
 - Widget source: `src/apps/habitat-explorer.ts`.
-- Widget visual treatment: self-contained Atlarium Habitat OS Pro UI with dark
-  premium surfaces, a desktop icon rail, dense searchable results, large habitat
-  media and a technical inspector panel. It uses inline brand colors and
-  embedded JPEG logo data URIs; optional species media is rendered only from
-  structured tool payloads when the image is a data URI or an approved HTTPS
-  Atlarium URL; no arbitrary remote assets, fonts, scripts, fetches or iframes.
+- Widget visual treatment: self-contained React 19 Habitat Explorer v4 with
+  native ChatGPT surfaces, real Atlarium species/product media, compact result
+  carousels and readable editorial chapter hierarchy. Mascot cutouts appear on
+  the left only in loading, empty and error states. There is no internal rail,
+  dashboard chrome, invented result media or duplicated app branding.
 - Widget localization: UI labels and status messages localize to English,
   Italian or Spanish from host/browser locale; technical tool keys should not be
   shown as user-facing status text.
@@ -59,7 +60,7 @@ validation command and screenshot replacement checklist.
 - Authentication: none
 - Tool count: 39
 - Tool safety: read-only tools only; no write, workspace, auth, user or admin APIs.
-- Company / publisher: TechGardeners, `info@techgardeners.com`
+- Company / publisher: Tech Gardeners SA.
 - App icon asset: `docs/assets/chatgpt-app-icon.png`, a 1024x1024 Atlarium
   habitat mark suitable for the ChatGPT app launcher and review form.
 - Public brand logo reference: `/images/brand/atlarium-logo.png` on
@@ -69,8 +70,9 @@ validation command and screenshot replacement checklist.
   HTTP 200.
 - OpenAI Apps challenge:
   `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.
-- New screenshots must show the real in-ChatGPT web/mobile app experience,
-  including tool calls and widget/text output. The widget-only PNGs in
+- Real host-level web and responsive 390x844 screenshots are stored in
+  `docs/assets/chatgpt-screenshots/real-host/`. Native mobile recording remains
+  required. The widget-only fixtures directly under
   `docs/assets/chatgpt-screenshots/` are development evidence and must not be
   reused as publishing screenshots.
 
@@ -87,19 +89,29 @@ validation command and screenshot replacement checklist.
 
 ## Manual QA Snapshot
 
-Verified in ChatGPT web Developer Mode on 2026-06-20 after refreshing metadata.
-Re-run these checks on web and mobile after the 2026-07-02 remediation deploy:
+Verified in signed-in ChatGPT web on `2026-08-16` against production `2.0.2`:
 
-- 39 read-only Atlarium tools discovered.
-- `search_fish` for `Paracheirodon innesi` rendered the Habitat Explorer v3
-  Results widget with real Neon Tetra data and no sample fallback.
+- The OpenAI Platform draft endpoint rescan discovered 39 read-only Atlarium
+  tools and domain verification passed.
+- Direct `search_fish` for Neon Tetra rendered Habitat Explorer v4 with real
+  species images and Neon Tetra as the top result.
+- Direct `get_fish_profile` rendered the real Neon Tetra image, four primary
+  metrics and the localized editorial chapter hierarchy.
+- Web and responsive 390x844 host captures are checked in under
+  `docs/assets/chatgpt-screenshots/real-host/`.
 - `check_species_compatibility` for `Corydoras paleatus` and `Betta splendens`
-  rendered the Compatibility panel as compatible with caution.
+  remains a required final host capture.
 - `suggest_species_for_tank` for a 120 L planted tank rendered the Suggestions
-  panel in English for directory screenshots; keep Italian as separate locale
-  QA only.
+  view in deterministic widget QA and remains a required final host capture.
 - Private tank/journal write and admin/delete/private workspace injection prompts
-  did not expose write tools.
+  pass deterministic submission validation and remain a required host capture.
+
+The first combined natural-language web run invoked search and profile in one
+turn. Search rendered, while ChatGPT displayed one `Failed to fetch template`
+notice for the concurrent profile render. The subsequent direct profile call
+rendered successfully and production logs reported zero request/tool errors.
+The cause is not determined; repeat the combined case after refreshing the
+draft metadata and stop submission if it recurs.
 
 ## Safety Explanation
 
@@ -115,11 +127,10 @@ livestock, equipment, water chemistry and local husbandry constraints.
 - Refreshed connector metadata showing the Atlarium tools.
 - Endpoint scan showing the 39 expected read-only tools.
 - Habitat Explorer Results view rendering a fish search result.
-- Habitat Explorer Results view with species thumbnails when image fields are
-  present in the tool payload and the desktop icon rail contains no visible
-  placeholder letters.
-- Habitat Explorer Profile view rendering a fish or plant profile with detail
-  media and a technical inspector panel when available.
+- Habitat Explorer Results view with real species thumbnails when trusted media
+  is present in the tool payload; no mascot replaces result media.
+- Habitat Explorer Profile view rendering a fish or plant profile with real
+  media, four priority metrics and distinct editorial chapter headings.
 - Habitat Explorer Compatibility view rendering English warnings, recommended
   actions and reviewed species with media thumbnails for a community pair.
 - Habitat Explorer Suggestions view rendering English tank suggestions and
@@ -131,8 +142,9 @@ livestock, equipment, water chemistry and local husbandry constraints.
 - Habitat Explorer Calculator view rendering volume, weight, water chemistry,
   unit conversion or equipment requirement output.
 - Publishing captures for Results, Profile, Compatibility and Suggestions in
-  ChatGPT web and mobile. Captures must include the ChatGPT host UI, not only
-  the embedded widget.
+  ChatGPT web and native mobile. Search/profile web plus one responsive mobile
+  viewport are present; compatibility, suggestions, negative and native mobile
+  evidence remain. Captures must include the ChatGPT host UI.
 - Localization QA capture with Italian locale, confirming translated labels and
   no raw tool keys in status messages.
 - Safety/privacy notes visible in the submission form.

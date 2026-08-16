@@ -88,7 +88,8 @@ complete whenever the public MCP contract changes:
 - Client setup matrix for OpenAI Agents SDK, Claude Code, Cursor, Windsurf,
   VS Code, Antigravity, generic Streamable HTTP and ChatGPT Apps.
 - ChatGPT App/widget section that distinguishes the approved existing `1.0.0`
-  app from the deployed, not-yet-resubmitted Habitat Explorer v4 / MCP `2.0.2`.
+  app from the saved, not-yet-submitted `2.0.2` draft and deployed Habitat
+  Explorer v4 endpoint.
 - Tool surface table and one collapsible example for every public tool.
 - Real ChatGPT web/mobile screenshots for publishing. Widget-only development
   captures can remain in the repo, but should not be uploaded for review.
@@ -101,7 +102,13 @@ docs/assets/chatgpt-screenshots/results.png
 docs/assets/chatgpt-screenshots/profile.png
 docs/assets/chatgpt-screenshots/compatibility.png
 docs/assets/chatgpt-screenshots/suggestions.png
+docs/assets/chatgpt-screenshots/real-host/search-fish-web.jpg
+docs/assets/chatgpt-screenshots/real-host/fish-profile-web.jpg
+docs/assets/chatgpt-screenshots/real-host/fish-profile-mobile-390x844.jpg
 ```
+
+The three `real-host` files show ChatGPT web and a responsive 390x844 viewport.
+The responsive capture must not be described as native iOS/Android evidence.
 
 ## Claim Rules
 

@@ -4,8 +4,8 @@ Last updated: `2026-08-16`
 
 Current status: the existing OpenAI dashboard app version `1.0.0` is approved.
 This document records the earlier review findings and the remaining submission
-work for Habitat Explorer v4 / MCP `2.0.2`, which is not yet resubmitted or
-approved.
+work for Habitat Explorer v4 / MCP `2.0.2`. A signed-in draft exists and its MCP
+endpoint has been rescanned, but it is not yet submitted or approved.
 
 OpenAI rejected the Atlarium Habitat Database MCP ChatGPT App review with two
 action items:
@@ -23,10 +23,14 @@ action items:
   the Angelfish description mentions Neon Tetras.
 - `search_guides` could rank Nitrite above Nitrate for the query `nitrate`
   because the upstream search result page needed exact-title post-ranking.
-- The checked-in screenshots under `docs/assets/chatgpt-screenshots/` are
-  widget-only captures. They are useful development evidence, but they are not
-  sufficient publishing screenshots because review screenshots must show the
-  actual in-ChatGPT app experience and meet the dashboard dimensions.
+- The deterministic screenshots directly under
+  `docs/assets/chatgpt-screenshots/` are widget-only captures. They are useful
+  development evidence, but they are not sufficient publishing screenshots
+  because review screenshots must show the actual in-ChatGPT app experience.
+- Real ChatGPT host captures now live in
+  `docs/assets/chatgpt-screenshots/real-host/`. They cover web search, web
+  profile and a responsive 390x844 profile; native iOS/Android recording is
+  still outstanding.
 
 ## Code And Submission Fixes
 
@@ -41,24 +45,32 @@ action items:
 
 ## Resubmission Screenshot Requirements
 
-Use new screenshots captured from ChatGPT itself, not the widget-only PNGs in
-`docs/assets/chatgpt-screenshots/`.
+Use the host captures in `docs/assets/chatgpt-screenshots/real-host/`, not the
+widget-only fixtures directly under `docs/assets/chatgpt-screenshots/`.
 
 Required capture set for resubmission:
 
 - ChatGPT web conversation showing the Atlarium app enabled and a `search_fish`
-  tool result for `neon tetra`, with Neon Tetra as the top result.
+  tool result for `neon tetra`, with Neon Tetra as the top result. Captured.
+- ChatGPT web conversation showing a direct `get_fish_profile` result with the
+  real species image and readable chapter hierarchy. Captured.
 - ChatGPT web conversation showing `check_species_compatibility` for Corydoras
   paleatus and Betta splendens.
 - ChatGPT web conversation showing `suggest_species_for_tank` cards or textual
   suggestions.
-- ChatGPT mobile capture for one positive case, confirming the same result and
-  readable widget/layout.
+- ChatGPT responsive 390x844 capture for one positive case, confirming the same
+  result and readable widget/layout. Captured; native mobile recording remains.
 - ChatGPT negative prompt capture showing no private/write/admin tool is called.
 
 Before uploading, verify each image matches the dimensions required by the
 OpenAI Platform dashboard and that it includes the ChatGPT host UI, not only the
 embedded widget.
+
+The first combined search-plus-profile host run displayed one
+`Failed to fetch template` notice for the concurrent profile render. A direct
+single-tool profile call then rendered correctly and the production usage
+report showed zero request/tool errors. The cause is not determined. Repeat the
+combined case after the draft metadata refresh and do not submit if it recurs.
 
 ## Validation Commands
 
@@ -106,7 +118,8 @@ generated_at -> absent
 ## Dashboard Steps
 
 1. In the OpenAI Platform Apps dashboard, refresh or rescan the MCP endpoint.
-2. Replace old screenshots with new ChatGPT web/mobile screenshots.
+   Completed for the `2.0.2` draft on `2026-08-16`; 39 tools were discovered.
+2. Upload the host-level captures and add native mobile recording evidence.
 3. Upload the updated `chatgpt-app-submission.json` content or copy the revised
    test prompts and expected outputs into the form.
 4. Submit for review.

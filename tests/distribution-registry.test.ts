@@ -8,6 +8,7 @@ type DistributionTarget = {
   id: string;
   status: string;
   evidence: string;
+  publicPage?: boolean;
   verificationStatuses?: number[];
   submission?: {
     submittedAt: string;
@@ -80,6 +81,22 @@ describe("distribution registry", () => {
     );
     expect(instructions).toContain('`transportType` as `streamableHttp`');
     expect(instructions).toContain("choose `No auth`");
+  });
+
+  it("keeps the ChatGPT 2.0.2 candidate prepared without approval claims", () => {
+    const target = registry.targets.find(
+      (candidate) => candidate.id === "chatgpt_app",
+    );
+
+    expect(target).toMatchObject({
+      status: "prepared",
+      publicPage: false,
+    });
+    expect(target?.evidence).toMatch(/2\.0\.2.*draft/i);
+    expect(target?.evidence).toMatch(/39 public tools/i);
+    expect(target?.evidence).not.toMatch(/2\.0\.2[^.]*approved/i);
+    expect(target?.evidence).not.toMatch(/2\.0\.2[^.]*submitted/i);
+    expect(target?.submission).toBeUndefined();
   });
 
   it("documents every non-200 directory audit exception", () => {
