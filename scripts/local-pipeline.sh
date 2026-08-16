@@ -23,6 +23,17 @@ run pnpm build
 run pnpm audit:prod
 
 if [ "$PUSH_IMAGE" = "true" ]; then
+  if inspect_output="$(docker buildx imagetools inspect "$IMAGE:$TAG" 2>&1)"; then
+    printf "\nRefusing to overwrite immutable image tag %s:%s.\n" "$IMAGE" "$TAG" >&2
+    exit 1
+  fi
+  case "$inspect_output" in
+    *"not found"*|*"manifest unknown"*) ;;
+    *)
+      printf "\nUnable to prove image tag %s:%s is unused:\n%s\n" "$IMAGE" "$TAG" "$inspect_output" >&2
+      exit 1
+      ;;
+  esac
   run docker buildx build --platform "$PLATFORM" -t "$IMAGE:$TAG" --push .
 else
   run docker buildx build --platform "$PLATFORM" -t "$IMAGE:$TAG" --load .
