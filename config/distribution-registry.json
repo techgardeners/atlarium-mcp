@@ -1,7 +1,8 @@
 {
   "$schema": "./distribution-registry.schema.json",
-  "schemaVersion": 1,
-  "verifiedAt": "2026-08-16T14:50:00Z",
+  "schemaVersion": 2,
+  "verifiedAt": "2026-08-16T21:01:26Z",
+  "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.1",
     "endpoint": "https://mcp.atlarium.bio/mcp",
@@ -33,8 +34,8 @@
       "listingUrl": "https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database",
       "submissionUrl": "https://modelcontextprotocol.io/registry/quickstart",
       "publicPage": true,
-      "verifiedAt": "2026-08-16T14:48:00Z",
-      "evidence": "Registry API returns one active latest entry for bio.atlarium/habitat-database at version 1.0.0; release 2.0.1 must be published after production validation."
+      "verifiedAt": "2026-08-16T20:46:22Z",
+      "evidence": "Official Registry API exposes bio.atlarium/habitat-database version 2.0.1 as active and latest; publishedAt is 2026-08-16T20:39:39.109808Z."
     },
     {
       "id": "github",
@@ -77,8 +78,25 @@
       "listingUrl": "https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners",
       "submissionUrl": "https://mcp.so/submit",
       "publicPage": true,
-      "verifiedAt": "2026-08-16T14:46:00Z",
-      "evidence": "Public listing returns HTTP 200; it still reflects release 2.0.0 and widget v3 until refreshed."
+      "verifiedAt": "2026-08-16T20:42:16Z",
+      "evidence": "Public listing returns HTTP 200; release 2.0.1 metadata refresh was submitted through the directory's canonical GitHub issue.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:42:16Z",
+        "attempt": 1,
+        "evidenceUrl": "https://github.com/chatmcp/mcpso/issues/1#issuecomment-5309572262",
+        "payload": {
+          "name": "Atlarium Habitat Database MCP",
+          "release": "2.0.1",
+          "registryName": "bio.atlarium/habitat-database",
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "endpoint": "https://mcp.atlarium.bio/mcp"
+        },
+        "followUpAt": [
+          "2026-08-23T20:42:16Z",
+          "2026-08-30T20:42:16Z",
+          "2026-09-15T20:42:16Z"
+        ]
+      }
     },
     {
       "id": "mcp_so_ownership",
@@ -89,7 +107,21 @@
       "submissionUrl": "https://mcp.so/my-servers",
       "publicPage": false,
       "verifiedAt": "2026-07-02T00:00:00Z",
-      "evidence": "Public visibility is independent from dashboard ownership; maintainer linkage is still required for account edits."
+      "evidence": "Public visibility is independent from dashboard ownership; maintainer linkage is still required for account edits.",
+      "submission": {
+        "submittedAt": "2026-07-02T00:00:00Z",
+        "attempt": 1,
+        "evidenceUrl": null,
+        "payload": {
+          "registryName": "bio.atlarium/habitat-database",
+          "repository": "https://github.com/techgardeners/atlarium-mcp"
+        },
+        "followUpAt": [
+          "2026-07-09T00:00:00Z",
+          "2026-07-16T00:00:00Z",
+          "2026-08-01T00:00:00Z"
+        ]
+      }
     },
     {
       "id": "pulsemcp",
@@ -173,12 +205,26 @@
       "id": "mcp_directory",
       "name": "MCP.Directory",
       "category": "directory",
-      "status": "prepared",
+      "status": "submitted",
       "listingUrl": null,
       "submissionUrl": "https://mcp.directory/",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "Free submission payload prepared for the public submission API."
+      "verifiedAt": "2026-08-16T20:32:00Z",
+      "evidence": "Submission confirmation states that Atlarium will be reviewed and published within 24 hours.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:32:00Z",
+        "attempt": 1,
+        "evidenceUrl": null,
+        "payload": {
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "description": "Read-only habitat data and planning for aquariums, terrariums, paludariums and marine tanks."
+        },
+        "followUpAt": [
+          "2026-08-23T20:32:00Z",
+          "2026-08-30T20:32:00Z",
+          "2026-09-15T20:32:00Z"
+        ]
+      }
     },
     {
       "id": "mcp_trove",
@@ -195,67 +241,181 @@
       "id": "mcp_catalog",
       "name": "MCP Catalog",
       "category": "directory",
-      "status": "target",
+      "status": "submitted",
       "listingUrl": null,
       "submissionUrl": "https://mcpcatalog.dev/servers",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "Curated directory is public; no automated free submission endpoint is documented."
+      "verifiedAt": "2026-08-16T20:32:30Z",
+      "evidence": "Submission confirmation received; the directory states that editorial review normally takes a few days.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:32:30Z",
+        "attempt": 1,
+        "evidenceUrl": null,
+        "payload": {
+          "name": "Atlarium Habitat Database MCP",
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "category": "Data",
+          "description": "Public read-only MCP server for structured aquarium, marine, terrarium and paludarium data. It exposes 39 tools for species and plant profiles, products, guides, diagnostics, compatibility, fertilization, calculators and complete habitat planning through a no-auth Streamable HTTP endpoint. Version 2.0.1 is published in the Official MCP Registry and includes a ChatGPT App widget."
+        },
+        "followUpAt": [
+          "2026-08-23T20:32:30Z",
+          "2026-08-30T20:32:30Z",
+          "2026-09-15T20:32:30Z"
+        ]
+      }
     },
     {
       "id": "mcp_find",
       "name": "MCP Find",
       "category": "directory",
-      "status": "prepared",
+      "status": "submitted",
       "listingUrl": null,
       "submissionUrl": "https://mcpfind.org/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "GitHub-backed submission payload prepared."
+      "verifiedAt": "2026-08-16T20:27:34Z",
+      "evidence": "Pull request 143 adds the validated Docker-backed Atlarium entry to community-servers.yml; maintainer review is pending.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:27:34Z",
+        "attempt": 1,
+        "evidenceUrl": "https://github.com/MCPFind/mcp-find/pull/143",
+        "payload": {
+          "name": "Atlarium Habitat Database MCP",
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "package": "ghcr.io/techgardeners/atlarium-mcp:2.0.1",
+          "packageType": "docker",
+          "category": "other"
+        },
+        "followUpAt": [
+          "2026-08-23T20:27:34Z",
+          "2026-08-30T20:27:34Z",
+          "2026-09-15T20:27:34Z"
+        ]
+      }
     },
     {
       "id": "awesome_mcp_tools",
       "name": "awesome-mcp.tools",
       "category": "directory",
-      "status": "prepared",
+      "status": "submitted",
       "listingUrl": null,
       "submissionUrl": "https://awesome-mcp.tools/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "Free upstream GitHub issue submission is available."
+      "verifiedAt": "2026-08-16T20:33:15Z",
+      "evidence": "Public issue 45 records the complete submission and is awaiting editorial review.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:33:15Z",
+        "attempt": 1,
+        "evidenceUrl": "https://github.com/adw0rd/awesome-mcp-servers/issues/45",
+        "payload": {
+          "name": "Atlarium Habitat Database MCP",
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "category": "Environment & Nature",
+          "tags": [
+            "Environment & Nature",
+            "Biology, Medicine and Bioinformatics",
+            "data-api",
+            "Knowledge & Memory"
+          ]
+        },
+        "followUpAt": [
+          "2026-08-23T20:33:15Z",
+          "2026-08-30T20:33:15Z",
+          "2026-09-15T20:33:15Z"
+        ]
+      }
     },
     {
       "id": "cursor_marketplace",
       "name": "Cursor Marketplace",
       "category": "agent_marketplace",
-      "status": "prepared",
+      "status": "submitted",
       "listingUrl": null,
       "submissionUrl": "https://cursor.com/marketplace/publish",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "Plugin manifest and remote MCP configuration prepared; signed-in publisher submission and review are required."
+      "verifiedAt": "2026-08-16T20:37:00Z",
+      "evidence": "Cursor confirmed receipt of the signed-in publisher application and will follow up after plugin review.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:37:00Z",
+        "attempt": 1,
+        "evidenceUrl": null,
+        "payload": {
+          "organization": "Tech Gardeners",
+          "handle": "techgardeners",
+          "logo": "https://raw.githubusercontent.com/techgardeners/atlarium-mcp/main/docs/assets/chatgpt-app-icon.png",
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "website": "https://atlarium.bio"
+        },
+        "followUpAt": [
+          "2026-08-23T20:37:00Z",
+          "2026-08-30T20:37:00Z",
+          "2026-09-15T20:37:00Z"
+        ]
+      }
     },
     {
       "id": "cursor_directory",
       "name": "cursor.directory",
       "category": "agent_marketplace",
-      "status": "target",
-      "listingUrl": null,
-      "submissionUrl": "https://cursor.directory/mcp",
+      "status": "in_review",
+      "listingUrl": "https://cursor.directory/plugins/atlarium-habitat-database",
+      "submissionUrl": "https://cursor.directory/plugins/new",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "Target retained for manual review; current submission mechanics need browser verification."
+      "verifiedAt": "2026-08-16T20:36:30Z",
+      "evidence": "Plugin created with the canonical icon and remote Streamable HTTP component; Cursor Directory reports a security scan in progress and keeps it hidden until approval.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:36:30Z",
+        "attempt": 1,
+        "evidenceUrl": "https://cursor.directory/plugins/atlarium-habitat-database",
+        "payload": {
+          "name": "atlarium-habitat-database",
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "component": {
+            "type": "MCP Server",
+            "name": "atlarium-habitat-database",
+            "description": "Remote read-only Atlarium MCP with 39 habitat data, diagnostic, calculator and planning tools.",
+            "content": {
+              "type": "streamableHttp",
+              "url": "https://mcp.atlarium.bio/mcp"
+            }
+          }
+        },
+        "followUpAt": [
+          "2026-08-23T20:36:30Z",
+          "2026-08-30T20:36:30Z",
+          "2026-09-15T20:36:30Z"
+        ]
+      }
     },
     {
       "id": "cline_marketplace",
       "name": "Cline Marketplace",
       "category": "agent_marketplace",
-      "status": "prepared",
+      "status": "submitted",
       "listingUrl": null,
       "submissionUrl": "https://github.com/cline/mcp-marketplace/issues/new/choose",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "400x400+ icon, README and llms-install.md package prepared for the official GitHub issue submission."
+      "verifiedAt": "2026-08-16T21:01:26Z",
+      "evidence": "Cline CLI 3.0.55 installed and listed the endpoint as streamableHttp with no auth using the published setup; official marketplace issue 2253 is awaiting review.",
+      "submission": {
+        "submittedAt": "2026-08-16T21:01:26Z",
+        "attempt": 1,
+        "evidenceUrl": "https://github.com/cline/mcp-marketplace/issues/2253",
+        "payload": {
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "icon": "https://raw.githubusercontent.com/techgardeners/atlarium-mcp/main/docs/assets/chatgpt-app-icon.png",
+          "clineVersion": "3.0.55",
+          "transport": "streamableHttp",
+          "endpoint": "https://mcp.atlarium.bio/mcp",
+          "authentication": "none",
+          "installationTested": true,
+          "stable": true
+        },
+        "followUpAt": [
+          "2026-08-23T21:01:26Z",
+          "2026-08-30T21:01:26Z",
+          "2026-09-15T21:01:26Z"
+        ]
+      }
     },
     {
       "id": "mcp_server_hub",
@@ -265,30 +425,71 @@
       "listingUrl": null,
       "submissionUrl": "https://mcpserverhub.com/submit",
       "publicPage": false,
-      "verifiedAt": "2026-07-02T00:00:00Z",
-      "evidence": "Submission receipt confirmed; no accepted public listing is visible yet."
+      "verifiedAt": "2026-08-16T20:52:52Z",
+      "evidence": "Version 2.0.1 resubmission completed; Tally confirmed Form submitted and states that the server will be reviewed before display.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:52:52Z",
+        "attempt": 2,
+        "evidenceUrl": null,
+        "payload": {
+          "name": "Atlarium Habitat Database MCP",
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "endpoint": "https://mcp.atlarium.bio/mcp",
+          "release": "2.0.1",
+          "tools": 39,
+          "prompts": 9,
+          "widget": "ui://widget/habitat-explorer.v4.html"
+        },
+        "followUpAt": [
+          "2026-08-23T20:52:52Z",
+          "2026-08-30T20:52:52Z",
+          "2026-09-15T20:52:52Z"
+        ]
+      }
     },
     {
       "id": "mcp_market",
       "name": "MCP Market",
       "category": "directory",
-      "status": "blocked",
-      "listingUrl": null,
+      "status": "listed",
+      "listingUrl": "https://mcpmarket.com/server/atlarium-habitat-database",
       "submissionUrl": "https://mcpmarket.com/submit",
-      "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "Submission flow requires a browser checkpoint or account."
+      "publicPage": true,
+      "verifiedAt": "2026-08-16T20:52:52Z",
+      "verificationStatuses": [200, 403],
+      "evidence": "The free-queue submission flow reported that Atlarium is already listed; the public page returns HTTP 200 with the canonical repository, 39 tools, Streamable HTTP, 9 prompts and no authentication."
     },
     {
       "id": "mcp_marketplace",
       "name": "MCP Marketplace",
       "category": "directory",
-      "status": "blocked",
-      "listingUrl": null,
+      "status": "in_review",
+      "listingUrl": "https://mcp-marketplace.io/server/bio-atlarium-habitat-database",
       "submissionUrl": "https://mcp-marketplace.io/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "Submission redirects to login; no Atlarium listing is verified."
+      "verifiedAt": "2026-08-16T20:52:52Z",
+      "evidence": "The existing Official Registry-backed listing was updated to 2.0.1 with complete metadata and is undergoing a requested security re-scan. A duplicate manual submission is pending and is superseded by the canonical listing update.",
+      "submission": {
+        "submittedAt": "2026-08-16T20:52:52Z",
+        "attempt": 1,
+        "evidenceUrl": "https://mcp-marketplace.io/server/bio-atlarium-habitat-database",
+        "payload": {
+          "name": "Atlarium Habitat Database MCP",
+          "publisher": "techgardeners",
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "endpoint": "https://mcp.atlarium.bio/mcp",
+          "health": "https://mcp.atlarium.bio/health",
+          "release": "2.0.1",
+          "category": "Data & Analytics",
+          "pricing": "free",
+          "rescanRequested": true
+        },
+        "followUpAt": [
+          "2026-08-23T20:52:52Z",
+          "2026-08-30T20:52:52Z",
+          "2026-09-15T20:52:52Z"
+        ]
+      }
     },
     {
       "id": "chatgpt_app",

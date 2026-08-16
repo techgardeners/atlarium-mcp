@@ -922,14 +922,15 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 
 | Directory | Status |
 | --- | --- |
-| Official MCP Registry | Published as `bio.atlarium/habitat-database`; release `2.0.1` is prepared for publication after production validation. |
+| Official MCP Registry | Published as `bio.atlarium/habitat-database`; release `2.0.1` is active and latest. |
 | GitHub | Canonical public source repository. |
 | Glama | Ownership verified; listing healthy with 39 tools and canonical V2 description. |
-| Smithery | [Published listing](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); metadata refresh follows the production release. |
-| MCP.so | [Listed publicly](https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners); metadata refresh follows the production release. |
+| Smithery | [Published listing](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); production metadata exposes version `2.0.1`, 39 tools and 9 prompts. |
+| MCP.so | [Listed publicly](https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners); the `2.0.1` refresh is awaiting directory processing. |
 | PulseMCP | Listed publicly; verify badge policy before adding a badge. |
 | mcpservers.org | Listed publicly at [`techgardeners/atlarium-mcp`](https://mcpservers.org/servers/techgardeners/atlarium-mcp); no badge added yet. |
 | MCPRepository | [Published listing](https://mcprepository.com/techgardeners/atlarium-mcp), verified by its public page. |
+| MCP Market | [Listed publicly](https://mcpmarket.com/server/atlarium-habitat-database) with canonical repository and read-only tool metadata. |
 | MCP Scoreboard | Public listing exists and remains unscored; no score badge is claimed. |
 | MCP Queen | [Verified public evidence page](https://mcpqueen.com/s/bio.atlarium%2Fhabitat-database) with live protocol probing. |
 

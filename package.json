@@ -57,6 +57,8 @@
     "chatgpt:validate-submission": "node scripts/validate-chatgpt-submission.mjs",
     "directories:submit": "node scripts/submit-directories.mjs",
     "mcp:report:usage": "node scripts/report-mcp-usage.mjs",
+    "registry:publish": "scripts/publish-official-registry.sh",
+    "registry:verify": "node scripts/verify-official-registry.mjs",
     "version:check": "node scripts/check-version-parity.mjs"
   },
   "dependencies": {

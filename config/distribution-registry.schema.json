@@ -1,10 +1,19 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "type": "object",
-  "required": ["schemaVersion", "verifiedAt", "release", "statuses", "targets"],
+  "required": ["schemaVersion", "verifiedAt", "followUpDays", "release", "statuses", "targets"],
   "properties": {
-    "schemaVersion": { "const": 1 },
+    "schemaVersion": { "const": 2 },
     "verifiedAt": { "type": "string", "format": "date-time" },
+    "followUpDays": {
+      "type": "array",
+      "prefixItems": [
+        { "const": 7 },
+        { "const": 14 },
+        { "const": 30 }
+      ],
+      "items": false
+    },
     "release": {
       "type": "object",
       "required": ["version", "endpoint", "repository", "widgetUri", "tools", "prompts", "authentication", "readOnly"]
@@ -32,6 +41,23 @@
           "verificationStatuses": {
             "type": "array",
             "items": { "type": "integer", "minimum": 100, "maximum": 599 }
+          },
+          "submission": {
+            "type": "object",
+            "required": ["submittedAt", "attempt", "evidenceUrl", "payload", "followUpAt"],
+            "properties": {
+              "submittedAt": { "type": "string", "format": "date-time" },
+              "attempt": { "type": "integer", "minimum": 1 },
+              "evidenceUrl": { "type": ["string", "null"], "format": "uri" },
+              "payload": { "type": "object" },
+              "followUpAt": {
+                "type": "array",
+                "minItems": 3,
+                "maxItems": 3,
+                "items": { "type": "string", "format": "date-time" }
+              }
+            },
+            "additionalProperties": false
           }
         },
         "additionalProperties": false

@@ -1,6 +1,6 @@
 # Atlarium MCP Directory Submission Payloads
 
-Last verified: `2026-06-21`
+Last verified: `2026-08-16T20:52:52Z`
 
 Use these payloads for directory submission, claim and follow-up flows. Do not
 add directory badges or claim official support until the specific directory
@@ -97,7 +97,7 @@ versions with the registry publisher after endpoint validation.
 Current evidence:
 
 ```text
-Registry API previously returned metadata.count = 1, server.name = bio.atlarium/habitat-database, official status active, publishedAt = 2026-06-16T10:01:55.780369Z and isLatest = true under _meta.io.modelcontextprotocol.registry/official. For V2, publish the updated `server.json` with version 2.0.1 after public endpoint validation.
+Registry API returns bio.atlarium/habitat-database version 2.0.1 with official status active, publishedAt 2026-08-16T20:39:39.109808Z and isLatest true. Use `pnpm registry:publish` for future versions after public endpoint validation.
 ```
 
 ## Smithery
@@ -111,11 +111,10 @@ https://smithery.ai/new
 Manual blocker:
 
 ```text
-Published and visible at `ilgrafico79/atlarium-habitat-database`. The latest
-release succeeded and Smithery discovered version 2.0.1 with 39 tools, 9
-prompts and 3 resources. Quality score is 96/100 after parameter descriptions
-and custom icon upload; `Parameter descriptions` shows 39/39. The remaining
-score gap is Smithery's non-breaking naming heuristic.
+Published and visible at `ilgrafico79/atlarium-habitat-database`. Production
+exposes version 2.0.1 with 39 tools, 9 prompts and 3 resources. Complete a
+signed-in metadata refresh after runtime changes; do not publish a static score
+or purchase paid verification.
 ```
 
 Payload:
@@ -183,13 +182,13 @@ curl --fail --silent --show-error https://mcp.atlarium.bio/.well-known/glama.jso
 Submission evidence:
 
 ```text
-https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013
+https://github.com/chatmcp/mcpso/issues/1#issuecomment-5309572262
 ```
 
 Status:
 
 ```text
-Submitted through MCP.so public GitHub issue flow on 2026-06-16T19:06:21Z and through the MCP.so UI on 2026-06-20 after maintainer sign-in. The public listing is visible at https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners and returns HTTP 200 with title "Atlarium Habitat Database MCP MCP Server", the canonical public read-only description and the GitHub repository link. The signed-in `https://mcp.so/my-servers` dashboard for Roberto ilGrafico / `ilgrafico79@gmail.com` currently shows `No servers`, so treat the public listing URL as canonical visibility evidence and treat dashboard ownership/edit access as a separate follow-up. The older candidate slug https://mcp.so/server/atlarium-habitat-database still returns "Project not found"; use the `atlarium-habitat-database-mcp` slug.
+The public listing is visible at https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners. Release 2.0.1 metadata was submitted through the canonical GitHub issue on 2026-08-16. Treat public visibility and owner-dashboard linkage as separate states; no submitter contact data belongs in this document.
 ```
 
 Follow-up payload if maintainers request a refresh:
@@ -219,9 +218,9 @@ Hi MCP.so team,
 The Atlarium Habitat Database MCP listing is publicly visible at:
 https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners
 
-However, when signed in as Roberto ilGrafico / ilgrafico79@gmail.com, the
-https://mcp.so/my-servers dashboard still shows "No servers", so we cannot edit
-or refresh the listing from the owner dashboard.
+However, the signed-in maintainer dashboard at https://mcp.so/my-servers still
+shows no attached server, so the listing cannot be edited from the owner
+dashboard.
 
 Could you attach this listing to the signed-in account?
 
@@ -232,7 +231,7 @@ Evidence:
 - GitHub repo: https://github.com/techgardeners/atlarium-mcp
 - Official registry name: bio.atlarium/habitat-database
 - Historical submission evidence:
-  https://github.com/chatmcp/mcpso/issues/1#issuecomment-4722425013
+  https://github.com/chatmcp/mcpso/issues/1#issuecomment-5309572262
 ```
 
 ## MCP Scoreboard
@@ -320,7 +319,7 @@ https://mcprepository.com/techgardeners/atlarium-mcp
 Status:
 
 ```text
-Submitted / queued. The MCPRepository API accepted https://github.com/techgardeners/atlarium-mcp with status "queued", valid true, duplicate false, and returned the expected listing URL https://mcprepository.com/techgardeners/atlarium-mcp. Verify that page before adding any badge.
+Published / visible. The public page https://mcprepository.com/techgardeners/atlarium-mcp returns HTTP 200 with the Atlarium title.
 ```
 
 Payload:
@@ -335,28 +334,7 @@ Official MCP Registry: bio.atlarium/habitat-database
 Tags: aquarium, marine, terrarium, paludarium, habitat-data, diagnostics, fertilization, calculators, mcp-app
 ```
 
-Follow-up payload while the expected page still returns 404:
-
-```text
-Hi MCPRepository team,
-
-The Atlarium Habitat Database MCP repository was accepted into your queue with
-status "queued", valid true and duplicate false, but the expected public page is
-still returning 404:
-
-https://mcprepository.com/techgardeners/atlarium-mcp
-
-Could you please refresh or publish the queued listing?
-
-Evidence:
-- GitHub repository: https://github.com/techgardeners/atlarium-mcp
-- Public MCP endpoint: https://mcp.atlarium.bio/mcp
-- Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
-- Docs: https://atlarium.bio/mcp
-- Official registry: bio.atlarium/habitat-database
-- Accepted mcpservers.org listing:
-  https://mcpservers.org/servers/techgardeners/atlarium-mcp
-```
+No queue follow-up is required while the public page remains visible.
 
 ## MCP Server Hub
 

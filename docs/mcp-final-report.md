@@ -1,155 +1,153 @@
-# Atlarium MCP Final Report
+# Atlarium MCP 2.0.1 Final Report
 
-Report time: `2026-06-20`
+Report time: `2026-08-16T20:52:52Z`
 
-Scope: public Atlarium MCP V2 block only. This report does not cover general
-Atlarium marketing, Product Hunt, aquarium communities or creator outreach.
+Scope: Atlarium Habitat Database MCP, Habitat Explorer v4, production
+reliability, Official MCP Registry and MCP/agent distribution. General Atlarium
+marketing and unrelated website work are outside this report.
 
-## Live URLs
+## Release Outcome
 
-| Surface | URL | Status |
+- Production health reports `2.0.1` and `status = ok`.
+- The public Streamable HTTP endpoint is
+  `https://mcp.atlarium.bio/mcp` with no authentication and read-only behavior.
+- The public surface remains exactly 39 tools, 9 prompts and 3 resources.
+- Habitat Explorer v4 is served at
+  `ui://widget/habitat-explorer.v4.html`; v3, v2 and v1 remain compatible aliases.
+- The Official MCP Registry exposes `bio.atlarium/habitat-database` version
+  `2.0.1` as `active` and `isLatest`; `publishedAt` is
+  `2026-08-16T20:39:39.109808Z`.
+- The public server card, health route, MCP session, representative tool calls,
+  ChatGPT submission validator and public conformance suite pass.
+
+## Habitat Explorer v4
+
+The v4 widget is a React 19/Vite application bundled as one self-contained HTML
+resource. It replaces the legacy monolithic dashboard skin with tool-specific
+ChatGPT views for search, profiles, compatibility, suggestions, habitat plans,
+diagnostics, fertilization and calculators.
+
+Acceptance points verified by deterministic fixtures and screenshots:
+
+- responsive inline and fullscreen layouts;
+- light and dark ChatGPT themes;
+- English, Italian and Spanish UI, loading, error and advisory copy;
+- host globals for theme, display mode, height, safe area, locale and widget
+  state;
+- capability-detected fullscreen and persisted carousel selection;
+- mascots in loading, empty and habitat-plan states without duplicated app
+  branding;
+- no hardcoded species fallback or demo content in live tool results;
+- maximum two inline actions, keyboard focus and reduced-motion support;
+- bundle budget below 500 KB compressed.
+
+Real ChatGPT web/mobile publishing screenshots and final App dashboard
+resubmission remain an account checkpoint; public ChatGPT approval is not
+claimed.
+
+## Production Reliability
+
+Production inspection found no 5xx responses, timeouts, crashes, restarts or
+rollout instability. The dominant historical failures were invalid or missing
+slugs. The release therefore keeps exact-slug semantics and updates every
+`get_*` description to require the slug returned by its related `search_*`
+tool; it does not introduce fuzzy lookup or hidden fallbacks.
+
+Operational corrections:
+
+- request outcomes use `not_found`, `invalid_slug`, `validation_error` and
+  `internal_error`;
+- logs retain only RPC method, public tool name, duration, outcome and error
+  code;
+- malformed JSON, arguments, prompts, IP addresses and complete user agents are
+  excluded;
+- `x-atlarium-probe` separates synthetic monitoring from external traffic;
+- `pnpm mcp:report:usage -- --production --since=720h --strict` enforces the
+  privacy boundary and rejects forbidden fields or unknown error codes;
+- the public monitor runs every 30 minutes and the registry/directory audit runs
+  daily;
+- the default production SSH alias is `spartaco`.
+
+The initial production report confirms zero forbidden client fields and correct
+synthetic/external separation. The 14-day baseline remains a time-dependent
+follow-up rather than a release blocker.
+
+## Accepted Public Distribution
+
+Only currently visible or accepted surfaces appear here. No static third-party
+score or paid badge is claimed.
+
+| Surface | State | Public evidence |
 | --- | --- | --- |
-| MCP endpoint | https://mcp.atlarium.bio/mcp | `GET` returns expected HTTP 405 JSON-RPC method-not-allowed; JSON-RPC session passes. |
-| Healthcheck | https://mcp.atlarium.bio/health | HTTP 200, `status = ok`, version `2.0.0`. |
-| Server card | https://mcp.atlarium.bio/.well-known/mcp/server-card.json | Advertises 39 read-only tools, 9 prompts and widget resource. |
-| Human docs | https://atlarium.bio/mcp | HTTP 200. |
-| Client docs | `/mcp/openai-agents`, `/mcp/claude`, `/mcp/cursor`, `/mcp/windsurf`, `/mcp/vscode`, `/mcp/antigravity`, `/mcp/smithery`, `/mcp/chatgpt` | HTTP 200 for each checked page. |
-| Sitemap | https://atlarium.bio/sitemap.xml | HTTP 200. |
-| LLM map | https://atlarium.bio/llms.txt | HTTP 200 and includes MCP discovery section. |
-| Glama claim | https://mcp.atlarium.bio/.well-known/glama.json | HTTP 200, returns the Glama connector claim JSON with maintainer email. |
-| OpenAI Apps challenge | https://mcp.atlarium.bio/.well-known/openai-apps-challenge | HTTP 200; domain challenge token available for ChatGPT App verification. |
+| Official MCP Registry | Published / active / latest `2.0.1` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
+| GitHub | Published | https://github.com/techgardeners/atlarium-mcp |
+| Smithery | Published | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database |
+| Glama | Ownership verified | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database |
+| MCP.so | Listed; `2.0.1` refresh submitted | https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners |
+| PulseMCP | Listed | https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database |
+| MCP Scoreboard | Listed / unscored | https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/ |
+| mcpservers.org | Listed | https://mcpservers.org/servers/techgardeners/atlarium-mcp |
+| MCPRepository | Published | https://mcprepository.com/techgardeners/atlarium-mcp |
+| MCP Queen | Verified | https://mcpqueen.com/s/bio.atlarium%2Fhabitat-database |
+| MCP Market | Listed | https://mcpmarket.com/server/atlarium-habitat-database |
 
-## Directory Status
+## New Submissions And Reviews
 
-| Directory | Status | Evidence | Next action | Manual blocker |
-| --- | --- | --- | --- | --- |
-| Official MCP Registry | Published / active | API returned `metadata.count = 1`, `server.name = bio.atlarium/habitat-database`, official status `active`, `publishedAt = 2026-06-16T10:01:55.780369Z`. | Monitor and publish future versions from `server.json`. | None. |
-| Smithery | Published / visible; score `96/100` | `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database` has a successful release that discovered `Atlarium Habitat Database MCP`, version `2.0.0`, 39 tools, 9 prompts and 3 resources. After the parameter-description deploy and custom icon upload, Smithery shows `Parameter descriptions 39/39` and quality score `96/100`. The Smithery TXT value is live on `atlarium.bio`, and Smithery now marks the release, quality, homepage, TXT and backlink checks as passing. | Decide whether a paid Smithery developer plan is worth it; do not add a Smithery verified badge unless that paid-plan requirement is actually satisfied. Avoid breaking public tool names only to satisfy the remaining naming heuristic. | Paid developer plan is the only visible verification blocker. |
-| Glama | Ownership verified / listing healthy | `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database` shows healthy status, 39 tools, Admin/Analytics access and canonical V2 description. `https://mcp.atlarium.bio/.well-known/glama.json` returns HTTP 200 with maintainer email. | Monitor listing health and tool quality score; add badge/link only after badge policy approval. | None for ownership. |
-| MCP.so | Listed / visible; dashboard ownership mismatch | `https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners` returns HTTP 200 with title `Atlarium Habitat Database MCP MCP Server`, canonical public read-only description and the GitHub repository link. GitHub issue comment `4722425013` remains historical submission evidence. Old candidate slug `https://mcp.so/server/atlarium-habitat-database` still returns `Project not found`. The signed-in `https://mcp.so/my-servers` dashboard for Roberto ilGrafico / `ilgrafico79@gmail.com` currently shows `No servers`, so public visibility and edit ownership are separate states. | Monitor listing metadata; ask MCP.so maintainers to attach the listing to the account only if dashboard edits are needed; add badge/link only after badge policy approval. | None for visibility; account linkage needed only for future dashboard edits. |
-| PulseMCP | Listed / visible | `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database` shows Atlarium Habitat Database, provider Tech Gardeners, `server.json file available`, `bio.atlarium/habitat-database`, auth Open, Streamable HTTP and Free cost. | Monitor the listing and keep registry/server.json metadata current before adding badges elsewhere. | None for visibility; automated curl can still hit Cloudflare 403. |
-| MCP Scoreboard | Listed / unscored | Public listing exists and points to Atlarium GitHub and endpoint links. | Owner verification/scoring only if useful; no score badge while unscored. | GitHub owner verification may be required. |
-| mcpservers.org | Listed / visible | `https://mcpservers.org/servers/techgardeners/atlarium-mcp` returns HTTP 200 and includes `Atlarium Habitat Database MCP`, the canonical endpoint, repository, docs, server card and 39-tool read-only surface. | Monitor listing metadata after server-card or README changes; add badge/link only after badge policy approval. | None for visibility. |
-| MCPRepository | Submitted / queued | API response accepted `https://github.com/techgardeners/atlarium-mcp` with `status: queued`, `valid: true`, `duplicate: false`, and expected URL `https://mcprepository.com/techgardeners/atlarium-mcp`. | Monitor generated listing URL; no badge until visible. | External processing queue. |
-| MCP Server Hub | Submitted / pending review | Tally form confirmed `Form submitted` and `Thanks for your submission! We'll review and display your MCP Server later.` | Monitor public listing; no badge until visible. | External review queue. |
-| MCP Market / Marketplace | Blocked / manual | Submission flows can require login or hit anti-bot checkpoints. | Try from a logged-in browser only if still worth prioritizing. | Browser/login/checkpoint. |
-
-## ChatGPT App Status
-
-| Surface | Status | Evidence | Next action | Manual blocker |
-| --- | --- | --- | --- | --- |
-| ChatGPT App review | Not approved on 2026-07-02 / fixes deployed / pending dashboard resubmission | Updated package includes endpoint, privacy URL, revised `chatgpt-app-submission.json`, app icon, remediation notes, read-only safety notes and the live OpenAI Apps challenge endpoint. Previous widget-only screenshots must be replaced with real ChatGPT web/mobile publishing screenshots. | Rescan metadata and resubmit in the OpenAI Platform dashboard after replacing screenshots. | OpenAI account access for screenshot upload, portal state, review replies and final submit. |
-
-## GitHub Actions
-
-| Workflow | Latest checked run | Result |
+| Surface | State | Evidence / next checkpoint |
 | --- | --- | --- |
-| `public-mcp-monitor.yml` | https://github.com/techgardeners/atlarium-mcp/actions/runs/27858424823 | `completed`, `success`, run created `2026-06-20T03:10:53Z`. |
-| `mcp-directory-audit.yml` | https://github.com/techgardeners/atlarium-mcp/actions/runs/27852860976 | `completed`, `success`, run created `2026-06-19T23:23:15Z`. |
+| MCP.Directory | Submitted | Confirmation received; D7/D14/D30 follow-up recorded. |
+| MCP Catalog | Submitted | Editorial review normally takes a few days. |
+| MCP Find | Submitted | https://github.com/MCPFind/mcp-find/pull/143 |
+| awesome-mcp.tools | Submitted | https://github.com/adw0rd/awesome-mcp-servers/issues/45 |
+| Cursor Marketplace | Submitted | Signed-in publisher application received. |
+| cursor.directory | In review | https://cursor.directory/plugins/atlarium-habitat-database |
+| MCP Server Hub | Resubmitted | Version `2.0.1` form confirmation received. |
+| MCP Marketplace | In review / scanning | Canonical listing updated to `2.0.1`; security re-scan requested. |
+| MCP.so ownership | In review | Public visibility is unaffected; ownership is needed only for dashboard edits. |
+| Cline Marketplace | Submitted | https://github.com/cline/mcp-marketplace/issues/2253 |
+| ChatGPT App | Prepared | Real ChatGPT web/mobile captures, metadata refresh and signed-in resubmission remain. |
 
-## Verification Run
+MCP Trove and Lulu remain blocked because no legitimate current submission
+surface could be verified. GitHub MCP Registry onboarding is curated and can
+only follow Official Registry synchronization. No premium listing, paid badge
+or expedited review was purchased.
 
-Local repo checks:
+The canonical record is `config/distribution-registry.json`. Pending entries
+contain the submitted payload, evidence, attempt number and D7/D14/D30 follow-up
+dates without storing submitter contact data.
 
-```text
-pnpm lint       PASS
-pnpm typecheck  PASS
-pnpm test       PASS, 8 files, 44 tests
-pnpm build      PASS
-PUSH_IMAGE=true pnpm pipeline:local  PASS, image pushed to GHCR
-pnpm deploy:spartaco                 PASS, rollout successful on namespace atlarium-mcp
-```
+## Verification
 
-Public MCP checks:
-
-```text
-pnpm mcp:monitor:public             PASS, 39 read-only tools, 9 prompts, widget resource, OpenAI Apps challenge
-pnpm directories:submit -- --check  PASS, docs/health/server-card/MCP 405/registry found
-pnpm mcp:validate:public            PASS, tools/list, prompts/list and representative tool calls by family
-pnpm mcp:conformance:public         PASS, initialize, logging, ping, tools-list, simple tool call and tool error scenarios
-```
-
-Web/docs checks:
+Release gates:
 
 ```text
-https://atlarium.bio/mcp HTTP 200
-https://atlarium.bio/mcp/openai-agents HTTP 200
-https://atlarium.bio/mcp/claude HTTP 200
-https://atlarium.bio/mcp/cursor HTTP 200
-https://atlarium.bio/mcp/windsurf HTTP 200
-https://atlarium.bio/mcp/vscode HTTP 200
-https://atlarium.bio/mcp/antigravity HTTP 200
-https://atlarium.bio/mcp/smithery HTTP 200
-https://atlarium.bio/mcp/chatgpt HTTP 200
-https://atlarium.bio/sitemap.xml HTTP 200
-https://atlarium.bio/llms.txt HTTP 200
+pnpm lint                              PASS
+pnpm typecheck                         PASS
+pnpm test                              PASS
+pnpm build                             PASS
+pnpm widget:validate                   PASS
+pnpm version:check                     PASS
+pnpm registry:verify                   PASS, 2.0.1 active/latest
+pnpm directories:submit -- --check     PASS
+pnpm mcp:monitor:public                PASS, 39 tools / 9 prompts / v4
+pnpm mcp:validate:public               PASS
+pnpm mcp:conformance:public            PASS, 6 scenarios
+pnpm chatgpt:validate-submission        PASS
 ```
 
-Targeted Glama endpoint note:
+Latest recorded automation evidence before the final source commit:
 
-```text
-https://mcp.atlarium.bio/.well-known/glama.json HTTP 200
-```
+- public monitor:
+  https://github.com/techgardeners/atlarium-mcp/actions/runs/31971092208
+- daily directory audit:
+  https://github.com/techgardeners/atlarium-mcp/actions/runs/31934007732
 
-The response body contains the Glama connector schema and maintainer email
-`info@techgardeners.com`.
+## Remaining External Checkpoints
 
-## Production Surface Summary
+- complete Smithery sign-in to request an immediate metadata refresh;
+- capture real ChatGPT web and mobile screenshots and submit the updated App;
+- follow every non-terminal directory at days 7, 14 and 30;
+- collect and append the 14-day production usage/error baseline.
 
-- V2 public tool surface is live with 39 read-only tools and 9 prompts.
-- ChatGPT App widget resource is `ui://widget/habitat-explorer.v3.html`; v2/v1
-  aliases remain served for cached metadata.
-- OpenAI Apps challenge and Glama claim endpoints are live.
-- No workspace, auth, admin, private-data or write tools are exposed.
-
-## Current Documentation Update
-
-- `README.md`: updated ChatGPT review state, screenshot/demo asset references
-  and publication tracking links.
-- `docs/publication-checklist.md`: updated ChatGPT submitted/in-review state,
-  latest verification timestamp and external review backlog.
-- `docs/directory-submission-payloads.md`: added MCP Scoreboard,
-  mcpservers.org, MCPRepository, MCP Server Hub and MCP Market/Marketplace
-  payloads.
-- `docs/mcp-submission-cockpit.md`: added operational cockpit for manual
-  directory, claim and ChatGPT review follow-up flows.
-- `docs/mcp-technical-launch-kit.md`: added ChatGPT review status post and
-  submission asset list.
-- `docs/github-showcase.md`, `docs/mcp.md`, `docs/mcp/public-page.md` and
-  `examples/chatgpt-apps/README.md`: aligned status copy and asset references.
-- `scripts/submit-directories.mjs`: refreshed V2 payload generation and added
-  secondary directory payload artifacts.
-- `src/schemas.ts` and `tests/tools.test.ts`: added published JSON Schema
-  descriptions for every MCP input parameter and a regression test enforcing
-  parameter-description coverage.
-
-## Residual Risks
-
-- Glama ownership is verified and owner controls are available.
-- Smithery is published and visible; all visible technical verification checks
-  pass, and the remaining Smithery score gap is a naming heuristic, not
-  endpoint, icon or tool metadata. Full Smithery verification remains gated by
-  the paid developer plan requirement.
-- MCP.so is now publicly visible at
-  `https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners`; use that slug because
-  the shorter `atlarium-habitat-database` slug still returns `Project not found`.
-- PulseMCP listing is visible; automated verification can still be blocked by Cloudflare from some audit environments.
-- ChatGPT privacy-policy blocker is resolved: `https://atlarium.bio/privacy`
-  and `https://atlarium.bio/en/privacy` return HTTP 200 and the page includes
-  MCP / ChatGPT App data-access notes.
-- ChatGPT App public approval must not be claimed until OpenAI accepts a
-  resubmission.
-- ChatGPT App was not approved on 2026-07-02; remediation is ready, pending
-  deploy validation, new ChatGPT web/mobile screenshots and resubmission.
-
-## Next Actions
-
-1. Decide whether to upgrade Smithery for verified status; otherwise keep it
-   published/unverified with no badge.
-2. Monitor Glama listing health and TDQS after the canonical description update.
-3. Use the accepted mcpservers.org listing as follow-up evidence for
-   MCPRepository and MCP Server Hub until their public listing URLs are visible.
-4. Monitor MCP.so, PulseMCP and Glama metadata after future server-card changes;
-   add badges only when the badge policy is intentionally approved.
-5. Monitor ChatGPT App review; if OpenAI asks for changes, patch, redeploy,
-   rescan metadata and respond in the portal.
+These are external review or elapsed-time states. They do not change the fact
+that MCP `2.0.1`, Habitat Explorer v4 and the Official Registry version are live.

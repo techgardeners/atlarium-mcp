@@ -34,6 +34,16 @@ select Streamable HTTP and enter the canonical URL. For direct JSON
 configuration use the block above. Do not add headers, tokens, environment
 variables or automatic write approvals.
 
+With Cline CLI 3 or later, run:
+
+```bash
+cline mcp install atlarium --transport http https://mcp.atlarium.bio/mcp
+```
+
+Confirm the prefilled name and Remote (HTTP) transport, then choose `No auth`.
+`cline config mcp --json` must list `transportType` as `streamableHttp` and the
+server as enabled.
+
 ## Cursor
 
 Open the following deep link or use the repository's `mcp.json`:

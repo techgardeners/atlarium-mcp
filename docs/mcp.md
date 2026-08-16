@@ -61,19 +61,23 @@ generic MCP clients and also include `structuredContent` for Apps-compatible
 hosts. Tools link to the widget with `_meta.ui.resourceUri` and the ChatGPT
 compatibility alias `_meta["openai/outputTemplate"]`.
 
-The widget is styled as a self-contained Atlarium Habitat OS Pro interface:
-dark premium surfaces, an icon rail on desktop, dense searchable results,
-large habitat media and a technical inspector panel for metrics and actions. It
-uses inline CSS tokens and embedded JPEG logo data URIs for brand surfaces. Its
-UI labels and status messages localize to English, Italian or Spanish from the
-host/browser locale, while tool calls pass the same language where supported. It
-does not load remote fonts, scripts, styles, iframes or fetch data from the
-widget. Optional species media is rendered only when it is already present in
-structured tool payloads as data images or HTTPS Atlarium image URLs, with the
-widget CSP keeping `connectDomains` and `frameDomains` empty and limiting
-`resourceDomains` to `https://atlarium.bio` and `https://mcp.atlarium.bio`. The
-resource metadata also declares `_meta.ui.domain` and the ChatGPT compatibility
-alias `_meta["openai/widgetDomain"]` for app submission.
+Habitat Explorer v4 is a responsive React 19 interface built for ChatGPT. It
+selects a dedicated result view for searches, profiles, compatibility,
+suggestions, habitat plans, diagnostics, fertilization and calculators. Inline
+cards avoid nested scrolling and expose no more than two contextual actions;
+profiles and habitat plans can request fullscreen only when the host advertises
+that capability. The Atlarium mascots appear in loading, empty and habitat-plan
+states without duplicating the app name or icon rendered by ChatGPT.
+
+The widget reacts to host theme, display mode, height, safe-area, locale and
+persisted widget state. UI, loading, error and advisory copy is localized in
+English, Italian and Spanish. It does not load remote fonts, scripts, styles,
+iframes or fetch data from the widget. Optional species media is rendered only
+when present in the real structured tool payload as an Atlarium HTTPS URL. The
+widget CSP keeps `connectDomains` and `frameDomains` empty and limits
+`resourceDomains` to `https://atlarium.bio` and `https://mcp.atlarium.bio`.
+The resource metadata also declares `_meta.ui.domain` and the ChatGPT
+compatibility alias `_meta["openai/widgetDomain"]` for app submission.
 
 ChatGPT App status: not approved on 2026-07-02; remediation is prepared for
 resubmission. Do not claim public ChatGPT approval or availability until OpenAI

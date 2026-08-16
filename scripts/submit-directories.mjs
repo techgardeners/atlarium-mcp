@@ -29,12 +29,16 @@ const registryUrl = `https://registry.modelcontextprotocol.io/v0.1/servers?searc
 function validateDistributionRegistry(registry) {
   const allowedStatuses = new Set(registry.statuses ?? []);
   const publicStatuses = new Set(["published", "listed", "verified", "unscored"]);
+  const pendingStatuses = new Set(["submitted", "in_review"]);
   const ids = new Set();
 
   if (registry.release?.version !== serverJson.version) {
     throw new Error(
       `Distribution release ${registry.release?.version} does not match server.json ${serverJson.version}.`,
     );
+  }
+  if (JSON.stringify(registry.followUpDays) !== JSON.stringify([7, 14, 30])) {
+    throw new Error("Distribution follow-up policy must remain [7, 14, 30] days.");
   }
   for (const target of registry.targets ?? []) {
     if (ids.has(target.id)) {
@@ -49,10 +53,32 @@ function validateDistributionRegistry(registry) {
         `Public target ${target.id} must be accepted and have a listing URL.`,
       );
     }
+    if (pendingStatuses.has(target.status)) {
+      validateSubmissionRecord(target);
+    }
+  }
+}
+
+function validateSubmissionRecord(target) {
+  const submission = target.submission;
+  if (
+    !submission ||
+    !submission.submittedAt ||
+    !Number.isInteger(submission.attempt) ||
+    submission.attempt < 1 ||
+    !submission.payload ||
+    typeof submission.payload !== "object" ||
+    !Array.isArray(submission.followUpAt) ||
+    submission.followUpAt.length !== 3
+  ) {
+    throw new Error(
+      `Pending distribution target ${target.id} must document date, attempt, payload and D7/D14/D30 follow-ups.`,
+    );
   }
 }
 
 const connectionBlock = [
+  `Release: ${serverJson.version}`,
   `Transport: Streamable HTTP`,
   `Endpoint: ${endpoint}`,
   `Auth: none`,
@@ -316,16 +342,24 @@ function printStatus() {
     target.id,
     target.status,
     target.publicPage ? "public" : "operational",
+    nextFollowUp(target) ?? "-",
     target.listingUrl ?? target.submissionUrl ?? "-",
   ]);
   console.log(
     [
-      ["target", "status", "surface", "url"],
+      ["target", "status", "surface", "next_follow_up", "url"],
       ...rows,
     ]
       .map((row) => row.join("\t"))
       .join("\n"),
   );
+}
+
+function nextFollowUp(target) {
+  const now = Date.now();
+  const followUps = target.submission?.followUpAt ?? [];
+  return followUps.find((date) => Date.parse(date) >= now) ??
+    (followUps.length > 0 ? `overdue:${followUps.at(-1)}` : undefined);
 }
 
 function syncPage(targetRoot) {
@@ -380,23 +414,6 @@ function openPages() {
 }
 
 function getExistingMcpSoSubmissionUrl() {
-  const total = Number(
-    run("gh", [
-      "api",
-      "-X",
-      "GET",
-      "search/issues",
-      "-f",
-      `q=repo:chatmcp/mcpso "${name}"`,
-      "--jq",
-      ".total_count",
-    ]),
-  );
-
-  if (total > 0) {
-    return "https://github.com/chatmcp/mcpso/issues/1";
-  }
-
   const matchingCommentUrls = run("gh", [
     "api",
     "-X",
@@ -406,7 +423,7 @@ function getExistingMcpSoSubmissionUrl() {
     "-f",
     "per_page=100",
     "--jq",
-    `.[] | select(.body | contains("${name}")) | .html_url`,
+    `.[] | select((.body | contains("${name}")) and (.body | contains("Release: ${serverJson.version}"))) | .html_url`,
   ]);
 
   return matchingCommentUrls.split("\n").find(Boolean);
@@ -422,7 +439,7 @@ function submitMcpSo() {
   const existingSubmissionUrl = getExistingMcpSoSubmissionUrl();
   if (existingSubmissionUrl) {
     console.log(
-      `MCP.so GitHub issue already mentions ${name}; skipping duplicate comment: ${existingSubmissionUrl}`,
+      `MCP.so already has the ${serverJson.version} release update; skipping duplicate comment: ${existingSubmissionUrl}`,
     );
     return;
   }
