@@ -20,7 +20,7 @@ Atlarium Habitat Database MCP
 Short description:
 
 ```text
-Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.
 ```
 
 Long description:
@@ -128,7 +128,7 @@ Transport: Streamable HTTP
 Authentication: none
 Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
 Docs: https://atlarium.bio/mcp
-Description: Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Description: Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.
 Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
 Safety: Public read-only tools only; no user, workspace, admin, auth or write APIs.
 ```
@@ -197,7 +197,7 @@ Follow-up payload if maintainers request a refresh:
 ```text
 Atlarium Habitat Database MCP
 
-Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.
 
 Transport: Streamable HTTP
 Endpoint: https://mcp.atlarium.bio/mcp
@@ -296,7 +296,7 @@ Project URL: https://github.com/techgardeners/atlarium-mcp
 Endpoint: https://mcp.atlarium.bio/mcp
 Transport: Streamable HTTP
 Auth: none
-Description: Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Description: Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.
 Surface: 39 public read-only tools for catalog data, diagnostics, products, fertilization, calculators, compatibility and habitat planning.
 Safety: read-only; no user accounts, workspaces, admin APIs, private data or write operations.
 ```
@@ -432,7 +432,7 @@ Endpoint: https://mcp.atlarium.bio/mcp
 Repository: https://github.com/techgardeners/atlarium-mcp
 Docs: https://atlarium.bio/mcp
 Server card: https://mcp.atlarium.bio/.well-known/mcp/server-card.json
-Short description: Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Short description: Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.
 Safety: public read-only tools only; no user, workspace, admin, auth or write APIs.
 ```
 
@@ -467,7 +467,7 @@ Hello PulseMCP team,
 Could you please confirm that the following public remote MCP server is queued for PulseMCP indexing?
 
 Name: Atlarium Habitat Database MCP
-Description: Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Description: Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.
 Transport: Streamable HTTP
 Endpoint: https://mcp.atlarium.bio/mcp
 Auth: none

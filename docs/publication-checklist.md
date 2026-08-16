@@ -321,7 +321,7 @@ Atlarium Habitat Database MCP
 Short description:
 
 ```text
-Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.
+Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.
 ```
 
 Long description:

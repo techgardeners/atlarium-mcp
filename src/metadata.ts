@@ -16,7 +16,7 @@ export const mcpRegistryFallbackName =
 export const mcpDisplayName = "Atlarium Habitat Database MCP";
 export const mcpTitle = "Atlarium Habitat Database MCP";
 export const mcpShortDescription =
-  "Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.";
+  "Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.";
 export const mcpLongDescription =
   "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.";
 export const mcpHomepageUrl = "https://atlarium.bio";

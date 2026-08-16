@@ -39,6 +39,7 @@ describe("publication metadata", () => {
         url: "https://mcp.atlarium.bio/mcp",
       },
     ]);
+    expect(mcpShortDescription.length).toBeLessThanOrEqual(100);
   });
 
   it("keeps the server card example aligned with the public identity", () => {

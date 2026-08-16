@@ -15,7 +15,7 @@ const distributionRegistry = JSON.parse(
 validateDistributionRegistry(distributionRegistry);
 const name = "Atlarium Habitat Database MCP";
 const shortDescription =
-  "Structured aquarium, marine, terrarium and paludarium data and public advisory functions for AI agents.";
+  "Structured habitat data and advisory tools for aquariums, marine tanks, terrariums and paludariums.";
 const longDescription =
   "Atlarium MCP is a public read-only MCP server that gives AI agents structured access to data and advisory functions for aquariums, marine tanks, coldwater systems, terrariums, paludariums and vivariums. It includes animals, plants, products, guides, algae, diseases, plant problems, medicines, compatibility, fertilization, habitat planning and public aquarium calculators.";
 const endpoint = serverJson.remotes?.[0]?.url ?? "https://mcp.atlarium.bio/mcp";
