@@ -79,7 +79,8 @@
       "submissionUrl": "https://mcp.so/submit",
       "publicPage": true,
       "verifiedAt": "2026-08-16T20:42:16Z",
-      "evidence": "Public listing returns HTTP 200; release 2.0.1 metadata refresh was submitted through the directory's canonical GitHub issue.",
+      "verificationStatuses": [200, 403],
+      "evidence": "Public listing returns HTTP 200; release 2.0.1 metadata refresh was submitted through the directory's canonical GitHub issue. Cloudflare may return HTTP 403 to the transparent GitHub Actions audit bot.",
       "submission": {
         "submittedAt": "2026-08-16T20:42:16Z",
         "attempt": 1,
@@ -456,8 +457,8 @@
       "submissionUrl": "https://mcpmarket.com/submit",
       "publicPage": true,
       "verifiedAt": "2026-08-16T20:52:52Z",
-      "verificationStatuses": [200, 403],
-      "evidence": "The free-queue submission flow reported that Atlarium is already listed; the public page returns HTTP 200 with the canonical repository, 39 tools, Streamable HTTP, 9 prompts and no authentication."
+      "verificationStatuses": [200, 403, 429],
+      "evidence": "The free-queue submission flow reported that Atlarium is already listed; the public page returns HTTP 200 with the canonical repository, 39 tools, Streamable HTTP, 9 prompts and no authentication. Automated checks may receive HTTP 403 or 429 from the provider's anti-bot and rate-limit edge."
     },
     {
       "id": "mcp_marketplace",

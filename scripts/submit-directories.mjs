@@ -25,6 +25,11 @@ const serverCard = "https://mcp.atlarium.bio/.well-known/mcp/server-card.json";
 const health = "https://mcp.atlarium.bio/health";
 const registryName = serverJson.name;
 const registryUrl = `https://registry.modelcontextprotocol.io/v0.1/servers?search=${encodeURIComponent(registryName)}`;
+const auditHeaders = {
+  accept: "text/html,application/json;q=0.9,*/*;q=0.8",
+  "user-agent":
+    "AtlariumMCPDirectoryAudit/2.0 (+https://github.com/techgardeners/atlarium-mcp)",
+};
 
 function validateDistributionRegistry(registry) {
   const allowedStatuses = new Set(registry.statuses ?? []);
@@ -261,10 +266,15 @@ function run(command, commandArgs, options = {}) {
 }
 
 async function checkUrl(label, url, expectedStatuses = [200]) {
-  const response = await fetch(url, { redirect: "manual" });
+  const response = await fetch(url, {
+    redirect: "manual",
+    headers: auditHeaders,
+  });
   console.log(`${label}: HTTP ${response.status}`);
   if (!expectedStatuses.includes(response.status)) {
     process.exitCode = 1;
+  } else if (response.status !== 200) {
+    console.log(`${label}: accepted expected non-200 status`);
   }
   return response;
 }
@@ -275,7 +285,7 @@ async function check() {
   await checkUrl("server-card", serverCard);
   await checkUrl("mcp-get-expected-405", endpoint, [405]);
 
-  const registryResponse = await fetch(registryUrl);
+  const registryResponse = await fetch(registryUrl, { headers: auditHeaders });
   if (!registryResponse.ok) {
     console.log(`official-registry: HTTP ${registryResponse.status}`);
     process.exitCode = 1;

@@ -4,6 +4,8 @@ import { describe, expect, it } from "vitest";
 type DistributionTarget = {
   id: string;
   status: string;
+  evidence: string;
+  verificationStatuses?: number[];
   submission?: {
     submittedAt: string;
     attempt: number;
@@ -50,5 +52,16 @@ describe("distribution registry", () => {
     );
     expect(instructions).toContain('`transportType` as `streamableHttp`');
     expect(instructions).toContain("choose `No auth`");
+  });
+
+  it("documents every non-200 directory audit exception", () => {
+    for (const target of registry.targets.filter((candidate) =>
+      candidate.verificationStatuses?.some((status) => status !== 200),
+    )) {
+      expect(target.verificationStatuses, target.id).toContain(200);
+      expect(target.evidence, target.id).toMatch(
+        /automated|github actions|cloudflare|anti-bot|rate-limit/i,
+      );
+    }
   });
 });
