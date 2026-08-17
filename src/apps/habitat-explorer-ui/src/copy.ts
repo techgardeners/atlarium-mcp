@@ -127,6 +127,12 @@ const calculationLabels: Record<Language, Record<string, string>> = {
     "Hardscape": "Arredi e rocce",
     "Heater": "Riscaldatore",
     "In range": "Nel range",
+    "Inches": "Pollici",
+    "Iron": "Ferro",
+    "Items": "Elementi",
+    "Kilograms": "Chilogrammi",
+    "Length": "Lunghezza",
+    "Level": "Livello",
     "Lighting": "Illuminazione",
     "Liters": "Litri",
     "Lumens per liter": "Lumen per litro",
@@ -153,7 +159,11 @@ const calculationLabels: Record<Language, Record<string, string>> = {
     "Nutrients with targets": "Nutrienti con obiettivo",
     "Nutrients": "Nutrienti",
     "Ounces": "Once",
+    "Feet": "Piedi",
+    "Fluid ounces": "Once liquide",
     "Parts per million": "Parti per milione",
+    "Partial": "Parziale",
+    "Per week": "Alla settimana",
     "Phosphorus": "Fosforo",
     "Potassium": "Potassio",
     "Pounds": "Libbre",
@@ -268,6 +278,12 @@ const calculationLabels: Record<Language, Record<string, string>> = {
     "Hardscape": "Rocas y decoración",
     "Heater": "Calentador",
     "In range": "En rango",
+    "Inches": "Pulgadas",
+    "Iron": "Hierro",
+    "Items": "Elementos",
+    "Kilograms": "Kilogramos",
+    "Length": "Longitud",
+    "Level": "Nivel",
     "Lighting": "Iluminación",
     "Liters": "Litros",
     "Lumens per liter": "Lúmenes por litro",
@@ -294,7 +310,11 @@ const calculationLabels: Record<Language, Record<string, string>> = {
     "Nutrients with targets": "Nutrientes con objetivo",
     "Nutrients": "Nutrientes",
     "Ounces": "Onzas",
+    "Feet": "Pies",
+    "Fluid ounces": "Onzas líquidas",
     "Parts per million": "Partes por millón",
+    "Partial": "Parcial",
+    "Per week": "Por semana",
     "Phosphorus": "Fósforo",
     "Potassium": "Potasio",
     "Pounds": "Libras",
@@ -360,28 +380,48 @@ const calculationLabels: Record<Language, Record<string, string>> = {
 
 const statusLabels: Record<Language, Record<string, string>> = {
   en: {
-    above: "Above", below: "Below", compatible: "Compatible", compatible_with_caution: "Compatible with caution",
-    covered: "Covered", excellent: "Excellent", freshwater: "Freshwater", good: "Good",
-    high: "High", in_range: "In range", incompatible: "Incompatible", liquid: "Liquid", low: "Low", medium: "Medium",
-    missing: "Missing", missing_measurement: "Missing measurement", no_target: "No target",
-    once_or_twice_weekly: "Once or twice weekly", optimal: "Optimal", partial: "Partial", recommended: "Recommended",
-    review: "Review", safe: "Safe", true: "Yes", false: "No", unknown: "Unknown",
+    above: "Above", algae: "Algae", bacterial: "Bacterial", balanced: "Balanced", below: "Below",
+    brackish: "Brackish", compatible: "Compatible", "compatible with caution": "Compatible with caution",
+    compatible_with_caution: "Compatible with caution", covered: "Covered", disease: "Disease", easy: "Easy",
+    environmental: "Environmental", equipment: "Equipment", excellent: "Excellent", expert: "Expert",
+    false: "No", fertilizer: "Fertilizer", filter: "Filter", freshwater: "Freshwater", fungal: "Fungal",
+    good: "Good", high: "High", in_range: "In range", incompatible: "Incompatible", intermediate: "Intermediate",
+    internal: "Internal", liquid: "Liquid", low: "Low", marine: "Marine", medicine: "Medicine", medium: "Medium",
+    missing: "Missing", missing_measurement: "Missing measurement", natural: "Natural", no_target: "No target",
+    nutritional_deficiency: "Nutritional deficiency", once_or_twice_weekly: "Once or twice weekly",
+    "once or twice weekly": "Once or twice weekly", optimal: "Optimal", parasite: "Parasitic", partial: "Partial",
+    per_week: "Per week", plant_problem: "Plant problem", recommended: "Recommended", review: "Review", safe: "Safe",
+    semi_aquatic: "Semi-aquatic", terrestrial: "Terrestrial", true: "Yes", unknown: "Unknown", viral: "Viral", yes: "Yes",
   },
   it: {
-    above: "Sopra", below: "Sotto", compatible: "Compatibili", compatible_with_caution: "Compatibili con cautela",
-    covered: "Coperto", excellent: "Eccellente", freshwater: "Acqua dolce", good: "Buono",
-    high: "Alto", in_range: "Nel range", incompatible: "Non compatibili", liquid: "Liquido", low: "Basso", medium: "Medio",
-    missing: "Mancante", missing_measurement: "Misurazione mancante", no_target: "Nessun obiettivo",
-    once_or_twice_weekly: "Una o due volte a settimana", optimal: "Ottimale", partial: "Parziale", recommended: "Consigliato",
-    review: "Da verificare", safe: "Sicuro", true: "Sì", false: "No", unknown: "Sconosciuto",
+    above: "Sopra", algae: "Alga", bacterial: "Batterica", balanced: "Bilanciato", below: "Sotto",
+    brackish: "Acqua salmastra", compatible: "Compatibili", "compatible with caution": "Compatibili con cautela",
+    compatible_with_caution: "Compatibili con cautela", covered: "Coperto", disease: "Malattia", easy: "Facile",
+    environmental: "Ambientale", equipment: "Attrezzatura", excellent: "Eccellente", expert: "Esperto",
+    false: "No", fertilizer: "Fertilizzante", filter: "Filtro", freshwater: "Acqua dolce", fungal: "Fungina",
+    good: "Buono", high: "Alto", in_range: "Nel range", incompatible: "Non compatibili", intermediate: "Intermedio",
+    internal: "Interno", liquid: "Liquido", low: "Basso", marine: "Acqua marina", medicine: "Medicinale", medium: "Medio",
+    missing: "Mancante", missing_measurement: "Misurazione mancante", natural: "Naturale", no_target: "Nessun obiettivo",
+    nutritional_deficiency: "Carenza nutrizionale", once_or_twice_weekly: "Una o due volte a settimana",
+    "once or twice weekly": "Una o due volte a settimana", optimal: "Ottimale", parasite: "Parassitaria", partial: "Parziale",
+    per_week: "Alla settimana", plant_problem: "Problema della pianta", recommended: "Consigliato", review: "Da verificare",
+    safe: "Sicuro", semi_aquatic: "Semiaquatico", terrestrial: "Terrestre", true: "Sì", unknown: "Sconosciuto",
+    viral: "Virale", yes: "Sì",
   },
   es: {
-    above: "Por encima", below: "Por debajo", compatible: "Compatibles", compatible_with_caution: "Compatibles con precaución",
-    covered: "Cubierto", excellent: "Excelente", freshwater: "Agua dulce", good: "Bueno",
-    high: "Alto", in_range: "En rango", incompatible: "Incompatibles", liquid: "Líquido", low: "Bajo", medium: "Medio",
-    missing: "Ausente", missing_measurement: "Medición ausente", no_target: "Sin objetivo",
-    once_or_twice_weekly: "Una o dos veces por semana", optimal: "Óptimo", partial: "Parcial", recommended: "Recomendado",
-    review: "Revisar", safe: "Seguro", true: "Sí", false: "No", unknown: "Desconocido",
+    above: "Por encima", algae: "Alga", bacterial: "Bacteriana", balanced: "Equilibrado", below: "Por debajo",
+    brackish: "Agua salobre", compatible: "Compatibles", "compatible with caution": "Compatibles con precaución",
+    compatible_with_caution: "Compatibles con precaución", covered: "Cubierto", disease: "Enfermedad", easy: "Fácil",
+    environmental: "Ambiental", equipment: "Equipo", excellent: "Excelente", expert: "Experto", false: "No",
+    fertilizer: "Fertilizante", filter: "Filtro", freshwater: "Agua dulce", fungal: "Fúngica", good: "Bueno",
+    high: "Alto", in_range: "En rango", incompatible: "Incompatibles", intermediate: "Intermedio", internal: "Interno",
+    liquid: "Líquido", low: "Bajo", marine: "Agua marina", medicine: "Medicamento", medium: "Medio",
+    missing: "Ausente", missing_measurement: "Medición ausente", natural: "Natural", no_target: "Sin objetivo",
+    nutritional_deficiency: "Deficiencia nutricional", once_or_twice_weekly: "Una o dos veces por semana",
+    "once or twice weekly": "Una o dos veces por semana", optimal: "Óptimo", parasite: "Parasitaria", partial: "Parcial",
+    per_week: "Por semana", plant_problem: "Problema de la planta", recommended: "Recomendado", review: "Revisar",
+    safe: "Seguro", semi_aquatic: "Semiacuático", terrestrial: "Terrestre", true: "Sí", unknown: "Desconocido",
+    viral: "Vírica", yes: "Sí",
   },
 };
 
@@ -390,7 +430,16 @@ function localizedLabel(language: Language, label: string) {
 }
 
 function localizedStatus(language: Language, status: string) {
-  return statusLabels[language][status.toLowerCase()] ?? status.replaceAll("_", " ");
+  return status
+    .split(" · ")
+    .map((part) => {
+      const normalized = part.trim().toLowerCase();
+      const normalizedToken = normalized.replace(/[\s-]+/g, "_");
+      return statusLabels[language][normalized]
+        ?? statusLabels[language][normalizedToken]
+        ?? part.replaceAll("_", " ");
+    })
+    .join(" · ");
 }
 
 const copy = {

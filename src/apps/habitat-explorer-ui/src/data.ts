@@ -77,7 +77,9 @@ function payloadLanguage(source: DataRecord) {
     ? source.language
     : typeof source.locale === "string"
       ? source.locale
-      : undefined;
+      : typeof source.language_used === "string"
+        ? source.language_used
+        : undefined;
 }
 
 function inheritPayloadState(payload: ToolPayload, source: DataRecord): ToolPayload {
@@ -121,7 +123,7 @@ export function extractPayload(value: unknown): ToolPayload | undefined {
     return {
       tool: typeof source.tool === "string" ? source.tool : "unknown",
       data: source.data,
-      language: payloadLanguage(source),
+      language: payloadLanguage(source) ?? payloadLanguage(asRecord(source.data)),
       ...(source.isError === true || source.error !== undefined ? { isError: true } : {}),
     };
   }
@@ -463,10 +465,9 @@ function productMetricValue(key: string, raw: unknown) {
     return raw
       .filter((value): value is string => typeof value === "string" && Boolean(value.trim()))
       .slice(0, 2)
-      .map(humanize)
       .join(" · ");
   }
-  if (typeof raw === "boolean") return raw ? "Yes" : "No";
+  if (typeof raw === "boolean") return String(raw);
   const suffixes: Record<string, string> = {
     flowRateLitersHour: "L/h",
     flow_rate_lph: "L/h",
@@ -477,7 +478,7 @@ function productMetricValue(key: string, raw: unknown) {
     volumeLiters: "L",
   };
   const suffix = suffixes[key] ?? (/MgPerMl$/.test(key) ? "mg/ml" : "");
-  return `${typeof raw === "string" ? humanize(raw) : String(raw)}${suffix ? ` ${suffix}` : ""}`;
+  return `${String(raw)}${suffix ? ` ${suffix}` : ""}`;
 }
 
 export function productMetrics(item: DataRecord, limit = 8): Metric[] {

@@ -1,10 +1,11 @@
 # Habitat Explorer v4 — visual review gate
 
-Status: **visually approved and released on 2026-08-16**.
+Status: **visually approved; localization patch 2.0.3 qualified on 2026-08-16**.
 
-This gallery completed the visual approval gate. Production `2.0.2`, public
-validation and Official Registry publication are complete. ChatGPT App
-resubmission remains a separate external review gate.
+This gallery completed the visual approval gate. Production and the Official
+Registry remain on `2.0.2` while the qualified `2.0.3` candidate closes the
+Italian and Spanish localization gaps found during real ChatGPT host testing.
+ChatGPT App resubmission remains a separate external review gate.
 
 ## Final visual rules
 
@@ -39,6 +40,7 @@ resubmission remains a separate external review gate.
 | Fertilizer profile | fullscreen, real product media | dark / EN | [fertilizer profile](assets/chatgpt-screenshots/v4-fertilizer-profile-fullscreen-dark-en.png) |
 | Compatibility | inline desktop | light / EN | [compatibility inline](assets/chatgpt-screenshots/v4-compatibility-inline-light-en.png) |
 | Compatibility | fullscreen | dark / EN | [compatibility fullscreen](assets/chatgpt-screenshots/v4-compatibility-fullscreen-dark-en.png) |
+| Compatibility | inline desktop | dark / IT | [compatibility localized](assets/chatgpt-screenshots/v4-compatibility-inline-dark-it.png) |
 | Habitat plan | inline desktop | light / IT | [habitat inline](assets/chatgpt-screenshots/v4-habitat-inline-light-it.png) |
 | Habitat plan | fullscreen | dark / IT | [habitat fullscreen](assets/chatgpt-screenshots/v4-habitat-fullscreen-dark-it.png) |
 | Diagnostic | inline desktop, no media | light / IT | [diagnostic inline](assets/chatgpt-screenshots/v4-diagnostic-inline-light-it.png) |
@@ -87,7 +89,7 @@ execution. Native mobile recording remains required before final submission.
 ## Automated visual gate
 
 `pnpm widget:screenshots` builds the single-file v4 artifact and captures all
-34 production-shaped cases. It fails when any case has:
+35 production-shaped cases. It fails when any case has:
 
 - missing expected content;
 - a mascot accent in a non-editorial result or a missing expected accent;

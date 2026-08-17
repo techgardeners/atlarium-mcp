@@ -21,6 +21,7 @@ function readJson(path: string) {
 describe("publication metadata", () => {
   it("keeps the root registry server.json aligned with the public MCP endpoint", () => {
     const serverJson = readJson("server.json");
+    const packageJson = readJson("package.json");
 
     expect(serverJson).toMatchObject({
       $schema: mcpRegistrySchema,
@@ -31,7 +32,7 @@ describe("publication metadata", () => {
         url: mcpRepositoryUrl,
       },
       title: mcpTitle,
-      version: "2.0.2",
+      version: packageJson.version,
     });
     expect(serverJson.remotes).toEqual([
       {

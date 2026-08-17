@@ -283,7 +283,7 @@ function normalizeUnitConversions(data: DataRecord): CalculationPresentation {
     metricSection("temperature-delta", "Temperature difference", [
       metric("Difference", temperatureDelta, "°C"),
     ]),
-    metricSection("length", "Length", [
+    metricSection("length", "Length Cm", [
       metric("Centimeters", length.centimeters, "cm"),
       metric("Millimeters", length.millimeters, "mm"),
       metric("Inches", length.inches, "in"),
@@ -413,8 +413,8 @@ function normalizeFertilizerDose(data: DataRecord): CalculationPresentation {
     ]),
     sections: sections([
       metricSection("recommendation", "Weekly recommendation", [
-        metric("Minimum applications", recommendation.minDoseCount, "/week"),
-        metric("Maximum applications", recommendation.maxDoseCount, "/week"),
+        metric("Minimum applications", recommendation.minDoseCount),
+        metric("Maximum applications", recommendation.maxDoseCount),
         metric("Minimum weekly dose", recommendation.minWeeklyMl, "mL"),
         metric("Maximum weekly dose", recommendation.maxWeeklyMl, "mL"),
         metric("Frequency", recommendation.frequencyHint),
@@ -465,16 +465,15 @@ function weeklyDoseRows(value: unknown): CalculationRow[] {
   return records(value).map((total): CalculationRow => {
     const recommendation = asRecord(total.recommendation);
     const doseUnit = nonEmptyString(total.doseUnit) ?? "";
-    const detail = [nonEmptyString(total.brandName), nonEmptyString(total.method)]
-      .filter((item): item is string => Boolean(item))
-      .join(" · ");
+    const brandName = nonEmptyString(total.brandName);
     return {
       label: nonEmptyString(total.productName) ?? "Fertilizer",
-      ...(detail ? { detail } : {}),
+      ...(brandName ? { detail: brandName } : {}),
       status: nonEmptyString(total.comparisonStatus),
       metrics: metrics([
+        metric("Method", total.method),
         metric("Actual weekly dose", total.actualWeeklyDose, doseUnit),
-        metric("Scheduled applications", total.scheduledDoseCount, "/week"),
+        metric("Scheduled applications", total.scheduledDoseCount),
         metric("Recommended minimum", recommendation.minWeeklyMl, "mL"),
         metric("Recommended maximum", recommendation.maxWeeklyMl, "mL"),
       ]),
@@ -502,16 +501,15 @@ function normalizeWeeklyDoseTotals(data: DataRecord): CalculationPresentation {
 
 function scheduleRows(value: unknown): CalculationRow[] {
   return records(value).map((item): CalculationRow => {
-    const detail = [nonEmptyString(item.brandName), nonEmptyString(item.method)]
-      .filter((entry): entry is string => Boolean(entry))
-      .join(" · ");
+    const brandName = nonEmptyString(item.brandName);
     const days = Array.isArray(item.daysOfWeek)
       ? item.daysOfWeek.filter((day): day is number => typeof day === "number" && Number.isFinite(day))
       : [];
     return {
       label: nonEmptyString(item.productName) ?? "Fertilizer",
-      ...(detail ? { detail } : {}),
+      ...(brandName ? { detail: brandName } : {}),
       metrics: metrics([
+        metric("Method", item.method),
         metric("Dose", item.doseValue, nonEmptyString(item.doseUnit)),
         metric("Days", days.join(", ")),
       ]),
@@ -539,7 +537,6 @@ function coverageRows(value: unknown): CalculationRow[] {
 function proposalSections(value: unknown): CalculationSection[] {
   return records(value).flatMap((proposal, index): CalculationSection[] => {
     const id = nonEmptyString(proposal.id) ?? String(index + 1);
-    const kind = nonEmptyString(proposal.kind) ?? "proposal";
     const proposalItems = scheduleRows(proposal.items);
     const proposalCoverage = records(proposal.coverage).map((item): CalculationRow => ({
       label: nonEmptyString(item.label) ?? nonEmptyString(item.key) ?? "Nutrient",
@@ -553,17 +550,18 @@ function proposalSections(value: unknown): CalculationSection[] {
       ]),
     }));
     return sections([
-      metricSection(`proposal-${id}`, `Proposal: ${kind}`, [
+      metricSection(`proposal-${id}`, "Proposals", [
+        metric("Method", proposal.kind),
         metric("Score", finiteNumber(proposal.score) === undefined ? undefined : Number(proposal.score) * 100, "%"),
         metric("Partial", proposal.isPartial),
         metric("Items", proposalItems.length),
         metric("Warnings", Array.isArray(proposal.warnings) ? proposal.warnings.length : 0),
       ]),
       proposalItems.length
-        ? { id: `proposal-${id}-items`, title: `Proposal ${kind} products`, rows: proposalItems }
+        ? { id: `proposal-${id}-items`, title: "Products", rows: proposalItems }
         : undefined,
       proposalCoverage.length
-        ? { id: `proposal-${id}-coverage`, title: `Proposal ${kind} coverage`, rows: proposalCoverage }
+        ? { id: `proposal-${id}-coverage`, title: "Nutrient coverage", rows: proposalCoverage }
         : undefined,
     ]);
   });

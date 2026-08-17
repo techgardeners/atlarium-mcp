@@ -19,6 +19,11 @@ import {
   sendFollowUp,
   useOpenAiHost,
 } from "./bridge";
+import {
+  localizeCompatibilityLevel,
+  localizeCompatibilityList,
+  localizeCompatibilityText,
+} from "./compatibility";
 import { languageFrom, useCopy } from "./copy";
 import {
   asRecord,
@@ -102,15 +107,24 @@ function BrandMark({ item, compact = false }: { item: DataRecord; compact?: bool
   );
 }
 
-function MascotAccent({ character }: { character: "chameleon" | "fish" }) {
+function MascotAccent({ character, language }: { character: "chameleon" | "fish"; language: ViewProps["language"] }) {
+  const label = character === "chameleon"
+    ? language === "it"
+      ? "Il camaleonte arancione, guida Atlarium"
+      : language === "es"
+        ? "El camaleón naranja, guía de Atlarium"
+        : "Atlarium's orange chameleon guide"
+    : language === "it"
+      ? "Il pesce blu, guida Atlarium"
+      : language === "es"
+        ? "El pez azul, guía de Atlarium"
+        : "Atlarium's blue fish guide";
   return (
     <span
       className={`mascot-accent mascot-accent--${character}`}
       data-mascot-accent={character}
       role="img"
-      aria-label={character === "chameleon"
-        ? "Atlarium's orange chameleon guide"
-        : "Atlarium's blue fish guide"}
+      aria-label={label}
     >
       <img
         src={character === "chameleon" ? mascotChameleon : mascotFish}
@@ -162,7 +176,7 @@ function StateView({ kind, language }: { kind: "waiting" | "empty" | "error"; la
   const body = kind === "waiting" ? copy.waitingBody : kind === "error" ? copy.errorBody : copy.emptyBody;
   return (
     <section className="state-view" data-state={kind}>
-      <MascotAccent character={kind === "waiting" ? "fish" : "chameleon"} />
+      <MascotAccent character={kind === "waiting" ? "fish" : "chameleon"} language={language} />
       <div className="state-copy">
         <p className="eyebrow">{copy.fieldGuide}</p>
         <h1>{kind === "waiting" ? <ShimmerText>{title}</ShimmerText> : title}</h1>
@@ -393,14 +407,15 @@ function CompatibilityView({ payload, language, fullscreen }: ViewProps) {
   const data = asRecord(payload.data);
   const profiles = Array.isArray(data.species_profiles) ? data.species_profiles.map(asRecord) : [];
   const level = String(data.compatibility_level ?? data.level ?? copy.compatibility);
-  const localizedLevel = copy.statusLabel(level);
-  const summary = summaryFor(data);
-  const warnings = [
+  const localizedLevel = localizeCompatibilityLevel(level, language);
+  const rawSummary = summaryFor(data);
+  const summary = rawSummary ? localizeCompatibilityText(rawSummary, language) : "";
+  const warnings = localizeCompatibilityList([
     ...stringList(data.parameter_mismatches),
     ...stringList(data.warnings),
     ...stringList(data.issues),
-  ];
-  const actions = stringList(data.recommended_actions);
+  ], language);
+  const actions = localizeCompatibilityList(stringList(data.recommended_actions), language);
   return (
     <article className="compatibility-view">
       <header className="verdict">
@@ -549,7 +564,9 @@ function HabitatView({ payload, language, fullscreen }: ViewProps) {
     .map((part) => {
       const [key, ...rawValue] = part.trim().split(":");
       const value = rawValue.join(":").trim();
-      const label = reasonLabels[key ?? ""] ?? formatValue(key);
+      const knownLabel = reasonLabels[key ?? ""];
+      if (!knownLabel && language !== "en") return "";
+      const label = knownLabel ?? formatValue(key);
       return value ? `${label}: ${formatValue(value)}` : label;
     })
     .filter(Boolean)
@@ -565,13 +582,26 @@ function HabitatView({ payload, language, fullscreen }: ViewProps) {
   const plants = allPlants.slice(0, fullscreen ? 12 : 4);
   const products = allProducts.slice(0, fullscreen ? 8 : 3);
   const guides = allGuides.slice(0, fullscreen ? 8 : 4);
+  const localizedHabitatText = (value: string) => {
+    const translations = {
+      it: {
+        "Verify dose against plant response": "Verifica il dosaggio in base alla risposta delle piante",
+        "Suitable gentle circulation": "Circolazione delicata adatta",
+      },
+      es: {
+        "Verify dose against plant response": "Comprueba la dosis según la respuesta de las plantas",
+        "Suitable gentle circulation": "Circulación suave adecuada",
+      },
+    } as const;
+    return language === "en" ? value : translations[language][value as keyof typeof translations[typeof language]] ?? value;
+  };
   const warnings = [...new Set([
     ...stringList(data.warnings),
     ...stringList(data.issues),
     ...allAnimals.flatMap((item) => stringList(item.warnings)),
     ...allPlants.flatMap((item) => stringList(item.warnings)),
     ...allProducts.flatMap((item) => stringList(item.warnings)),
-  ].map((warning) => warning.replace(/^[a-z]+Warning:\s*/i, "")))].slice(0, fullscreen ? 12 : 3);
+  ].map((warning) => localizedHabitatText(warning.replace(/^[a-z]+Warning:\s*/i, ""))))].slice(0, fullscreen ? 12 : 3);
   const volume = input.volumeLiters ?? input.volume_liters ?? input.tank_liters;
   const temperature = input.temperatureC ?? input.temperature_c ?? input.temperature;
   const kpis = [
@@ -587,8 +617,8 @@ function HabitatView({ payload, language, fullscreen }: ViewProps) {
     <article className={fullscreen ? "habitat-view is-fullscreen" : "habitat-view"}>
       <header className="habitat-heading">
         <p className="eyebrow">{copy.habitatPlan}</p>
-        <h1>{String(data.title ?? data.name ?? copy.habitatPlan)}</h1>
-        <p className="lede">{summaryFor(data) || labels.habitatSummary}</p>
+        <h1>{language === "en" ? String(data.title ?? data.name ?? copy.habitatPlan) : copy.habitatPlan}</h1>
+        <p className="lede">{language === "en" ? summaryFor(data) || labels.habitatSummary : labels.habitatSummary}</p>
       </header>
       {kpis.length ? (
         <dl className="habitat-kpis">
@@ -655,13 +685,16 @@ function HabitatView({ payload, language, fullscreen }: ViewProps) {
           <div className="habitat-guide-list">
             {guides.map((item, index) => {
               const slug = String(item.slug ?? titleFor(item));
-              const label = slug.split("/").at(-1)?.replaceAll("-", " ") ?? slug;
+              const slugLabel = slug.split("/").at(-1) ?? slug;
+              const label = slugLabel.replaceAll("-", " ");
               const localized = {
+                "cycling-a-planted-aquarium": language === "it" ? "Avvio di un acquario piantumato" : language === "es" ? "Puesta en marcha de un acuario plantado" : "Cycling a planted aquarium",
+                "managing-nitrate": language === "it" ? "Gestione dei nitrati" : language === "es" ? "Gestión de nitratos" : "Managing nitrate",
                 ph: "pH",
                 products: language === "it" ? "Prodotti" : language === "es" ? "Productos" : "Products",
                 regimes: language === "it" ? "Regimi" : language === "es" ? "Regímenes" : "Regimes",
                 temperature: language === "it" ? "Temperatura" : language === "es" ? "Temperatura" : "Temperature",
-              }[label] ?? formatValue(label);
+              }[slugLabel] ?? formatValue(label);
               return <span key={`${slug}:${index}`}>{localized}</span>;
             })}
           </div>
@@ -796,8 +829,8 @@ function DiagnosticView({ payload, language, fullscreen }: ViewProps) {
     const display = typeof value === "boolean"
       ? value ? labels.yes : labels.no
       : Array.isArray(value)
-        ? value.map((entry) => String(entry).replaceAll("_", " ")).join(" · ")
-        : String(value).replaceAll("_", " ");
+        ? value.map((entry) => copy.statusLabel(String(entry))).join(" · ")
+        : copy.statusLabel(String(value));
     statusMetrics.push({ label, value: display });
   };
   addMetric(labels.type, item.type);
@@ -898,7 +931,7 @@ function CalculationView({ payload, language, fertilization = false }: ViewProps
   if (presentation && presentation.state !== "ready") {
     return (
       <section className="state-view calculation-empty" data-state={presentation.state}>
-        <MascotAccent character="chameleon" />
+        <MascotAccent character="chameleon" language={language} />
         <div className="state-copy">
           <p className="eyebrow">{fertilization ? copy.fertilization : copy.calculatedResult}</p>
           <h1>{copy.metricLabel(presentation.title)}</h1>
@@ -991,7 +1024,8 @@ function ResultView(props: ViewProps) {
 
 export function App() {
   const host = useOpenAiHost();
-  const payloadLanguage = asRecord(host.payload?.data).language ?? asRecord(host.payload?.data).locale;
+  const payloadData = asRecord(host.payload?.data);
+  const payloadLanguage = payloadData.language_used ?? payloadData.language ?? payloadData.locale;
   const language = languageFrom(host.payload?.language ?? payloadLanguage ?? host.locale);
   const safe = host.safeArea?.insets ?? host.safeArea ?? {};
   const style = useMemo(

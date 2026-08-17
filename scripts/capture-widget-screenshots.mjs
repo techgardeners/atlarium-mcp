@@ -52,6 +52,17 @@ const fixtures = {
       ],
     },
   },
+  resultsIt: {
+    tool: "search_fish",
+    data: {
+      language_used: "it",
+      results: [
+        { common_name: "Tetra neon", scientific_name: "Paracheirodon innesi", slug: "paracheirodon-innesi", summary: "Pesce pacifico di branco adatto ad acquari d'acqua dolce stabili e piantumati.", min_tank_liters: 60, temperature_range: { min: 20, max: 26, unit: "°C" }, ph_range: { min: 4.5, max: 7.5 }, care_level: "EASY", public_url: "https://atlarium.bio/it/catalog/fish/paracheirodon-innesi" },
+        { common_name: "Rasbora arlecchino", scientific_name: "Trigonostigma heteromorpha", slug: "trigonostigma-heteromorpha", summary: "Pesce tranquillo di branco che vive bene tra piante e luce soffusa.", min_tank_liters: 60, temperature_range: { min: 22, max: 27, unit: "°C" }, ph_range: { min: 6, max: 7.5 }, care_level: "EASY", public_url: "https://atlarium.bio/it/catalog/fish/trigonostigma-heteromorpha" },
+        { common_name: "Corydoras punteggiato", scientific_name: "Corydoras paleatus", slug: "corydoras-paleatus", summary: "Pesce sociale da fondo che richiede un gruppo e un substrato delicato.", min_tank_liters: 80, temperature_range: { min: 20, max: 25, unit: "°C" }, ph_range: { min: 6, max: 7.6 }, care_level: "EASY", public_url: "https://atlarium.bio/it/catalog/fish/corydoras-paleatus" },
+      ],
+    },
+  },
   profile: {
     tool: "get_fish_profile",
     language: "it",
@@ -223,16 +234,32 @@ const fixtures = {
   compatibility: {
     tool: "check_species_compatibility",
     data: {
-      compatibility_level: "Compatible with caution",
-      summary: "The pair can share a planted community tank when temperature and flow remain moderate.",
-      parameter_mismatches: ["Peppered corydoras: temperature 25 is outside 20–24 °C."],
-      warnings: ["Avoid strong flow around Betta splendens.", "Observe feeding competition during the first weeks."],
-      recommended_actions: ["Keep the tank at 24–25 °C.", "Provide quiet planted zones and visual breaks."],
+      compatibility_level: "compatible_with_caution",
+      summary: "Based on available Atlarium data, compatibility depends on tank size, behavior, water parameters and individual conditions.",
+      parameter_mismatches: ["Peppered corydoras: temperature 25 is outside 20-24."],
+      warnings: ["Betta splendens may require careful tankmate verification."],
+      recommended_actions: ["Verify adult size, group size, behavior and water parameters before stocking.", "Introduce species gradually and monitor stress or aggression."],
       disclaimer: "Compatibility is advisory and individual behavior can vary.",
+      language_used: "en",
       species_profiles: [
         { common_name: "Betta splendens", scientific_name: "Betta splendens", slug: "betta-splendens", public_url: "https://atlarium.bio/en/catalog/fish/betta-splendens", min_tank_liters: 40, temperature_range: { min: 24, max: 28, unit: "°C" } },
         { common_name: "Peppered corydoras", scientific_name: "Corydoras paleatus", slug: "corydoras-paleatus", public_url: "https://atlarium.bio/en/catalog/fish/corydoras-paleatus", min_tank_liters: 80, temperature_range: { min: 20, max: 25, unit: "°C" } },
       ],
+    },
+  },
+  compatibilityIt: {
+    tool: "check_species_compatibility",
+    data: {
+      compatibility_level: "compatible_with_caution",
+      summary: "Based on available Atlarium data, compatibility depends on tank size, behavior, water parameters and individual conditions.",
+      parameter_mismatches: ["Betta combattente: pH 8 is outside 6-7.5."],
+      warnings: ["Corydoras punteggiato may require careful tankmate verification."],
+      recommended_actions: ["Verify adult size, group size, behavior and water parameters before stocking.", "Introduce species gradually and monitor stress or aggression."],
+      species_profiles: [
+        { common_name: "Betta combattente", scientific_name: "Betta splendens", slug: "betta-splendens", public_url: "https://atlarium.bio/it/catalog/fish/betta-splendens", min_tank_liters: 40, temperature_range: { min: 24, max: 28, unit: "°C" } },
+        { common_name: "Corydoras punteggiato", scientific_name: "Corydoras paleatus", slug: "corydoras-paleatus", public_url: "https://atlarium.bio/it/catalog/fish/corydoras-paleatus", min_tank_liters: 80, temperature_range: { min: 20, max: 25, unit: "°C" } },
+      ],
+      language_used: "it",
     },
   },
   suggestions: {
@@ -439,7 +466,7 @@ const fixtures = {
 
 const cases = [
   { name: "v4-search-desktop-light-en", fixture: fixtures.results, theme: "light", viewport: { width: 900, height: 720 }, expectedText: "3 public results", expectsCatalogMedia: true },
-  { name: "v4-search-mobile-dark-it", fixture: fixtures.results, theme: "dark", locale: "it-IT", viewport: { width: 390, height: 844 }, expectedText: "3 risultati pubblici", expectsCatalogMedia: true },
+  { name: "v4-search-mobile-dark-it", fixture: fixtures.resultsIt, theme: "dark", locale: "it-IT", viewport: { width: 390, height: 844 }, expectedText: "3 risultati pubblici", forbiddenTexts: ["Easy", "A peaceful schooling fish"], expectsCatalogMedia: true },
   { name: "v4-fish-profile-inline-dark-it", fixture: fixtures.profile, theme: "dark", locale: "it-IT", viewport: { width: 900, height: 720 }, expectedText: "Origine geografica e biotopo", expectsCatalogMedia: true },
   { name: "v4-fish-profile-fullscreen-light-it", fixture: fixtures.profile, theme: "light", locale: "it-IT", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Comportamento sociale", expectsCatalogMedia: true },
   { name: "v4-plant-profile-mobile-light-es", fixture: fixtures.plantProfile, theme: "light", locale: "es-ES", viewport: { width: 390, height: 844 }, expectedText: "Origen y hábitat", expectsCatalogMedia: true },
@@ -452,24 +479,25 @@ const cases = [
   { name: "v4-fertilizer-profile-fullscreen-dark-en", fixture: fixtures.fertilizerProfile, theme: "dark", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Flourish Nitrogen", expectsCatalogMedia: true, expectsBrandLogo: true },
   { name: "v4-compatibility-inline-light-en", fixture: fixtures.compatibility, theme: "light", viewport: { width: 900, height: 760 }, expectedText: "Compatible with caution", forbiddenText: "Compatibility is advisory and individual behavior can vary.", expectsCatalogMedia: true },
   { name: "v4-compatibility-fullscreen-dark-en", fixture: fixtures.compatibility, theme: "dark", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Recommended actions", expectsCatalogMedia: true },
+  { name: "v4-compatibility-inline-dark-it", fixture: fixtures.compatibilityIt, theme: "dark", locale: "it-IT", viewport: { width: 900, height: 760 }, expectedText: "Inserisci le specie gradualmente", forbiddenTexts: ["may require careful tankmate verification", "is outside"], expectsCatalogMedia: true },
   { name: "v4-suggestions-mobile-dark-en", fixture: fixtures.suggestions, theme: "dark", viewport: { width: 390, height: 844 }, expectedText: "Recommended species", expectsCatalogMedia: true },
-  { name: "v4-habitat-inline-light-it", fixture: fixtures.habitat, theme: "light", locale: "it-IT", viewport: { width: 900, height: 760 }, expectedText: "Animali", forbiddenText: "Backend disclaimer intentionally ignored", expectsCatalogMedia: true, expectsBrandLogo: true },
+  { name: "v4-habitat-inline-light-it", fixture: fixtures.habitat, theme: "light", locale: "it-IT", viewport: { width: 900, height: 760 }, expectedText: "Animali", forbiddenTexts: ["Backend disclaimer intentionally ignored", "Suitable Gentle Circulation", "Verify Dose Against Plant Response", "Cycling A Planted Aquarium", "Managing Nitrate"], expectsCatalogMedia: true, expectsBrandLogo: true },
   { name: "v4-habitat-fullscreen-dark-it", fixture: fixtures.habitat, theme: "dark", locale: "it-IT", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Attrezzatura e prodotti", expectsCatalogMedia: true, expectsBrandLogo: true },
   { name: "v4-diagnostic-inline-light-it", fixture: fixtures.diagnostic, theme: "light", locale: "it-IT", viewport: { width: 900, height: 760 }, expectedText: "Possibile malattia dei puntini bianchi" },
   { name: "v4-diagnostic-fullscreen-dark-it", fixture: fixtures.diagnostic, theme: "dark", locale: "it-IT", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Cause probabili" },
   { name: "v4-disease-profile-fullscreen-dark-en", fixture: fixtures.diseaseProfile, theme: "dark", displayMode: "fullscreen", viewport: { width: 1440, height: 900 }, expectedText: "Therapeutic Interventions", expectsCatalogMedia: true },
-  { name: "v4-fertilization-plan-inline-dark-it", fixture: fixtures.fertilization, theme: "dark", locale: "it-IT", viewport: { width: 900, height: 720 }, expectedText: "Piano di fertilizzazione" },
-  { name: "v4-fertilizer-dose-mobile-light-es", fixture: fixtures.fertilizerDose, theme: "light", locale: "es-ES", viewport: { width: 390, height: 844 }, expectedText: "Dosis por aplicación" },
+  { name: "v4-fertilization-plan-inline-dark-it", fixture: fixtures.fertilization, theme: "dark", locale: "it-IT", viewport: { width: 900, height: 720 }, expectedText: "Piano di fertilizzazione", forbiddenTexts: ["LIQUID", "/week"] },
+  { name: "v4-fertilizer-dose-mobile-light-es", fixture: fixtures.fertilizerDose, theme: "light", locale: "es-ES", viewport: { width: 390, height: 844 }, expectedText: "Dosis por aplicación", forbiddenTexts: ["LIQUID", "Iron", "/week"] },
   { name: "v4-nutrient-gaps-fullscreen-dark-en", fixture: fixtures.nutrientGaps, theme: "dark", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Target comparison" },
   { name: "v4-weekly-dose-totals-inline-light-en", fixture: fixtures.weeklyTotals, theme: "light", viewport: { width: 900, height: 760 }, expectedText: "Flourish Phosphorus" },
   { name: "v4-calculator-mobile-light-en", fixture: fixtures.calculator, theme: "light", viewport: { width: 360, height: 800 }, expectedText: "Gross volume" },
   { name: "v4-tank-weight-inline-dark-it", fixture: fixtures.tankWeight, theme: "dark", locale: "it-IT", viewport: { width: 900, height: 760 }, expectedText: "Peso totale" },
   { name: "v4-water-change-mobile-dark-es", fixture: fixtures.waterChange, theme: "dark", locale: "es-ES", viewport: { width: 390, height: 844 }, expectedText: "Por cambio" },
   { name: "v4-water-chemistry-fullscreen-light-en", fixture: fixtures.waterChemistry, theme: "light", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Specific gravity" },
-  { name: "v4-unit-conversion-inline-light-it", fixture: fixtures.unitConversion, theme: "light", locale: "it-IT", viewport: { width: 900, height: 760 }, expectedText: "Conversione delle unità" },
-  { name: "v4-equipment-requirements-fullscreen-dark-es", fixture: fixtures.equipmentRequirements, theme: "dark", locale: "es-ES", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Potencia recomendada del calentador" },
+  { name: "v4-unit-conversion-inline-light-it", fixture: fixtures.unitConversion, theme: "light", locale: "it-IT", viewport: { width: 900, height: 760 }, expectedText: "Conversione delle unità", forbiddenTexts: ["Length", "Inches", "Feet", "Fluid ounces"] },
+  { name: "v4-equipment-requirements-fullscreen-dark-es", fixture: fixtures.equipmentRequirements, theme: "dark", locale: "es-ES", displayMode: "fullscreen", viewport: { width: 1280, height: 800 }, expectedText: "Potencia recomendada del calentador", forbiddenTexts: ["Level"] },
   { name: "v4-calculator-incomplete-inline-light-it", fixture: fixtures.incompleteCalculator, theme: "light", locale: "it-IT", viewport: { width: 900, height: 720 }, expectedText: "Il calcolo richiede", expectsMascot: true },
-  { name: "v4-loading-mobile-dark-es", fixture: undefined, theme: "dark", locale: "es-ES", viewport: { width: 390, height: 844 }, expectedText: "Preparando la vista del hábitat", expectsMascot: true },
+  { name: "v4-loading-mobile-dark-es", fixture: undefined, theme: "dark", locale: "es-ES", viewport: { width: 390, height: 844 }, expectedText: "Preparando la vista del hábitat", expectedMascotLabel: "El pez azul, guía de Atlarium", expectsMascot: true },
   { name: "v4-empty-inline-light-en", fixture: fixtures.empty, theme: "light", viewport: { width: 900, height: 720 }, expectedText: "No habitat data to show", expectsMascot: true },
   { name: "v4-error-inline-dark-it", fixture: fixtures.error, theme: "dark", locale: "it-IT", viewport: { width: 900, height: 720 }, expectedText: "Impossibile visualizzare il risultato", expectsMascot: true },
 ];
@@ -542,8 +570,18 @@ try {
     if (item.expectedText) {
       await page.getByText(item.expectedText, { exact: false }).first().waitFor();
     }
-    if (item.forbiddenText && await page.getByText(item.forbiddenText, { exact: false }).count()) {
-      throw new Error(`${item.name} exposes unlocalized backend copy: ${item.forbiddenText}`);
+    const forbiddenTexts = [item.forbiddenText, ...(item.forbiddenTexts ?? [])].filter(Boolean);
+    for (const forbiddenText of forbiddenTexts) {
+      if (await page.getByText(forbiddenText, { exact: true }).count()) {
+        const matches = await page.getByText(forbiddenText, { exact: true }).allTextContents();
+        throw new Error(`${item.name} exposes unlocalized backend copy: ${forbiddenText} (${matches.join(" | ")})`);
+      }
+    }
+    if (item.expectedMascotLabel) {
+      const mascotLabel = await page.locator("[data-mascot-accent]").getAttribute("aria-label");
+      if (mascotLabel !== item.expectedMascotLabel) {
+        throw new Error(`${item.name} has unexpected mascot label: ${mascotLabel ?? "missing"}`);
+      }
     }
 
     const focusableCount = await page.locator('button:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])').count();

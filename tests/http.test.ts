@@ -1,4 +1,5 @@
 import { once } from "node:events";
+import { readFileSync } from "node:fs";
 import { request } from "node:http";
 import type { AddressInfo } from "node:net";
 import type { Server } from "node:http";
@@ -99,6 +100,7 @@ describe("HTTP app", () => {
 
   it("serves a public healthcheck", async () => {
     const app = createHttpApp(testConfig());
+    const packageVersion = JSON.parse(readFileSync("package.json", "utf8")).version as string;
 
     await withServer(app, async (baseUrl) => {
       const response = await fetch(`${baseUrl}/health`);
@@ -106,7 +108,7 @@ describe("HTTP app", () => {
       await expect(response.json()).resolves.toEqual({
         service: mcpDisplayName,
         status: "ok",
-        version: "2.0.2",
+        version: packageVersion,
       });
     });
   });

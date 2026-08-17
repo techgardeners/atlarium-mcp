@@ -39,7 +39,7 @@ describe("distribution registry", () => {
     expect(registry.followUpDays).toEqual([7, 14, 30]);
   });
 
-  it("aligns the published release after the candidate reaches production", () => {
+  it("aligns server.json with either the published release or its explicit candidate", () => {
     const server = JSON.parse(readFileSync("server.json", "utf8")) as {
       version: string;
     };
@@ -50,8 +50,7 @@ describe("distribution registry", () => {
       (target) => target.id === "mcp_find",
     );
 
-    expect(registry.release.version).toBe(server.version);
-    expect(registry.release.candidateVersion).toBeNull();
+    expect(registry.release.candidateVersion ?? registry.release.version).toBe(server.version);
     expect(registryTarget?.evidence).toContain(registry.release.version);
     expect(mcpFindTarget?.submission?.payload.package).toMatch(
       /^ghcr\.io\/techgardeners\/atlarium-mcp:\d+\.\d+\.\d+$/,
@@ -125,7 +124,7 @@ describe("distribution registry", () => {
       );
 
       expect(generated).toContain('"version": "2.0.2"');
-      expect(generated).toContain('"candidateVersion": null');
+      expect(generated).toContain('"candidateVersion": "2.0.3"');
       expect(generated).not.toContain("MCP Trove");
       expect(generated).not.toContain("MCP.so ownership linkage");
       expect(generated).toContain("Official MCP Registry");

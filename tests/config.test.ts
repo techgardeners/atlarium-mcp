@@ -1,9 +1,12 @@
 import { describe, expect, it } from "vitest";
+import { readFileSync } from "node:fs";
 
 import { getRuntimeConfig } from "../src/config.js";
 import { mcpDisplayName } from "../src/metadata.js";
 
 describe("runtime config", () => {
+  const packageVersion = JSON.parse(readFileSync("package.json", "utf8")).version as string;
+
   it("uses public Atlarium defaults and normalizes allowed hosts", () => {
     const config = getRuntimeConfig({
       NODE_ENV: "test",
@@ -11,7 +14,7 @@ describe("runtime config", () => {
     });
 
     expect(config.MCP_SERVICE_NAME).toBe(mcpDisplayName);
-    expect(config.MCP_VERSION).toBe("2.0.2");
+    expect(config.MCP_VERSION).toBe(packageVersion);
     expect(config.MCP_DEFAULT_LANGUAGE).toBe("en");
     expect(config.atlariumApiBaseUrl.href).toBe("https://atlarium.bio/api/public/mcp/v1");
     expect(config.trustProxy).toBe(1);

@@ -154,6 +154,13 @@ describe("Habitat Explorer calculation presentation", () => {
       hero: { label: "Celsius", value: 25, unit: "°C" },
     });
     expect(ready?.sections).toHaveLength(5);
+    expect(ready?.sections.map((section) => section.title)).toEqual([
+      "Temperature",
+      "Temperature difference",
+      "Length Cm",
+      "Weight",
+      "Volume",
+    ]);
     const empty = normalizeCalculationPresentation("convert_units", {
       temperature: null,
       temperature_delta: null,
@@ -224,6 +231,13 @@ describe("Habitat Explorer calculation presentation", () => {
       value: 3.2,
       unit: "mg/mL",
     });
+    expect(
+      ready?.sections.find((section) => section.id === "recommendation")?.metrics,
+    ).toEqual(expect.arrayContaining([
+      { label: "Minimum applications", value: 1 },
+      { label: "Maximum applications", value: 2 },
+    ]));
+    expect(JSON.stringify(ready)).not.toContain('"unit":"/week"');
 
     const empty = normalizeCalculationPresentation("calculate_fertilizer_dose", {
       product_name: "No Such Fertilizer",
@@ -327,6 +341,15 @@ describe("Habitat Explorer calculation presentation", () => {
       disclaimerKind: "weekly-dose-totals",
     });
     expect(ready?.sections[0]?.rows?.map((row) => row.status)).toEqual(["in_range", "below"]);
+    expect(ready?.sections[0]?.rows?.[0]).toMatchObject({
+      detail: "Seachem",
+      metrics: expect.arrayContaining([
+        { label: "Method", value: "LIQUID" },
+        { label: "Scheduled applications", value: 2 },
+      ]),
+    });
+    expect(JSON.stringify(ready)).not.toContain("Seachem · LIQUID");
+    expect(JSON.stringify(ready)).not.toContain('"unit":"/week"');
     expect(
       normalizeCalculationPresentation("calculate_weekly_dose_totals", { totals: [] }),
     ).toMatchObject({ state: "empty", sections: [] });
@@ -377,6 +400,10 @@ describe("Habitat Explorer calculation presentation", () => {
       "coverage",
     ]);
     expect(ready?.sections.find((section) => section.id === "coverage")?.rows).toHaveLength(1);
+    expect(ready?.sections.find((section) => section.id === "preset")?.rows?.[0]).toMatchObject({
+      detail: "Seachem",
+      metrics: expect.arrayContaining([{ label: "Method", value: "LIQUID" }]),
+    });
   });
 
   it("normalizes proposal-only plans and identifies the semantically empty plan", () => {
@@ -432,8 +459,17 @@ describe("Habitat Explorer calculation presentation", () => {
       "proposal-simple-items",
       "proposal-simple-coverage",
     ]);
+    expect(proposal?.sections.map((section) => section.title)).toEqual([
+      "Nutrient coverage",
+      "Proposals",
+      "Products",
+      "Nutrient coverage",
+    ]);
+    expect(proposal?.sections.find((section) => section.id === "proposal-simple")?.metrics)
+      .toContainEqual({ label: "Method", value: "simple" });
     expect(JSON.stringify(proposal)).not.toContain("Alternativa semplice");
     expect(JSON.stringify(proposal)).not.toContain("Backend-localized text");
+    expect(proposal?.sections.every((section) => !section.title.includes("simple"))).toBe(true);
 
     const empty = normalizeCalculationPresentation("generate_fertilization_plan", {
       preset_items: [],

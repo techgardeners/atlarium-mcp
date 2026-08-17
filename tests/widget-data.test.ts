@@ -47,6 +47,19 @@ describe("Habitat Explorer production payload normalization", () => {
       data: { results: [] },
       language: undefined,
     });
+
+    expect(
+      extractPayload({
+        structuredContent: {
+          tool: "search_fish",
+          data: { language_used: "it", results: [] },
+        },
+      }),
+    ).toEqual({
+      tool: "search_fish",
+      data: { language_used: "it", results: [] },
+      language: "it",
+    });
   });
 
   it("extracts production category and brand collections", () => {
@@ -177,7 +190,7 @@ describe("Habitat Explorer media", () => {
         specs: { subType: "INTERNAL", flowRateLitersHour: 200 },
       }),
     ).toEqual([
-      { label: "Category", value: "Filter" },
+      { label: "Category", value: "filter" },
       { label: "Use case", value: "FILTER · INTERNAL" },
       { label: "Sub Type", value: "INTERNAL" },
       { label: "Flow Rate Liters Hour", value: "200 L/h" },

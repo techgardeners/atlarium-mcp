@@ -5,7 +5,7 @@
   "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.2",
-    "candidateVersion": null,
+    "candidateVersion": "2.0.3",
     "endpoint": "https://mcp.atlarium.bio/mcp",
     "repository": "https://github.com/techgardeners/atlarium-mcp",
     "widgetUri": "ui://widget/habitat-explorer.v4.html",

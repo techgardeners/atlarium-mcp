@@ -1,6 +1,6 @@
 {
   "name": "atlarium-habitat-database",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Public read-only habitat data, diagnostics, calculators, compatibility and habitat planning for aquariums, terrariums and paludariums.",
   "author": {
     "name": "TechGardeners",
