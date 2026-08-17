@@ -1,11 +1,11 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-16T23:10:31Z",
+  "verifiedAt": "2026-08-17T00:10:15Z",
   "followUpDays": [7, 14, 30],
   "release": {
-    "version": "2.0.2",
-    "candidateVersion": "2.0.3",
+    "version": "2.0.3",
+    "candidateVersion": null,
     "endpoint": "https://mcp.atlarium.bio/mcp",
     "repository": "https://github.com/techgardeners/atlarium-mcp",
     "widgetUri": "ui://widget/habitat-explorer.v4.html",
@@ -35,8 +35,8 @@
       "listingUrl": "https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database",
       "submissionUrl": "https://modelcontextprotocol.io/registry/quickstart",
       "publicPage": true,
-      "verifiedAt": "2026-08-16T23:10:31Z",
-      "evidence": "Official Registry API exposes bio.atlarium/habitat-database version 2.0.2 as active and latest; publishedAt is 2026-08-16T23:10:31.800325Z."
+      "verifiedAt": "2026-08-17T00:10:15Z",
+      "evidence": "Official Registry API exposes bio.atlarium/habitat-database version 2.0.3 as active and latest; publishedAt is 2026-08-17T00:10:15.358882Z."
     },
     {
       "id": "github",
@@ -58,7 +58,7 @@
       "submissionUrl": "https://smithery.ai/new",
       "publicPage": true,
       "verifiedAt": "2026-08-16T14:46:00Z",
-      "evidence": "Public listing returns HTTP 200; metadata refresh is required after production 2.0.2."
+      "evidence": "Public listing returns HTTP 200; metadata refresh is required after production 2.0.3."
     },
     {
       "id": "glama",
@@ -501,8 +501,8 @@
       "listingUrl": null,
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T23:26:15Z",
-      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. A signed-in 2.0.2 draft points to the live MCP endpoint, domain verification passes and the portal rescan discovered the 39 public tools. Real ChatGPT web and responsive 390x844 captures are recorded; icon/submission JSON upload, native mobile recording and final resubmission remain required."
+      "verifiedAt": "2026-08-17T00:19:00Z",
+      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. A signed-in 2.0.3 draft points to the live MCP endpoint, domain verification passes and the portal rescan discovered the 39 public tools. Real ChatGPT web, Italian compatibility and responsive 390x844 captures are recorded; the submission metadata and icons are saved, while native mobile recording and final resubmission remain required."
     }
   ]
 }

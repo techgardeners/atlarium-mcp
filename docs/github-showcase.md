@@ -88,7 +88,7 @@ complete whenever the public MCP contract changes:
 - Client setup matrix for OpenAI Agents SDK, Claude Code, Cursor, Windsurf,
   VS Code, Antigravity, generic Streamable HTTP and ChatGPT Apps.
 - ChatGPT App/widget section that distinguishes the approved existing `1.0.0`
-  app from the saved, not-yet-submitted `2.0.2` draft and deployed Habitat
+  app from the saved, not-yet-submitted `2.0.3` draft and deployed Habitat
   Explorer v4 endpoint.
 - Tool surface table and one collapsible example for every public tool.
 - Real ChatGPT web/mobile screenshots for publishing. Widget-only development
@@ -105,20 +105,24 @@ docs/assets/chatgpt-screenshots/suggestions.png
 docs/assets/chatgpt-screenshots/real-host/search-fish-web.jpg
 docs/assets/chatgpt-screenshots/real-host/fish-profile-web.jpg
 docs/assets/chatgpt-screenshots/real-host/fish-profile-mobile-390x844.jpg
+docs/assets/chatgpt-screenshots/real-host/compatibility-web.jpg
+docs/assets/chatgpt-screenshots/submission/search-fish-web.jpg
+docs/assets/chatgpt-screenshots/submission/fish-profile-web.jpg
+docs/assets/chatgpt-screenshots/submission/compatibility-web.jpg
 ```
 
-The three `real-host` files show ChatGPT web and a responsive 390x844 viewport.
+The four `real-host` files show ChatGPT web and a responsive 390x844 viewport.
 The responsive capture must not be described as native iOS/Android evidence.
 
 ## Claim Rules
 
 - Show the Official MCP Registry status because `bio.atlarium/habitat-database`
-  `2.0.2` is published, active and latest.
+  `2.0.3` is published, active and latest.
 - Do not add Smithery, MCP.so, PulseMCP or client approval badges until the
   external listing or approval is visible and badge policy is intentionally
   approved.
 - Do not extend the existing `1.0.0` approval claim to Habitat Explorer v4 /
-  MCP `2.0.2`; describe the candidate as pending resubmission until its own
+  MCP `2.0.3`; describe the candidate as pending resubmission until its own
   review is accepted.
 
 ## MCP Update Rule

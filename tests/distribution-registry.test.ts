@@ -82,7 +82,7 @@ describe("distribution registry", () => {
     expect(instructions).toContain("choose `No auth`");
   });
 
-  it("keeps the ChatGPT 2.0.2 candidate prepared without approval claims", () => {
+  it("keeps the current ChatGPT candidate prepared without approval claims", () => {
     const target = registry.targets.find(
       (candidate) => candidate.id === "chatgpt_app",
     );
@@ -91,10 +91,14 @@ describe("distribution registry", () => {
       status: "prepared",
       publicPage: false,
     });
-    expect(target?.evidence).toMatch(/2\.0\.2.*draft/i);
+    expect(target?.evidence).toMatch(new RegExp(`${registry.release.version}.*draft`, "i"));
     expect(target?.evidence).toMatch(/39 public tools/i);
-    expect(target?.evidence).not.toMatch(/2\.0\.2[^.]*approved/i);
-    expect(target?.evidence).not.toMatch(/2\.0\.2[^.]*submitted/i);
+    expect(target?.evidence).not.toMatch(
+      new RegExp(`${registry.release.version}[^.]*approved`, "i"),
+    );
+    expect(target?.evidence).not.toMatch(
+      new RegExp(`${registry.release.version}[^.]*submitted`, "i"),
+    );
     expect(target?.submission).toBeUndefined();
   });
 
@@ -123,8 +127,10 @@ describe("distribution registry", () => {
         "utf8",
       );
 
-      expect(generated).toContain('"version": "2.0.2"');
-      expect(generated).toContain('"candidateVersion": "2.0.3"');
+      expect(generated).toContain(`"version": "${registry.release.version}"`);
+      expect(generated).toContain(
+        `"candidateVersion": ${JSON.stringify(registry.release.candidateVersion ?? null)}`,
+      );
       expect(generated).not.toContain("MCP Trove");
       expect(generated).not.toContain("MCP.so ownership linkage");
       expect(generated).toContain("Official MCP Registry");

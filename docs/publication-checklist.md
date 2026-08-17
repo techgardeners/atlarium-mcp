@@ -27,9 +27,9 @@ Last updated: 2026-08-16
 - GitHub repo metadata, README, MIT license, contributing/security notes and client examples are ready.
 - Public conformance for initialize, logging, ping, tools/list and tool-call scenarios passes.
 - `pnpm mcp:validate:public` verifies representative calls across the 39-tool read-only V2 surface.
-- Official MCP Registry `2.0.2` is `active` and `isLatest` for
+- Official MCP Registry `2.0.3` is `active` and `isLatest` for
   `bio.atlarium/habitat-database`; public `publishedAt` is
-  `2026-08-16T23:10:31.800325Z`.
+  `2026-08-17T00:10:15.358882Z`.
 - Glama indexes the registry entry as a connector at
   `https://glama.ai/mcp/connectors/bio.atlarium/habitat-database`.
 - `https://mcp.atlarium.bio/.well-known/glama.json` serves the Glama ownership
@@ -38,7 +38,7 @@ Last updated: 2026-08-16
   the listing is healthy, and the public description uses the canonical V2 copy.
 - Smithery is published and visible at
   `https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database`.
-  Production exposes version `2.0.2`, 39 tools, 9 prompts and 4 widget resources;
+  Production exposes version `2.0.3`, 39 tools, 9 prompts and 4 widget resources;
   do not publish a static third-party score.
 - PulseMCP lists Atlarium Habitat Database publicly at
   `https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database`.
@@ -50,7 +50,7 @@ Last updated: 2026-08-16
 - ChatGPT Developer Mode manual smoke passed after refreshing connector
   metadata to `ui://widget/habitat-explorer.v4.html`.
 - The existing OpenAI dashboard app version `1.0.0` is approved. A signed-in
-  `2.0.2` draft now points to the production endpoint; domain verification and
+  `2.0.3` draft now points to the production endpoint; domain verification and
   the 39-tool endpoint rescan pass. It is not yet submitted or approved.
 - ChatGPT App icon asset is prepared at `docs/assets/chatgpt-app-icon.png`.
 - Widget-only ChatGPT App development screenshots are stored directly in
@@ -59,7 +59,7 @@ Last updated: 2026-08-16
   mobile recording is still required. The existing short demo remains at
   `docs/assets/chatgpt-app-demo.mp4`.
 - The first ChatGPT App review was not approved on 2026-07-02; the existing app
-  later reached approved status as version `1.0.0`. The v4 / `2.0.2` remediation
+  later reached approved status as version `1.0.0`. The v4 / `2.0.3` remediation
   package is visually approved and deployed; the endpoint rescan and first
   real-host screenshots are complete, while native mobile recording and final
   submission remain. Do not
@@ -125,8 +125,8 @@ PUSH_IMAGE=true pnpm pipeline:local
 Manual equivalent:
 
 ```bash
-docker build -t ghcr.io/techgardeners/atlarium-mcp:2.0.2 .
-docker push ghcr.io/techgardeners/atlarium-mcp:2.0.2
+docker build -t ghcr.io/techgardeners/atlarium-mcp:2.0.3 .
+docker push ghcr.io/techgardeners/atlarium-mcp:2.0.3
 ```
 
 2. Deploy to Atlarium Kubernetes.
@@ -368,7 +368,7 @@ separate from pending and blocked operations.
 
 | Accepted public surface | Status | Evidence |
 | --- | --- | --- |
-| Official MCP Registry | Published / active / latest `2.0.2` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
+| Official MCP Registry | Published / active / latest `2.0.3` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
 | GitHub | Published | https://github.com/techgardeners/atlarium-mcp |
 | Smithery | Published | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database |
 | Glama | Ownership verified | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database |

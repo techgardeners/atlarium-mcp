@@ -13,7 +13,7 @@
   <a href="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml"><img alt="MCP Directory Audit" src="https://github.com/techgardeners/atlarium-mcp/actions/workflows/mcp-directory-audit.yml/badge.svg"></a>
   <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/github/license/techgardeners/atlarium-mcp"></a>
   <a href="https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database"><img alt="Official MCP Registry" src="https://img.shields.io/badge/Official_MCP_Registry-bio.atlarium%2Fhabitat--database-0E7C86"></a>
-  <img alt="Version 2.0.2" src="https://img.shields.io/badge/version-2.0.2-0E7C86">
+  <img alt="Version 2.0.3" src="https://img.shields.io/badge/version-2.0.3-0E7C86">
   <img alt="Transport: Streamable HTTP" src="https://img.shields.io/badge/transport-Streamable_HTTP-145C9E">
   <img alt="Read-only MCP tools" src="https://img.shields.io/badge/tools-39_read--only-2D7D46">
   <img alt="Prompts enabled" src="https://img.shields.io/badge/prompts-enabled-6B7280">
@@ -45,7 +45,7 @@ write operations.
 | Surface | Value |
 | --- | --- |
 | MCP endpoint | `https://mcp.atlarium.bio/mcp` |
-| MCP version | `2.0.2` |
+| MCP version | `2.0.3` |
 | Transport | Streamable HTTP |
 | Authentication | none |
 | Tool surface | 39 public read-only tools |
@@ -117,7 +117,7 @@ pnpm mcp:monitor:public
 | VS Code | Copy `examples/vscode/mcp.json`; VS Code uses `type: "http"` for remote MCP servers. |
 | Antigravity | Use `examples/antigravity/mcp.json` only in builds that support remote MCP servers. |
 | Generic Streamable HTTP | Use the JSON-RPC examples in `examples/generic-streamable-http`. |
-| ChatGPT Apps | The existing app version `1.0.0` is approved in the OpenAI dashboard. A `2.0.2` draft now points to the deployed Habitat Explorer v4 endpoint and its 39 tools have been rescanned; final assets, native mobile evidence and submission remain pending. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes and smoke prompts. |
+| ChatGPT Apps | The existing app version `1.0.0` is approved in the OpenAI dashboard. A `2.0.3` draft points to the deployed Habitat Explorer v4 endpoint and its 39 tools have been rescanned; real-host and 706px publishing captures are prepared, while native mobile evidence and final submission remain pending. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes and smoke prompts. |
 
 These are compatibility notes, not vendor endorsements. Do not make vendor or
 directory support claims for ChatGPT, Claude, Cursor, Windsurf, VS Code,
@@ -145,7 +145,7 @@ Widget-only development screenshots and a short demo recording are checked in
 under `docs/assets/chatgpt-screenshots/` and `docs/assets/chatgpt-app-demo.mp4`.
 Real host-level web and responsive 390x844 captures are stored under
 `docs/assets/chatgpt-screenshots/real-host/`; native iOS/Android recording is
-still required for the final review package. The v4 / `2.0.2` candidate is live
+still required for the final review package. The v4 / `2.0.3` candidate is live
 at the MCP endpoint but is not yet approved as the new ChatGPT App version; do
 not describe that app submission as approved until OpenAI accepts it. The
 existing dashboard app version `1.0.0` is approved.
@@ -925,10 +925,10 @@ Output: advisory equipment estimates and electricity usage/cost summary.
 
 | Directory | Status |
 | --- | --- |
-| Official MCP Registry | Published as `bio.atlarium/habitat-database`; release `2.0.2` is active and latest. |
+| Official MCP Registry | Published as `bio.atlarium/habitat-database`; release `2.0.3` is active and latest. |
 | GitHub | Canonical public source repository. |
 | Glama | Ownership verified; listing healthy with 39 tools and canonical V2 description. |
-| Smithery | [Published listing](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); production exposes version `2.0.2`, 39 tools and 9 prompts, while the directory refresh remains pending. |
+| Smithery | [Published listing](https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database); production exposes version `2.0.3`, 39 tools and 9 prompts, while the directory refresh remains pending. |
 | MCP.so | [Listed publicly](https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners); the `2.0.2` refresh is awaiting directory processing. |
 | PulseMCP | Listed publicly; verify badge policy before adding a badge. |
 | mcpservers.org | Listed publicly at [`techgardeners/atlarium-mcp`](https://mcpservers.org/servers/techgardeners/atlarium-mcp); no badge added yet. |

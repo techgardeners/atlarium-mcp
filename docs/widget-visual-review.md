@@ -1,11 +1,12 @@
 # Habitat Explorer v4 — visual review gate
 
-Status: **visually approved; localization patch 2.0.3 qualified on 2026-08-16**.
+Status: **visually approved; localization patch 2.0.3 released on 2026-08-16**.
 
 This gallery completed the visual approval gate. Production and the Official
-Registry remain on `2.0.2` while the qualified `2.0.3` candidate closes the
-Italian and Spanish localization gaps found during real ChatGPT host testing.
-ChatGPT App resubmission remains a separate external review gate.
+Registry are aligned on `2.0.3`. A refreshed ChatGPT Developer Mode connector
+confirmed the Italian compatibility summary, warnings, actions and disclaimer
+in the real host. ChatGPT App resubmission remains a separate external review
+gate.
 
 ## Final visual rules
 
@@ -81,7 +82,12 @@ These captures are separate from deterministic widget fixtures:
 
 - [direct fish search in ChatGPT web](assets/chatgpt-screenshots/real-host/search-fish-web.jpg)
 - [direct fish profile in ChatGPT web](assets/chatgpt-screenshots/real-host/fish-profile-web.jpg)
+- [localized compatibility in ChatGPT web](assets/chatgpt-screenshots/real-host/compatibility-web.jpg)
 - [fish profile at 390x844 responsive viewport](assets/chatgpt-screenshots/real-host/fish-profile-mobile-390x844.jpg)
+
+Publishing crops that satisfy the OpenAI `706px` width and `400–860px` height
+contract are stored separately under
+`assets/chatgpt-screenshots/submission/`; they contain no user prompt.
 
 The 390x844 image proves responsive host rendering, not native iOS/Android
 execution. Native mobile recording remains required before final submission.

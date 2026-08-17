@@ -15,9 +15,10 @@ This package covers the implemented Habitat Explorer widget, submission
 metadata, tests, screenshots and safety notes. Public ChatGPT availability still
 depends on OpenAI review.
 
-Current review status: existing App `1.0.0` approved; version `2.0.2` draft
-saved, domain verified and 39-tool endpoint rescan complete; asset upload,
-native mobile recording and final submission pending. See
+Current review status: existing App `1.0.0` approved; version `2.0.3` draft
+saved, domain verified and 39-tool endpoint rescan complete. Submission JSON
+and icons are saved; publishing screenshots are prepared, while native mobile
+recording and final submission remain pending. See
 `docs/chatgpt-review-remediation.md` for the remediation record and remaining
 review checklist.
 
@@ -72,7 +73,8 @@ review checklist.
   `https://mcp.atlarium.bio/.well-known/openai-apps-challenge`.
 - Real host-level web and responsive 390x844 screenshots are stored in
   `docs/assets/chatgpt-screenshots/real-host/`. Native mobile recording remains
-  required. The widget-only fixtures directly under
+  required. OpenAI-compliant 706px publishing crops are stored in
+  `docs/assets/chatgpt-screenshots/submission/`. The widget-only fixtures directly under
   `docs/assets/chatgpt-screenshots/` are development evidence and must not be
   reused as publishing screenshots.
 
@@ -89,7 +91,7 @@ review checklist.
 
 ## Manual QA Snapshot
 
-Verified in signed-in ChatGPT web on `2026-08-16` against production `2.0.2`:
+Verified in signed-in ChatGPT web on `2026-08-16` against production `2.0.3`:
 
 - The OpenAI Platform draft endpoint rescan discovered 39 read-only Atlarium
   tools and domain verification passed.
@@ -97,10 +99,11 @@ Verified in signed-in ChatGPT web on `2026-08-16` against production `2.0.2`:
   species images and Neon Tetra as the top result.
 - Direct `get_fish_profile` rendered the real Neon Tetra image, four primary
   metrics and the localized editorial chapter hierarchy.
+- Direct `check_species_compatibility` rendered the Corydoras/Betta summary,
+  warnings, actions and advisory disclaimer fully in Italian after refreshing
+  the Developer Mode connector metadata.
 - Web and responsive 390x844 host captures are checked in under
   `docs/assets/chatgpt-screenshots/real-host/`.
-- `check_species_compatibility` for `Corydoras paleatus` and `Betta splendens`
-  remains a required final host capture.
 - `suggest_species_for_tank` for a 120 L planted tank rendered the Suggestions
   view in deterministic widget QA and remains a required final host capture.
 - Private tank/journal write and admin/delete/private workspace injection prompts
@@ -142,9 +145,10 @@ livestock, equipment, water chemistry and local husbandry constraints.
 - Habitat Explorer Calculator view rendering volume, weight, water chemistry,
   unit conversion or equipment requirement output.
 - Publishing captures for Results, Profile, Compatibility and Suggestions in
-  ChatGPT web and native mobile. Search/profile web plus one responsive mobile
-  viewport are present; compatibility, suggestions, negative and native mobile
-  evidence remain. Captures must include the ChatGPT host UI.
+  ChatGPT web and native mobile. Search, profile and Italian compatibility web
+  captures plus one responsive mobile viewport are present; suggestions,
+  negative and native mobile evidence remain. Captures must include the
+  ChatGPT host UI.
 - Localization QA capture with Italian locale, confirming translated labels and
   no raw tool keys in status messages.
 - Safety/privacy notes visible in the submission form.

@@ -4,7 +4,7 @@ Last updated: `2026-08-16`
 
 Current status: the existing OpenAI dashboard app version `1.0.0` is approved.
 This document records the earlier review findings and the remaining submission
-work for Habitat Explorer v4 / MCP `2.0.2`. A signed-in draft exists and its MCP
+work for Habitat Explorer v4 / MCP `2.0.3`. A signed-in draft exists and its MCP
 endpoint has been rescanned, but it is not yet submitted or approved.
 
 OpenAI rejected the Atlarium Habitat Database MCP ChatGPT App review with two
@@ -55,16 +55,17 @@ Required capture set for resubmission:
 - ChatGPT web conversation showing a direct `get_fish_profile` result with the
   real species image and readable chapter hierarchy. Captured.
 - ChatGPT web conversation showing `check_species_compatibility` for Corydoras
-  paleatus and Betta splendens.
+  paleatus and Betta splendens. Captured in Italian after refreshing the
+  Developer Mode connector metadata.
 - ChatGPT web conversation showing `suggest_species_for_tank` cards or textual
   suggestions.
 - ChatGPT responsive 390x844 capture for one positive case, confirming the same
   result and readable widget/layout. Captured; native mobile recording remains.
 - ChatGPT negative prompt capture showing no private/write/admin tool is called.
 
-Before uploading, verify each image matches the dimensions required by the
-OpenAI Platform dashboard and that it includes the ChatGPT host UI, not only the
-embedded widget.
+The three prepared publishing crops in
+`docs/assets/chatgpt-screenshots/submission/` are 706px wide, 650–860px high,
+contain the real ChatGPT-hosted widget and exclude the user prompt.
 
 The first combined search-plus-profile host run displayed one
 `Failed to fetch template` notice for the concurrent profile render. A direct
@@ -118,12 +119,12 @@ generated_at -> absent
 ## Dashboard Steps
 
 1. In the OpenAI Platform Apps dashboard, refresh or rescan the MCP endpoint.
-   Completed for the `2.0.2` draft on `2026-08-16`; 39 tools were discovered.
+   Completed for the `2.0.3` draft on `2026-08-16`; 39 tools were discovered.
 2. Upload the host-level captures and add native mobile recording evidence.
 3. Upload the updated `chatgpt-app-submission.json` content or copy the revised
    test prompts and expected outputs into the form.
 4. Submit for review.
 
-Do not claim Habitat Explorer v4 / MCP `2.0.2` approval until OpenAI accepts
+Do not claim Habitat Explorer v4 / MCP `2.0.3` approval until OpenAI accepts
 that resubmission; this does not change the approved status of the existing
 dashboard app version `1.0.0`.

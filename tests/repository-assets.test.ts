@@ -116,6 +116,10 @@ describe("repository publication assets", () => {
         "docs/assets/chatgpt-screenshots/real-host/fish-profile-mobile-390x844.jpg",
         { width: 390, height: 844 },
       ],
+      [
+        "docs/assets/chatgpt-screenshots/real-host/compatibility-web.jpg",
+        { width: 727, height: 1265 },
+      ],
     ] as const;
 
     expect(
@@ -137,5 +141,30 @@ describe("repository publication assets", () => {
     expect(readFileSync("docs/widget-visual-review.md", "utf8")).toContain(
       "real-host/search-fish-web.jpg",
     );
+  });
+
+  it("keeps OpenAI prompt screenshots within the publishing dimensions", () => {
+    const screenshots = [
+      [
+        "docs/assets/chatgpt-screenshots/submission/search-fish-web.jpg",
+        { width: 706, height: 650 },
+      ],
+      [
+        "docs/assets/chatgpt-screenshots/submission/fish-profile-web.jpg",
+        { width: 706, height: 860 },
+      ],
+      [
+        "docs/assets/chatgpt-screenshots/submission/compatibility-web.jpg",
+        { width: 706, height: 860 },
+      ],
+    ] as const;
+
+    expect(
+      pathExists("docs/assets/chatgpt-screenshots/submission/README.md"),
+    ).toBe(true);
+    for (const [path, dimensions] of screenshots) {
+      expect(pathExists(path), path).toBe(true);
+      expect(jpegDimensions(path), path).toEqual(dimensions);
+    }
   });
 });
