@@ -44,9 +44,10 @@ Acceptance points verified by deterministic fixtures and screenshots:
 Real ChatGPT web and responsive 390x844 publishing screenshots are recorded.
 Three compliant 706px ChatGPT-hosted crops for search, profile and Italian
 compatibility are uploaded and saved in the signed-in OpenAI `2.0.3` draft.
-Native mobile recording, release-note correction and App dashboard
-resubmission remain account checkpoints; public ChatGPT approval is not
-claimed.
+The release notes were corrected to `2.0.3` and the App dashboard submission
+was completed on 2026-08-18. OpenAI Platform shows status `Review`; the linked
+demo is responsive-web evidence, so native iOS/Android evidence may still be
+requested. Public ChatGPT approval is not claimed.
 
 ## Production Reliability
 
@@ -133,9 +134,9 @@ score or paid badge is claimed.
 | cursor.directory | In review | https://cursor.directory/plugins/atlarium-habitat-database |
 | MCP Server Hub | Resubmitted | Version `2.0.1` form confirmation received. |
 | MCP Marketplace | Published / verified | Canonical `2.0.1` listing reports 39 tools, no auth, 10/10 low-risk security and successful public health probes. |
-| MCP.so ownership | In review | Public visibility is unaffected; ownership is needed only for dashboard edits. |
+| MCP.so ownership | Verified | The authenticated dashboard lists one Published Atlarium record and exposes editing. |
 | Cline Marketplace | Submitted | https://github.com/cline/mcp-marketplace/issues/2253 |
-| ChatGPT App | Draft prepared | Version `2.0.3`, domain verification, 39-tool rescan and three compliant screenshot uploads are saved; native mobile recording, release-note correction and final submission remain. |
+| ChatGPT App | In review | Version `2.0.3` was submitted on 2026-08-18 with corrected release notes, 39-tool rescan, three compliant screenshots and the portrait responsive-web demo; OpenAI Platform shows `Review`. |
 
 MCP Trove and Lulu remain blocked because no legitimate current submission
 surface could be verified. GitHub MCP Registry search has no Atlarium result;
@@ -177,8 +178,8 @@ Latest recorded automation evidence:
 ## Remaining External Checkpoints
 
 - complete Smithery sign-in to request an immediate metadata refresh;
-- complete native mobile recording, correct the `2.0.3` release notes and submit
-  the updated App after explicit confirmation;
+- monitor the OpenAI `2.0.3` review and provide native iOS/Android evidence if
+  requested;
 - follow every non-terminal directory at days 7, 14 and 30;
 - collect and append the 14-day production usage/error baseline.
 

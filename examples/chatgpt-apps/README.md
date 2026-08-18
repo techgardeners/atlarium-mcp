@@ -15,11 +15,12 @@ This package covers the implemented Habitat Explorer widget, submission
 metadata, tests, screenshots and safety notes. Public ChatGPT availability still
 depends on OpenAI review.
 
-Current review status: existing App `1.0.0` approved; version `2.0.3` draft
-saved, domain verified and 39-tool endpoint rescan complete. Submission JSON,
-icons and three compliant 706px ChatGPT-hosted screenshots are saved in the
-draft; native mobile recording, the release-note correction and final
-submission remain pending. See
+Current review status: existing App `1.0.0` approved; version `2.0.3` submitted
+on 2026-08-18 and shown as `Review`. Domain verification, the 39-tool endpoint
+rescan, submission JSON, icons, three compliant 706px ChatGPT-hosted screenshots
+and the corrected `2.0.3` release notes are included. The linked portrait demo
+is responsive-web evidence rather than native iOS/Android evidence; provide a
+native recording if the reviewer requests it. See
 `docs/chatgpt-review-remediation.md` for the remediation record and remaining
 review checklist.
 
@@ -146,11 +147,10 @@ livestock, equipment, water chemistry and local husbandry constraints.
   fertilizer, fertilization regime or dose-plan output.
 - Habitat Explorer Calculator view rendering volume, weight, water chemistry,
   unit conversion or equipment requirement output.
-- Publishing captures for Results, Profile, Compatibility and Suggestions in
-  ChatGPT web and native mobile. Search, profile and Italian compatibility web
-  captures plus one responsive mobile viewport are present; suggestions,
-  negative and native mobile evidence remain. Captures must include the
-  ChatGPT host UI.
+- Publishing captures for Results, Profile and Compatibility in ChatGPT web,
+  plus one responsive mobile viewport and a portrait responsive-web demo, are
+  present in the submitted package. Native iOS/Android evidence is not claimed.
+  Captures include the ChatGPT host UI.
 - Localization QA capture with Italian locale, confirming translated labels and
   no raw tool keys in status messages.
 - Safety/privacy notes visible in the submission form.

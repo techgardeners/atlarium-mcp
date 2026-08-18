@@ -296,8 +296,8 @@ Explorer v4 / MCP 2.0.3 includes the updated media, typography and compact
 mascot treatment. Visual approval, production deployment, a 39-tool endpoint
 rescan and first real-host captures were recorded on 2026-08-16. Three
 compliant publishing screenshots are uploaded and saved; native mobile
-recording, release-note correction and resubmission are the remaining release
-steps.
+recording is not claimed. Release notes were corrected to 2.0.3 and the
+candidate was submitted on 2026-08-18; OpenAI Platform now shows Review.
 
 Endpoint: https://mcp.atlarium.bio/mcp
 Widget resource: ui://widget/habitat-explorer.v4.html

@@ -3,9 +3,9 @@
 Last updated: `2026-08-18`
 
 Current status: the existing OpenAI dashboard app version `1.0.0` is approved.
-This document records the earlier review findings and the remaining submission
-work for Habitat Explorer v4 / MCP `2.0.3`. A signed-in draft exists and its MCP
-endpoint has been rescanned, but it is not yet submitted or approved.
+Habitat Explorer v4 / MCP `2.0.3` was submitted on 2026-08-18 and OpenAI
+Platform shows its status as `Review`. The MCP endpoint was rescanned before
+submission; approval is not claimed while review remains open.
 
 OpenAI rejected the Atlarium Habitat Database MCP ChatGPT App review with two
 action items:

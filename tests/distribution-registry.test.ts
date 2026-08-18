@@ -82,27 +82,34 @@ describe("distribution registry", () => {
     expect(instructions).toContain("choose `No auth`");
   });
 
-  it("keeps the current ChatGPT candidate prepared without approval claims", () => {
+  it("keeps the current ChatGPT candidate in review without approval claims", () => {
     const target = registry.targets.find(
       (candidate) => candidate.id === "chatgpt_app",
     );
 
     expect(target).toMatchObject({
-      status: "prepared",
+      status: "in_review",
       publicPage: false,
     });
-    expect(target?.evidence).toMatch(new RegExp(`${registry.release.version}.*draft`, "i"));
+    expect(target?.evidence).toMatch(
+      new RegExp(`${registry.release.version}.*Review`, "i"),
+    );
     expect(target?.evidence).toMatch(/39 public tools/i);
     expect(target?.evidence).toMatch(/three compliant 706px/i);
-    expect(target?.evidence).toMatch(/uploaded and saved/i);
-    expect(target?.evidence).toMatch(/native mobile recording/i);
+    expect(target?.evidence).toMatch(/release notes were corrected/i);
+    expect(target?.evidence).toMatch(/not native iOS or Android evidence/i);
     expect(target?.evidence).not.toMatch(
       new RegExp(`${registry.release.version}[^.]*approved`, "i"),
     );
-    expect(target?.evidence).not.toMatch(
-      new RegExp(`${registry.release.version}[^.]*submitted`, "i"),
-    );
-    expect(target?.submission).toBeUndefined();
+    expect(target?.submission).toMatchObject({
+      attempt: 2,
+      payload: {
+        version: registry.release.version,
+        tools: 39,
+        prompts: 9,
+        screenshots: 3,
+      },
+    });
   });
 
   it("does not invent a GitHub MCP Registry submission path", () => {

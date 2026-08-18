@@ -1,7 +1,7 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-18T18:01:00Z",
+  "verifiedAt": "2026-08-18T18:13:13Z",
   "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.3",
@@ -505,12 +505,30 @@
       "id": "chatgpt_app",
       "name": "ChatGPT App",
       "category": "agent_marketplace",
-      "status": "prepared",
+      "status": "in_review",
       "listingUrl": null,
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T18:01:00Z",
-      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. A signed-in 2.0.3 draft points to the live MCP endpoint, domain verification passes and the portal rescan discovered the 39 public tools. Three compliant 706px ChatGPT-hosted screenshots for search, profile and Italian compatibility are uploaded and saved in the draft. A 1080x1920 H.264 demo has been prepared from a real ChatGPT web session at a 390x844 responsive viewport; it is mobile-responsive web evidence, not native iOS or Android evidence. Native mobile recording, release-note correction and final resubmission remain required."
+      "verifiedAt": "2026-08-18T18:13:13Z",
+      "evidence": "OpenAI Platform lists Atlarium Habitat Database MCP version 2.0.3 with status Review; version 1.0.0 remains Approved. Before submission, the release notes were corrected from 2.0.2 to 2.0.3. The submitted candidate points to the live MCP endpoint, passed domain verification and a rescan of all 39 public tools, includes three compliant 706px ChatGPT-hosted screenshots and links the 1080x1920 H.264 responsive-web demo. The demo is not native iOS or Android evidence; supply native evidence if review requests it. Approval is not claimed while status is Review.",
+      "submission": {
+        "submittedAt": "2026-08-18T18:13:13Z",
+        "attempt": 2,
+        "evidenceUrl": "https://platform.openai.com/plugins",
+        "payload": {
+          "version": "2.0.3",
+          "releaseNotes": "Atlarium Habitat Explorer v4 for MCP 2.0.3: redesigned read-only ChatGPT UI with real species and product media, clearer editorial sections, responsive English, Italian and Spanish advisory views, 39 public tools, 9 prompts, compatible widget aliases, sanitized production logging and verified Official MCP Registry metadata.",
+          "tools": 39,
+          "prompts": 9,
+          "screenshots": 3,
+          "demo": "https://github.com/techgardeners/atlarium-mcp/blob/main/docs/assets/chatgpt-app-demo.mp4"
+        },
+        "followUpAt": [
+          "2026-08-25T18:13:13Z",
+          "2026-09-01T18:13:13Z",
+          "2026-09-17T18:13:13Z"
+        ]
+      }
     }
   ]
 }
