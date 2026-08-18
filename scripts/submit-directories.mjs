@@ -389,9 +389,21 @@ function syncPage(targetRoot) {
     throw new Error(`Aquarium library directory not found at ${targetLib}.`);
   }
 
+  const publicStatuses = new Set(["published", "listed", "verified", "unscored"]);
+  const invalidPublicTargets = distributionRegistry.targets.filter(
+    (target) => target.publicPage && !publicStatuses.has(target.status),
+  );
+  if (invalidPublicTargets.length > 0) {
+    throw new Error(
+      `Public MCP page cannot include non-terminal targets: ${invalidPublicTargets
+        .map((target) => `${target.id}:${target.status}`)
+        .join(", ")}`,
+    );
+  }
+
   const publicDirectories = distributionRegistry.targets
     .filter((target) => target.publicPage && target.listingUrl)
-    .map(({ name, status, listingUrl: href, evidence: note }) => ({
+    .map(({ name, status, listingUrl: href, publicNote: note }) => ({
       name,
       status,
       href,

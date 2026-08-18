@@ -40,6 +40,7 @@
           "listingUrl": { "type": ["string", "null"], "format": "uri" },
           "submissionUrl": { "type": ["string", "null"], "format": "uri" },
           "publicPage": { "type": "boolean" },
+          "publicNote": { "type": "string", "minLength": 1 },
           "verifiedAt": { "type": "string", "format": "date-time" },
           "evidence": { "type": "string", "minLength": 1 },
           "verificationStatuses": {
@@ -64,6 +65,15 @@
             "additionalProperties": false
           }
         },
+        "allOf": [
+          {
+            "if": {
+              "properties": { "publicPage": { "const": true } },
+              "required": ["publicPage"]
+            },
+            "then": { "required": ["publicNote"] }
+          }
+        ],
         "additionalProperties": false
       }
     }

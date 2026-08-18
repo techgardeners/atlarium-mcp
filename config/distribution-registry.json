@@ -35,6 +35,7 @@
       "listingUrl": "https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database",
       "submissionUrl": "https://modelcontextprotocol.io/registry/quickstart",
       "publicPage": true,
+      "publicNote": "Version 2.0.3 is active and latest in the Official MCP Registry.",
       "verifiedAt": "2026-08-17T00:10:15Z",
       "evidence": "Official Registry API exposes bio.atlarium/habitat-database version 2.0.3 as active and latest; publishedAt is 2026-08-17T00:10:15.358882Z."
     },
@@ -46,6 +47,7 @@
       "listingUrl": "https://github.com/techgardeners/atlarium-mcp",
       "submissionUrl": null,
       "publicPage": true,
+      "publicNote": "Canonical public source repository for the Atlarium MCP server.",
       "verifiedAt": "2026-08-16T14:50:00Z",
       "evidence": "Canonical public source repository."
     },
@@ -57,6 +59,7 @@
       "listingUrl": "https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database",
       "submissionUrl": "https://smithery.ai/new",
       "publicPage": true,
+      "publicNote": "Public listing available with 39 tools and 9 prompts; the 2.0.3 widget metadata refresh is pending maintainer processing.",
       "verifiedAt": "2026-08-18T19:21:29Z",
       "evidence": "The public listing returns HTTP 200 and exposes 39 tools, 9 prompts and only 3 legacy widget resources while reporting last deployed 2 months ago. The signed-in account roberto@beccaceci.it exposes namespaces roberto-lrql and roberto-gv2p, not the existing ilgrafico79 namespace, so publishing through the dashboard would create a duplicate. A support email requested ownership access and a 2.0.3/v4 metadata refresh while preserving the existing listing.",
       "submission": {
@@ -88,6 +91,7 @@
       "listingUrl": "https://glama.ai/mcp/connectors/bio.atlarium/habitat-database",
       "submissionUrl": "https://glama.ai/mcp/connectors",
       "publicPage": true,
+      "publicNote": "Ownership verified; the connector is healthy and exposes the 39-tool read-only endpoint.",
       "verifiedAt": "2026-08-16T14:46:00Z",
       "evidence": "Ownership verified; connector is healthy, Streamable HTTP, and exposes 39 tools."
     },
@@ -99,6 +103,7 @@
       "listingUrl": "https://mcp.so/servers/atlarium-mcp",
       "submissionUrl": "https://mcp.so/submit",
       "publicPage": true,
+      "publicNote": "Public listing is visible; its metadata refresh to release 2.0.3 is pending maintainer processing.",
       "verifiedAt": "2026-08-18T19:21:29Z",
       "verificationStatuses": [200, 403],
       "evidence": "The authenticated maintainer dashboard lists Atlarium Habitat Database MCP as one Published MCP Server and exposes its edit form at /settings/submissions/srv_ea885b05-c9ce-4377-a70a-dd59df3ea490/edit. The canonical public page returns HTTP 200 at /servers/atlarium-mcp, but still renders the older description and no detected tools; category, tags, website, docs and 2.0.3 copy did not persist after submission. A direct support email was sent to support@mcp.so with the complete requested metadata and an explicit no-duplicate instruction. Cloudflare may return HTTP 403 to the transparent GitHub Actions audit bot.",
@@ -163,6 +168,7 @@
       "listingUrl": "https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database",
       "submissionUrl": "https://www.pulsemcp.com/submit",
       "publicPage": true,
+      "publicNote": "Public listing indexed from the canonical Atlarium MCP release.",
       "verifiedAt": "2026-08-16T14:46:00Z",
       "verificationStatuses": [200, 403],
       "evidence": "Public listing is indexed; automated checks may receive Cloudflare HTTP 403."
@@ -175,6 +181,7 @@
       "listingUrl": "https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/",
       "submissionUrl": null,
       "publicPage": true,
+      "publicNote": "Public listing is visible and currently unscored; no score badge is claimed.",
       "verifiedAt": "2026-08-16T14:46:00Z",
       "evidence": "Public listing returns HTTP 200 and remains unscored; no score badge is claimed."
     },
@@ -186,6 +193,7 @@
       "listingUrl": "https://mcpservers.org/servers/techgardeners/atlarium-mcp",
       "submissionUrl": "https://mcpservers.org/submit",
       "publicPage": true,
+      "publicNote": "Public listing includes the canonical endpoint, repository and tool documentation.",
       "verifiedAt": "2026-08-16T14:46:00Z",
       "evidence": "Public listing returns HTTP 200 with endpoint, repository and tool documentation."
     },
@@ -197,6 +205,7 @@
       "listingUrl": "https://mcprepository.com/techgardeners/atlarium-mcp",
       "submissionUrl": "https://mcprepository.com/submit",
       "publicPage": true,
+      "publicNote": "Published listing is publicly reachable with the Atlarium repository metadata.",
       "verifiedAt": "2026-08-16T14:46:00Z",
       "evidence": "Previously queued listing now returns HTTP 200 with Atlarium title."
     },
@@ -208,6 +217,7 @@
       "listingUrl": "https://mcpqueen.com/s/bio.atlarium%2Fhabitat-database",
       "submissionUrl": null,
       "publicPage": true,
+      "publicNote": "Registry probe verifies open protocol access and the 39-tool public surface.",
       "verifiedAt": "2026-08-16T14:30:34.442Z",
       "evidence": "Automated registry probe reports open protocol access, 39 tools and a successful current grade."
     },
@@ -487,6 +497,7 @@
       "listingUrl": "https://mcpmarket.com/server/atlarium-habitat-database",
       "submissionUrl": "https://mcpmarket.com/submit",
       "publicPage": true,
+      "publicNote": "Public listing includes the canonical repository, 39 tools, Streamable HTTP, 9 prompts and no authentication.",
       "verifiedAt": "2026-08-16T20:52:52Z",
       "verificationStatuses": [200, 403, 429],
       "evidence": "The free-queue submission flow reported that Atlarium is already listed; the public page returns HTTP 200 with the canonical repository, 39 tools, Streamable HTTP, 9 prompts and no authentication. Automated checks may receive HTTP 403 or 429 from the provider's anti-bot and rate-limit edge."
@@ -499,6 +510,7 @@
       "listingUrl": "https://mcp-marketplace.io/server/bio-atlarium-habitat-database",
       "submissionUrl": "https://mcp-marketplace.io/submit",
       "publicPage": true,
+      "publicNote": "Official Registry-backed listing is publicly verified; its directory metadata currently reports release 2.0.1 and 39 tools.",
       "verifiedAt": "2026-08-16T22:00:17Z",
       "evidence": "Canonical Official Registry-backed listing is publicly approved at 2.0.1: 39 tools, no authentication, 10/10 low-risk security result, successful probe and 100% reported 24-hour and 7-day uptime. The duplicate manual submission is superseded and does not block this listing.",
       "submission": {

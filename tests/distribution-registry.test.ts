@@ -9,6 +9,7 @@ type DistributionTarget = {
   status: string;
   evidence: string;
   publicPage?: boolean;
+  publicNote?: string;
   verificationStatuses?: number[];
   submission?: {
     submittedAt: string;
@@ -158,6 +159,23 @@ describe("distribution registry", () => {
       expect(generated).not.toContain("MCP Trove");
       expect(generated).not.toContain("MCP.so ownership linkage");
       expect(generated).toContain("Official MCP Registry");
+      expect(generated).not.toContain("roberto@beccaceci.it");
+      expect(generated).not.toContain("support@mcp.so");
+      expect(generated).not.toContain("Cloudflare");
+      for (const target of registry.targets.filter(
+        (candidate) => candidate.publicPage,
+      )) {
+        expect(
+          ["published", "listed", "verified", "unscored"],
+          target.id,
+        ).toContain(target.status);
+        expect(target.publicNote, target.id).toBeTruthy();
+        expect(target.publicNote, target.id).not.toMatch(
+          /[\w.+-]+@[\w.-]+|signed-in|account|anti-bot|cloudflare|attempt\s+\d/i,
+        );
+        expect(generated, target.id).toContain(target.publicNote!);
+        expect(generated, target.id).not.toContain(target.evidence);
+      }
     } finally {
       rmSync(targetRoot, { recursive: true, force: true });
     }
