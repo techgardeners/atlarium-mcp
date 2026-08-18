@@ -108,8 +108,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcp.so/my-servers",
       "publicPage": false,
-      "verifiedAt": "2026-07-02T00:00:00Z",
-      "evidence": "Public visibility is independent from dashboard ownership; maintainer linkage is still required for account edits.",
+      "verifiedAt": "2026-08-18T14:11:17Z",
+      "evidence": "Public visibility is independent from dashboard ownership. The due ownership follow-up was rechecked on 2026-08-18, but MCP.so redirected the maintainer dashboard to sign-in; an authenticated maintainer session is required before account linkage can be verified or changed.",
       "submission": {
         "submittedAt": "2026-07-02T00:00:00Z",
         "attempt": 1,
