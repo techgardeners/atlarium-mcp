@@ -88,6 +88,20 @@ contains 53 requests and 10 tool calls, all successful, with zero unclassified
 events, forbidden fields or invalid error codes. Synthetic probes remain
 separated from external traffic.
 
+An early 24-hour operational checkpoint captured at
+`2026-08-18T21:50:02.744Z` with `--since=24h --strict` confirms that the
+measurement path remains healthy under sustained traffic:
+
+- 2,975 requests: 2,411 external and 564 synthetic;
+- 82 tool calls: 42 external and 40 synthetic;
+- zero unclassified request or tool-call events;
+- 8 `validation_error` and 2 `not_found` events, with no `internal_error`;
+- zero forbidden client fields and zero invalid error codes;
+- both production replicas ready and updated on `2.0.3`, with zero restarts.
+
+This checkpoint is operational evidence only. It does not replace the required
+14-day comparison on or after `2026-08-31`.
+
 Initial production snapshot captured at `2026-08-16T22:02:46.618Z` with
 `--since=720h --strict`:
 
