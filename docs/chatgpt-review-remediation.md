@@ -60,7 +60,9 @@ Required capture set for resubmission:
 - ChatGPT web conversation showing `suggest_species_for_tank` cards or textual
   suggestions.
 - ChatGPT responsive 390x844 capture for one positive case, confirming the same
-  result and readable widget/layout. Captured; native mobile recording remains.
+  result and readable widget/layout. Captured as a real 1080x1920 H.264 demo at
+  `docs/assets/chatgpt-app-demo.mp4`; this proves responsive web behavior, while
+  native iOS/Android recording remains.
 - ChatGPT negative prompt capture showing no private/write/admin tool is called.
 
 The three publishing crops in

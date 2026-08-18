@@ -40,6 +40,23 @@ function jpegDimensions(path: string) {
   throw new Error(`JPEG dimensions not found: ${path}`);
 }
 
+function mp4TrackDimensions(path: string) {
+  const data = readFileSync(join(process.cwd(), path));
+  expect(data.subarray(4, 8).toString("ascii"), path).toBe("ftyp");
+
+  const marker = data.indexOf(Buffer.from("tkhd"));
+  if (marker < 4) {
+    throw new Error(`MP4 tkhd box not found: ${path}`);
+  }
+  const boxStart = marker - 4;
+  const boxSize = data.readUInt32BE(boxStart);
+  const boxEnd = boxStart + boxSize;
+  return {
+    width: data.readUInt32BE(boxEnd - 8) / 65_536,
+    height: data.readUInt32BE(boxEnd - 4) / 65_536,
+  };
+}
+
 describe("repository publication assets", () => {
   it("publishes installability and governance files", () => {
     expect(pathExists("LICENSE")).toBe(true);
@@ -141,6 +158,20 @@ describe("repository publication assets", () => {
     expect(readFileSync("docs/widget-visual-review.md", "utf8")).toContain(
       "real-host/search-fish-web.jpg",
     );
+  });
+
+  it("packages the ChatGPT responsive mobile demo without native claims", () => {
+    const demoPath = "docs/assets/chatgpt-app-demo.mp4";
+    const demo = readFileSync(join(process.cwd(), demoPath));
+    const instructions = readFileSync(
+      join(process.cwd(), "docs/chatgpt-mobile-video.md"),
+      "utf8",
+    );
+
+    expect(demo.length).toBeGreaterThan(500_000);
+    expect(mp4TrackDimensions(demoPath)).toEqual({ width: 1080, height: 1920 });
+    expect(instructions).toMatch(/responsive-web demo/i);
+    expect(instructions).toMatch(/must not be described as a native iOS or Android/i);
   });
 
   it("keeps OpenAI prompt screenshots within the publishing dimensions", () => {

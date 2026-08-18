@@ -55,9 +55,10 @@ Last updated: 2026-08-18
 - ChatGPT App icon asset is prepared at `docs/assets/chatgpt-app-icon.png`.
 - Widget-only ChatGPT App development screenshots are stored directly in
   `docs/assets/chatgpt-screenshots/`. Host-level web and responsive 390x844
-  captures are stored in `docs/assets/chatgpt-screenshots/real-host/`; native
-  mobile recording is still required. The existing short demo remains at
-  `docs/assets/chatgpt-app-demo.mp4`.
+  captures are stored in `docs/assets/chatgpt-screenshots/real-host/`. A real
+  ChatGPT responsive-web flow is packaged as a 1080x1920 H.264 demo at
+  `docs/assets/chatgpt-app-demo.mp4`; it is not evidence of native iOS or
+  Android execution, so native mobile recording is still required.
 - The three 706px ChatGPT-hosted publishing screenshots for search, profile and
   Italian compatibility are uploaded and saved in the signed-in `2.0.3` draft.
 - The first ChatGPT App review was not approved on 2026-07-02; the existing app

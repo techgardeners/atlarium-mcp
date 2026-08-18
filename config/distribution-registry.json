@@ -1,7 +1,7 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-18T17:39:42Z",
+  "verifiedAt": "2026-08-18T18:01:00Z",
   "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.3",
@@ -76,27 +76,30 @@
       "name": "MCP.so",
       "category": "directory",
       "status": "listed",
-      "listingUrl": "https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners",
+      "listingUrl": "https://mcp.so/servers/atlarium-mcp",
       "submissionUrl": "https://mcp.so/submit",
       "publicPage": true,
-      "verifiedAt": "2026-08-16T23:14:04Z",
+      "verifiedAt": "2026-08-18T18:01:00Z",
       "verificationStatuses": [200, 403],
-      "evidence": "Public listing returns HTTP 200; release 2.0.2 metadata refresh was submitted through the directory's canonical GitHub issue. Cloudflare may return HTTP 403 to the transparent GitHub Actions audit bot.",
+      "evidence": "The authenticated maintainer dashboard now lists Atlarium Habitat Database MCP as one Published MCP Server and exposes its edit form at /settings/submissions/srv_ea885b05-c9ce-4377-a70a-dd59df3ea490/edit. The canonical public page returns HTTP 200 at /servers/atlarium-mcp, but still renders the older description and no detected tools; category, tags, website, docs and 2.0.3 copy were filled and submitted in the edit form, yet the values did not persist after reload. No duplicate listing was created. Cloudflare may return HTTP 403 to the transparent GitHub Actions audit bot.",
       "submission": {
-        "submittedAt": "2026-08-16T23:14:04Z",
-        "attempt": 2,
-        "evidenceUrl": "https://github.com/chatmcp/mcpso/issues/1#issuecomment-5310166395",
+        "submittedAt": "2026-08-18T18:01:00Z",
+        "attempt": 3,
+        "evidenceUrl": "https://mcp.so/settings/submissions/srv_ea885b05-c9ce-4377-a70a-dd59df3ea490/edit",
         "payload": {
           "name": "Atlarium Habitat Database MCP",
-          "release": "2.0.2",
+          "release": "2.0.3",
           "registryName": "bio.atlarium/habitat-database",
           "repository": "https://github.com/techgardeners/atlarium-mcp",
-          "endpoint": "https://mcp.atlarium.bio/mcp"
+          "endpoint": "https://mcp.atlarium.bio/mcp",
+          "website": "https://atlarium.bio/mcp",
+          "docs": "https://github.com/techgardeners/atlarium-mcp#readme",
+          "category": "Data & Analytics"
         },
         "followUpAt": [
-          "2026-08-23T23:14:04Z",
-          "2026-08-30T23:14:04Z",
-          "2026-09-15T23:14:04Z"
+          "2026-08-25T18:01:00Z",
+          "2026-09-01T18:01:00Z",
+          "2026-09-17T18:01:00Z"
         ]
       }
     },
@@ -104,24 +107,29 @@
       "id": "mcp_so_ownership",
       "name": "MCP.so ownership linkage",
       "category": "claim",
-      "status": "in_review",
+      "status": "verified",
       "listingUrl": null,
-      "submissionUrl": "https://mcp.so/my-servers",
+      "submissionUrl": "https://mcp.so/settings/submissions?type=server",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T14:11:17Z",
-      "evidence": "Public visibility is independent from dashboard ownership. The due ownership follow-up was rechecked on 2026-08-18, but MCP.so redirected the maintainer dashboard to sign-in; an authenticated maintainer session is required before account linkage can be verified or changed.",
+      "verifiedAt": "2026-08-18T18:01:00Z",
+      "evidence": "Ownership linkage is verified: the authenticated maintainer dashboard lists one Published record for Atlarium Habitat Database MCP and exposes Edit submission. The earlier support ticket no longer appears in the ticket history after linkage. Editing is available, but metadata changes submitted on 2026-08-18 did not persist after reload, so the directory entry remains listed while its refresh is monitored without duplicate submissions.",
       "submission": {
-        "submittedAt": "2026-07-02T00:00:00Z",
-        "attempt": 1,
-        "evidenceUrl": null,
+        "submittedAt": "2026-08-18T17:49:10Z",
+        "attempt": 2,
+        "evidenceUrl": "https://mcp.so/settings/tickets",
         "payload": {
+          "subject": "Link Atlarium listing to maintainer account and refresh 2.0.3 metadata",
           "registryName": "bio.atlarium/habitat-database",
-          "repository": "https://github.com/techgardeners/atlarium-mcp"
+          "repository": "https://github.com/techgardeners/atlarium-mcp",
+          "listing": "https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners",
+          "release": "2.0.3",
+          "widget": "ui://widget/habitat-explorer.v4.html",
+          "request": "Attach the existing listing to the signed-in maintainer account and refresh metadata without creating a duplicate."
         },
         "followUpAt": [
-          "2026-07-09T00:00:00Z",
-          "2026-07-16T00:00:00Z",
-          "2026-08-01T00:00:00Z"
+          "2026-08-25T17:49:10Z",
+          "2026-09-01T17:49:10Z",
+          "2026-09-17T17:49:10Z"
         ]
       }
     },
@@ -501,8 +509,8 @@
       "listingUrl": null,
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T17:39:42Z",
-      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. A signed-in 2.0.3 draft points to the live MCP endpoint, domain verification passes and the portal rescan discovered the 39 public tools. Three compliant 706px ChatGPT-hosted screenshots for search, profile and Italian compatibility are uploaded and saved in the draft; native mobile recording, release-note correction and final resubmission remain required."
+      "verifiedAt": "2026-08-18T18:01:00Z",
+      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. A signed-in 2.0.3 draft points to the live MCP endpoint, domain verification passes and the portal rescan discovered the 39 public tools. Three compliant 706px ChatGPT-hosted screenshots for search, profile and Italian compatibility are uploaded and saved in the draft. A 1080x1920 H.264 demo has been prepared from a real ChatGPT web session at a 390x844 responsive viewport; it is mobile-responsive web evidence, not native iOS or Android evidence. Native mobile recording, release-note correction and final resubmission remain required."
     }
   ]
 }

@@ -228,7 +228,12 @@ Surface: 39 public read-only tools for catalog data, diagnostics, products, fert
 Safety: read-only; no user accounts, workspaces, admin APIs, private data or write operations.
 ```
 
-Ownership/editing follow-up if the MCP.so dashboard still shows no servers:
+Ownership linkage was verified on 2026-08-18: the authenticated dashboard now
+shows one Published Atlarium submission and exposes its edit form. Category,
+tags, website, documentation and `2.0.3` copy were filled and submitted, but
+the values did not persist after reload. Keep the following copy only as a
+historical record; if the persistence defect remains, reply through the existing
+support channel instead of creating a duplicate listing or ticket:
 
 ```text
 Hi MCP.so team,
