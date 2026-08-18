@@ -1,7 +1,7 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-18T18:13:13Z",
+  "verifiedAt": "2026-08-18T19:21:29Z",
   "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.3",
@@ -57,8 +57,28 @@
       "listingUrl": "https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database",
       "submissionUrl": "https://smithery.ai/new",
       "publicPage": true,
-      "verifiedAt": "2026-08-16T14:46:00Z",
-      "evidence": "Public listing returns HTTP 200; metadata refresh is required after production 2.0.3."
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "The public listing returns HTTP 200 and exposes 39 tools, 9 prompts and only 3 legacy widget resources while reporting last deployed 2 months ago. The signed-in account roberto@beccaceci.it exposes namespaces roberto-lrql and roberto-gv2p, not the existing ilgrafico79 namespace, so publishing through the dashboard would create a duplicate. A support email requested ownership access and a 2.0.3/v4 metadata refresh while preserving the existing listing.",
+      "submission": {
+        "submittedAt": "2026-08-18T19:21:29Z",
+        "attempt": 1,
+        "evidenceUrl": null,
+        "payload": {
+          "recipient": "contact@smithery.ai",
+          "subject": "Ownership access and 2.0.3 refresh for Atlarium MCP",
+          "listing": "https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database",
+          "release": "2.0.3",
+          "tools": 39,
+          "prompts": 9,
+          "resources": 4,
+          "request": "Attach or transfer the existing listing to the signed-in maintainer account and refresh metadata without creating a duplicate."
+        },
+        "followUpAt": [
+          "2026-08-25T19:21:29Z",
+          "2026-09-01T19:21:29Z",
+          "2026-09-17T19:21:29Z"
+        ]
+      }
     },
     {
       "id": "glama",
@@ -79,14 +99,16 @@
       "listingUrl": "https://mcp.so/servers/atlarium-mcp",
       "submissionUrl": "https://mcp.so/submit",
       "publicPage": true,
-      "verifiedAt": "2026-08-18T18:01:00Z",
+      "verifiedAt": "2026-08-18T19:21:29Z",
       "verificationStatuses": [200, 403],
-      "evidence": "The authenticated maintainer dashboard now lists Atlarium Habitat Database MCP as one Published MCP Server and exposes its edit form at /settings/submissions/srv_ea885b05-c9ce-4377-a70a-dd59df3ea490/edit. The canonical public page returns HTTP 200 at /servers/atlarium-mcp, but still renders the older description and no detected tools; category, tags, website, docs and 2.0.3 copy were filled and submitted in the edit form, yet the values did not persist after reload. No duplicate listing was created. Cloudflare may return HTTP 403 to the transparent GitHub Actions audit bot.",
+      "evidence": "The authenticated maintainer dashboard lists Atlarium Habitat Database MCP as one Published MCP Server and exposes its edit form at /settings/submissions/srv_ea885b05-c9ce-4377-a70a-dd59df3ea490/edit. The canonical public page returns HTTP 200 at /servers/atlarium-mcp, but still renders the older description and no detected tools; category, tags, website, docs and 2.0.3 copy did not persist after submission. A direct support email was sent to support@mcp.so with the complete requested metadata and an explicit no-duplicate instruction. Cloudflare may return HTTP 403 to the transparent GitHub Actions audit bot.",
       "submission": {
-        "submittedAt": "2026-08-18T18:01:00Z",
-        "attempt": 3,
-        "evidenceUrl": "https://mcp.so/settings/submissions/srv_ea885b05-c9ce-4377-a70a-dd59df3ea490/edit",
+        "submittedAt": "2026-08-18T19:21:29Z",
+        "attempt": 4,
+        "evidenceUrl": null,
         "payload": {
+          "recipient": "support@mcp.so",
+          "subject": "Atlarium MCP 2.0.3 metadata edits do not persist",
           "name": "Atlarium Habitat Database MCP",
           "release": "2.0.3",
           "registryName": "bio.atlarium/habitat-database",
@@ -97,9 +119,9 @@
           "category": "Data & Analytics"
         },
         "followUpAt": [
-          "2026-08-25T18:01:00Z",
-          "2026-09-01T18:01:00Z",
-          "2026-09-17T18:01:00Z"
+          "2026-08-25T19:21:29Z",
+          "2026-09-01T19:21:29Z",
+          "2026-09-17T19:21:29Z"
         ]
       }
     },
@@ -219,8 +241,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcp.directory/",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T20:32:00Z",
-      "evidence": "Submission confirmation states that Atlarium will be reviewed and published within 24 hours.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "Submission confirmation states that Atlarium will be reviewed and published within 24 hours. The official public API query for atlarium still returns total 0; the D7 follow-up is not yet due, so no duplicate submission was made.",
       "submission": {
         "submittedAt": "2026-08-16T20:32:00Z",
         "attempt": 1,
@@ -255,8 +277,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcpcatalog.dev/servers",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T20:32:30Z",
-      "evidence": "Submission confirmation received; the directory states that editorial review normally takes a few days.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "Submission confirmation received; the directory states that editorial review normally takes a few days. Neither the official servers page nor sitemap contains Atlarium, techgardeners or the canonical endpoint; the D7 follow-up is not yet due.",
       "submission": {
         "submittedAt": "2026-08-16T20:32:30Z",
         "attempt": 1,
@@ -282,8 +304,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcpfind.org/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T20:27:34Z",
-      "evidence": "Pull request 143 adds the validated Docker-backed Atlarium entry to community-servers.yml; maintainer review is pending.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "Pull request 143 remains open, non-draft and mergeable with no review. Its only failing check is the Vercel deployment authorization owned by the maintainer team; no Atlarium payload defect is reported and the D7 follow-up is not yet due.",
       "submission": {
         "submittedAt": "2026-08-16T20:27:34Z",
         "attempt": 1,
@@ -310,8 +332,8 @@
       "listingUrl": null,
       "submissionUrl": "https://awesome-mcp.tools/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T20:33:15Z",
-      "evidence": "Public issue 45 records the complete submission and is awaiting editorial review.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "Public issue 45 remains open with the submission label and zero comments; the D7 follow-up is not yet due.",
       "submission": {
         "submittedAt": "2026-08-16T20:33:15Z",
         "attempt": 1,
@@ -342,8 +364,8 @@
       "listingUrl": null,
       "submissionUrl": "https://cursor.com/marketplace/publish",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T20:37:00Z",
-      "evidence": "Cursor confirmed receipt of the signed-in publisher application and will follow up after plugin review.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "Cursor confirmed receipt of the signed-in publisher application and will follow up after plugin review. The official public Marketplace page contains no Atlarium, techgardeners or canonical endpoint match; the D7 follow-up is not yet due.",
       "submission": {
         "submittedAt": "2026-08-16T20:37:00Z",
         "attempt": 1,
@@ -370,8 +392,8 @@
       "listingUrl": "https://cursor.directory/plugins/atlarium-habitat-database",
       "submissionUrl": "https://cursor.directory/plugins/new",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T20:36:30Z",
-      "evidence": "Plugin created with the canonical icon and remote Streamable HTTP component; Cursor Directory reports a security scan in progress and keeps it hidden until approval.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "Plugin created with the canonical icon and remote Streamable HTTP component. The direct URL still returns a Vercel Security Checkpoint HTTP 429 to an anonymous audit client, so public visibility cannot be verified and the D7 follow-up is not yet due.",
       "submission": {
         "submittedAt": "2026-08-16T20:36:30Z",
         "attempt": 1,
@@ -404,8 +426,8 @@
       "listingUrl": null,
       "submissionUrl": "https://github.com/cline/mcp-marketplace/issues/new/choose",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T21:01:26Z",
-      "evidence": "Cline CLI 3.0.55 installed and listed the endpoint as streamableHttp with no auth using the published setup; official marketplace issue 2253 is awaiting review.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "Cline CLI 3.0.55 installed and listed the endpoint as streamableHttp with no auth using the published setup. Official marketplace issue 2253 remains open with zero comments and zero labels; the D7 follow-up is not yet due.",
       "submission": {
         "submittedAt": "2026-08-16T21:01:26Z",
         "attempt": 1,
@@ -435,8 +457,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcpserverhub.com/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-16T20:52:52Z",
-      "evidence": "Version 2.0.1 resubmission completed; Tally confirmed Form submitted and states that the server will be reviewed before display.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "The resubmission confirmation states that the server will be reviewed before display. The official servers page, feed and sitemap contain no Atlarium, techgardeners or canonical endpoint match; the D7 follow-up is not yet due.",
       "submission": {
         "submittedAt": "2026-08-16T20:52:52Z",
         "attempt": 2,
@@ -509,8 +531,8 @@
       "listingUrl": null,
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T18:13:13Z",
-      "evidence": "OpenAI Platform lists Atlarium Habitat Database MCP version 2.0.3 with status Review; version 1.0.0 remains Approved. Before submission, the release notes were corrected from 2.0.2 to 2.0.3. The submitted candidate points to the live MCP endpoint, passed domain verification and a rescan of all 39 public tools, includes three compliant 706px ChatGPT-hosted screenshots and links the 1080x1920 H.264 responsive-web demo. The demo is not native iOS or Android evidence; supply native evidence if review requests it. Approval is not claimed while status is Review.",
+      "verifiedAt": "2026-08-18T19:21:29Z",
+      "evidence": "OpenAI Platform rechecked on 2026-08-18 lists Atlarium Habitat Database MCP version 2.0.3 with status Review; version 1.0.0 remains Approved. Before submission, the release notes were corrected from 2.0.2 to 2.0.3. The submitted candidate points to the live MCP endpoint, passed domain verification and a rescan of all 39 public tools, includes three compliant 706px ChatGPT-hosted screenshots and links the 1080x1920 H.264 responsive-web demo. The demo is not native iOS or Android evidence; supply native evidence if review requests it. Approval is not claimed while status is Review.",
       "submission": {
         "submittedAt": "2026-08-18T18:13:13Z",
         "attempt": 2,

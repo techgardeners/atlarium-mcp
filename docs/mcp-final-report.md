@@ -112,9 +112,9 @@ score or paid badge is claimed.
 | --- | --- | --- |
 | Official MCP Registry | Published / active / latest `2.0.3` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
 | GitHub | Published | https://github.com/techgardeners/atlarium-mcp |
-| Smithery | Published | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database |
+| Smithery | Published; ownership/refresh requested | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database |
 | Glama | Ownership verified | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database |
-| MCP.so | Listed; `2.0.2` refresh submitted | https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners |
+| MCP.so | Listed; ownership verified; `2.0.3` persistence fix requested | https://mcp.so/servers/atlarium-mcp |
 | PulseMCP | Listed | https://www.pulsemcp.com/servers/techgardeners-atlarium-habitat-database |
 | MCP Scoreboard | Listed / unscored | https://www.mcpscoreboard.com/server/8fb9547d-bdb4-4fab-8218-ef13c1be32fc/ |
 | mcpservers.org | Listed | https://mcpservers.org/servers/techgardeners/atlarium-mcp |
@@ -177,7 +177,8 @@ Latest recorded automation evidence:
 
 ## Remaining External Checkpoints
 
-- complete Smithery sign-in to request an immediate metadata refresh;
+- monitor the Smithery ownership/refresh request sent to `contact@smithery.ai`;
+- monitor the MCP.so metadata persistence request sent to `support@mcp.so`;
 - monitor the OpenAI `2.0.3` review and provide native iOS/Android evidence if
   requested;
 - follow every non-terminal directory at days 7, 14 and 30;
