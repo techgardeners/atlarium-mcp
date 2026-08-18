@@ -1,6 +1,6 @@
 # ChatGPT App Review Remediation
 
-Last updated: `2026-08-16`
+Last updated: `2026-08-18`
 
 Current status: the existing OpenAI dashboard app version `1.0.0` is approved.
 This document records the earlier review findings and the remaining submission
@@ -29,8 +29,8 @@ action items:
   because review screenshots must show the actual in-ChatGPT app experience.
 - Real ChatGPT host captures now live in
   `docs/assets/chatgpt-screenshots/real-host/`. They cover web search, web
-  profile and a responsive 390x844 profile; native iOS/Android recording is
-  still outstanding.
+  profile, Italian compatibility and a responsive 390x844 profile; native
+  iOS/Android recording is still outstanding.
 
 ## Code And Submission Fixes
 
@@ -63,9 +63,10 @@ Required capture set for resubmission:
   result and readable widget/layout. Captured; native mobile recording remains.
 - ChatGPT negative prompt capture showing no private/write/admin tool is called.
 
-The three prepared publishing crops in
+The three publishing crops in
 `docs/assets/chatgpt-screenshots/submission/` are 706px wide, 650–860px high,
-contain the real ChatGPT-hosted widget and exclude the user prompt.
+contain the real ChatGPT-hosted widget and exclude the user prompt. They are
+uploaded and saved in the signed-in OpenAI `2.0.3` draft.
 
 The first combined search-plus-profile host run displayed one
 `Failed to fetch template` notice for the concurrent profile render. A direct
@@ -120,10 +121,12 @@ generated_at -> absent
 
 1. In the OpenAI Platform Apps dashboard, refresh or rescan the MCP endpoint.
    Completed for the `2.0.3` draft on `2026-08-16`; 39 tools were discovered.
-2. Upload the host-level captures and add native mobile recording evidence.
+2. The three compliant host-level captures are uploaded and saved. Add native
+   mobile recording evidence.
 3. Upload the updated `chatgpt-app-submission.json` content or copy the revised
    test prompts and expected outputs into the form.
-4. Submit for review.
+4. Correct the draft release notes from `2.0.2` to `2.0.3`, then submit for
+   review after the user confirms the final action.
 
 Do not claim Habitat Explorer v4 / MCP `2.0.3` approval until OpenAI accepts
 that resubmission; this does not change the approved status of the existing

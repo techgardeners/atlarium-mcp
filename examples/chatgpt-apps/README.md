@@ -1,6 +1,6 @@
 # ChatGPT Apps Submission Notes
 
-Last reviewed: 2026-08-16
+Last reviewed: 2026-08-18
 
 Connector URL:
 
@@ -16,9 +16,10 @@ metadata, tests, screenshots and safety notes. Public ChatGPT availability still
 depends on OpenAI review.
 
 Current review status: existing App `1.0.0` approved; version `2.0.3` draft
-saved, domain verified and 39-tool endpoint rescan complete. Submission JSON
-and icons are saved; publishing screenshots are prepared, while native mobile
-recording and final submission remain pending. See
+saved, domain verified and 39-tool endpoint rescan complete. Submission JSON,
+icons and three compliant 706px ChatGPT-hosted screenshots are saved in the
+draft; native mobile recording, the release-note correction and final
+submission remain pending. See
 `docs/chatgpt-review-remediation.md` for the remediation record and remaining
 review checklist.
 
@@ -76,7 +77,8 @@ review checklist.
   required. OpenAI-compliant 706px publishing crops are stored in
   `docs/assets/chatgpt-screenshots/submission/`. The widget-only fixtures directly under
   `docs/assets/chatgpt-screenshots/` are development evidence and must not be
-  reused as publishing screenshots.
+  reused as publishing screenshots. The search, profile and Italian
+  compatibility crops are uploaded and saved in the signed-in `2.0.3` draft.
 
 ## OpenAI Review Notes
 

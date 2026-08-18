@@ -1,6 +1,6 @@
 # Atlarium MCP Directory Submission Payloads
 
-Last verified: `2026-08-16T20:52:52Z`
+Last verified: `2026-08-18T17:39:42Z`
 
 Use these payloads for directory submission, claim and follow-up flows. Do not
 add directory badges or claim official support until the specific directory
@@ -97,7 +97,25 @@ versions with the registry publisher after endpoint validation.
 Current evidence:
 
 ```text
-Registry API returns bio.atlarium/habitat-database version 2.0.2 with official status active, publishedAt 2026-08-16T23:10:31.800325Z and isLatest true. Use `pnpm registry:publish` for future versions after public endpoint validation.
+Registry API returns bio.atlarium/habitat-database version 2.0.3 with official status active, publishedAt 2026-08-17T00:10:15.358882Z and isLatest true. Use `pnpm registry:publish` for future versions after public endpoint validation.
+```
+
+## GitHub MCP Registry
+
+Discovery URL:
+
+```text
+https://github.com/mcp?search=atlarium
+```
+
+Status:
+
+```text
+Blocked. GitHub's public catalog search returns no Atlarium result. GitHub
+describes this catalog as a curated selection and currently exposes no public
+self-submission flow. Do not create a duplicate Official Registry publication
+or an unrelated GitHub issue; monitor GitHub's documentation for a documented
+onboarding path.
 ```
 
 ## Smithery
@@ -112,7 +130,7 @@ Manual blocker:
 
 ```text
 Published and visible at `ilgrafico79/atlarium-habitat-database`. Production
-exposes version 2.0.2 with 39 tools, 9 prompts and 4 widget resources. Complete a
+exposes version 2.0.3 with 39 tools, 9 prompts and 4 widget resources. Complete a
 signed-in metadata refresh after runtime changes; do not publish a static score
 or purchase paid verification.
 ```

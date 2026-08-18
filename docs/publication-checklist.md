@@ -1,7 +1,7 @@
 # Atlarium MCP Publication Checklist
 
 Date prepared: 2026-06-16
-Last updated: 2026-08-16
+Last updated: 2026-08-18
 
 ## Target
 
@@ -58,6 +58,8 @@ Last updated: 2026-08-16
   captures are stored in `docs/assets/chatgpt-screenshots/real-host/`; native
   mobile recording is still required. The existing short demo remains at
   `docs/assets/chatgpt-app-demo.mp4`.
+- The three 706px ChatGPT-hosted publishing screenshots for search, profile and
+  Italian compatibility are uploaded and saved in the signed-in `2.0.3` draft.
 - The first ChatGPT App review was not approved on 2026-07-02; the existing app
   later reached approved status as version `1.0.0`. The v4 / `2.0.3` remediation
   package is visually approved and deployed; the endpoint rescan and first
@@ -74,7 +76,8 @@ Remaining publication prerequisites:
 - MCP.so is publicly visible at
   `https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners`.
 - ChatGPT App resubmission must be completed from the OpenAI Platform dashboard
-  after production checks pass and new publishing screenshots are uploaded.
+  after native mobile evidence is added and the draft release notes are
+  corrected from `2.0.2` to `2.0.3`.
 
 Repository production assets:
 

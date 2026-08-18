@@ -93,12 +93,29 @@ describe("distribution registry", () => {
     });
     expect(target?.evidence).toMatch(new RegExp(`${registry.release.version}.*draft`, "i"));
     expect(target?.evidence).toMatch(/39 public tools/i);
+    expect(target?.evidence).toMatch(/three compliant 706px/i);
+    expect(target?.evidence).toMatch(/uploaded and saved/i);
+    expect(target?.evidence).toMatch(/native mobile recording/i);
     expect(target?.evidence).not.toMatch(
       new RegExp(`${registry.release.version}[^.]*approved`, "i"),
     );
     expect(target?.evidence).not.toMatch(
       new RegExp(`${registry.release.version}[^.]*submitted`, "i"),
     );
+    expect(target?.submission).toBeUndefined();
+  });
+
+  it("does not invent a GitHub MCP Registry submission path", () => {
+    const target = registry.targets.find(
+      (candidate) => candidate.id === "github_mcp_registry",
+    );
+
+    expect(target).toMatchObject({
+      status: "blocked",
+      publicPage: false,
+    });
+    expect(target?.evidence).toMatch(/curated selection/i);
+    expect(target?.evidence).toMatch(/no public self-submission flow/i);
     expect(target?.submission).toBeUndefined();
   });
 

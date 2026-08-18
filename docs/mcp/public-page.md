@@ -56,7 +56,8 @@ https://github.com/techgardeners/atlarium-mcp
 - Smithery status: https://atlarium.bio/mcp/smithery
 - Existing ChatGPT App `1.0.0` approved; Habitat Explorer v4 / MCP `2.0.3`
   visually approved and deployed on 2026-08-16. A `2.0.3` draft is saved with
-  verified domain and a successful 39-tool rescan, pending final submission:
+  verified domain, a successful 39-tool rescan and three uploaded compliant
+  screenshots, pending native mobile evidence and final submission:
   https://atlarium.bio/mcp/chatgpt
 
 ## What It Provides

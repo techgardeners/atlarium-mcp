@@ -1,6 +1,6 @@
-# Atlarium MCP 2.0.2 Final Report
+# Atlarium MCP 2.0.3 Final Report
 
-Report time: `2026-08-16T23:12:51Z`
+Report time: `2026-08-18T17:39:42Z`
 
 Scope: Atlarium Habitat Database MCP, Habitat Explorer v4, production
 reliability, Official MCP Registry and MCP/agent distribution. General Atlarium
@@ -8,15 +8,15 @@ marketing and unrelated website work are outside this report.
 
 ## Release Outcome
 
-- Production health reports `2.0.2` and `status = ok`.
+- Production health reports `2.0.3` and `status = ok`.
 - The public Streamable HTTP endpoint is
   `https://mcp.atlarium.bio/mcp` with no authentication and read-only behavior.
 - The public surface remains exactly 39 tools, 9 prompts and 4 widget resources.
 - Habitat Explorer v4 is served at
   `ui://widget/habitat-explorer.v4.html`; v3, v2 and v1 remain compatible aliases.
 - The Official MCP Registry exposes `bio.atlarium/habitat-database` version
-  `2.0.2` as `active` and `isLatest`; `publishedAt` is
-  `2026-08-16T23:10:31.800325Z`.
+  `2.0.3` as `active` and `isLatest`; `publishedAt` is
+  `2026-08-17T00:10:15.358882Z`.
 - The public server card, health route, MCP session, representative tool calls,
   ChatGPT submission validator and public conformance suite pass.
 
@@ -42,8 +42,11 @@ Acceptance points verified by deterministic fixtures and screenshots:
 - bundle budget below 500 KB compressed.
 
 Real ChatGPT web and responsive 390x844 publishing screenshots are recorded.
-Native mobile recording, final asset upload and App dashboard resubmission
-remain account checkpoints; public ChatGPT approval is not claimed.
+Three compliant 706px ChatGPT-hosted crops for search, profile and Italian
+compatibility are uploaded and saved in the signed-in OpenAI `2.0.3` draft.
+Native mobile recording, release-note correction and App dashboard
+resubmission remain account checkpoints; public ChatGPT approval is not
+claimed.
 
 ## Production Reliability
 
@@ -72,12 +75,12 @@ The initial production report confirms zero forbidden client fields and correct
 synthetic/external separation. The 14-day baseline remains a time-dependent
 follow-up rather than a release blocker.
 
-The final `2.0.2` rollout runs two replicas on immutable image digest
-`sha256:09686e5db2cc1b31f971d19ad26ee5f73c0cca53d8ed4cb6c3b7b4608b38b5a7`,
-both ready with zero restarts. The first rollout attempt failed the new
-pod-identity gate because it used a legacy label selector; automatic
-rollback restored image and public version `2.0.1`. The selector and regression
-contract were corrected before the successful second rollout.
+The final `2.0.3` rollout runs two replicas on immutable image digest
+`sha256:1f1e4f1eaeac01f745c84476d4e65aa64e965a0b9eabafb82e746e5210862fa9`,
+both ready with zero restarts. The release source is commit `b0c06ad`, tagged
+`v2.0.3`. The earlier `2.0.2` rollout exercised automatic rollback when a
+legacy pod-label selector failed the new identity gate; the selector and its
+regression contract were corrected before the successful release sequence.
 
 The strict post-release snapshot captured at `2026-08-16T23:15:02.760Z`
 contains 53 requests and 10 tool calls, all successful, with zero unclassified
@@ -95,8 +98,9 @@ Initial production snapshot captured at `2026-08-16T22:02:46.618Z` with
 - probes: 36 public monitor, 24 public validator and 13 ChatGPT submission
   validator events.
 
-This is the release-day baseline. The required 14-day comparison must use the
-same strict command and remain separate from synthetic probe traffic.
+This is the pre-localization release-day baseline. The required 14-day
+comparison for the final `2.0.3` release must run on or after `2026-08-31` with
+the same strict command and remain separate from synthetic probe traffic.
 
 ## Accepted Public Distribution
 
@@ -105,7 +109,7 @@ score or paid badge is claimed.
 
 | Surface | State | Public evidence |
 | --- | --- | --- |
-| Official MCP Registry | Published / active / latest `2.0.2` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
+| Official MCP Registry | Published / active / latest `2.0.3` | https://registry.modelcontextprotocol.io/v0.1/servers?search=bio.atlarium%2Fhabitat-database |
 | GitHub | Published | https://github.com/techgardeners/atlarium-mcp |
 | Smithery | Published | https://smithery.ai/servers/ilgrafico79/atlarium-habitat-database |
 | Glama | Ownership verified | https://glama.ai/mcp/connectors/bio.atlarium/habitat-database |
@@ -131,12 +135,14 @@ score or paid badge is claimed.
 | MCP Marketplace | Published / verified | Canonical `2.0.1` listing reports 39 tools, no auth, 10/10 low-risk security and successful public health probes. |
 | MCP.so ownership | In review | Public visibility is unaffected; ownership is needed only for dashboard edits. |
 | Cline Marketplace | Submitted | https://github.com/cline/mcp-marketplace/issues/2253 |
-| ChatGPT App | Draft prepared | Version `2.0.2`, domain verification and 39-tool rescan are saved; real web/responsive captures exist, while native mobile recording, asset upload and final submission remain. |
+| ChatGPT App | Draft prepared | Version `2.0.3`, domain verification, 39-tool rescan and three compliant screenshot uploads are saved; native mobile recording, release-note correction and final submission remain. |
 
 MCP Trove and Lulu remain blocked because no legitimate current submission
-surface could be verified. GitHub MCP Registry onboarding is curated and can
-only follow Official Registry synchronization. No premium listing, paid badge
-or expedited review was purchased.
+surface could be verified. GitHub MCP Registry search has no Atlarium result;
+GitHub still describes the catalog as curated and exposes no public
+self-submission path, so it remains blocked without duplicating the already
+published Official Registry entry. No premium listing, paid badge or expedited
+review was purchased.
 
 The canonical record is `config/distribution-registry.json`. Pending entries
 contain the submitted payload, evidence, attempt number and D7/D14/D30 follow-up
@@ -153,7 +159,7 @@ pnpm test                              PASS
 pnpm build                             PASS
 pnpm widget:validate                   PASS
 pnpm version:check                     PASS
-pnpm registry:verify                   PASS, 2.0.2 active/latest
+pnpm registry:verify                   PASS, 2.0.3 active/latest
 pnpm directories:submit -- --check     PASS
 pnpm mcp:monitor:public                PASS, 39 tools / 9 prompts / v4
 pnpm mcp:validate:public               PASS
@@ -161,19 +167,20 @@ pnpm mcp:conformance:public            PASS, 6 scenarios
 pnpm chatgpt:validate-submission        PASS
 ```
 
-Latest recorded automation evidence before the final source commit:
+Latest recorded automation evidence:
 
 - public monitor:
-  https://github.com/techgardeners/atlarium-mcp/actions/runs/31971092208
+  https://github.com/techgardeners/atlarium-mcp/actions/runs/32163942229
 - daily directory audit:
-  https://github.com/techgardeners/atlarium-mcp/actions/runs/31934007732
+  https://github.com/techgardeners/atlarium-mcp/actions/runs/32111628484
 
 ## Remaining External Checkpoints
 
 - complete Smithery sign-in to request an immediate metadata refresh;
-- complete native mobile recording, upload the prepared assets and submit the updated App;
+- complete native mobile recording, correct the `2.0.3` release notes and submit
+  the updated App after explicit confirmation;
 - follow every non-terminal directory at days 7, 14 and 30;
 - collect and append the 14-day production usage/error baseline.
 
 These are external review or elapsed-time states. They do not change the fact
-that MCP `2.0.2`, Habitat Explorer v4 and the Official Registry version are live.
+that MCP `2.0.3`, Habitat Explorer v4 and the Official Registry version are live.

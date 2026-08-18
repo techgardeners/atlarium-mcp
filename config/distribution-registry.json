@@ -1,7 +1,7 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-17T00:10:15Z",
+  "verifiedAt": "2026-08-18T17:39:42Z",
   "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.3",
@@ -196,12 +196,12 @@
       "id": "github_mcp_registry",
       "name": "GitHub MCP Registry",
       "category": "registry",
-      "status": "target",
+      "status": "blocked",
       "listingUrl": null,
-      "submissionUrl": "https://github.com/mcp",
+      "submissionUrl": null,
       "publicPage": false,
-      "verifiedAt": "2026-08-16T14:50:00Z",
-      "evidence": "New server onboarding is manually curated; accepted Official Registry versions sync only after GitHub onboards the server."
+      "verifiedAt": "2026-08-18T17:39:42Z",
+      "evidence": "GitHub's public MCP Registry search returns no Atlarium result. GitHub describes the catalog as a curated selection and exposes no public self-submission flow; Official Registry publication does not automatically create a GitHub catalog entry. Keep this target blocked until GitHub documents an onboarding or self-publication path."
     },
     {
       "id": "mcp_directory",
@@ -501,8 +501,8 @@
       "listingUrl": null,
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
-      "verifiedAt": "2026-08-17T00:19:00Z",
-      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. A signed-in 2.0.3 draft points to the live MCP endpoint, domain verification passes and the portal rescan discovered the 39 public tools. Real ChatGPT web, Italian compatibility and responsive 390x844 captures are recorded; the submission metadata and icons are saved, while native mobile recording and final resubmission remain required."
+      "verifiedAt": "2026-08-18T17:39:42Z",
+      "evidence": "The existing OpenAI dashboard app version 1.0.0 is approved. A signed-in 2.0.3 draft points to the live MCP endpoint, domain verification passes and the portal rescan discovered the 39 public tools. Three compliant 706px ChatGPT-hosted screenshots for search, profile and Italian compatibility are uploaded and saved in the draft; native mobile recording, release-note correction and final resubmission remain required."
     }
   ]
 }
