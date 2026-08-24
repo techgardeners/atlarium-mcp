@@ -138,6 +138,14 @@ describe("distribution registry", () => {
     }
   });
 
+  it("accepts the canonical docs locale redirect in the public audit", () => {
+    const auditScript = readFileSync("scripts/submit-directories.mjs", "utf8");
+
+    expect(auditScript).toContain(
+      'checkUrl("docs", docs, [200, 301, 308])',
+    );
+  });
+
   it("syncs only the published release and accepted public listings", () => {
     const targetRoot = mkdtempSync(join(tmpdir(), "atlarium-mcp-sync-"));
     try {

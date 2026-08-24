@@ -282,7 +282,10 @@ async function checkUrl(label, url, expectedStatuses = [200]) {
 }
 
 async function check() {
-  await checkUrl("docs", docs);
+  // The canonical, locale-neutral MCP page intentionally redirects to the
+  // localized route. Treat permanent redirects as healthy without following
+  // them so the audit still detects accidental temporary redirects.
+  await checkUrl("docs", docs, [200, 301, 308]);
   await checkUrl("health", health);
   await checkUrl("server-card", serverCard);
   await checkUrl("mcp-get-expected-405", endpoint, [405]);

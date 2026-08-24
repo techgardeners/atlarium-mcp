@@ -1,7 +1,7 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-18T19:21:29Z",
+  "verifiedAt": "2026-08-24T14:01:04Z",
   "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.3",
@@ -251,8 +251,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcp.directory/",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T19:21:29Z",
-      "evidence": "Submission confirmation states that Atlarium will be reviewed and published within 24 hours. The official public API query for atlarium still returns total 0; the D7 follow-up is not yet due, so no duplicate submission was made.",
+      "verifiedAt": "2026-08-24T14:01:04Z",
+      "evidence": "D7 follow-up audit: the public directory homepage and public web search expose no Atlarium, techgardeners or canonical endpoint match. The original editorial submission remains pending; no duplicate submission was made before the D14 checkpoint.",
       "submission": {
         "submittedAt": "2026-08-16T20:32:00Z",
         "attempt": 1,
@@ -287,8 +287,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcpcatalog.dev/servers",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T19:21:29Z",
-      "evidence": "Submission confirmation received; the directory states that editorial review normally takes a few days. Neither the official servers page nor sitemap contains Atlarium, techgardeners or the canonical endpoint; the D7 follow-up is not yet due.",
+      "verifiedAt": "2026-08-24T14:01:04Z",
+      "evidence": "D7 follow-up audit: neither the official servers page nor sitemap contains Atlarium, techgardeners or the canonical endpoint. Editorial review remains pending and no duplicate submission was made before the D14 checkpoint.",
       "submission": {
         "submittedAt": "2026-08-16T20:32:30Z",
         "attempt": 1,
@@ -314,8 +314,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcpfind.org/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T19:21:29Z",
-      "evidence": "Pull request 143 remains open, non-draft and mergeable with no review. Its only failing check is the Vercel deployment authorization owned by the maintainer team; no Atlarium payload defect is reported and the D7 follow-up is not yet due.",
+      "verifiedAt": "2026-08-24T14:01:04Z",
+      "evidence": "D7 follow-up audit: pull request 143 remains open, non-draft and mergeable with no review. Its only failing check is Vercel deployment authorization owned by the MCP Find maintainer team; no Atlarium payload defect is reported and no duplicate submission was made.",
       "submission": {
         "submittedAt": "2026-08-16T20:27:34Z",
         "attempt": 1,
@@ -342,8 +342,8 @@
       "listingUrl": null,
       "submissionUrl": "https://awesome-mcp.tools/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T19:21:29Z",
-      "evidence": "Public issue 45 remains open with the submission label and zero comments; the D7 follow-up is not yet due.",
+      "verifiedAt": "2026-08-24T14:01:04Z",
+      "evidence": "D7 follow-up audit: public issue 45 remains open with the submission label and zero comments. Maintainer review is still pending and no duplicate submission was made.",
       "submission": {
         "submittedAt": "2026-08-16T20:33:15Z",
         "attempt": 1,
@@ -374,8 +374,8 @@
       "listingUrl": null,
       "submissionUrl": "https://cursor.com/marketplace/publish",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T19:21:29Z",
-      "evidence": "Cursor confirmed receipt of the signed-in publisher application and will follow up after plugin review. The official public Marketplace page contains no Atlarium, techgardeners or canonical endpoint match; the D7 follow-up is not yet due.",
+      "verifiedAt": "2026-08-24T14:01:04Z",
+      "evidence": "D7 follow-up audit: the official public Cursor Marketplace page contains no Atlarium, techgardeners or canonical endpoint match. Cursor's publisher review remains pending and no duplicate application was made.",
       "submission": {
         "submittedAt": "2026-08-16T20:37:00Z",
         "attempt": 1,
@@ -402,8 +402,8 @@
       "listingUrl": "https://cursor.directory/plugins/atlarium-habitat-database",
       "submissionUrl": "https://cursor.directory/plugins/new",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T19:21:29Z",
-      "evidence": "Plugin created with the canonical icon and remote Streamable HTTP component. The direct URL still returns a Vercel Security Checkpoint HTTP 429 to an anonymous audit client, so public visibility cannot be verified and the D7 follow-up is not yet due.",
+      "verifiedAt": "2026-08-24T14:01:04Z",
+      "evidence": "D7 follow-up audit: the direct plugin URL still returns a Vercel Security Checkpoint HTTP 429 to an anonymous audit client, so public visibility cannot be verified. The signed-in submission remains in review and no duplicate was created.",
       "submission": {
         "submittedAt": "2026-08-16T20:36:30Z",
         "attempt": 1,
@@ -436,8 +436,8 @@
       "listingUrl": null,
       "submissionUrl": "https://github.com/cline/mcp-marketplace/issues/new/choose",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T19:21:29Z",
-      "evidence": "Cline CLI 3.0.55 installed and listed the endpoint as streamableHttp with no auth using the published setup. Official marketplace issue 2253 remains open with zero comments and zero labels; the D7 follow-up is not yet due.",
+      "verifiedAt": "2026-08-24T14:01:04Z",
+      "evidence": "D7 follow-up audit: official marketplace issue 2253 remains open with zero comments and zero labels. The tested Streamable HTTP/no-auth installation remains valid; maintainer review is pending and no duplicate issue was opened.",
       "submission": {
         "submittedAt": "2026-08-16T21:01:26Z",
         "attempt": 1,
@@ -467,8 +467,8 @@
       "listingUrl": null,
       "submissionUrl": "https://mcpserverhub.com/submit",
       "publicPage": false,
-      "verifiedAt": "2026-08-18T19:21:29Z",
-      "evidence": "The resubmission confirmation states that the server will be reviewed before display. The official servers page, feed and sitemap contain no Atlarium, techgardeners or canonical endpoint match; the D7 follow-up is not yet due.",
+      "verifiedAt": "2026-08-24T14:01:04Z",
+      "evidence": "D7 follow-up audit: the official servers page, feed and sitemap contain no Atlarium, techgardeners or canonical endpoint match. External review remains pending after the documented resubmission; no duplicate submission was made.",
       "submission": {
         "submittedAt": "2026-08-16T20:52:52Z",
         "attempt": 2,
