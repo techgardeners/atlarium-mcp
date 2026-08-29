@@ -117,7 +117,7 @@ pnpm mcp:monitor:public
 | VS Code | Copy `examples/vscode/mcp.json`; VS Code uses `type: "http"` for remote MCP servers. |
 | Antigravity | Use `examples/antigravity/mcp.json` only in builds that support remote MCP servers. |
 | Generic Streamable HTTP | Use the JSON-RPC examples in `examples/generic-streamable-http`. |
-| ChatGPT Apps | The existing app version `1.0.0` is approved in the OpenAI dashboard. The `2.0.3` review was rejected on 2026-08-29 because a submitted test case did not produce its documented result. The corrected taxonomy-stable test package passes against production and is ready for resubmission. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes and smoke prompts. |
+| ChatGPT Apps | The existing app version `1.0.0` is approved in the OpenAI dashboard. The corrected `2.0.3` package was resubmitted on 2026-08-29 with taxonomy-stable tests and OpenAI Platform now shows `Review`. Use `examples/chatgpt-apps` and `docs/chatgpt-review-remediation.md` for review notes and smoke prompts. |
 
 These are compatibility notes, not vendor endorsements. Do not make vendor or
 directory support claims for ChatGPT, Claude, Cursor, Windsurf, VS Code,

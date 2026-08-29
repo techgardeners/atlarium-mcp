@@ -5,8 +5,8 @@ Status: **visually approved; localization patch 2.0.3 released on 2026-08-16**.
 This gallery completed the visual approval gate. Production and the Official
 Registry are aligned on `2.0.3`. A refreshed ChatGPT Developer Mode connector
 confirmed the Italian compatibility summary, warnings, actions and disclaimer
-in the real host. The ChatGPT App `2.0.3` candidate was rejected on 2026-08-29
-for a test-case mismatch and remains a separate OpenAI resubmission gate.
+in the real host. The corrected ChatGPT App `2.0.3` candidate was resubmitted on
+2026-08-29 and remains a separate OpenAI review gate.
 
 ## Final visual rules
 

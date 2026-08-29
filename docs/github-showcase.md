@@ -122,8 +122,7 @@ The responsive capture must not be described as native iOS/Android evidence.
   external listing or approval is visible and badge policy is intentionally
   approved.
 - Do not extend the existing `1.0.0` approval claim to Habitat Explorer v4 /
-  MCP `2.0.3`; describe the candidate as pending resubmission until its own
-  review is accepted.
+  MCP `2.0.3`; describe attempt 3 as in review until OpenAI accepts it.
 
 ## MCP Update Rule
 

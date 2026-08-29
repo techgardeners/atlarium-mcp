@@ -77,7 +77,7 @@ Remaining publication prerequisites:
   without purchasing paid verification or publishing a static score.
 - MCP.so is publicly visible at
   `https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners`.
-- ChatGPT App `2.0.3` needs resubmission after the 2026-08-29 test-case rejection. Provide a
+- Corrected ChatGPT App `2.0.3` attempt 3 is in OpenAI review. Provide a
   native iOS/Android recording if requested.
 
 Repository production assets:

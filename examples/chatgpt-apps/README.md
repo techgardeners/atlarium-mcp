@@ -16,9 +16,9 @@ metadata, tests, screenshots and safety notes. Public ChatGPT availability still
 depends on OpenAI review.
 
 Current review status: existing App `1.0.0` approved; version `2.0.3` was
-rejected on 2026-08-29 because a submitted test case did not produce its
-documented result. The corrected package uses taxonomy-stable compatibility
-species, passes production validation and is pending resubmission. Domain verification, the
+resubmitted on 2026-08-29 after correcting a rejected test case. The corrected
+package uses taxonomy-stable compatibility species, passes production
+validation and is shown as `Review`. Domain verification, the
 39-tool endpoint rescan, submission JSON, icons, three compliant 706px
 ChatGPT-hosted screenshots and the corrected `2.0.3` release notes are included.
 The linked portrait demo is responsive-web evidence rather than native

@@ -150,7 +150,7 @@ score or paid badge is claimed.
 | MCP Marketplace | Published / verified | Canonical `2.0.1` listing reports 39 tools, no auth, 10/10 low-risk security and successful public health probes. |
 | MCP.so ownership | Verified | The authenticated dashboard lists one Published Atlarium record and exposes editing. |
 | Cline Marketplace | Submitted | https://github.com/cline/mcp-marketplace/issues/2253 |
-| ChatGPT App | Changes required | Version `2.0.3` was rejected on 2026-08-29 because a submitted test case did not produce its documented result. The corrected package uses taxonomy-stable compatibility species, passes production validation and awaits resubmission. |
+| ChatGPT App | In review | Corrected version `2.0.3` attempt 3 was submitted on 2026-08-29 with taxonomy-stable compatibility species after passing production validation; OpenAI Platform shows `Review`. |
 
 MCP Trove and Lulu remain blocked because no legitimate current submission
 surface could be verified. GitHub MCP Registry search has no Atlarium result;
@@ -193,8 +193,8 @@ Latest recorded automation evidence:
 
 - monitor the Smithery ownership/refresh request sent to `contact@smithery.ai`;
 - monitor the MCP.so metadata persistence request sent to `support@mcp.so`;
-- validate and resubmit the corrected OpenAI `2.0.3` package, and provide
-  native iOS/Android evidence if requested;
+- monitor the corrected OpenAI `2.0.3` review and provide native iOS/Android
+  evidence if requested;
 - follow every non-terminal directory at days 7, 14 and 30;
 - collect and append the 14-day production usage/error baseline.
 

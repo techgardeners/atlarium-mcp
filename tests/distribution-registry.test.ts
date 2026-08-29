@@ -83,24 +83,25 @@ describe("distribution registry", () => {
     expect(instructions).toContain("choose `No auth`");
   });
 
-  it("records the current ChatGPT rejection without approval claims", () => {
+  it("records the corrected ChatGPT resubmission without approval claims", () => {
     const target = registry.targets.find(
       (candidate) => candidate.id === "chatgpt_app",
     );
 
     expect(target).toMatchObject({
-      status: "rejected",
+      status: "in_review",
       publicPage: false,
     });
-    expect(target?.evidence).toMatch(/rejected.*test cases/i);
+    expect(target?.evidence).toMatch(/accepted.*submission.*Review/i);
     expect(target?.evidence).toMatch(/Paracheirodon innesi/i);
     expect(target?.evidence).toMatch(/Betta splendens/i);
-    expect(target?.evidence).toMatch(/No corrected resubmission/i);
+    expect(target?.evidence).toMatch(/5 positive cases, 3 negative cases/i);
+    expect(target?.evidence).toMatch(/39 tool justifications/i);
     expect(target?.evidence).not.toMatch(
       new RegExp(`${registry.release.version}[^.]*approved`, "i"),
     );
     expect(target?.submission).toMatchObject({
-      attempt: 2,
+      attempt: 3,
       payload: {
         version: registry.release.version,
         tools: 39,

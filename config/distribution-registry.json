@@ -1,7 +1,7 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-29T17:32:39Z",
+  "verifiedAt": "2026-08-29T19:42:39Z",
   "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.3",
@@ -539,15 +539,15 @@
       "id": "chatgpt_app",
       "name": "ChatGPT App",
       "category": "agent_marketplace",
-      "status": "rejected",
+      "status": "in_review",
       "listingUrl": null,
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
-      "verifiedAt": "2026-08-29T17:32:39Z",
-      "evidence": "OpenAI rejected Atlarium Habitat Database MCP version 2.0.3 on 2026-08-29 because one or more submitted test cases did not produce the documented result. The live validator reproduced the compatibility failure: the test used the synonym Corydoras paleatus while the catalog now stores the accepted name Hoplisoma paleatum, so the provider omitted that profile. The corrected package uses the taxonomy-stable pair Paracheirodon innesi and Betta splendens, explicitly requests the Atlarium compatibility checker, and retains the approved version 1.0.0 separately. No corrected resubmission has been made yet.",
+      "verifiedAt": "2026-08-29T19:42:39Z",
+      "evidence": "OpenAI Platform accepted the corrected Atlarium Habitat Database MCP version 2.0.3 submission on 2026-08-29 and shows status Review. Attempt 3 uses the taxonomy-stable pair Paracheirodon innesi and Betta splendens, explicitly requests the Atlarium compatibility checker, and passed all five production submission cases before upload. The imported package reported 5 positive cases, 3 negative cases and 39 tool justifications with 0 missing or mismatched entries. Existing version 1.0.0 remains Approved separately; approval is not claimed for 2.0.3 while review is open.",
       "submission": {
-        "submittedAt": "2026-08-18T18:13:13Z",
-        "attempt": 2,
+        "submittedAt": "2026-08-29T19:42:39Z",
+        "attempt": 3,
         "evidenceUrl": "https://platform.openai.com/plugins",
         "payload": {
           "version": "2.0.3",
@@ -558,9 +558,9 @@
           "demo": "https://github.com/techgardeners/atlarium-mcp/blob/main/docs/assets/chatgpt-app-demo.mp4"
         },
         "followUpAt": [
-          "2026-08-25T18:13:13Z",
-          "2026-09-01T18:13:13Z",
-          "2026-09-17T18:13:13Z"
+          "2026-09-05T19:42:39Z",
+          "2026-09-12T19:42:39Z",
+          "2026-09-28T19:42:39Z"
         ]
       }
     }
