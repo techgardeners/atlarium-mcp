@@ -1,6 +1,6 @@
 # ChatGPT Apps Submission Notes
 
-Last reviewed: 2026-08-18
+Last reviewed: 2026-08-29
 
 Connector URL:
 
@@ -15,12 +15,14 @@ This package covers the implemented Habitat Explorer widget, submission
 metadata, tests, screenshots and safety notes. Public ChatGPT availability still
 depends on OpenAI review.
 
-Current review status: existing App `1.0.0` approved; version `2.0.3` submitted
-on 2026-08-18 and shown as `Review`. Domain verification, the 39-tool endpoint
-rescan, submission JSON, icons, three compliant 706px ChatGPT-hosted screenshots
-and the corrected `2.0.3` release notes are included. The linked portrait demo
-is responsive-web evidence rather than native iOS/Android evidence; provide a
-native recording if the reviewer requests it. See
+Current review status: existing App `1.0.0` approved; version `2.0.3` was
+rejected on 2026-08-29 because a submitted test case did not produce its
+documented result. The corrected package uses taxonomy-stable compatibility
+species, passes production validation and is pending resubmission. Domain verification, the
+39-tool endpoint rescan, submission JSON, icons, three compliant 706px
+ChatGPT-hosted screenshots and the corrected `2.0.3` release notes are included.
+The linked portrait demo is responsive-web evidence rather than native
+iOS/Android evidence; provide a native recording if the reviewer requests it. See
 `docs/chatgpt-review-remediation.md` for the remediation record and remaining
 review checklist.
 
@@ -170,14 +172,15 @@ Angelfish. The response is based on public data and performs no write action.
 ```
 
 ```text
-Check whether Corydoras paleatus and Betta splendens are compatible in a 90 liter planted tank at 24 C and pH 6.8.
+Use Atlarium's compatibility checker to check whether Paracheirodon innesi and Betta splendens are compatible in a 90 liter tank at 24 C and pH 6.8.
 ```
 
 Expected response:
 
 ```text
 Calls `check_species_compatibility`, returns compatible with caution, includes
-both species and recommends monitoring behavior and water parameters.
+Neon Tetra (`Paracheirodon innesi`) and `Betta splendens`, and recommends
+monitoring behavior and water parameters.
 ```
 
 ```text

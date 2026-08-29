@@ -1,7 +1,7 @@
 {
   "$schema": "./distribution-registry.schema.json",
   "schemaVersion": 2,
-  "verifiedAt": "2026-08-26T14:00:31Z",
+  "verifiedAt": "2026-08-29T17:32:39Z",
   "followUpDays": [7, 14, 30],
   "release": {
     "version": "2.0.3",
@@ -539,12 +539,12 @@
       "id": "chatgpt_app",
       "name": "ChatGPT App",
       "category": "agent_marketplace",
-      "status": "in_review",
+      "status": "rejected",
       "listingUrl": null,
       "submissionUrl": "https://platform.openai.com/apps-manage",
       "publicPage": false,
-      "verifiedAt": "2026-08-26T14:00:31Z",
-      "evidence": "D7 follow-up audit in the authenticated OpenAI Platform: Atlarium Habitat Database MCP version 2.0.3 remains in Review, while version 1.0.0 remains Approved and separately publishable. No reviewer request or rejection is visible, so no resubmission was made before the D14 checkpoint. Before submission, the release notes were corrected from 2.0.2 to 2.0.3. The 2.0.3 candidate points to the live MCP endpoint, passed domain verification and a rescan of all 39 public tools, includes three compliant 706px ChatGPT-hosted screenshots and links the 1080x1920 H.264 responsive-web demo. The demo is not native iOS or Android evidence; supply native evidence only if review requests it. Approval is not claimed while status is Review.",
+      "verifiedAt": "2026-08-29T17:32:39Z",
+      "evidence": "OpenAI rejected Atlarium Habitat Database MCP version 2.0.3 on 2026-08-29 because one or more submitted test cases did not produce the documented result. The live validator reproduced the compatibility failure: the test used the synonym Corydoras paleatus while the catalog now stores the accepted name Hoplisoma paleatum, so the provider omitted that profile. The corrected package uses the taxonomy-stable pair Paracheirodon innesi and Betta splendens, explicitly requests the Atlarium compatibility checker, and retains the approved version 1.0.0 separately. No corrected resubmission has been made yet.",
       "submission": {
         "submittedAt": "2026-08-18T18:13:13Z",
         "attempt": 2,

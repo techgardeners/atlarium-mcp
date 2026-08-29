@@ -179,7 +179,7 @@ profile data such as tank size, temperature and water parameters when available.
 Prompt:
 
 ```text
-Check whether Corydoras paleatus and Betta splendens are compatible, and explain the water parameter tradeoffs.
+Use Atlarium to check whether Paracheirodon innesi and Betta splendens are compatible, and explain the water parameter tradeoffs.
 ```
 
 Expected behavior:

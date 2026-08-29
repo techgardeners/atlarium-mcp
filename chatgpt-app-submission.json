@@ -488,10 +488,10 @@
     },
     {
       "description": "Check a community species pair for compatibility.",
-      "user_prompt": "Check whether Corydoras paleatus and Betta splendens are compatible in a 90 liter planted tank at 24 C and pH 6.8.",
+      "user_prompt": "Use Atlarium's compatibility checker to check whether Paracheirodon innesi and Betta splendens are compatible in a 90 liter tank at 24 C and pH 6.8.",
       "file_attachment_urls": null,
       "tools_triggered": "check_species_compatibility",
-      "expected_output": "Returns an advisory compatibility result of compatible with caution, includes both species profiles or names, and recommends monitoring behavior and water parameters.",
+      "expected_output": "Returns an advisory compatibility result of compatible with caution, includes Neon Tetra (Paracheirodon innesi) and Betta splendens, and recommends monitoring behavior and water parameters.",
       "expected_output_url": null
     },
     {

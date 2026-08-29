@@ -1,17 +1,21 @@
 # ChatGPT App Review Remediation
 
-Last updated: `2026-08-18`
+Last updated: `2026-08-29`
 
 Current status: the existing OpenAI dashboard app version `1.0.0` is approved.
-Habitat Explorer v4 / MCP `2.0.3` was submitted on 2026-08-18 and OpenAI
-Platform shows its status as `Review`. The MCP endpoint was rescanned before
-submission; approval is not claimed while review remains open.
+Habitat Explorer v4 / MCP `2.0.3` was rejected on 2026-08-29 because one or
+more submitted test cases did not produce the documented result. The corrected
+candidate passes the production validator and awaits resubmission; approval is
+not claimed.
 
 OpenAI rejected the Atlarium Habitat Database MCP ChatGPT App review with two
 action items:
 
 - One or more submitted test cases did not produce the expected result.
 - Uploaded screenshots did not meet publishing requirements.
+
+The 2026-08-29 review of the corrected `2.0.3` submission reported only the
+test-case result issue. The screenshots were not cited again.
 
 ## Root Causes Found
 
@@ -23,6 +27,10 @@ action items:
   the Angelfish description mentions Neon Tetras.
 - `search_guides` could rank Nitrite above Nitrate for the query `nitrate`
   because the upstream search result page needed exact-title post-ranking.
+- The compatibility test still used the synonym `Corydoras paleatus`. During
+  active catalog taxonomy work, the accepted name changed to `Hoplisoma
+  paleatum`; search recognized the synonym, but the compatibility provider
+  omitted that profile. The live submission validator reproduced the failure.
 - The deterministic screenshots directly under
   `docs/assets/chatgpt-screenshots/` are widget-only captures. They are useful
   development evidence, but they are not sufficient publishing screenshots
@@ -40,8 +48,12 @@ action items:
   timestamp.
 - `chatgpt-app-submission.json` now contains five single-tool positive tests and
   three negative tests.
+- The compatibility submission case now uses the stable pair `Paracheirodon
+  innesi` and `Betta splendens`, explicitly requests Atlarium's compatibility
+  checker, and no longer depends on taxonomy currently being migrated.
 - `pnpm chatgpt:validate-submission` validates the JSON shape, live tool list
-  and deterministic tool outputs for all submitted positive cases.
+  and deterministic tool outputs for all submitted positive cases. The public
+  monitor workflow now runs the same command every 30 minutes.
 
 ## Resubmission Screenshot Requirements
 

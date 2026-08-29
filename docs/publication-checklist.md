@@ -77,7 +77,7 @@ Remaining publication prerequisites:
   without purchasing paid verification or publishing a static score.
 - MCP.so is publicly visible at
   `https://chat.mcp.so/server/atlarium-habitat-database-mcp/techgardeners`.
-- ChatGPT App `2.0.3` is in OpenAI review. Monitor review replies and provide a
+- ChatGPT App `2.0.3` needs resubmission after the 2026-08-29 test-case rejection. Provide a
   native iOS/Android recording if requested.
 
 Repository production assets:
@@ -241,7 +241,7 @@ and mobile after the 2026-07-02 remediation deploy:
   ChatGPT called Atlarium Habitat Database MCP, rendered Habitat Explorer v4
   Results widget with the real Neon Tetra / `Paracheirodon innesi` result and no
   sample fallback data.
-- Prompt: check `Corydoras paleatus` with `Betta splendens` in a 90 L planted
+- Prompt: check `Paracheirodon innesi` with `Betta splendens` in a 90 L
   tank at 24 C and pH 6.8. Result: Compatibility widget rendered
   `compatible_with_caution`, warning text for Betta tankmate verification and
   recommended monitoring actions.

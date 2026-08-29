@@ -18,6 +18,7 @@ const expectedCases = [
     },
     args: { query: "neon tetra", language: "en", limit: 1 },
     description: "Search fish records with an exact common-name query.",
+    prompt: "Use Atlarium to search fish records for \"neon tetra\" and return the top public match only.",
     tool: "search_fish",
   },
   {
@@ -28,17 +29,18 @@ const expectedCases = [
         "compatibility level",
       );
       const slugs = data?.species_profiles?.map((profile) => profile.slug) ?? [];
-      assertIncludes(slugs, "corydoras-paleatus", "compatibility species profiles");
+      assertIncludes(slugs, "paracheirodon-innesi", "compatibility species profiles");
       assertIncludes(slugs, "betta-splendens", "compatibility species profiles");
     },
     args: {
-      species: ["Corydoras paleatus", "Betta splendens"],
+      species: ["Paracheirodon innesi", "Betta splendens"],
       language: "en",
       tank_liters: 90,
       ph: 6.8,
       temperature: 24,
     },
     description: "Check a community species pair for compatibility.",
+    prompt: "Use Atlarium's compatibility checker to check whether Paracheirodon innesi and Betta splendens are compatible in a 90 liter tank at 24 C and pH 6.8.",
     tool: "check_species_compatibility",
   },
   {
@@ -62,6 +64,7 @@ const expectedCases = [
       limit: 3,
     },
     description: "Suggest peaceful species for a planted freshwater tank.",
+    prompt: "Use Atlarium to suggest beginner-friendly peaceful species for a 90 liter planted freshwater tank at 24 C and pH 6.8.",
     tool: "suggest_species_for_tank",
   },
   {
@@ -72,6 +75,7 @@ const expectedCases = [
     },
     args: { query: "nitrate", language: "en", limit: 1 },
     description: "Search guide records with an exact nutrient query.",
+    prompt: "Use Atlarium to search guide records for \"nitrate\" and return the top public guide match only.",
     tool: "search_guides",
   },
   {
@@ -82,6 +86,7 @@ const expectedCases = [
     },
     args: { shape: "rect", length_cm: 60, width_cm: 30, height_cm: 36 },
     description: "Calculate a deterministic rectangular tank volume.",
+    prompt: "Use Atlarium to calculate the aquarium volume for a rectangular 60 x 30 x 36 cm tank.",
     tool: "calculate_tank_volume",
   },
 ];
@@ -105,6 +110,7 @@ function assertSubmissionShape() {
     );
     assertTrue(Boolean(expected), `unexpected positive test case: ${testCase.description}`);
     assertEqual(testCase.tools_triggered, expected.tool, `${testCase.description} tool`);
+    assertEqual(testCase.user_prompt, expected.prompt, `${testCase.description} prompt`);
     assertTrue(toolNames.has(testCase.tools_triggered), `${testCase.tools_triggered} is declared`);
   }
 

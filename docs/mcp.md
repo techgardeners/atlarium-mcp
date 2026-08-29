@@ -86,8 +86,10 @@ compatibility alias `_meta["openai/widgetDomain"]` for app submission.
 ChatGPT App status: the existing `1.0.0` app is approved in the OpenAI App
 dashboard. Version `2.0.3` points to the deployed Habitat Explorer v4 endpoint;
 domain verification and the 39-tool rescan pass, and the candidate was
-submitted on 2026-08-18. OpenAI Platform shows `Review`. Do not claim that
-candidate as an approved ChatGPT App version until OpenAI accepts it.
+rejected on 2026-08-29 because a submitted test case did not produce its
+documented result. A taxonomy-stable corrected package passes production
+validation and awaits resubmission. Do not claim that candidate as an approved ChatGPT App version
+until OpenAI accepts it.
 
 ## Tools
 
