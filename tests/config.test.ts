@@ -18,12 +18,21 @@ describe("runtime config", () => {
     expect(config.MCP_DEFAULT_LANGUAGE).toBe("en");
     expect(config.atlariumApiBaseUrl.href).toBe("https://atlarium.bio/api/public/mcp/v1");
     expect(config.trustProxy).toBe(1);
-    expect(config.ATLARIUM_API_TIMEOUT_MS).toBe(5_000);
+    expect(config.ATLARIUM_API_TIMEOUT_MS).toBe(15_000);
     expect(config.ATLARIUM_API_RESPONSE_MAX_BYTES).toBe(1_048_576);
     expect(config.OPENAI_APPS_CHALLENGE_TOKEN).toBe(
       "tW6HmNIvGw-oL1mq-d0brGwZl-quGv5UFBw66EqtS4g",
     );
     expect(config.allowedHosts).toEqual(["mcp.atlarium.bio", "localhost"]);
+  });
+
+  it("keeps the production and example upstream timeouts aligned with the runtime default", () => {
+    const timeout = getRuntimeConfig({ NODE_ENV: "test" }).ATLARIUM_API_TIMEOUT_MS;
+    const deploymentConfig = readFileSync("deploy/kubernetes/configmap.yaml", "utf8");
+    const exampleEnv = readFileSync(".env.example", "utf8");
+
+    expect(deploymentConfig).toContain(`ATLARIUM_API_TIMEOUT_MS: "${timeout}"`);
+    expect(exampleEnv).toContain(`ATLARIUM_API_TIMEOUT_MS=${timeout}`);
   });
 
   it("parses explicit proxy trust settings", () => {

@@ -1,6 +1,14 @@
 #!/usr/bin/env node
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
+import {
+  assertContract,
+  conciseError,
+  ContractValidationError,
+  publicProbeRetryOptions,
+  TransientProbeError,
+  withTransientRetries,
+} from "./public-probe-retry.mjs";
 
 const endpoint = process.env.MCP_MONITOR_PUBLIC_URL ?? "https://mcp.atlarium.bio/mcp";
 const healthUrl = process.env.MCP_MONITOR_HEALTH_URL ?? "https://mcp.atlarium.bio/health";
@@ -15,6 +23,7 @@ const openaiAppsChallengeToken =
   "tW6HmNIvGw-oL1mq-d0brGwZl-quGv5UFBw66EqtS4g";
 const docsUrl = process.env.MCP_MONITOR_DOCS_URL ?? "https://atlarium.bio/mcp";
 const timeoutMs = Number(process.env.MCP_MONITOR_TIMEOUT_MS ?? 15_000);
+const retryOptions = publicProbeRetryOptions();
 
 const expectedTools = [
   "search_fish",
@@ -80,9 +89,7 @@ const forbiddenToolPattern =
   /(workspace|auth|admin|user|write|delete|create|update|secret|token)/i;
 
 function assert(condition, message) {
-  if (!condition) {
-    throw new Error(message);
-  }
+  assertContract(condition, message);
 }
 
 function assertToolSurface(toolNames) {
@@ -107,23 +114,33 @@ async function fetchWithTimeout(url, init = {}) {
 
 async function checkHttpStatus(label, url, expectedStatus) {
   const response = await fetchWithTimeout(url);
-  assert(
-    response.status === expectedStatus,
-    `${label} returned HTTP ${response.status}, expected ${expectedStatus}`,
-  );
+  assertHttpStatus(label, response.status, expectedStatus);
   return `HTTP ${response.status}`;
 }
 
 async function readJson(label, url) {
   const response = await fetchWithTimeout(url);
-  assert(response.status === 200, `${label} returned HTTP ${response.status}`);
+  assertHttpStatus(label, response.status, 200);
   return response.json();
 }
 
 async function readText(label, url) {
   const response = await fetchWithTimeout(url);
-  assert(response.status === 200, `${label} returned HTTP ${response.status}`);
+  assertHttpStatus(label, response.status, 200);
   return response.text();
+}
+
+function assertHttpStatus(label, actualStatus, expectedStatus) {
+  if (actualStatus === expectedStatus) {
+    return;
+  }
+
+  const message = `${label} returned HTTP ${actualStatus}, expected ${expectedStatus}`;
+  if (actualStatus === 408 || actualStatus === 429 || actualStatus >= 500) {
+    throw new TransientProbeError(message);
+  }
+
+  throw new ContractValidationError(message);
 }
 
 async function checkHealth() {
@@ -247,12 +264,19 @@ async function checkMcpSession() {
 async function step(label, check) {
   const startedAt = performance.now();
   try {
-    const detail = await check();
+    const detail = await withTransientRetries(check, {
+      ...retryOptions,
+      onRetry: ({ attempt, attempts, delayMs, error }) => {
+        console.warn(
+          `retry ${label}: attempt ${attempt}/${attempts} failed (${conciseError(error)}); waiting ${delayMs}ms`,
+        );
+      },
+    });
     const durationMs = Math.round(performance.now() - startedAt);
     console.log(`ok ${label}: ${detail} (${durationMs}ms)`);
     return null;
   } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
+    const message = conciseError(error);
     console.error(`fail ${label}: ${message}`);
     return `${label}: ${message}`;
   }

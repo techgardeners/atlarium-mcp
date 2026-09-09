@@ -2,12 +2,20 @@
 import { readFileSync } from "node:fs";
 import { Client } from "@modelcontextprotocol/sdk/client/index.js";
 import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/streamableHttp.js";
+import {
+  assertContract,
+  conciseError,
+  publicProbeRetryOptions,
+  transientToolResultError,
+  withTransientRetries,
+} from "./public-probe-retry.mjs";
 
 const endpoint = process.env.MCP_SUBMISSION_VALIDATE_URL ?? "https://mcp.atlarium.bio/mcp";
 const submissionPath =
   process.env.CHATGPT_APP_SUBMISSION_JSON ?? "chatgpt-app-submission.json";
 
 const submission = JSON.parse(readFileSync(submissionPath, "utf8"));
+const retryOptions = publicProbeRetryOptions();
 
 const expectedCases = [
   {
@@ -154,7 +162,9 @@ async function validateToolCalls(client) {
       undefined,
       { timeout: 30_000 },
     );
-    assertTrue(!result.isError, `${testCase.tool} returned success`);
+    if (result.isError) {
+      throw transientToolResultError(testCase.tool, result);
+    }
     testCase.assert(extractData(result));
     console.log(`ok ${testCase.tool}: ${testCase.description}`);
   }
@@ -167,51 +177,67 @@ function extractData(result) {
 
   const text = result.content?.find((item) => item.type === "text")?.text;
   assertTrue(Boolean(text), "tool returned text content");
-  return JSON.parse(text);
+  try {
+    return JSON.parse(text);
+  } catch {
+    assertTrue(false, "tool returned invalid JSON text content");
+  }
 }
 
 function assertEqual(actual, expected, label) {
-  if (actual !== expected) {
-    throw new Error(`${label}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
-  }
+  assertContract(
+    actual === expected,
+    `${label}: expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`,
+  );
 }
 
 function assertIncludes(values, expected, label) {
-  if (!values.includes(expected)) {
-    throw new Error(`${label}: expected ${JSON.stringify(values)} to include ${expected}`);
-  }
+  assertContract(
+    values.includes(expected),
+    `${label}: expected ${JSON.stringify(values)} to include ${expected}`,
+  );
 }
 
 function assertNear(actual, expected, label) {
-  if (typeof actual !== "number" || Math.abs(actual - expected) > 0.05) {
-    throw new Error(`${label}: expected ${expected}, got ${JSON.stringify(actual)}`);
-  }
+  assertContract(
+    typeof actual === "number" && Math.abs(actual - expected) <= 0.05,
+    `${label}: expected ${expected}, got ${JSON.stringify(actual)}`,
+  );
 }
 
 function assertTrue(condition, label) {
-  if (!condition) {
-    throw new Error(label);
-  }
+  assertContract(condition, label);
 }
 
 assertSubmissionShape();
 
-const client = new Client({
-  name: "atlarium-chatgpt-submission-validator",
-  version: "1.0.0",
-});
-const transport = new StreamableHTTPClientTransport(new URL(endpoint), {
-  requestInit: {
-    headers: { "x-atlarium-probe": "chatgpt-submission-validator" },
+async function validateRemoteSubmission() {
+  const client = new Client({
+    name: "atlarium-chatgpt-submission-validator",
+    version: "1.0.0",
+  });
+  const transport = new StreamableHTTPClientTransport(new URL(endpoint), {
+    requestInit: {
+      headers: { "x-atlarium-probe": "chatgpt-submission-validator" },
+    },
+  });
+
+  try {
+    await client.connect(transport);
+    const tools = await client.listTools();
+    assertToolMetadata(tools.tools);
+    await validateToolCalls(client);
+  } finally {
+    await client.close();
+  }
+}
+
+await withTransientRetries(validateRemoteSubmission, {
+  ...retryOptions,
+  onRetry: ({ attempt, attempts, delayMs, error }) => {
+    console.warn(
+      `retry ChatGPT submission validation: attempt ${attempt}/${attempts} failed (${conciseError(error)}); waiting ${delayMs}ms`,
+    );
   },
 });
-
-try {
-  await client.connect(transport);
-  const tools = await client.listTools();
-  assertToolMetadata(tools.tools);
-  await validateToolCalls(client);
-  console.log(`chatgpt app submission validation passed for ${endpoint}`);
-} finally {
-  await client.close();
-}
+console.log(`chatgpt app submission validation passed for ${endpoint}`);

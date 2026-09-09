@@ -965,7 +965,9 @@ ATLARIUM_API_BASE_URL=http://localhost:43117/api/public/mcp/v1 pnpm dev
 - `ATLARIUM_API_BASE_URL`: public read-only Atlarium API base URL.
 - `MCP_ALLOWED_HOSTS`: comma-separated host allowlist used for DNS rebinding protection.
 - `MCP_TRUST_PROXY`: Express proxy trust setting; default `1` assumes one trusted reverse proxy in production.
-- `ATLARIUM_API_TIMEOUT_MS`: upstream public API timeout in milliseconds.
+- `ATLARIUM_API_TIMEOUT_MS`: upstream public API timeout in milliseconds (default `15000`).
+- `MCP_PUBLIC_PROBE_ATTEMPTS`: attempts for read-only public monitors (default `3`).
+- `MCP_PUBLIC_PROBE_RETRY_DELAY_MS`: initial retry delay for public monitors, doubled after each failure (default `1000`).
 - `ATLARIUM_API_RESPONSE_MAX_BYTES`: maximum upstream JSON response size.
 - `OPENAI_APPS_CHALLENGE_TOKEN`: public OpenAI Apps domain verification token served from `/.well-known/openai-apps-challenge`.
 

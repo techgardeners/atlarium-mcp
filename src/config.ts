@@ -63,7 +63,7 @@ const envSchema = z
     MCP_RATE_LIMIT_MAX: z.coerce.number().int().min(1).max(10_000).default(120),
     MCP_ALLOWED_HOSTS: z.string().trim().optional().default(""),
     MCP_TRUST_PROXY: trustProxySchema,
-    ATLARIUM_API_TIMEOUT_MS: z.coerce.number().int().min(1_000).max(30_000).default(5_000),
+    ATLARIUM_API_TIMEOUT_MS: z.coerce.number().int().min(1_000).max(30_000).default(15_000),
     ATLARIUM_API_RESPONSE_MAX_BYTES: z.coerce
       .number()
       .int()
